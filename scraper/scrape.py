@@ -379,7 +379,7 @@ def parse_projects(page):
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
-            lws = str(col(row, "Nummer") or "").strip()
+            lws = str(col(row, "Projekt") or "").strip()
             if not lws:
                 continue
 
@@ -408,7 +408,6 @@ def parse_projects(page):
 
             projects.append({
                 "lws": lws,
-                "projekt": str(col(row, "Projekt") or "").strip() or None,
                 "address": address,
                 "lage": str(col(row, "Lage") or "").strip() or None,
                 "bauleiter": str(col(row, "Bauleiter") or "").strip() or None,
