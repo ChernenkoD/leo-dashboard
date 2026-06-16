@@ -144,54 +144,52 @@ def parse_mangel_block(text):
 
 
 def parse_positionen(page):
+    """Парсим позиции на странице детали Mängel. Сохраняем HTML для отладки."""
     positionen = []
-    pos_blocks = page.locator(".mangelauftrag-position, [class*='position']").all()
 
-    # Универсальный подход: ищем все строки с кодом позиции вида XX.XX.XX.XXXX
+    # Ищем все строки с кодом позиции вида XX.XX.XX.XXXX
     rows = page.locator("tr").all()
     for row in rows:
-        text = row.inner_text().strip()
+        try:
+            text = row.inner_text().strip()
+        except Exception:
+            continue
         code_match = re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", text)
         if not code_match:
             continue
         lines = lines_of(text)
         code = code_match.group(0)
 
-        # статус
         status = None
-        for kw in ["angenommen", "Mangel behoben & geprüft", "offen", "abgelehnt", "in Bearbeitung"]:
+        for kw in ["Mangel behoben & geprüft", "angenommen", "abgelehnt", "in Bearbeitung", "offen"]:
             if kw.lower() in text.lower():
                 status = kw
                 break
 
-        # Mangelbeschreibung — строка после "Mangelbeschreibung:"
         mangel_beschreibung = None
-        mb_match = re.search(r"Mangelbeschreibung[:\s]+(.+?)(?:\n|$)", text, re.IGNORECASE)
+        mb_match = re.search(r"Mangelbeschreibung[:\s]*\n?(.+?)(?:\n|$)", text, re.IGNORECASE)
         if mb_match:
             mangel_beschreibung = mb_match.group(1).strip()
 
-        # gewerk — строка рядом с кодом
         gewerk = None
-        for l in lines:
-            if re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l):
-                idx = lines.index(l)
-                if idx + 1 < len(lines):
-                    gewerk = lines[idx + 1]
+        for i, l in enumerate(lines):
+            if re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) and i + 1 < len(lines):
+                gewerk = lines[i + 1]
                 break
 
-        # menge — psch / m² / stk + число
-        menge_match = re.search(r"(psch|m²|stk|St|m|h)\s+[\d,\.]+", text, re.IGNORECASE)
+        menge_match = re.search(r"(psch|m²|stk|St\.?|m|h)\s+[\d,\.]+", text, re.IGNORECASE)
         menge = menge_match.group(0) if menge_match else None
 
-        # leistung — длинная строка описания (>30 символов, не Mangelbeschreibung)
         leistung = None
         bereich = None
+        bereiche = ("Wohnung", "Treppenhaus", "Keller", "Außenanlage", "Dach", "Garage")
         for l in lines:
-            if len(l) > 30 and not re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) and "Mangelbeschreibung" not in l and l != mangel_beschreibung:
-                if not leistung:
-                    leistung = l
-            if l in ("Wohnung", "Treppenhaus", "Keller", "Außenanlage", "Dach", "Garage"):
+            if l in bereiche:
                 bereich = l
+            elif len(l) > 30 and not re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) \
+                    and "Mangelbeschreibung" not in l and l != mangel_beschreibung \
+                    and not leistung:
+                leistung = l
 
         positionen.append({
             "code": code,
@@ -206,7 +204,8 @@ def parse_positionen(page):
     return positionen
 
 
-def parse_mangel(page):
+def collect_mangel_list(page):
+    """Шаг 1: собираем все Mängel и их URL со списка, без заходов внутрь."""
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
     page.click("text=Projekte")
@@ -214,7 +213,8 @@ def parse_mangel(page):
     page.wait_for_load_state("networkidle")
 
     seen_ids = set()
-    maengel = []
+    items = []  # list of (mangel_dict, detail_url)
+
     for _ in range(20):
         blocks = page.locator("text=/M-LWS-\\d+-\\d+/").all()
         new_found = False
@@ -228,27 +228,45 @@ def parse_mangel(page):
                 continue
             seen_ids.add(m["id"])
 
-            # Заходим на страницу детали чтобы получить позиции
-            try:
-                link = block.locator("xpath=ancestor::tr[1]//a").first
-                if link.count() > 0:
-                    link.click()
-                    page.wait_for_load_state("networkidle", timeout=8000)
-                    m["positionen"] = parse_positionen(page)
-                    page.go_back()
-                    page.wait_for_load_state("networkidle", timeout=5000)
-                else:
-                    m["positionen"] = []
-            except Exception:
-                m["positionen"] = []
+            # Запоминаем URL детали если есть ссылка
+            detail_url = None
+            link = row.first.locator("a[href*='mangel']").first
+            if link.count() == 0:
+                link = row.first.locator("a").first
+            if link.count() > 0:
+                href = link.get_attribute("href")
+                if href:
+                    detail_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
 
-            maengel.append(m)
+            items.append((m, detail_url))
             new_found = True
 
         if not new_found:
             break
         if not click_next_and_wait(page):
             break
+
+    return items
+
+
+def parse_mangel(page):
+    items = collect_mangel_list(page)
+    print(f"Найдено {len(items)} Mängel в списке")
+
+    maengel = []
+    for m, detail_url in items:
+        if detail_url:
+            try:
+                page.goto(detail_url)
+                page.wait_for_load_state("networkidle", timeout=8000)
+                m["positionen"] = parse_positionen(page)
+                print(f"  {m['id']}: {len(m['positionen'])} позиций (url: {detail_url})")
+            except Exception as e:
+                print(f"  {m['id']}: ошибка при загрузке позиций — {e}")
+                m["positionen"] = []
+        else:
+            m["positionen"] = []
+        maengel.append(m)
 
     return maengel
 
