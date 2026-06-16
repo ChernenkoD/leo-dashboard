@@ -299,6 +299,105 @@ def parse_mangel(page):
     return maengel
 
 
+def parse_project_row(row_text):
+    """Парсим одну строку из таблицы проектов Übersicht."""
+    lines = lines_of(row_text)
+    if not lines:
+        return None
+
+    lws_match = re.search(r"LWS-\d+", row_text)
+    leg_match = re.search(r"LEG-\d+-\d+", row_text)
+    dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", row_text)
+    fortschritt_match = re.search(r"(\d+)\s*%", row_text)
+
+    # Адрес — строка с цифрами и запятой (PLZ)
+    address = None
+    for l in lines:
+        if re.search(r"\d{4,5}", l) and ("," in l or re.search(r"straße|weg|ring|allee|platz|gasse", l, re.I)):
+            address = l
+            break
+    if not address and len(lines) > 1:
+        address = lines[1]
+
+    fortschritt = int(fortschritt_match.group(1)) if fortschritt_match else None
+
+    return {
+        "lws": lws_match.group(0) if lws_match else None,
+        "leg": leg_match.group(0) if leg_match else None,
+        "address": address,
+        "start": dates[0] if len(dates) > 0 else None,
+        "ende": dates[1] if len(dates) > 1 else None,
+        "fortschritt": fortschritt,
+        "abgeschlossen": fortschritt == 100,
+    }
+
+
+def parse_projects(page):
+    """Тянем Projekte → Übersicht, только не 100% закрытые."""
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
+    page.click("text=Projekte")
+    page.click("text=Übersicht")
+    page.wait_for_load_state("networkidle")
+
+    # Отладка первой страницы
+    html = page.content()
+    with open("../debug_projects.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    body = page.locator("body").inner_text()
+    print(f"DEBUG projects: title={page.title()}, html={len(html)}b")
+    print(f"DEBUG body[:1500]: {body[:1500]}")
+
+    seen = set()
+    projects = []
+
+    for page_num in range(50):  # до 50 страниц
+        rows = page.locator("tr").all()
+        new_found = False
+        for row in rows:
+            try:
+                text = row.inner_text().strip()
+            except Exception:
+                continue
+            if not re.search(r"LWS-\d+", text):
+                continue
+            lws_match = re.search(r"LWS-\d+", text)
+            if not lws_match:
+                continue
+            lws = lws_match.group(0)
+            if lws in seen:
+                continue
+
+            # Пропускаем 100% закрытые
+            fort_match = re.search(r"(\d+)\s*%", text)
+            if fort_match and int(fort_match.group(1)) == 100:
+                continue
+
+            p = parse_project_row(text)
+            if not p or not p["lws"]:
+                continue
+
+            # URL детали
+            try:
+                link = row.locator("a").first
+                href = link.get_attribute("href") if link.count() > 0 else None
+                p["leo_url"] = (href if href and href.startswith("http") else f"{BASE}/{href.lstrip('/')}") if href else None
+            except Exception:
+                p["leo_url"] = None
+
+            seen.add(lws)
+            projects.append(p)
+            new_found = True
+
+        if not new_found:
+            break
+        if not click_next_and_wait(page):
+            break
+
+    print(f"Найдено {len(projects)} активных проектов")
+    return projects
+
+
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -308,6 +407,7 @@ def main():
         try:
             tasks = parse_tasks(page)
             maengel = parse_mangel(page)
+            projects = parse_projects(page)
         except RuntimeError as e:
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
@@ -316,12 +416,13 @@ def main():
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
             "maengel": maengel,
+            "projects": projects,
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"Сохранено {len(tasks)} задач и {len(maengel)} Mängel в {OUTPUT_FILE}")
+        print(f"Сохранено {len(tasks)} задач, {len(maengel)} Mängel, {len(projects)} проектов в {OUTPUT_FILE}")
         browser.close()
 
 
