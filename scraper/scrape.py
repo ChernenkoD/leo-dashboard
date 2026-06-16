@@ -151,52 +151,57 @@ def parse_positionen(page):
       div.text-apos p.kurztext (Mangelbeschreibung), div.section-price (menge)
     """
     positionen = []
-    # Каждая позиция — div.section-description
-    containers = page.locator("div.section-description").all()
+    # Каждая позиция: section-description, section-text, section-price — соседи внутри apos-list-position
+    containers = page.locator("div.apos-list-position").all()
     for container in containers:
         try:
-            # Код позиции
-            code_el = container.locator("p.top").first
+            sec_desc = container.locator("div.section-description").first
+            if sec_desc.count() == 0:
+                continue
+
+            code_el = sec_desc.locator("p.top").first
             if code_el.count() == 0:
                 continue
             code = code_el.inner_text().strip()
             if not re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", code):
                 continue
 
-            # Gewerk
             gewerk = None
-            gewerk_el = container.locator("p.bottom").first
-            if gewerk_el.count() > 0:
-                gewerk = gewerk_el.inner_text().strip()
+            g = sec_desc.locator("p.bottom").first
+            if g.count() > 0:
+                gewerk = g.inner_text().strip()
 
-            # Статус
             status = None
-            badge = container.locator(".badge-icon .label").first
+            badge = sec_desc.locator(".badge-icon .label").first
             if badge.count() > 0:
                 status = badge.inner_text().strip()
 
-            # Leistung (p.kurztext без "Mangelbeschreibung")
+            sec_text = container.locator("div.section-text").first
+
             leistung = None
-            for el in container.locator("p.kurztext").all():
-                t = el.inner_text().strip()
-                if t and "Mangelbeschreibung" not in t and len(t) > 5:
-                    leistung = t
-                    break
-
-            # Bereich
             bereich = None
-            zusatz = container.locator("p.text-zusatz").first
-            if zusatz.count() > 0:
-                bereich = zusatz.inner_text().strip()
-
-            # Mangelbeschreibung — текст после метки
             mangel_beschreibung = None
-            full_text = container.inner_text()
-            mb_match = re.search(r"Mangelbeschreibung[:\s]+(.+?)(?:\n|psch|m²|stk|$)", full_text, re.IGNORECASE)
-            if mb_match:
-                mangel_beschreibung = mb_match.group(1).strip()
 
-            # Menge
+            if sec_text.count() > 0:
+                # Leistung — первый p.kurztext не содержащий "Mangelbeschreibung"
+                for el in sec_text.locator("p.kurztext").all():
+                    t = el.inner_text().strip()
+                    if t and "Mangelbeschreibung" not in t and len(t) > 5:
+                        leistung = t
+                        break
+
+                # Bereich
+                z = sec_text.locator("p.text-zusatz").first
+                if z.count() > 0:
+                    bereich = z.inner_text().strip()
+
+                # Mangelbeschreibung — p.kurztext после метки
+                kurzs = [e.inner_text().strip() for e in sec_text.locator("p.kurztext").all()]
+                for i, t in enumerate(kurzs):
+                    if "Mangelbeschreibung" in t and i + 1 < len(kurzs):
+                        mangel_beschreibung = kurzs[i + 1]
+                        break
+
             menge = None
             price_el = container.locator("div.section-price").first
             if price_el.count() > 0:
