@@ -109,6 +109,8 @@ body {
 .lws-link-home { color: var(--accent); text-decoration: none; font-weight: 700; }
 .lws-link-home:hover { text-decoration: underline; }
 .bauleiter-tag { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.card-inabr { opacity: 0.7; border-left: 3px solid var(--accent); }
+.inabr-badge { font-size: 12px; font-weight: 600; color: var(--accent); }
 
 .pos-behoben { background: #fef3c7; color: #92600a; }
 

@@ -72,8 +72,21 @@ function visibleCards() {
     });
 }
 
+function getInAbrechnung() {
+  try { return new Set(JSON.parse(localStorage.getItem("inAbrechnung") || "[]")); }
+  catch { return new Set(); }
+}
+
+function markInAbrechnung(lws) {
+  const set = getInAbrechnung();
+  set.add(lws);
+  localStorage.setItem("inAbrechnung", JSON.stringify([...set]));
+  render();
+}
+
 function renderCard(p) {
   const days = daysUntil(p.ende);
+  const inAbr = getInAbrechnung().has(p.lws);
   const leoLink = p.leo_url
     ? `<a href="${p.leo_url}" target="_blank" class="lws-link-home">${p.lws}</a>`
     : `<span>${p.lws}</span>`;
@@ -81,7 +94,7 @@ function renderCard(p) {
     ? `<span class="mangel-dot has" title="Hat Mängelauftrag">M</span>` : "";
 
   return `
-    <div class="card">
+    <div class="card${inAbr ? " card-inabr" : ""}">
       ${urgencyTag(days)}
       <div class="lws">${leoLink} ${mangelBadge}</div>
       <div class="address">${p.address || "—"}</div>
@@ -93,6 +106,13 @@ function renderCard(p) {
       ${p.bauleiter ? `<div class="bauleiter-tag">BL: ${p.bauleiter}</div>` : ""}
       <div class="progress-wrap" style="margin-top:8px;">
         <div class="progress-bar" style="width:${p.fortschritt}%"></div>
+      </div>
+      <div class="card-actions">
+        <span></span>
+        ${inAbr
+          ? `<span class="inabr-badge">✓ In Abrechnung</span>`
+          : `<button class="primary" onclick="markInAbrechnung('${p.lws}')">Fertig → Abrechnung</button>`
+        }
       </div>
     </div>
   `;
