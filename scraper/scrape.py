@@ -18,6 +18,7 @@ from playwright.sync_api import sync_playwright
 BASE = "https://leo-pro.de"
 STORAGE_STATE = "storage_state.json"
 OUTPUT_FILE = "../data.json"
+URL_CACHE_FILE = "../project_urls.json"
 
 
 def is_logged_out(page):
@@ -332,17 +333,23 @@ def fmt_date(val):
     return str(val).strip() or None
 
 
-def collect_project_urls(page):
-    """Быстрый проход по всем страницам списка проектов: собираем {lws: url}."""
+def collect_project_urls(page, known_lws: set) -> dict:
+    """
+    Листаем список проектов LEO и собираем {lws: url}.
+    Останавливаемся как только все строки текущей страницы уже есть в known_lws
+    (значит новых нет — дальше листать незачем).
+    """
     url_map = {}
     table_id = "datatable_auftrag_laufend"
     while True:
+        found_new = False
         for link in page.locator("h5.section a.link-bold").all():
             try:
                 lws = link.inner_text().strip()
                 href = link.get_attribute("href") or ""
-                if lws and href:
+                if lws and href and lws not in known_lws:
                     url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                    found_new = True
             except Exception:
                 continue
 
@@ -351,13 +358,16 @@ def collect_project_urls(page):
         ).first
         if next_btn.count() == 0:
             break
+        if not found_new:
+            # Вся страница уже в кэше — новых не будет, дальше не листаем
+            break
         try:
             next_btn.click()
             page.wait_for_load_state("networkidle", timeout=8000)
         except Exception:
             break
 
-    print(f"  Собрано {len(url_map)} URL проектов")
+    print(f"  Новых URL найдено: {len(url_map)}")
     return url_map
 
 
@@ -373,8 +383,22 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    # Собираем URL со страницы Laufende Aufträge (активные с ссылками)
-    url_map = collect_project_urls(page)
+    # Загружаем кэш URL (URL проектов постоянны, не меняются)
+    try:
+        with open(URL_CACHE_FILE, encoding="utf-8") as f:
+            url_map = json.load(f)
+        print(f"  URL-кэш загружен: {len(url_map)} записей")
+    except FileNotFoundError:
+        url_map = {}
+
+    # Листаем LEO только для проектов которых ещё нет в кэше
+    new_urls = collect_project_urls(page, known_lws=set(url_map.keys()))
+    url_map.update(new_urls)
+
+    # Сохраняем обновлённый кэш
+    with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
+        json.dump(url_map, f, ensure_ascii=False, indent=2)
+    print(f"  URL-кэш сохранён: {len(url_map)} записей")
 
     # Переключаемся на "Alle Projekte" чтобы скачать Excel со всеми
     try:

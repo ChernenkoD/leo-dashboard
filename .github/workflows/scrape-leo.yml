@@ -5,9 +5,8 @@ permissions:
 
 on:
   schedule:
-    # Примерно 08:00 и 16:00 по Берлину (точное смещение скачет летом/зимой на час)
-    - cron: "0 6 * * *"
-    - cron: "0 14 * * *"
+    # Каждый час с 06:00 до 18:00 UTC (08:00–20:00 Берлин летом)
+    - cron: "0 6-18 * * *"
   workflow_dispatch: {}
 
 jobs:
@@ -40,6 +39,6 @@ jobs:
         run: |
           git config user.name "leo-bot"
           git config user.email "leo-bot@users.noreply.github.com"
-          git add data.json debug_projects.html || true
+          git add data.json project_urls.json || true
           git diff --cached --quiet || git commit -m "Auto-update data.json from LEO"
           git push
