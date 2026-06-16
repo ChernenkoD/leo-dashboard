@@ -172,9 +172,31 @@ def parse_positionen(page):
                 gewerk = g.inner_text().strip()
 
             status = None
-            badge = sec_desc.locator(".badge-icon .label").first
-            if badge.count() > 0:
-                status = badge.inner_text().strip()
+            badge_div = sec_desc.locator(".badge-icon").first
+            if badge_div.count() > 0:
+                # Вариант 1: текст в .label
+                label = badge_div.locator(".label").first
+                if label.count() > 0:
+                    status = label.inner_text().strip() or None
+                # Вариант 2: весь текст badge-icon
+                if not status:
+                    status = badge_div.inner_text().strip() or None
+                # Вариант 3: title атрибут
+                if not status:
+                    for el in badge_div.locator("[title]").all():
+                        t = (el.get_attribute("title") or "").strip()
+                        if t:
+                            status = t
+                            break
+                # Вариант 4: класс иконки → маппинг на текст
+                if not status:
+                    html_badge = badge_div.inner_html()
+                    if "success" in html_badge or "fa-check" in html_badge:
+                        status = "Mangel behoben & geprüft"
+                    elif "warning" in html_badge or "fa-clock" in html_badge:
+                        status = "Mangel behoben"
+                    elif "fa-thumbs" in html_badge or "outline" in html_badge:
+                        status = "angenommen"
 
             sec_text = container.locator("div.section-text").first
 
@@ -319,14 +341,27 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
+    # Показываем все строки через DataTables API
+    try:
+        page.evaluate("""
+            const tables = document.querySelectorAll('table[id]');
+            tables.forEach(t => {
+                if (window.jQuery && jQuery.fn.dataTable.isDataTable(t)) {
+                    jQuery(t).DataTable().page.len(-1).draw();
+                }
+            });
+        """)
+        page.wait_for_load_state("networkidle", timeout=5000)
+    except Exception:
+        pass
+
     seen = set()
     projects = []
 
-    for _ in range(50):
-        rows = page.locator("tr[role='row']").all()
-        new_found = False
-
-        for row in rows:
+    # Один проход — все строки уже в DOM
+    rows = page.locator("tr[role='row']").all()
+    print(f"  Всего строк проектов в DOM: {len(rows)}")
+    for row in rows:
             try:
                 # Прогресс — data-value на div.filled
                 filled = row.locator("div.filled").first
@@ -383,16 +418,10 @@ def parse_projects(page):
                     "ende": dates[1] if len(dates) > 1 else None,
                     "leo_url": leo_url,
                 })
-                new_found = True
 
             except Exception as e:
                 print(f"  Ошибка парсинга строки проекта: {e}")
                 continue
-
-        if not new_found:
-            break
-        if not click_next_and_wait(page):
-            break
 
     print(f"Найдено {len(projects)} активных проектов (не 100%)")
     return projects
