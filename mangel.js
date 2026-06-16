@@ -77,9 +77,9 @@ function renderPositionen(m) {
         <input type="checkbox" ${checked ? "checked" : ""}
           onchange="toggleCheck('${m.id}', ${i}, this.checked)">
         <div class="pos-info">
-          <span class="pos-code">${p.code || ""}</span>
-          <span class="pos-gewerk">${p.gewerk || ""}</span>
+          <span class="pos-code">${p.code || ""} · ${p.gewerk || ""}</span>
           ${p.mangel_beschreibung ? `<span class="pos-desc">${p.mangel_beschreibung}</span>` : ""}
+          ${p.bereich ? `<span class="pos-gewerk">${p.bereich}</span>` : ""}
         </div>
         ${p.status ? `<span class="pos-badge ${statusClass(p.status)}">${p.status}</span>` : ""}
       </label>
