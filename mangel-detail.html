@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mangel Detail — LEO Board</title>
+<link rel="stylesheet" href="board.css?v=3">
+<style>
+.back-link { display:inline-flex; align-items:center; gap:6px; color:var(--accent); text-decoration:none; font-size:14px; font-weight:600; padding:18px 28px 0; }
+.back-link:hover { text-decoration:underline; }
+.detail-header { padding:16px 28px 20px; }
+.detail-id { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+.detail-address { font-size:20px; font-weight:700; margin-bottom:2px; }
+.detail-lage { font-size:13px; color:var(--muted); margin-bottom:12px; }
+.detail-meta { display:flex; gap:24px; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+.detail-meta b { color:var(--text); }
+.positions-title { padding:0 28px 12px; font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+.positions { display:flex; flex-direction:column; gap:12px; padding:0 28px 28px; }
+.pos-card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+}
+.pos-top { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.pos-num { width:28px; height:28px; border-radius:6px; background:var(--bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--muted); flex-shrink:0; }
+.pos-code { font-size:12px; font-weight:700; background:var(--bg); border:1px solid var(--border); padding:3px 8px; border-radius:6px; }
+.pos-gewerk { font-size:12px; color:var(--muted); }
+.pos-status { margin-left:auto; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.pos-status.angenommen { background:#eef2ff; color:#4338ca; }
+.pos-status.behoben { background:#dcfce7; color:#15803d; }
+.pos-status.offen { background:#fde2e2; color:#c0231d; }
+.pos-status.other { background:#f1f2f4; color:#6b7280; }
+.pos-leistung { font-size:13px; font-weight:600; margin-bottom:4px; }
+.pos-bereich { font-size:12px; color:var(--muted); margin-bottom:8px; }
+.pos-mangel-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:3px; }
+.pos-mangel-text { font-size:13px; color:var(--text); }
+.pos-menge { font-size:12px; color:var(--muted); margin-top:8px; }
+.no-positions { padding:40px 28px; color:var(--muted); text-align:center; }
+</style>
+</head>
+<body>
+  <div class="app-layout">
+    <div id="sidebar-mount" data-active="mangel"></div>
+    <div class="content">
+      <a class="back-link" href="mangel.html">← Назад</a>
+      <div class="detail-header" id="detailHeader"></div>
+      <div class="positions-title" id="posTitle"></div>
+      <div class="positions" id="positionsList"></div>
+    </div>
+  </div>
+  <script src="i18n.js?v=2"></script>
+  <script src="sidebar.js"></script>
+  <script>
+    function statusClass(s) {
+      if (!s) return "other";
+      const l = s.toLowerCase();
+      if (l.includes("angenommen")) return "angenommen";
+      if (l.includes("behoben")) return "behoben";
+      if (l.includes("offen")) return "offen";
+      return "other";
+    }
+
+    function parseDate(str) {
+      if (!str) return null;
+      const [d, m, y] = str.split(".");
+      if (!d || !m || !y) return null;
+      return new Date(+y, +m - 1, +d);
+    }
+    function fmtDate(str) {
+      const dt = parseDate(str);
+      return dt ? dt.toLocaleDateString("ru-RU") : "—";
+    }
+
+    async function init() {
+      const id = new URLSearchParams(location.search).get("id");
+      const res = await fetch("data.json");
+      const data = await res.json();
+      const m = (data.maengel || []).find(x => x.id === id);
+
+      if (!m) {
+        document.getElementById("detailHeader").innerHTML = `<div style="color:var(--muted);padding:20px 0;">Mangel nicht gefunden: ${id}</div>`;
+        return;
+      }
+
+      document.title = `${m.id} — LEO Board`;
+      document.getElementById("detailHeader").innerHTML = `
+        <div class="detail-id">${m.id}</div>
+        <div class="detail-address">${m.address || "—"}</div>
+        ${m.lage ? `<div class="detail-lage">${m.lage}</div>` : ""}
+        <div class="detail-meta">
+          <span>Начало: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
+          <span>Срок: <b>${fmtDate(m.fertigstellung)}</b></span>
+          <span>Статус: <b>${m.status || "—"}</b></span>
+          <span>Позиций: <b>${m.anzahl ?? "—"}</b></span>
+          <span>Bauleiter: <b>${m.bauleiter || "—"}</b></span>
+          <span>Innendienst: <b>${m.innendienst || "—"}</b></span>
+        </div>
+      `;
+
+      const positions = m.positionen || [];
+      const container = document.getElementById("positionsList");
+      document.getElementById("posTitle").textContent = `Позиции (${positions.length})`;
+
+      if (!positions.length) {
+        container.innerHTML = `<div class="no-positions">Позиции ещё не загружены — скрапер обновит данные при следующем запуске (08:00 / 16:00)</div>`;
+        return;
+      }
+
+      container.innerHTML = positions.map((p, i) => `
+        <div class="pos-card">
+          <div class="pos-top">
+            <div class="pos-num">${String(i+1).padStart(2,"0")}</div>
+            <div>
+              <div class="pos-code">${p.code || "—"}</div>
+              <div class="pos-gewerk">${p.gewerk || ""}</div>
+            </div>
+            <div class="pos-status ${statusClass(p.status)}">${p.status || "—"}</div>
+          </div>
+          ${p.leistung ? `<div class="pos-leistung">${p.leistung}</div>` : ""}
+          ${p.bereich ? `<div class="pos-bereich">${p.bereich}</div>` : ""}
+          ${p.mangel_beschreibung ? `
+            <div class="pos-mangel-label">Mangelbeschreibung</div>
+            <div class="pos-mangel-text">${p.mangel_beschreibung}</div>
+          ` : ""}
+          ${p.menge ? `<div class="pos-menge">${p.menge}</div>` : ""}
+        </div>
+      `).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

@@ -1,21 +1,29 @@
 let MAENGEL = [];
 let query = "";
 
-function daysUntilLocal(iso) {
-  if (!iso) return null;
-  const today = new Date(); today.setHours(0,0,0,0);
-  return Math.round((new Date(iso) - today) / 86400000);
+function parseDate(str) {
+  if (!str) return null;
+  const [d, m, y] = str.split(".");
+  if (!d || !m || !y) return null;
+  return new Date(+y, +m - 1, +d);
 }
-function fmtDateLocal(iso) {
-  if (!iso) return "—";
-  return new Date(iso).toLocaleDateString("ru-RU");
+function daysUntilLocal(str) {
+  const dt = parseDate(str);
+  if (!dt) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  return Math.round((dt - today) / 86400000);
+}
+function fmtDateLocal(str) {
+  const dt = parseDate(str);
+  if (!dt) return "—";
+  return dt.toLocaleDateString("ru-RU");
 }
 
 function renderCard(m) {
   const days = daysUntilLocal(m.fertigstellung);
   const late = days !== null && days < 0;
   return `
-    <div class="card">
+    <div class="card mangel-card" onclick="location.href='mangel-detail.html?id=${m.id}'" style="cursor:pointer;">
       ${late ? `<span class="due-pill late">${t("due_late", { n: Math.abs(days) })}</span>` : ""}
       <div class="lws">${m.id}</div>
       <div class="address">${m.address}</div>

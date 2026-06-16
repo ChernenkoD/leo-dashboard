@@ -143,6 +143,69 @@ def parse_mangel_block(text):
     }
 
 
+def parse_positionen(page):
+    positionen = []
+    pos_blocks = page.locator(".mangelauftrag-position, [class*='position']").all()
+
+    # Универсальный подход: ищем все строки с кодом позиции вида XX.XX.XX.XXXX
+    rows = page.locator("tr").all()
+    for row in rows:
+        text = row.inner_text().strip()
+        code_match = re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", text)
+        if not code_match:
+            continue
+        lines = lines_of(text)
+        code = code_match.group(0)
+
+        # статус
+        status = None
+        for kw in ["angenommen", "Mangel behoben & geprüft", "offen", "abgelehnt", "in Bearbeitung"]:
+            if kw.lower() in text.lower():
+                status = kw
+                break
+
+        # Mangelbeschreibung — строка после "Mangelbeschreibung:"
+        mangel_beschreibung = None
+        mb_match = re.search(r"Mangelbeschreibung[:\s]+(.+?)(?:\n|$)", text, re.IGNORECASE)
+        if mb_match:
+            mangel_beschreibung = mb_match.group(1).strip()
+
+        # gewerk — строка рядом с кодом
+        gewerk = None
+        for l in lines:
+            if re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l):
+                idx = lines.index(l)
+                if idx + 1 < len(lines):
+                    gewerk = lines[idx + 1]
+                break
+
+        # menge — psch / m² / stk + число
+        menge_match = re.search(r"(psch|m²|stk|St|m|h)\s+[\d,\.]+", text, re.IGNORECASE)
+        menge = menge_match.group(0) if menge_match else None
+
+        # leistung — длинная строка описания (>30 символов, не Mangelbeschreibung)
+        leistung = None
+        bereich = None
+        for l in lines:
+            if len(l) > 30 and not re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) and "Mangelbeschreibung" not in l and l != mangel_beschreibung:
+                if not leistung:
+                    leistung = l
+            if l in ("Wohnung", "Treppenhaus", "Keller", "Außenanlage", "Dach", "Garage"):
+                bereich = l
+
+        positionen.append({
+            "code": code,
+            "gewerk": gewerk,
+            "status": status,
+            "leistung": leistung,
+            "bereich": bereich,
+            "mangel_beschreibung": mangel_beschreibung,
+            "menge": menge,
+        })
+
+    return positionen
+
+
 def parse_mangel(page):
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
@@ -164,6 +227,21 @@ def parse_mangel(page):
             if not m or m["id"] in seen_ids:
                 continue
             seen_ids.add(m["id"])
+
+            # Заходим на страницу детали чтобы получить позиции
+            try:
+                link = block.locator("xpath=ancestor::tr[1]//a").first
+                if link.count() > 0:
+                    link.click()
+                    page.wait_for_load_state("networkidle", timeout=8000)
+                    m["positionen"] = parse_positionen(page)
+                    page.go_back()
+                    page.wait_for_load_state("networkidle", timeout=5000)
+                else:
+                    m["positionen"] = []
+            except Exception:
+                m["positionen"] = []
+
             maengel.append(m)
             new_found = True
 
