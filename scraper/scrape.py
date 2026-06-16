@@ -10,6 +10,8 @@
 import json
 import re
 import sys
+import tempfile
+import openpyxl
 from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright
 
@@ -321,19 +323,20 @@ def parse_mangel(page):
     return maengel
 
 
+def fmt_date(val):
+    """Excel даёт дату как datetime или строку DD.MM.YYYY."""
+    if val is None:
+        return None
+    if hasattr(val, "strftime"):
+        return val.strftime("%d.%m.%Y")
+    return str(val).strip() or None
+
+
 def parse_projects(page):
     """
-    Тянем Projekte → Übersicht.
-    Структура строки:
-      tr[role=row] > td > div.section.outer.small
-        h5.section > a.link-bold  → LWS + URL
-        p                          → адрес
-        p > small                  → lage
-        span.label.small           → LEG/THT номер
-      tr[role=row] > td:nth(1) > div.section.outer
-        div.filled[data-value]     → % прогресса
-        div.section.nowrap         → даты
-    Пропускаем строки где data-value == 100.
+    Скачиваем Excel через кнопку Herunterladen на странице Projekte → Alle Projekte.
+    Берём ВСЕ проекты (и активные, и 100% abgeschlossen).
+    Архивация 100%-х — на фронте.
     """
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
@@ -341,90 +344,67 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    seen = set()
-    projects = []
+    # Переключаемся на "Alle Projekte" чтобы получить все 491
+    try:
+        alle_btn = page.locator("text=Alle Projekte").first
+        if alle_btn.count() > 0:
+            alle_btn.click()
+            page.wait_for_load_state("networkidle", timeout=8000)
+    except Exception:
+        pass
 
-    # Кликаем по каждой пронумерованной странице DataTables
-    table_id = "datatable_auftrag_laufend"
-    while True:
-        rows = page.locator("tr[role='row']").all()
-        for row in rows:
+    # Жмём Herunterladen и ловим скачанный файл
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with page.expect_download(timeout=30000) as dl_info:
+            page.locator("text=Herunterladen").first.click()
+        download = dl_info.value
+        xlsx_path = f"{tmpdir}/projects.xlsx"
+        download.save_as(xlsx_path)
+        print(f"  Excel скачан: {download.suggested_filename}")
+
+        wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
+        ws = wb.active
+
+        # Первая строка — заголовки
+        headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
+        print(f"  Колонки Excel: {headers}")
+
+        def col(row_vals, name):
             try:
-                # Прогресс — data-value на div.filled
-                filled = row.locator("div.filled").first
-                if filled.count() == 0:
-                    continue
-                fortschritt = int(filled.get_attribute("data-value") or 0)
-                if fortschritt == 100:
-                    continue  # пропускаем закрытые
+                return row_vals[headers.index(name)]
+            except (ValueError, IndexError):
+                return None
 
-                # LWS + URL
-                lws_link = row.locator("h5.section a.link-bold").first
-                if lws_link.count() == 0:
-                    continue
-                lws = lws_link.inner_text().strip()
-                if not lws or lws in seen:
-                    continue
-
-                href = lws_link.get_attribute("href") or ""
-                leo_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-
-                # Адрес
-                address = None
-                addr_el = row.locator("div.section.outer.small p").first
-                if addr_el.count() > 0:
-                    address = addr_el.inner_text().strip()
-
-                # Lage
-                lage = None
-                lage_els = row.locator("div.section.outer.small p small").all()
-                if lage_els:
-                    lage = lage_els[0].inner_text().strip()
-
-                # LEG/THT номер
-                leg = None
-                leg_el = row.locator("span.label.small").first
-                if leg_el.count() > 0:
-                    leg = leg_el.inner_text().strip()
-
-                # Даты из второй колонки
-                dates_text = ""
-                nowrap = row.locator("div.section.nowrap").first
-                if nowrap.count() > 0:
-                    dates_text = nowrap.inner_text().strip()
-                dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", dates_text)
-
-                seen.add(lws)
-                projects.append({
-                    "lws": lws,
-                    "leg": leg,
-                    "address": address,
-                    "lage": lage,
-                    "fortschritt": fortschritt,
-                    "start": dates[0] if len(dates) > 0 else None,
-                    "ende": dates[1] if len(dates) > 1 else None,
-                    "leo_url": leo_url,
-                })
-
-            except Exception as e:
-                print(f"  Ошибка парсинга строки проекта: {e}")
+        projects = []
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if not any(row):
+                continue
+            lws = str(col(row, "Auftragsnummer") or "").strip()
+            if not lws:
                 continue
 
-        print(f"  Страница {len(projects)} проектов собрано до сих пор")
+            fortschritt_raw = col(row, "Fortschritt") or 0
+            try:
+                fortschritt = int(float(str(fortschritt_raw).replace("%", "").strip()))
+            except Exception:
+                fortschritt = 0
 
-        # Ищем следующую пронумерованную кнопку пагинации (не current, не prev/next)
-        next_btn = page.locator(
-            f"#datatable_auftrag_laufend_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
-        ).first
-        if next_btn.count() == 0:
-            break
-        try:
-            next_btn.click()
-            page.wait_for_load_state("networkidle", timeout=8000)
-        except Exception:
-            break
+            projects.append({
+                "lws": lws,
+                "leg": str(col(row, "LEG") or col(row, "Leistungsempfänger") or "").strip() or None,
+                "address": str(col(row, "Adresse") or col(row, "Straße") or "").strip() or None,
+                "lage": str(col(row, "Lage") or "").strip() or None,
+                "bauleiter": str(col(row, "Bauleiter") or "").strip() or None,
+                "fortschritt": fortschritt,
+                "start": fmt_date(col(row, "Ausführungsbeginn")),
+                "ende": fmt_date(col(row, "Fertigstellung") or col(row, "Fertigstellungstermin")),
+                "status": str(col(row, "Status") or "").strip() or None,
+                "leo_url": None,  # Excel не содержит URL — строим по LWS если нужно
+            })
 
-    print(f"Найдено {len(projects)} активных проектов (не 100%)")
+        wb.close()
+
+    print(f"Найдено {len(projects)} проектов из Excel")
     return projects
 
 
