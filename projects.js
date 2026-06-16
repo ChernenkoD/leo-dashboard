@@ -1,4 +1,9 @@
 let allProjects = [];
+
+function fmtMoney(n) {
+  if (!n && n !== 0) return "—";
+  return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+}
 let query = "";
 let cityQuery = "";
 let baustopOnly = false;
@@ -103,6 +108,7 @@ function renderTable() {
       <td>${p.bauleiter || "—"}</td>
       <td>${fmtDE(p.start)}</td>
       <td>${fmtDE(p.ende)}</td>
+      <td>${p.amount ? fmtMoney(p.amount) : "—"}</td>
       <td>${renderBadge(p)}</td>
       <td>${mangelIcon}</td>
     </tr>`;

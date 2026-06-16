@@ -3,6 +3,11 @@ let query = "";
 let monthQuery = "";
 let horizonDays = 14;
 
+function fmtMoney(n) {
+  if (!n && n !== 0) return "—";
+  return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+}
+
 function parseDE(str) {
   if (!str) return null;
   const [d, m, y] = str.split(".");
@@ -104,6 +109,7 @@ function renderCard(p) {
         <span>Fertig: <b>${fmtDE(p.ende)}</b></span>
       </div>
       ${p.bauleiter ? `<div class="bauleiter-tag">BL: ${p.bauleiter}</div>` : ""}
+      ${p.amount ? `<div class="amount-tag">${fmtMoney(p.amount)}</div>` : ""}
       <div class="progress-wrap" style="margin-top:8px;">
         <div class="progress-bar" style="width:${p.fortschritt}%"></div>
       </div>
@@ -158,6 +164,8 @@ function renderRing(cards) {
     ? `conic-gradient(#e5484d 0% ${pOverdue}%, #f3a73f ${pOverdue}% ${pOverdue + pWeek}%, #5b8cff ${pOverdue + pWeek}% 100%)`
     : `conic-gradient(var(--border) 0% 100%)`;
 
+  const totalSum = cards.reduce((s, p) => s + (p.amount || 0), 0);
+
   document.getElementById("ringPanel").innerHTML = `
     <div class="donut" style="background:${gradient}">
       <div class="donut-hole">
@@ -165,6 +173,7 @@ function renderRing(cards) {
         <div class="donut-label">Objekte</div>
       </div>
     </div>
+    ${totalSum ? `<div class="donut-sum">${fmtMoney(totalSum)}</div>` : ""}
     <div class="legend">
       <div class="legend-row"><span class="dot" style="background:#e5484d"></span>Überfällig<b>${overdue.length}</b></div>
       <div class="legend-row"><span class="dot" style="background:#f3a73f"></span>Diese Woche<b>${week.length}</b></div>

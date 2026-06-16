@@ -10,8 +10,6 @@
 import json
 import re
 import sys
-import tempfile
-import openpyxl
 from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright
 
@@ -324,58 +322,40 @@ def parse_mangel(page):
     return maengel
 
 
-def fmt_date(val):
-    """Excel даёт дату как datetime или строку DD.MM.YYYY."""
-    if val is None:
+def info_value(row, label):
+    """Ищет значение по метке в правом info-блоке строки проекта."""
+    try:
+        # Ищем элемент содержащий метку, берём следующий текст
+        els = row.locator(f"xpath=.//*[contains(text(),'{label}')]").all()
+        for el in els:
+            parent = el.locator("xpath=..")
+            text = parent.inner_text()
+            # Текст вида "Auftragsvolumen:\n18.196,64 EUR"
+            parts = text.split(label)
+            if len(parts) > 1:
+                val = parts[1].strip().lstrip(":").strip().split("\n")[0].strip()
+                if val and val != "-":
+                    return val
+    except Exception:
+        pass
+    return None
+
+
+def parse_amount(text):
+    """'18.196,64 EUR' → 18196.64"""
+    if not text:
         return None
-    if hasattr(val, "strftime"):
-        return val.strftime("%d.%m.%Y")
-    return str(val).strip() or None
-
-
-def collect_project_urls(page, known_lws: set) -> dict:
-    """
-    Листаем список проектов LEO и собираем {lws: url}.
-    Останавливаемся как только все строки текущей страницы уже есть в known_lws
-    (значит новых нет — дальше листать незачем).
-    """
-    url_map = {}
-    table_id = "datatable_auftrag_laufend"
-    while True:
-        found_new = False
-        for link in page.locator("h5.section a.link-bold").all():
-            try:
-                lws = link.inner_text().strip()
-                href = link.get_attribute("href") or ""
-                if lws and href and lws not in known_lws:
-                    url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-                    found_new = True
-            except Exception:
-                continue
-
-        next_btn = page.locator(
-            f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
-        ).first
-        if next_btn.count() == 0:
-            break
-        if not found_new:
-            # Вся страница уже в кэше — новых не будет, дальше не листаем
-            break
-        try:
-            next_btn.click()
-            page.wait_for_load_state("networkidle", timeout=8000)
-        except Exception:
-            break
-
-    print(f"  Новых URL найдено: {len(url_map)}")
-    return url_map
+    m = re.search(r"([\d.]+,\d{2})", text)
+    if not m:
+        return None
+    return float(m.group(1).replace(".", "").replace(",", "."))
 
 
 def parse_projects(page):
     """
-    Скачиваем Excel через кнопку Herunterladen на странице Projekte → Alle Projekte.
-    Берём ВСЕ проекты (и активные, и 100% abgeschlossen).
-    Архивация 100%-х — на фронте.
+    Листаем Projekte → Übersicht (все вкладки).
+    Парсим прямо из DOM: LWS, URL, адрес, даты, Auftragsvolumen, Bauleiter, Baustopp.
+    URL кэшируем в project_urls.json — они постоянны.
     """
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
@@ -383,7 +363,7 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    # Загружаем кэш URL (URL проектов постоянны, не меняются)
+    # Загружаем кэш URL
     try:
         with open(URL_CACHE_FILE, encoding="utf-8") as f:
             url_map = json.load(f)
@@ -391,16 +371,7 @@ def parse_projects(page):
     except FileNotFoundError:
         url_map = {}
 
-    # Листаем LEO только для проектов которых ещё нет в кэше
-    new_urls = collect_project_urls(page, known_lws=set(url_map.keys()))
-    url_map.update(new_urls)
-
-    # Сохраняем обновлённый кэш
-    with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
-        json.dump(url_map, f, ensure_ascii=False, indent=2)
-    print(f"  URL-кэш сохранён: {len(url_map)} записей")
-
-    # Переключаемся на "Alle Projekte" чтобы скачать Excel со всеми
+    # Переключаемся на "Alle Projekte" чтобы видеть все статусы
     try:
         alle_btn = page.locator("text=Alle Projekte").first
         if alle_btn.count() > 0:
@@ -409,75 +380,92 @@ def parse_projects(page):
     except Exception:
         pass
 
-    # Жмём Herunterladen и ловим скачанный файл
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with page.expect_download(timeout=30000) as dl_info:
-            page.locator("text=Herunterladen").first.click()
-        download = dl_info.value
-        xlsx_path = f"{tmpdir}/projects.xlsx"
-        download.save_as(xlsx_path)
-        print(f"  Excel скачан: {download.suggested_filename}")
+    seen = set()
+    projects = []
+    table_id = "datatable_auftrag_laufend"
 
-        wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
-        ws = wb.active
-
-        # Первая строка — заголовки
-        headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
-        print(f"  Колонки Excel: {headers}")
-
-        def col(row_vals, name):
+    while True:
+        rows = page.locator("tr[role='row']").all()
+        for row in rows:
             try:
-                return row_vals[headers.index(name)]
-            except (ValueError, IndexError):
-                return None
+                # LWS + URL
+                lws_link = row.locator("h5.section a.link-bold").first
+                if lws_link.count() == 0:
+                    continue
+                lws = lws_link.inner_text().strip()
+                if not lws or lws in seen:
+                    continue
 
-        # Колонки по индексу (0-based): A=0, C=2, D=3, E=4, F=5, H=7, I=8, J=9, K=10, Q=16, R=17, T=19, U=20
-        def c(row, idx):
-            return row[idx] if idx < len(row) else None
+                href = lws_link.get_attribute("href") or ""
+                leo_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                if lws not in url_map and leo_url:
+                    url_map[lws] = leo_url
 
-        projects = []
-        for row in ws.iter_rows(min_row=2, values_only=True):
-            if not any(row):
-                continue
-            lws = str(c(row, 0) or "").strip()   # A: LWS номер
-            if not lws:
-                continue
-
-            strasse  = str(c(row, 2) or "").strip()   # C: Straße
-            hausnr   = str(c(row, 3) or "").strip()   # D: Hausnummer
-            plz      = str(c(row, 4) or "").strip()   # E: PLZ
-            ort      = str(c(row, 5) or "").strip()   # F: Ort
-            address  = f"{strasse} {hausnr}".strip()
-            if plz or ort:
-                address += f", {plz} {ort}".strip()
-
-            fortschritt_raw = c(row, 19) or 0         # T: Fortschritt
-            try:
-                fortschritt = int(float(str(fortschritt_raw).replace("%", "").strip()))
-            except Exception:
+                # Прогресс
+                filled = row.locator("div.filled").first
                 fortschritt = 0
+                if filled.count() > 0:
+                    fortschritt = int(filled.get_attribute("data-value") or 0)
 
-            baustopp_start = c(row, 16)                # Q: Baustopp Start
-            baustopp_ende  = c(row, 17)                # R: Baustopp Ende
+                # Адрес и lage из левой колонки
+                address = None
+                lage = None
+                addr_el = row.locator("p").first
+                if addr_el.count() > 0:
+                    address = addr_el.inner_text().strip().split("\n")[0]
+                small_el = row.locator("small").first
+                if small_el.count() > 0:
+                    lage = small_el.inner_text().strip()
 
-            projects.append({
-                "lws":      lws,
-                "address":  address or None,
-                "lage":     str(c(row, 7) or "").strip() or None,   # H
-                "bauleiter":str(c(row, 8) or "").strip() or None,   # I
-                "start":    fmt_date(c(row, 9)),                     # J
-                "ende":     fmt_date(c(row, 10)),                    # K
-                "baustopp": bool(baustopp_start),
-                "baustopp_start": fmt_date(baustopp_start),
-                "baustopp_ende":  fmt_date(baustopp_ende),
-                "fortschritt": fortschritt,                          # T
-                "status":   str(c(row, 20) or "").strip() or None,  # U
-                "leo_url":  url_map.get(lws),
-            })
+                # Даты и сумма из правого info-блока
+                row_text = row.inner_text()
+                dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", row_text)
 
-        wb.close()
+                # Auftragsvolumen
+                amount_raw = info_value(row, "Auftragsvolumen")
+                amount = parse_amount(amount_raw)
 
-    print(f"Найдено {len(projects)} проектов из Excel")
+                # Bauleiter
+                bauleiter = info_value(row, "Bauleiter")
+
+                # Baustopp — ищем в тексте
+                baustopp = bool(re.search(r"baustopp|baustop", row_text, re.I))
+
+                seen.add(lws)
+                projects.append({
+                    "lws": lws,
+                    "address": address,
+                    "lage": lage,
+                    "bauleiter": bauleiter,
+                    "fortschritt": fortschritt,
+                    "start": dates[0] if len(dates) > 0 else None,
+                    "ende": dates[1] if len(dates) > 1 else None,
+                    "amount": amount,
+                    "baustopp": baustopp,
+                    "leo_url": url_map.get(lws),
+                })
+
+            except Exception as e:
+                print(f"  Ошибка строки: {e}")
+                continue
+
+        # Следующая страница DataTables
+        next_btn = page.locator(
+            f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
+        ).first
+        if next_btn.count() == 0:
+            break
+        try:
+            next_btn.click()
+            page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            break
+
+    # Сохраняем обновлённый URL-кэш
+    with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
+        json.dump(url_map, f, ensure_ascii=False, indent=2)
+
+    print(f"Найдено {len(projects)} проектов")
     return projects
 
 
