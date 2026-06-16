@@ -299,102 +299,102 @@ def parse_mangel(page):
     return maengel
 
 
-def parse_project_row(row_text):
-    """Парсим одну строку из таблицы проектов Übersicht."""
-    lines = lines_of(row_text)
-    if not lines:
-        return None
-
-    lws_match = re.search(r"LWS-\d+", row_text)
-    leg_match = re.search(r"LEG-\d+-\d+", row_text)
-    dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", row_text)
-    fortschritt_match = re.search(r"(\d+)\s*%", row_text)
-
-    # Адрес — строка с цифрами и запятой (PLZ)
-    address = None
-    for l in lines:
-        if re.search(r"\d{4,5}", l) and ("," in l or re.search(r"straße|weg|ring|allee|platz|gasse", l, re.I)):
-            address = l
-            break
-    if not address and len(lines) > 1:
-        address = lines[1]
-
-    fortschritt = int(fortschritt_match.group(1)) if fortschritt_match else None
-
-    return {
-        "lws": lws_match.group(0) if lws_match else None,
-        "leg": leg_match.group(0) if leg_match else None,
-        "address": address,
-        "start": dates[0] if len(dates) > 0 else None,
-        "ende": dates[1] if len(dates) > 1 else None,
-        "fortschritt": fortschritt,
-        "abgeschlossen": fortschritt == 100,
-    }
-
-
 def parse_projects(page):
-    """Тянем Projekte → Übersicht, только не 100% закрытые."""
+    """
+    Тянем Projekte → Übersicht.
+    Структура строки:
+      tr[role=row] > td > div.section.outer.small
+        h5.section > a.link-bold  → LWS + URL
+        p                          → адрес
+        p > small                  → lage
+        span.label.small           → LEG/THT номер
+      tr[role=row] > td:nth(1) > div.section.outer
+        div.filled[data-value]     → % прогресса
+        div.section.nowrap         → даты
+    Пропускаем строки где data-value == 100.
+    """
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
     page.click("text=Projekte")
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    # Отладка первой страницы
-    html = page.content()
-    with open("../debug_projects.html", "w", encoding="utf-8") as f:
-        f.write(html)
-    body = page.locator("body").inner_text()
-    print(f"DEBUG projects: title={page.title()}, html={len(html)}b")
-    print(f"DEBUG body[:1500]: {body[:1500]}")
-
     seen = set()
     projects = []
 
-    for page_num in range(50):  # до 50 страниц
-        rows = page.locator("tr").all()
+    for _ in range(50):
+        rows = page.locator("tr[role='row']").all()
         new_found = False
+
         for row in rows:
             try:
-                text = row.inner_text().strip()
-            except Exception:
-                continue
-            if not re.search(r"LWS-\d+", text):
-                continue
-            lws_match = re.search(r"LWS-\d+", text)
-            if not lws_match:
-                continue
-            lws = lws_match.group(0)
-            if lws in seen:
-                continue
+                # Прогресс — data-value на div.filled
+                filled = row.locator("div.filled").first
+                if filled.count() == 0:
+                    continue
+                fortschritt = int(filled.get_attribute("data-value") or 0)
+                if fortschritt == 100:
+                    continue  # пропускаем закрытые
 
-            # Пропускаем 100% закрытые
-            fort_match = re.search(r"(\d+)\s*%", text)
-            if fort_match and int(fort_match.group(1)) == 100:
+                # LWS + URL
+                lws_link = row.locator("h5.section a.link-bold").first
+                if lws_link.count() == 0:
+                    continue
+                lws = lws_link.inner_text().strip()
+                if not lws or lws in seen:
+                    continue
+
+                href = lws_link.get_attribute("href") or ""
+                leo_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+
+                # Адрес
+                address = None
+                addr_el = row.locator("div.section.outer.small p").first
+                if addr_el.count() > 0:
+                    address = addr_el.inner_text().strip()
+
+                # Lage
+                lage = None
+                lage_els = row.locator("div.section.outer.small p small").all()
+                if lage_els:
+                    lage = lage_els[0].inner_text().strip()
+
+                # LEG/THT номер
+                leg = None
+                leg_el = row.locator("span.label.small").first
+                if leg_el.count() > 0:
+                    leg = leg_el.inner_text().strip()
+
+                # Даты из второй колонки
+                dates_text = ""
+                nowrap = row.locator("div.section.nowrap").first
+                if nowrap.count() > 0:
+                    dates_text = nowrap.inner_text().strip()
+                dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", dates_text)
+
+                seen.add(lws)
+                projects.append({
+                    "lws": lws,
+                    "leg": leg,
+                    "address": address,
+                    "lage": lage,
+                    "fortschritt": fortschritt,
+                    "start": dates[0] if len(dates) > 0 else None,
+                    "ende": dates[1] if len(dates) > 1 else None,
+                    "leo_url": leo_url,
+                })
+                new_found = True
+
+            except Exception as e:
+                print(f"  Ошибка парсинга строки проекта: {e}")
                 continue
-
-            p = parse_project_row(text)
-            if not p or not p["lws"]:
-                continue
-
-            # URL детали
-            try:
-                link = row.locator("a").first
-                href = link.get_attribute("href") if link.count() > 0 else None
-                p["leo_url"] = (href if href and href.startswith("http") else f"{BASE}/{href.lstrip('/')}") if href else None
-            except Exception:
-                p["leo_url"] = None
-
-            seen.add(lws)
-            projects.append(p)
-            new_found = True
 
         if not new_found:
             break
         if not click_next_and_wait(page):
             break
 
-    print(f"Найдено {len(projects)} активных проектов")
+    print(f"Найдено {len(projects)} активных проектов (не 100%)")
     return projects
 
 
