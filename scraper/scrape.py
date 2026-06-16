@@ -341,27 +341,14 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    # Показываем все строки через DataTables API
-    try:
-        page.evaluate("""
-            const tables = document.querySelectorAll('table[id]');
-            tables.forEach(t => {
-                if (window.jQuery && jQuery.fn.dataTable.isDataTable(t)) {
-                    jQuery(t).DataTable().page.len(-1).draw();
-                }
-            });
-        """)
-        page.wait_for_load_state("networkidle", timeout=5000)
-    except Exception:
-        pass
-
     seen = set()
     projects = []
 
-    # Один проход — все строки уже в DOM
-    rows = page.locator("tr[role='row']").all()
-    print(f"  Всего строк проектов в DOM: {len(rows)}")
-    for row in rows:
+    # Кликаем по каждой пронумерованной странице DataTables
+    table_id = "datatable_auftrag_laufend"
+    while True:
+        rows = page.locator("tr[role='row']").all()
+        for row in rows:
             try:
                 # Прогресс — data-value на div.filled
                 filled = row.locator("div.filled").first
@@ -422,6 +409,20 @@ def parse_projects(page):
             except Exception as e:
                 print(f"  Ошибка парсинга строки проекта: {e}")
                 continue
+
+        print(f"  Страница {len(projects)} проектов собрано до сих пор")
+
+        # Ищем следующую пронумерованную кнопку пагинации (не current, не prev/next)
+        next_btn = page.locator(
+            f"#datatable_auftrag_laufend_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
+        ).first
+        if next_btn.count() == 0:
+            break
+        try:
+            next_btn.click()
+            page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            break
 
     print(f"Найдено {len(projects)} активных проектов (не 100%)")
     return projects
