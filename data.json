@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T21:30:44.050249+00:00",
+  "updatedAt": "2026-06-16T21:33:24.436801+00:00",
   "tasks": [
     {
       "type": "Rechnung abgelehnt",
@@ -69,19 +69,19 @@
           "code": "06.08.01.0050",
           "gewerk": "Elektro (i)",
           "status": "angenommen",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad 60-70 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Klingelanlage außer Funktion",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.03.03.0050",
           "gewerk": "Maler (i)",
           "status": "Mangel behoben & geprüft",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad >60-70 m² Innentuerelemente lackieren (Gewerkecluster x3.2)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Das Schlösser der Zimmertüren wurde überlackiert sodass die Türen nicht abgeschlossen werden können.",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -102,10 +102,10 @@
           "code": "06.01.02.0100",
           "gewerk": "Sanitär (i)",
           "status": "Mangel behoben & geprüft",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Heizkörper erneuern Typ 10 - 33 (Gewerkecluster x1.0)",
+          "bereich": "BZ 150 x 60",
+          "mangel_beschreibung": "nicht ausgeführt !",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -126,10 +126,10 @@
           "code": "06.01.02.0100",
           "gewerk": "Sanitär (i)",
           "status": "Mangel behoben & geprüft",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Heizkörper erneuern Typ 10 - 33 (Gewerkecluster x1.0)",
+          "bereich": "BZ 150 x 60",
+          "mangel_beschreibung": "nicht ausgeführt",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -150,10 +150,10 @@
           "code": "06.03.02.0340",
           "gewerk": "Maler (i)",
           "status": "angenommen",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "2 Zi-Whg mit Küche-Diele-Bad bis 50 m² (Wand grundieren-tapezieren-streichen), (Gewerkecluster x3.5)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Siehe Fotos vom fliesenspiegel",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -174,28 +174,28 @@
           "code": "06.04.01.0030",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Bad bis 5 m2 - Bodenfliesen / Dünnbett (Gewerkecluster x4.0)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Fliesen liegen zum Teil hohl, Rissbildung, herausbröselnde Fugen, Spannungsrisse",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.04.02.0030",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Bad bis 5 m2 - Wandfliesen H ca 1,5m / Nassbereich 2,1m (Gewerkecluster x4.1)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Fliesen liegen zum Teil hohl, Rissbildung, herausbröselnde Fugen, Spannungsrisse",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.04.02.0120",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Küche Fliesenspiegel ca. 60 cm hoch (Meterangabe), (Gewerkecluster x4.0)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Fliesen liegen zum Teil hohl, Rissbildung, herausbröselnde Fugen, Spannungsrisse",
+          "menge": "m 3,00"
         }
       ]
     },
@@ -216,10 +216,10 @@
           "code": "06.08.01.0030",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "2 Zi-Whg mit Küche-Diele-Bad 50-60 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Beim Steckdose Einbau in der Küche durch die Wand gebohrt im Bad. Fliesen nicht repariert",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -240,10 +240,10 @@
           "code": "06.01.01.0316",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Modulblock für Wasserzähler (doppelt), (Gewerkecluster x1.3)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Modulblock wurde wie in der Mail beschrieben falsch eingebaut / Angeschlossen, Absperrung ist hinter der Uhr muss aber davor gesetzt werden so das die Wohnung auch inkl. Wasseruhr abgesperrt werden kann, für wartungszwecke etc.",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -264,10 +264,10 @@
           "code": "06.03.03.0050",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad >60-70 m² Innentuerelemente lackieren (Gewerkecluster x3.2)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Die Türen in der Wohnung lassen sich nicht schließen oder gehen wieder auf.",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -288,10 +288,10 @@
           "code": "06.08.01.0050",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad 60-70 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Kein Strom im Keller",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -312,10 +312,10 @@
           "code": "06.01.01.0316",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Modulblock für Wasserzähler (doppelt), (Gewerkecluster x1.3)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Modulblock mangelhaft verbaut, bitte die Wand ausbessern",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -336,10 +336,10 @@
           "code": "06.08.01.0010",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "1 Zi-Whg mit Küche-Diele-Bad >30 bis 45 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "In der Wohnung wurde ein Ritto Freisprechgerät verbaut, obwohl die Hausanlage von Gira ist. Das kann nicht funktionieren bitte den Fehler beheben.",
+          "menge": "psch 0,80"
         }
       ]
     },
@@ -360,10 +360,10 @@
           "code": "06.08.02.0300",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Brandschutzkanal I 90 (Zählerzuleitung), (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Formstücke müssen angebaut werden",
+          "menge": "m 5,00"
         }
       ]
     },
@@ -398,10 +398,10 @@
           "code": "06.01.01.0520",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Tiefspül-WC bodenstehend komplett mit Spülkasten (Gewerkecluster x1.0)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "WC am Fuß undicht. Spülung funktioniert nicht.",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -422,37 +422,37 @@
           "code": "06.08.01.0070",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "4 Zi-Whg mit Küche-Diele-Bad bis 80 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Steckdosen Bad fehlen",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.05.01.0070",
           "gewerk": "Maurer (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "4 Zi-Whg mit Küche-Diele-Bad bis 80 m² (Nachputz nach Elektroarbeiten), (Gewerkecluster x5.0)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Im Flur nicht zugeputzt, Bad Fliesen nicht getauscht",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.02.01.0060",
           "gewerk": "Reinigung (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Reinigung einer Leerwohnung >70-80 m² (Gewerkecluster x2.0)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Müll auf dem Balkon",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.04.02.0140",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Wandfliesen Küche/ Bad erneuern/ Reparatur, je Stück (Kleinmenge), (Gewerkecluster x4.2)",
+          "bereich": "BAD",
+          "mangel_beschreibung": "Nicht Ausgeführt",
+          "menge": "Stk 4,00"
         }
       ]
     },
@@ -473,19 +473,19 @@
           "code": "06.01.01.0240",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Eckventil, Längenausgleich, DN 15 (Gewerkecluster x1.3)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Fehlt",
+          "menge": "Stk 1,00"
         },
         {
           "code": "06.01.01.0250",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "WAS Eckventil, Längenausgleich, DN 15 (Gewerkecluster x1.3)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Fehlt und bitte ein doppeltes WAS Eckventil verbauen",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -506,19 +506,19 @@
           "code": "06.03.01.0740",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Bad/WC > 5 m2 - Decke Absperranstrich (Gewerkecluster x3.2)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Absperranstrich in Küche , Bad und SZ fehlt",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.02.01.0060",
           "gewerk": "Reinigung (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Reinigung einer Leerwohnung >70-80 m² (Gewerkecluster x2.0)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Fehlt",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -539,19 +539,19 @@
           "code": "06.02.01.0050",
           "gewerk": "Reinigung (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Reinigung einer Leerwohnung >60-70 m² (Gewerkecluster x2.0)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Balkon Boden muss gereinigt werden",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.01.01.0010",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Baderneuerung, m. Badewanne, Stand-WC u. Zuleit. (Gewerkecluster x1.0)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Wand am Wasserzähler nacharbeiten. Abdeckung wurde wieder verklebt. Übergang vom Boden zum Heizkörper Rohr wieder nicht Sauber angearbeitet",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -572,19 +572,19 @@
           "code": "06.01.01.0316",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Modulblock für Wasserzähler (doppelt), (Gewerkecluster x1.3)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Hier wurde der Modulblock nicht fachgerecht eingebaut. Bitte Mangel beseitigen",
+          "menge": "Stk 1,00"
         },
         {
           "code": "06.01.02.0100",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Heizkörper erneuern Typ 10 - 33 (Gewerkecluster x1.0)",
+          "bereich": "Bad",
+          "mangel_beschreibung": "Heizkörper ist immer noch Laut Bitte beseitigen",
+          "menge": "Stk 1,00"
         }
       ]
     },
@@ -605,10 +605,10 @@
           "code": "06.08.01.0060",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad 70-80 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Abdeckung fehlt",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -629,10 +629,10 @@
           "code": "06.08.01.0060",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad 70-80 m² / Neuinstallation (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Hier bitte 2 Doppelsteckdosen installieren",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -653,19 +653,19 @@
           "code": "06.03.01.0420",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "2 Zi-Whg mit Küche-Diele-Bad >50-60 m² - Wiederholungsanstrich Decke (Gewerkecluster x3.6)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Decken sind alle Scheckig",
+          "menge": "psch 1,08"
         },
         {
           "code": "06.03.02.0190",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "2 Zi-Whg mit Küche-Diele-Bad >50-60 m² Wiederholungs-/Sauberkeitsanstrich Wand (Gewerkecluster x3.6)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Alles Scheckig gestrichen",
+          "menge": "psch 1,08"
         }
       ]
     },
@@ -686,28 +686,28 @@
           "code": "06.03.01.0440",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad >60-70 m² - Wiederholungsanstrich Decke (Gewerkecluster x3.6)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Decke nicht gestrichen",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.03.02.0210",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad >60-70 m² Wiederholungs-/Sauberkeitsanstrich Wand (Gewerkecluster x3.6)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Wände nicht gestrichen",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.02.01.0055",
           "gewerk": "Reinigung (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Kleine Baustellenreinigung einer Leerwohnung >60-70 m² (Gewerkecluster x2.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Waschbecken nicht sauber",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -728,10 +728,10 @@
           "code": "06.08.02.0300",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Brandschutzkanal I 90 (Zählerzuleitung), (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Brandschutzkanal mangelhaft montiert",
+          "menge": "m 2,70"
         }
       ]
     },
@@ -752,10 +752,10 @@
           "code": "06.08.02.0350",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Zählerantrag/Neuantrag beim Versorgungsunternehmen (Gewerkecluster x8.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "S. Mangel Hinweise",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -776,10 +776,10 @@
           "code": "06.01.02.0110",
           "gewerk": "Sanitär (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Thermostat-Regler, eingeb. Fühler, für DN 10-25 (Gewerkecluster x1.3)",
+          "bereich": "Küche, Schlafzimmer, Wohnzimmer",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "Stk 3,00"
         }
       ]
     },
@@ -800,19 +800,19 @@
           "code": "06.04.04.0125",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Fuge. Silikonfugen erneuern (Gewerkecluster x4.2)",
+          "bereich": "WC",
+          "mangel_beschreibung": "Nicht ausgeführt, siehe Auftragshinweise",
+          "menge": "m 1,00"
         },
         {
           "code": "06.02.01.0055",
           "gewerk": "Reinigung (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Kleine Baustellenreinigung einer Leerwohnung >60-70 m² (Gewerkecluster x2.1)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Bitte nachreinigen. Fotos hochgeladen",
+          "menge": "psch 1,00"
         }
       ]
     },
@@ -833,91 +833,91 @@
           "code": "06.99.99.0001",
           "gewerk": "Sonstige (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "RWM liefern und montieren",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "psch 2,00"
         },
         {
           "code": "06.08.02.0320",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Geräteanschlussdose liefern und anschließen (Gewerkecluster x8.1)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "Stk 1,00"
         },
         {
           "code": "06.08.02.0340",
           "gewerk": "Elektro (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Entfernung von elektr. Mietereigentum (Gewerkecluster x8.1)",
+          "bereich": "Eingangsflur, Schlafzimmer",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "Stk 3,00"
         },
         {
           "code": "06.04.04.0125",
           "gewerk": "Fliesen (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Fuge. Silikonfugen erneuern (Gewerkecluster x4.2)",
+          "bereich": "Bad, Küche, Schlafzimmer, Wohnzimmer",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "m 6,50"
         },
         {
           "code": "06.03.05.0240",
           "gewerk": "Maler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Versiegelung Fugen mit Acryl bis 5,0 m (Gewerkecluster x3.1)",
+          "bereich": "Bad, Kinderzimmer, Küche, Schlafzimmer, Wohnzimmer",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "psch 5,00"
         },
         {
           "code": "06.06.01.0190",
           "gewerk": "Tischler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Lüftungsschlitz einbauen als Zulage (Gewerkecluster x6.2)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "Stk 1,00"
         },
         {
           "code": "06.06.01.0030",
           "gewerk": "Tischler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad / Türen gang- u. schließbar machen (Gewerkecluster x6.2)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausgeführt, teilweise am schleifen.",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.06.02.0030",
           "gewerk": "Tischler (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad / Fenster gang- u. schließbar machen (Gewerkecluster x6.2)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Schwergängig",
+          "menge": "psch 1,00"
         },
         {
           "code": "06.99.99.0001",
           "gewerk": "Sonstige (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "Rohrschellen liefern und montieren",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausge",
+          "menge": "psch 14,00"
         },
         {
           "code": "06.99.99.0001",
           "gewerk": "Sonstige (i)",
           "status": "",
-          "leistung": null,
-          "bereich": null,
-          "mangel_beschreibung": null,
-          "menge": null
+          "leistung": "WAGO Klemmen liefern und montieren",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "psch 1,00"
         }
       ]
     }
