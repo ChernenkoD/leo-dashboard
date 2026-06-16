@@ -111,7 +111,7 @@ function renderCard(m) {
     <div class="card ${archived ? "card-archived" : ""}" id="card-${m.id}">
       <div class="card-head">
         ${late ? `<span class="due-pill late">${Math.abs(days)} д. просрочен</span>` : ""}
-        <div class="lws">${m.id}</div>
+        <div class="lws">${m.leo_url ? `<a href="${m.leo_url}" target="_blank" onclick="event.stopPropagation()">${m.id}</a>` : m.id}</div>
         <div class="address">${m.address || "—"}</div>
         ${m.lage ? `<div class="lage">${m.lage}</div>` : ""}
         <div class="dates">

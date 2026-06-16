@@ -256,6 +256,7 @@ def collect_mangel_list(page):
                 if href:
                     detail_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
 
+            m["leo_url"] = detail_url
             items.append((m, detail_url))
             new_found = True
 
