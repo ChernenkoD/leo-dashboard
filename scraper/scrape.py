@@ -375,49 +375,48 @@ def parse_projects(page):
             except (ValueError, IndexError):
                 return None
 
+        # Колонки по индексу (0-based): A=0, C=2, D=3, E=4, F=5, H=7, I=8, J=9, K=10, Q=16, R=17, T=19, U=20
+        def c(row, idx):
+            return row[idx] if idx < len(row) else None
+
         projects = []
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
-            lws = str(col(row, "Projekt") or "").strip()
+            lws = str(c(row, 0) or "").strip()   # A: LWS номер
             if not lws:
                 continue
 
-            fortschritt_raw = col(row, "Fortschritt") or 0
+            strasse  = str(c(row, 2) or "").strip()   # C: Straße
+            hausnr   = str(c(row, 3) or "").strip()   # D: Hausnummer
+            plz      = str(c(row, 4) or "").strip()   # E: PLZ
+            ort      = str(c(row, 5) or "").strip()   # F: Ort
+            address  = f"{strasse} {hausnr}".strip()
+            if plz or ort:
+                address += f", {plz} {ort}".strip()
+
+            fortschritt_raw = c(row, 19) or 0         # T: Fortschritt
             try:
                 fortschritt = int(float(str(fortschritt_raw).replace("%", "").strip()))
             except Exception:
                 fortschritt = 0
 
-            # Собираем адрес из частей: Straße Nr, PLZ Ort
-            strasse = str(col(row, "Straße") or "").strip()
-            nr = str(col(row, "Nr") or "").strip()
-            plz = str(col(row, "PLZ") or "").strip()
-            ort = str(col(row, "Ort") or "").strip()
-            address_parts = []
-            if strasse:
-                address_parts.append(f"{strasse} {nr}".strip())
-            if plz or ort:
-                address_parts.append(f"{plz} {ort}".strip())
-            address = ", ".join(address_parts) or None
-
-            # BAUSTOP — если заполнен "Baustopp Start"
-            baustopp_start = col(row, "Baustopp Start")
-            baustopp_grund = str(col(row, "Baustopp Grund") or "").strip() or None
-            is_baustopp = bool(baustopp_start)
+            baustopp_start = c(row, 16)                # Q: Baustopp Start
+            baustopp_ende  = c(row, 17)                # R: Baustopp Ende
 
             projects.append({
-                "lws": lws,
-                "address": address,
-                "lage": str(col(row, "Lage") or "").strip() or None,
-                "bauleiter": str(col(row, "Bauleiter") or "").strip() or None,
-                "fortschritt": fortschritt,
-                "start": fmt_date(col(row, "Ausführungsbeginn")),
-                "ende": fmt_date(col(row, "Fertigstellung")),
-                "status": str(col(row, "Status") or "").strip() or None,
-                "baustopp": is_baustopp,
-                "baustopp_grund": baustopp_grund,
-                "leo_url": None,
+                "lws":      lws,
+                "address":  address or None,
+                "lage":     str(c(row, 7) or "").strip() or None,   # H
+                "bauleiter":str(c(row, 8) or "").strip() or None,   # I
+                "start":    fmt_date(c(row, 9)),                     # J
+                "ende":     fmt_date(c(row, 10)),                    # K
+                "baustopp": bool(baustopp_start),
+                "baustopp_start": fmt_date(baustopp_start),
+                "baustopp_ende":  fmt_date(baustopp_ende),
+                "fortschritt": fortschritt,                          # T
+                "status":   str(c(row, 20) or "").strip() or None,  # U
+                "leo_url":  None,
             })
 
         wb.close()
