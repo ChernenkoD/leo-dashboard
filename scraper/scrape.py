@@ -1,11 +1,10 @@
 """
 Запускается в GitHub Actions по расписанию (2 раза в день).
-Берёт сохранённую сессию LEO (из секрета LEO_SESSION, GitHub кладёт её
-во временный файл storage_state.json перед запуском), заходит в LEO,
+Берёт сохранённую сессию LEO (секрет LEO_SESSION), заходит в LEO,
 собирает Aufgaben и Mangelaufträge, пишет data.json.
 
-Если сессия протухла — скрипт это обнаружит (попадёт на страницу логина)
-и завершится с понятной ошибкой, ничего не поломав в data.json.
+Если сессия протухла — скрипт это обнаружит и завершится с понятной
+ошибкой, ничего не поломав в data.json.
 """
 
 import json
@@ -20,85 +19,157 @@ OUTPUT_FILE = "../data.json"
 
 
 def is_logged_out(page):
-    return "login.php" in page.url
+    try:
+        return page.get_by_text("Alle Aufgaben").count() == 0
+    except Exception:
+        return True
+
+
+def lines_of(text):
+    return [l.strip() for l in text.split("\n") if l.strip()]
+
+
+def click_next_and_wait(page):
+    next_link = page.locator("text=Nächste").first
+    if next_link.count() == 0:
+        return False
+    try:
+        next_link.click()
+        page.wait_for_load_state("networkidle", timeout=5000)
+        return True
+    except Exception:
+        return False
+
+
+def parse_task_block(text):
+    lines = lines_of(text)
+    if not lines:
+        return None
+    lws_match = re.search(r"(?<!M-)LWS-\d+", text)
+    leg_match = re.search(r"LEG-\d+-\d+", text)
+    dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", text)
+    return {
+        "type": lines[0],
+        "address": lines[1] if len(lines) > 1 and lws_match else None,
+        "lws": lws_match.group(0) if lws_match else None,
+        "leg": leg_match.group(0) if leg_match else None,
+        "due": dates[-1] if dates else None,
+    }
 
 
 def parse_tasks(page):
     page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
     if is_logged_out(page):
         raise RuntimeError("Сессия LEO протухла — нужно перелогиниться локально и обновить LEO_SESSION secret")
 
+    seen_keys = set()
     tasks = []
-    page_num = 1
-    while True:
-        rows = page.locator("table tr").all()
-        for row in rows:
-            text = row.inner_text().strip()
-            if not text or "Aufgabe" in text and "Bauvorhaben" in text:
+    for _ in range(20):
+        blocks = page.locator("text=/(?<!M-)LWS-\\d+/").all()
+        new_found = False
+        for block in blocks:
+            row = block.locator("xpath=ancestor::tr[1]")
+            if row.count() == 0:
                 continue
-            lws_match = re.search(r"LWS-\d+", text)
-            date_match = re.search(r"\d{2}\.\d{2}\.\d{4}", text)
-            lines = [l.strip() for l in text.split("\n") if l.strip()]
-            if not lines:
+            text = row.first.inner_text().strip()
+            task = parse_task_block(text)
+            if not task:
                 continue
-            task_type = lines[0]
-            address = lines[1] if len(lines) > 1 else None
-            tasks.append({
-                "type": task_type,
-                "address": address if lws_match else None,
-                "lws": lws_match.group(0) if lws_match else None,
-                "due": date_match.group(0) if date_match else None,
-            })
+            key = (task["lws"], task["type"], task["due"])
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            tasks.append(task)
+            new_found = True
 
-        next_link = page.locator("text=Nächste").first
-        if next_link.count() == 0:
+        if not new_found:
             break
-        try:
-            next_link.click()
-            page.wait_for_load_state("networkidle", timeout=5000)
-            page_num += 1
-            if page_num > 20:
-                break
-        except Exception:
+        if not click_next_and_wait(page):
             break
 
     return tasks
 
 
+def parse_mangel_block(text):
+    lines = lines_of(text)
+    id_match = re.search(r"M-LWS-\d+-\d+", text)
+    if not id_match:
+        return None
+
+    status_match = re.search(r"\(([a-zA-Zäöü]+)\)", text)
+    leg_match = re.search(r"LEG-\d+-\d+", text)
+    fortschritt_match = re.search(r"(\d+)%\s*abgeschlossen", text)
+    dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", text)
+
+    address = None
+    lage = None
+    bauleiter = None
+    innendienst = None
+    anzahl = None
+
+    try:
+        idx = lines.index("Ausführungsbeginn:")
+        values = lines[idx + 4: idx + 8]
+        if len(values) == 4:
+            bauleiter, innendienst = values[2], values[3]
+    except ValueError:
+        pass
+
+    for i, l in enumerate(lines):
+        if l.startswith("Lage:"):
+            lage = l.replace("Lage:", "").strip()
+        if re.match(r"^[A-ZÄÖÜ].*\d.*,\s*\d{4,5}\s", l):
+            address = l
+
+    if lines and not address and len(lines) > 2:
+        address = lines[2]  # лучшее приближение, если регулярка не сработала
+
+    if lines and re.match(r"^\d+$", lines[-1]):
+        anzahl = int(lines[-1])
+
+    return {
+        "id": id_match.group(0),
+        "status": status_match.group(1) if status_match else None,
+        "address": address,
+        "lage": lage,
+        "leg": leg_match.group(0) if leg_match else None,
+        "fortschritt": int(fortschritt_match.group(1)) if fortschritt_match else None,
+        "ausfuehrungsbeginn": dates[0] if len(dates) > 0 else None,
+        "fertigstellung": dates[1] if len(dates) > 1 else None,
+        "bauleiter": bauleiter,
+        "innendienst": innendienst,
+        "anzahl": anzahl,
+    }
+
+
 def parse_mangel(page):
     page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
     page.click("text=Projekte")
     page.click("text=Mangelaufträge")
     page.wait_for_load_state("networkidle")
 
+    seen_ids = set()
     maengel = []
-    page_num = 1
-    while True:
+    for _ in range(20):
         blocks = page.locator("text=/M-LWS-\\d+-\\d+/").all()
+        new_found = False
         for block in blocks:
             row = block.locator("xpath=ancestor::tr[1]")
-            text = row.inner_text().strip()
-            id_match = re.search(r"M-LWS-\d+-\d+", text)
-            leg_match = re.search(r"LEG-\d+-\d+", text)
-            dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", text)
-            if id_match:
-                maengel.append({
-                    "id": id_match.group(0),
-                    "raw": text,
-                    "leg": leg_match.group(0) if leg_match else None,
-                    "dates": dates,
-                })
+            if row.count() == 0:
+                continue
+            text = row.first.inner_text().strip()
+            m = parse_mangel_block(text)
+            if not m or m["id"] in seen_ids:
+                continue
+            seen_ids.add(m["id"])
+            maengel.append(m)
+            new_found = True
 
-        next_link = page.locator("text=Nächste").first
-        if next_link.count() == 0:
+        if not new_found:
             break
-        try:
-            next_link.click()
-            page.wait_for_load_state("networkidle", timeout=5000)
-            page_num += 1
-            if page_num > 20:
-                break
-        except Exception:
+        if not click_next_and_wait(page):
             break
 
     return maengel
@@ -120,7 +191,7 @@ def main():
         data = {
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
-            "maengel_raw": maengel,
+            "maengel": maengel,
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
