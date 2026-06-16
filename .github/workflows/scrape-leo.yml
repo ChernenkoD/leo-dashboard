@@ -1,5 +1,8 @@
 name: Scrape LEO data
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # Примерно 08:00 и 16:00 по Берлину (точное смещение скачет летом/зимой на час)
