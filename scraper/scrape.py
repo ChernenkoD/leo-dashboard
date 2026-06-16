@@ -10,6 +10,8 @@
 import json
 import re
 import sys
+import tempfile
+import openpyxl
 from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright
 
@@ -322,47 +324,32 @@ def parse_mangel(page):
     return maengel
 
 
-def info_value(row, label):
-    """Ищет значение по метке в правом info-блоке строки проекта."""
-    try:
-        # Ищем элемент содержащий метку, берём следующий текст
-        els = row.locator(f"xpath=.//*[contains(text(),'{label}')]").all()
-        for el in els:
-            parent = el.locator("xpath=..")
-            text = parent.inner_text()
-            # Текст вида "Auftragsvolumen:\n18.196,64 EUR"
-            parts = text.split(label)
-            if len(parts) > 1:
-                val = parts[1].strip().lstrip(":").strip().split("\n")[0].strip()
-                if val and val != "-":
-                    return val
-    except Exception:
-        pass
-    return None
-
-
 def parse_amount(text):
     """'18.196,64 EUR' → 18196.64"""
     if not text:
         return None
-    m = re.search(r"([\d.]+,\d{2})", text)
+    m = re.search(r"([\d.]+,\d{2})", str(text))
     if not m:
         return None
-    return float(m.group(1).replace(".", "").replace(",", "."))
+    try:
+        return float(m.group(1).replace(".", "").replace(",", "."))
+    except Exception:
+        return None
+
+
+def fmt_date(val):
+    if val is None:
+        return None
+    if hasattr(val, "strftime"):
+        return val.strftime("%d.%m.%Y")
+    return str(val).strip() or None
 
 
 def parse_projects(page):
     """
-    Листаем Projekte → Übersicht (все вкладки).
-    Парсим прямо из DOM: LWS, URL, адрес, даты, Auftragsvolumen, Bauleiter, Baustopp.
-    URL кэшируем в project_urls.json — они постоянны.
+    Скачиваем отчёт P-03 Projektübersicht из Berichte — там все проекты с суммами.
+    Дополнительно собираем URL со страницы Übersicht (кэшируем).
     """
-    page.goto(f"{BASE}/index.php")
-    page.wait_for_load_state("networkidle")
-    page.click("text=Projekte")
-    page.click("text=Übersicht")
-    page.wait_for_load_state("networkidle")
-
     # Загружаем кэш URL
     try:
         with open(URL_CACHE_FILE, encoding="utf-8") as f:
@@ -371,89 +358,32 @@ def parse_projects(page):
     except FileNotFoundError:
         url_map = {}
 
-    # Переключаемся на "Alle Projekte" чтобы видеть все статусы
-    try:
-        alle_btn = page.locator("text=Alle Projekte").first
-        if alle_btn.count() > 0:
-            alle_btn.click()
-            page.wait_for_load_state("networkidle", timeout=8000)
-    except Exception:
-        pass
+    # Собираем URL со страницы Übersicht (только новые)
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
+    page.click("text=Projekte")
+    page.click("text=Übersicht")
+    page.wait_for_load_state("networkidle")
 
-    seen = set()
-    projects = []
     table_id = "datatable_auftrag_laufend"
-
     while True:
-        rows = page.locator("tr[role='row']").all()
-        for row in rows:
+        found_new = False
+        for link in page.locator("h5.section a.link-bold").all():
             try:
-                # LWS + URL
-                lws_link = row.locator("h5.section a.link-bold").first
-                if lws_link.count() == 0:
-                    continue
-                lws = lws_link.inner_text().strip()
-                if not lws or lws in seen:
-                    continue
-
-                href = lws_link.get_attribute("href") or ""
-                leo_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-                if lws not in url_map and leo_url:
-                    url_map[lws] = leo_url
-
-                # Прогресс
-                filled = row.locator("div.filled").first
-                fortschritt = 0
-                if filled.count() > 0:
-                    fortschritt = int(filled.get_attribute("data-value") or 0)
-
-                # Адрес и lage из левой колонки
-                address = None
-                lage = None
-                addr_el = row.locator("p").first
-                if addr_el.count() > 0:
-                    address = addr_el.inner_text().strip().split("\n")[0]
-                small_el = row.locator("small").first
-                if small_el.count() > 0:
-                    lage = small_el.inner_text().strip()
-
-                # Даты и сумма из правого info-блока
-                row_text = row.inner_text()
-                dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", row_text)
-
-                # Auftragsvolumen
-                amount_raw = info_value(row, "Auftragsvolumen")
-                amount = parse_amount(amount_raw)
-
-                # Bauleiter
-                bauleiter = info_value(row, "Bauleiter")
-
-                # Baustopp — ищем в тексте
-                baustopp = bool(re.search(r"baustopp|baustop", row_text, re.I))
-
-                seen.add(lws)
-                projects.append({
-                    "lws": lws,
-                    "address": address,
-                    "lage": lage,
-                    "bauleiter": bauleiter,
-                    "fortschritt": fortschritt,
-                    "start": dates[0] if len(dates) > 0 else None,
-                    "ende": dates[1] if len(dates) > 1 else None,
-                    "amount": amount,
-                    "baustopp": baustopp,
-                    "leo_url": url_map.get(lws),
-                })
-
-            except Exception as e:
-                print(f"  Ошибка строки: {e}")
+                lws = link.inner_text().strip()
+                href = link.get_attribute("href") or ""
+                if lws and href and lws not in url_map:
+                    url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                    found_new = True
+            except Exception:
                 continue
 
-        # Следующая страница DataTables
         next_btn = page.locator(
             f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
         ).first
         if next_btn.count() == 0:
+            break
+        if not found_new:
             break
         try:
             next_btn.click()
@@ -461,11 +391,91 @@ def parse_projects(page):
         except Exception:
             break
 
-    # Сохраняем обновлённый URL-кэш
+    print(f"  URL-кэш: {len(url_map)} записей")
     with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(url_map, f, ensure_ascii=False, indent=2)
 
-    print(f"Найдено {len(projects)} проектов")
+    # Скачиваем P-03 из Berichte
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
+    page.click("text=Berichte")
+    page.wait_for_load_state("networkidle")
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Кликаем на кнопку скачивания P-03
+        with page.expect_download(timeout=30000) as dl_info:
+            page.locator("tr", has_text="P-03").locator("a, button").first.click()
+        download = dl_info.value
+        xlsx_path = f"{tmpdir}/p03.xlsx"
+        download.save_as(xlsx_path)
+        print(f"  P-03 скачан: {download.suggested_filename}")
+
+        wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
+        ws = wb.active
+
+        headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
+        print(f"  Колонки P-03: {headers}")
+
+        def col(row, name):
+            try:
+                return row[headers.index(name)]
+            except (ValueError, IndexError):
+                return None
+
+        projects = []
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if not any(row):
+                continue
+
+            # LWS — ищем колонку с "LWS" или первую
+            lws = None
+            for h in headers:
+                if "lws" in h.lower() or "projekt" in h.lower() or "auftrag" in h.lower():
+                    val = str(row[headers.index(h)] or "").strip()
+                    if val:
+                        lws = val
+                        break
+            if not lws:
+                lws = str(row[0] or "").strip()
+            if not lws:
+                continue
+
+            # Сумма — ищем колонку с "volumen", "summe", "betrag", "eur"
+            amount = None
+            for h in headers:
+                if any(k in h.lower() for k in ["volumen", "summe", "betrag", "eur", "netto"]):
+                    amount = parse_amount(row[headers.index(h)])
+                    if amount:
+                        break
+
+            # Fortschritt
+            fortschritt = 0
+            for h in headers:
+                if "fortschritt" in h.lower() or "%" in h:
+                    raw = str(row[headers.index(h)] or "0").replace("%", "").strip()
+                    try:
+                        fortschritt = int(float(raw))
+                    except Exception:
+                        pass
+                    break
+
+            projects.append({
+                "lws": lws,
+                "address": str(col(row, next((h for h in headers if "straße" in h.lower() or "adresse" in h.lower()), "")) or "").strip() or None,
+                "lage": str(col(row, next((h for h in headers if "lage" in h.lower()), "")) or "").strip() or None,
+                "bauleiter": str(col(row, next((h for h in headers if "bauleiter" in h.lower()), "")) or "").strip() or None,
+                "start": fmt_date(col(row, next((h for h in headers if "beginn" in h.lower()), ""))),
+                "ende": fmt_date(col(row, next((h for h in headers if "fertig" in h.lower()), ""))),
+                "amount": amount,
+                "fortschritt": fortschritt,
+                "status": str(col(row, next((h for h in headers if "status" in h.lower()), "")) or "").strip() or None,
+                "baustopp": False,
+                "leo_url": url_map.get(lws),
+            })
+
+        wb.close()
+
+    print(f"Найдено {len(projects)} проектов из P-03")
     return projects
 
 
