@@ -144,62 +144,83 @@ def parse_mangel_block(text):
 
 
 def parse_positionen(page):
-    """Парсим позиции на странице детали Mängel. Сохраняем HTML для отладки."""
+    """
+    Структура на странице детали:
+      div.section → number (.inner), .lv-nummer p.top (код), p.bottom (gewerk), .badge-icon .label (статус)
+    Рядом в DOM (siblings) лежат: p.kurztext (leistung), p.text-zusatz (bereich),
+      div.text-apos p.kurztext (Mangelbeschreibung), div.section-price (menge)
+    """
     positionen = []
-
-    # Ищем все строки с кодом позиции вида XX.XX.XX.XXXX
-    rows = page.locator("tr").all()
-    for row in rows:
+    sections = page.locator("div.section").all()
+    for sec in sections:
         try:
-            text = row.inner_text().strip()
+            # Код позиции
+            code_el = sec.locator("p.top").first
+            if code_el.count() == 0:
+                continue
+            code = code_el.inner_text().strip()
+            if not re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", code):
+                continue
+
+            # Gewerk
+            gewerk = None
+            gewerk_el = sec.locator("p.bottom").first
+            if gewerk_el.count() > 0:
+                gewerk = gewerk_el.inner_text().strip()
+
+            # Статус
+            status = None
+            badge = sec.locator(".badge-icon .label").first
+            if badge.count() > 0:
+                status = badge.inner_text().strip()
+
+            # Leistung, bereich, mangel_beschreibung, menge — в соседних элементах
+            # Ищем родительский контейнер выше section и берём оттуда
+            parent = sec.locator("xpath=..").first
+            leistung = None
+            bereich = None
+            mangel_beschreibung = None
+            menge = None
+
+            kurztext_els = parent.locator("p.kurztext").all()
+            for el in kurztext_els:
+                t = el.inner_text().strip()
+                if t.startswith("Mangelbeschreibung"):
+                    # следующий p.kurztext — текст
+                    continue
+                if t and len(t) > 5 and not leistung:
+                    leistung = t
+
+            # Mangelbeschreibung — p после <b>Mangelbeschreibung:</b>
+            mb_els = parent.locator("div.text-apos p.kurztext").all()
+            texts = [e.inner_text().strip() for e in mb_els]
+            for i, t in enumerate(texts):
+                if "Mangelbeschreibung" in t and i + 1 < len(texts):
+                    mangel_beschreibung = texts[i + 1]
+                    break
+
+            # Bereich
+            zusatz = parent.locator("p.text-zusatz").first
+            if zusatz.count() > 0:
+                bereich = zusatz.inner_text().strip()
+
+            # Menge
+            price_el = parent.locator("div.section-price").first
+            if price_el.count() > 0:
+                price_text = price_el.inner_text().strip().replace("\n", " ")
+                menge = price_text
+
+            positionen.append({
+                "code": code,
+                "gewerk": gewerk,
+                "status": status,
+                "leistung": leistung,
+                "bereich": bereich,
+                "mangel_beschreibung": mangel_beschreibung,
+                "menge": menge,
+            })
         except Exception:
             continue
-        code_match = re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", text)
-        if not code_match:
-            continue
-        lines = lines_of(text)
-        code = code_match.group(0)
-
-        status = None
-        for kw in ["Mangel behoben & geprüft", "angenommen", "abgelehnt", "in Bearbeitung", "offen"]:
-            if kw.lower() in text.lower():
-                status = kw
-                break
-
-        mangel_beschreibung = None
-        mb_match = re.search(r"Mangelbeschreibung[:\s]*\n?(.+?)(?:\n|$)", text, re.IGNORECASE)
-        if mb_match:
-            mangel_beschreibung = mb_match.group(1).strip()
-
-        gewerk = None
-        for i, l in enumerate(lines):
-            if re.match(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) and i + 1 < len(lines):
-                gewerk = lines[i + 1]
-                break
-
-        menge_match = re.search(r"(psch|m²|stk|St\.?|m|h)\s+[\d,\.]+", text, re.IGNORECASE)
-        menge = menge_match.group(0) if menge_match else None
-
-        leistung = None
-        bereich = None
-        bereiche = ("Wohnung", "Treppenhaus", "Keller", "Außenanlage", "Dach", "Garage")
-        for l in lines:
-            if l in bereiche:
-                bereich = l
-            elif len(l) > 30 and not re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", l) \
-                    and "Mangelbeschreibung" not in l and l != mangel_beschreibung \
-                    and not leistung:
-                leistung = l
-
-        positionen.append({
-            "code": code,
-            "gewerk": gewerk,
-            "status": status,
-            "leistung": leistung,
-            "bereich": bereich,
-            "mangel_beschreibung": mangel_beschreibung,
-            "menge": menge,
-        })
 
     return positionen
 
