@@ -1,103 +1,172 @@
-let state = loadState();
+let allProjects = [];
 let query = "";
 let cityQuery = "";
-let startFrom = "";
-let statusQuery = "";
+let baustopOnly = false;
 let mangelQuery = "";
+let showArchived = false;
 
-function rows() {
-  return state.cards.filter(c => {
+function parseDE(str) {
+  if (!str) return null;
+  const [d, m, y] = str.split(".");
+  if (!d || !m || !y) return null;
+  return new Date(+y, +m - 1, +d);
+}
+
+function fmtDE(str) {
+  if (!str) return "—";
+  const d = parseDE(str);
+  if (!d || isNaN(d)) return str;
+  return d.toLocaleDateString("de-DE");
+}
+
+function isBaustop(p) {
+  return (p.status || "").toLowerCase().includes("baustop");
+}
+
+function isAbgeschlossen(p) {
+  return p.fortschritt === 100;
+}
+
+function filtered() {
+  return allProjects.filter(p => {
+    // Архив vs активные
+    if (showArchived) {
+      if (!isAbgeschlossen(p)) return false;
+    } else {
+      if (isAbgeschlossen(p)) return false;
+    }
+
+    if (baustopOnly && !isBaustop(p)) return false;
+
+    if (mangelQuery === "yes" && !p.has_mangel) return false;
+    if (mangelQuery === "no" && p.has_mangel) return false;
+
+    if (cityQuery) {
+      const city = (p.address || "").split(",").pop()?.trim() || "";
+      if (!city.toLowerCase().includes(cityQuery.toLowerCase())) return false;
+    }
+
     if (query) {
       const q = query.toLowerCase();
-      if (![c.id, c.address].join(" ").toLowerCase().includes(q)) return false;
+      const hay = [p.lws, p.address, p.lage, p.bauleiter, p.status].join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
     }
-    if (cityQuery && c.city !== cityQuery) return false;
-    if (startFrom && c.start && c.start !== "—") {
-      if (new Date(c.start) < new Date(startFrom)) return false;
-    }
-    if (statusQuery && statusInfo(c).key !== statusQuery) return false;
-    if (mangelQuery === "yes" && !c.hadMangel) return false;
-    if (mangelQuery === "no" && c.hadMangel) return false;
+
     return true;
   });
 }
 
-function statusPillHtml(card) {
-  const s = statusInfo(card);
-  return `<span class="status-pill ${s.key}">${s.label}</span>`;
-}
-
-function updatePlanned(cardId, value) {
-  const card = state.cards.find(c => c.id === cardId);
-  if (!card) return;
-  card.plannedDate = value || card.ende;
-  saveState(state);
-  renderTable();
+function renderBadge(p) {
+  if (isBaustop(p)) {
+    return `<span class="proj-badge baustop">BAUSTOP</span>`;
+  }
+  if (isAbgeschlossen(p)) {
+    return `<span class="proj-badge abgeschlossen">100% abgeschlossen</span>`;
+  }
+  if (p.fortschritt > 0) {
+    return `<span class="proj-badge active">${p.fortschritt}% in Arbeit</span>`;
+  }
+  return `<span class="proj-badge new">Neu</span>`;
 }
 
 function renderTable() {
+  const list = filtered().sort((a, b) => {
+    // BAUSTOP всегда наверх
+    if (isBaustop(a) && !isBaustop(b)) return -1;
+    if (!isBaustop(a) && isBaustop(b)) return 1;
+    return (a.address || "").localeCompare(b.address || "");
+  });
+
+  const total = allProjects.filter(p => showArchived ? isAbgeschlossen(p) : !isAbgeschlossen(p)).length;
+  document.getElementById("projCount").textContent = `${list.length} / ${total}`;
+
   const body = document.getElementById("projTableBody");
-  const list = rows().sort((a, b) => a.address.localeCompare(b.address));
-  body.innerHTML = list.length ? list.map(c => `
-    <tr>
-      <td>${c.address}${c.lage ? `<div class="sub-cell">${c.lage}</div>` : ""}</td>
-      <td>${c.city || "—"}</td>
-      <td class="lws-cell">${c.id}</td>
-      <td>${fmtDate(c.start)}</td>
-      <td>${fmtDate(c.ende)}</td>
-      <td>
-        <input type="date" class="planned-input ${isPlannedEdited(c) ? "edited" : ""}" value="${c.plannedDate || c.ende}" onchange="updatePlanned('${c.id}', this.value)">
-      </td>
-      <td>${statusPillHtml(c)}</td>
-      <td>${c.hadMangel ? t("mangel_had") : "—"}</td>
-    </tr>
-  `).join("") : `<tr><td colspan="8" class="empty-hint">${t("empty_results")}</td></tr>`;
+  if (!list.length) {
+    body.innerHTML = `<tr><td colspan="7" class="empty-hint">Keine Projekte gefunden</td></tr>`;
+    return;
+  }
+
+  body.innerHTML = list.map(p => {
+    const mangelIcon = p.has_mangel
+      ? `<span class="mangel-dot has" title="Hat Mängelauftrag">M</span>`
+      : `<span class="mangel-dot none" title="Kein Mängelauftrag">—</span>`;
+
+    const rowClass = isBaustop(p) ? ' class="row-baustop"' : "";
+    const leoLink = p.leo_url
+      ? `<a href="${p.leo_url}" target="_blank" class="lws-link">${p.lws}</a>`
+      : p.lws;
+
+    return `<tr${rowClass}>
+      <td>${p.address || "—"}${p.lage ? `<div class="sub-cell">${p.lage}</div>` : ""}</td>
+      <td class="lws-cell">${leoLink}</td>
+      <td>${p.bauleiter || "—"}</td>
+      <td>${fmtDE(p.start)}</td>
+      <td>${fmtDE(p.ende)}</td>
+      <td>${renderBadge(p)}</td>
+      <td>${mangelIcon}</td>
+    </tr>`;
+  }).join("");
 }
 
 function fillCityFilter() {
-  const cities = [...new Set(state.cards.map(c => c.city).filter(Boolean))].sort();
+  const cities = [...new Set(allProjects.map(p => {
+    const parts = (p.address || "").split(",");
+    return parts[parts.length - 1]?.trim() || "";
+  }).filter(Boolean))].sort();
   const sel = document.getElementById("cityFilter");
-  sel.innerHTML = `<option value="">${t("all_cities")}</option>` +
+  sel.innerHTML = `<option value="">Alle Städte</option>` +
     cities.map(c => `<option value="${c}">${c}</option>`).join("");
 }
 
-function fillStaticSelects() {
-  document.getElementById("pageTitle").textContent = t("projects_title");
-  document.getElementById("pageSub").textContent = t("projects_sub");
-  document.getElementById("search").placeholder = t("search_placeholder");
-  document.getElementById("startFrom").title = t("start_from_title");
-
-  document.getElementById("statusFilter").innerHTML = `
-    <option value="">${t("all_statuses")}</option>
-    <option value="active">${t("status_active")}</option>
-    <option value="waiting">${t("status_waiting")}</option>
-    <option value="documents">${t("status_documents")}</option>
-    <option value="archived">${t("status_archived")}</option>
-  `;
-  document.getElementById("mangelFilter").innerHTML = `
-    <option value="">${t("mangel_all")}</option>
-    <option value="yes">${t("mangel_yes")}</option>
-    <option value="no">${t("mangel_no")}</option>
-  `;
-  document.getElementById("tableHead").innerHTML = `
-    <th>${t("th_address")}</th>
-    <th>${t("th_city")}</th>
-    <th>${t("th_order")}</th>
-    <th>${t("th_start")}</th>
-    <th>${t("th_end")}</th>
-    <th>${t("th_planned")}</th>
-    <th>${t("th_status")}</th>
-    <th>${t("th_mangel")}</th>
-  `;
+function updateTabCounts() {
+  const active = allProjects.filter(p => !isAbgeschlossen(p)).length;
+  const archived = allProjects.filter(p => isAbgeschlossen(p)).length;
+  document.getElementById("tabActive").textContent = `Aktiv (${active})`;
+  document.getElementById("tabArchived").textContent = `Abgeschlossen (${archived})`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fillStaticSelects();
-  fillCityFilter();
-  renderTable();
-  document.getElementById("search").addEventListener("input", e => { query = e.target.value.trim(); renderTable(); });
-  document.getElementById("cityFilter").addEventListener("change", e => { cityQuery = e.target.value; renderTable(); });
-  document.getElementById("startFrom").addEventListener("change", e => { startFrom = e.target.value; renderTable(); });
-  document.getElementById("statusFilter").addEventListener("change", e => { statusQuery = e.target.value; renderTable(); });
-  document.getElementById("mangelFilter").addEventListener("change", e => { mangelQuery = e.target.value; renderTable(); });
+  document.getElementById("pageTitle").textContent = "Projekte";
+
+  fetch("data.json?v=" + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      allProjects = data.projects || [];
+
+      const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
+      document.getElementById("pageSub").textContent = upd ? `Stand: ${upd}` : "";
+
+      fillCityFilter();
+      updateTabCounts();
+      renderTable();
+    })
+    .catch(e => {
+      document.getElementById("projTableBody").innerHTML =
+        `<tr><td colspan="7" class="empty-hint">Fehler beim Laden: ${e.message}</td></tr>`;
+    });
+
+  document.getElementById("search").addEventListener("input", e => {
+    query = e.target.value.trim(); renderTable();
+  });
+  document.getElementById("cityFilter").addEventListener("change", e => {
+    cityQuery = e.target.value; renderTable();
+  });
+  document.getElementById("baustopFilter").addEventListener("change", e => {
+    baustopOnly = e.target.checked; renderTable();
+  });
+  document.getElementById("mangelFilter").addEventListener("change", e => {
+    mangelQuery = e.target.value; renderTable();
+  });
+  document.getElementById("tabActive").addEventListener("click", () => {
+    showArchived = false;
+    document.getElementById("tabActive").classList.add("tab-active");
+    document.getElementById("tabArchived").classList.remove("tab-active");
+    renderTable();
+  });
+  document.getElementById("tabArchived").addEventListener("click", () => {
+    showArchived = true;
+    document.getElementById("tabArchived").classList.add("tab-active");
+    document.getElementById("tabActive").classList.remove("tab-active");
+    renderTable();
+  });
 });

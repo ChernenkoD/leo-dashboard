@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Проекты — LEO Board</title>
-<link rel="stylesheet" href="board.css?v=3">
+<title>Projekte — LEO Board</title>
+<link rel="stylesheet" href="board.css?v=4">
 </head>
 <body>
   <div class="app-layout">
@@ -14,19 +14,42 @@
         <div class="brand" id="pageTitle"></div>
         <div class="sub" id="pageSub"></div>
       </header>
+
       <div class="toolbar">
-        <input type="text" id="search">
+        <input type="text" id="search" placeholder="Suchen (Adresse, LWS, Bauleiter…)">
         <select id="cityFilter"></select>
-        <input type="date" id="startFrom">
-        <select id="statusFilter"></select>
-        <select id="mangelFilter"></select>
+        <select id="mangelFilter">
+          <option value="">Alle (Mängel)</option>
+          <option value="yes">Mit Mängelauftrag</option>
+          <option value="no">Ohne Mängelauftrag</option>
+        </select>
+        <label class="baustop-toggle">
+          <input type="checkbox" id="baustopFilter"> BAUSTOP
+        </label>
       </div>
+
+      <div class="tab-bar" style="padding: 0 28px 12px;">
+        <button class="tab-btn tab-active" id="tabActive">Aktiv</button>
+        <button class="tab-btn" id="tabArchived">Abgeschlossen</button>
+        <span class="proj-count-badge" id="projCount"></span>
+      </div>
+
       <main style="padding:0 28px 28px;">
         <table class="proj-table">
           <thead>
-            <tr id="tableHead"></tr>
+            <tr>
+              <th>Adresse / Lage</th>
+              <th>LWS</th>
+              <th>Bauleiter</th>
+              <th>Beginn</th>
+              <th>Fertigstellung</th>
+              <th>Status</th>
+              <th>Mängel</th>
+            </tr>
           </thead>
-          <tbody id="projTableBody"></tbody>
+          <tbody id="projTableBody">
+            <tr><td colspan="7" class="empty-hint">Lade Daten…</td></tr>
+          </tbody>
         </table>
       </main>
     </div>
@@ -34,7 +57,6 @@
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="state.js"></script>
-  <script src="projects.js"></script>
+  <script src="projects.js?v=4"></script>
 </body>
 </html>

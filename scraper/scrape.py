@@ -422,6 +422,18 @@ def main():
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
 
+        # Помечаем проекты у которых есть Mängel (по базовому LWS номеру)
+        # M-LWS-82670-2 → LWS-82670, проект LWS-82670 → совпадение
+        mangel_lws_set = set()
+        for m in maengel:
+            match = re.search(r"LWS-\d+", m.get("id", ""))
+            if match:
+                mangel_lws_set.add(match.group(0))
+
+        for p in projects:
+            match = re.search(r"LWS-\d+", p.get("lws", ""))
+            p["has_mangel"] = bool(match and match.group(0) in mangel_lws_set)
+
         data = {
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
