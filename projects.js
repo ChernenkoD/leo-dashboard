@@ -20,7 +20,7 @@ function fmtDE(str) {
 }
 
 function isBaustop(p) {
-  return (p.status || "").toLowerCase().includes("baustop");
+  return !!p.baustopp;
 }
 
 function isAbgeschlossen(p) {
@@ -58,7 +58,8 @@ function filtered() {
 
 function renderBadge(p) {
   if (isBaustop(p)) {
-    return `<span class="proj-badge baustop">BAUSTOP</span>`;
+    const title = p.baustopp_grund ? ` title="${p.baustopp_grund}"` : "";
+    return `<span class="proj-badge baustop"${title}>BAUSTOP</span>`;
   }
   if (isAbgeschlossen(p)) {
     return `<span class="proj-badge abgeschlossen">100% abgeschlossen</span>`;

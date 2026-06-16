@@ -379,7 +379,7 @@ def parse_projects(page):
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
-            lws = str(col(row, "Auftragsnummer") or "").strip()
+            lws = str(col(row, "Nummer") or "").strip()
             if not lws:
                 continue
 
@@ -389,17 +389,36 @@ def parse_projects(page):
             except Exception:
                 fortschritt = 0
 
+            # Собираем адрес из частей: Straße Nr, PLZ Ort
+            strasse = str(col(row, "Straße") or "").strip()
+            nr = str(col(row, "Nr") or "").strip()
+            plz = str(col(row, "PLZ") or "").strip()
+            ort = str(col(row, "Ort") or "").strip()
+            address_parts = []
+            if strasse:
+                address_parts.append(f"{strasse} {nr}".strip())
+            if plz or ort:
+                address_parts.append(f"{plz} {ort}".strip())
+            address = ", ".join(address_parts) or None
+
+            # BAUSTOP — если заполнен "Baustopp Start"
+            baustopp_start = col(row, "Baustopp Start")
+            baustopp_grund = str(col(row, "Baustopp Grund") or "").strip() or None
+            is_baustopp = bool(baustopp_start)
+
             projects.append({
                 "lws": lws,
-                "leg": str(col(row, "LEG") or col(row, "Leistungsempfänger") or "").strip() or None,
-                "address": str(col(row, "Adresse") or col(row, "Straße") or "").strip() or None,
+                "projekt": str(col(row, "Projekt") or "").strip() or None,
+                "address": address,
                 "lage": str(col(row, "Lage") or "").strip() or None,
                 "bauleiter": str(col(row, "Bauleiter") or "").strip() or None,
                 "fortschritt": fortschritt,
                 "start": fmt_date(col(row, "Ausführungsbeginn")),
-                "ende": fmt_date(col(row, "Fertigstellung") or col(row, "Fertigstellungstermin")),
+                "ende": fmt_date(col(row, "Fertigstellung")),
                 "status": str(col(row, "Status") or "").strip() or None,
-                "leo_url": None,  # Excel не содержит URL — строим по LWS если нужно
+                "baustopp": is_baustopp,
+                "baustopp_grund": baustopp_grund,
+                "leo_url": None,
             })
 
         wb.close()
