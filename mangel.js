@@ -1,6 +1,9 @@
 let MAENGEL = [];
 let query = "";
 let showArchived = false;
+let filterBauleiter = "";
+let filterStatus = "";
+let sortBy = "deadline";
 
 function parseDate(str) {
   if (!str) return null;
@@ -49,10 +52,20 @@ function checkedCount(m) {
   return { done, total: positionen.length };
 }
 
+function mangelStatusGroup(m) {
+  const positionen = m.positionen || [];
+  if (!positionen.length) return "angenommen";
+  const statuses = positionen.map(p => (p.status || "").toLowerCase());
+  if (statuses.every(s => s.includes("geprüft"))) return "geprueft";
+  if (statuses.some(s => s.includes("behoben"))) return "behoben";
+  return "angenommen";
+}
+
 function statusClass(s) {
   if (!s) return "";
   const l = s.toLowerCase();
-  if (l.includes("behoben") || l.includes("geprüft")) return "pos-done";
+  if (l.includes("geprüft")) return "pos-done";
+  if (l.includes("behoben")) return "pos-behoben";
   if (l.includes("angenommen")) return "pos-open";
   if (l.includes("abgelehnt")) return "pos-rejected";
   return "";
@@ -63,7 +76,6 @@ function renderPositionen(m) {
   if (!positionen.length) {
     const total = m.anzahl || 0;
     if (!total) return "";
-    // Нет данных ещё — показываем заглушку-чекбоксы по количеству
     const items = Array.from({ length: total }, (_, i) => `
       <label class="pos-item" onclick="event.stopPropagation()">
         <input type="checkbox" ${isChecked(m.id, i) ? "checked" : ""}
@@ -109,6 +121,7 @@ function renderProgress(m) {
 function renderCard(m) {
   const days = daysUntil(m.fertigstellung);
   const late = days !== null && days < 0;
+  const soon = days !== null && days >= 0 && days <= 3;
   const { done, total } = checkedCount(m);
   const allDone = total > 0 && done === total;
   const archived = isArchived(m.id);
@@ -117,6 +130,7 @@ function renderCard(m) {
     <div class="card ${archived ? "card-archived" : ""}" id="card-${m.id}">
       <div class="card-head">
         ${late ? `<span class="due-pill late">${Math.abs(days)} д. просрочен</span>` : ""}
+        ${soon && !late ? `<span class="due-pill soon">Срок через ${days} д.</span>` : ""}
         <div class="lws">${m.leo_url ? `<a href="${m.leo_url}" target="_blank" onclick="event.stopPropagation()">${m.id}</a>` : m.id}</div>
         <div class="address">${m.address || "—"}</div>
         ${m.lage ? `<div class="lage">${m.lage}</div>` : ""}
@@ -150,31 +164,90 @@ function toggleCheck(mangelId, idx, val) {
   document.getElementById(`card-${mangelId}`).outerHTML = renderCard(m);
 }
 
-function archiveMangel(mangelId) {
-  setArchived(mangelId, true);
-  render();
-}
-function unarchiveMangel(mangelId) {
-  setArchived(mangelId, false);
-  render();
+function archiveMangel(mangelId) { setArchived(mangelId, true); render(); }
+function unarchiveMangel(mangelId) { setArchived(mangelId, false); render(); }
+
+function applyFiltersAndSort(list) {
+  let result = list;
+
+  // Поиск
+  if (query) {
+    const q = query.toLowerCase();
+    result = result.filter(m =>
+      [m.id, m.address, m.bauleiter, m.innendienst, m.lage].join(" ").toLowerCase().includes(q)
+    );
+  }
+
+  // Фильтр по Bauleiter
+  if (filterBauleiter) {
+    result = result.filter(m => m.bauleiter === filterBauleiter);
+  }
+
+  // Фильтр по статусу
+  if (filterStatus) {
+    result = result.filter(m => mangelStatusGroup(m) === filterStatus);
+  }
+
+  // Сортировка
+  result = [...result].sort((a, b) => {
+    switch (sortBy) {
+      case "deadline": {
+        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
+        if (!da && !db) return 0;
+        if (!da) return 1; if (!db) return -1;
+        return da - db;
+      }
+      case "deadline_desc": {
+        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
+        if (!da && !db) return 0;
+        if (!da) return 1; if (!db) return -1;
+        return db - da;
+      }
+      case "address":
+        return (a.address || "").localeCompare(b.address || "", "de");
+      case "progress": {
+        const ca = checkedCount(a), cb = checkedCount(b);
+        const pa = ca.total ? ca.done / ca.total : 0;
+        const pb = cb.total ? cb.done / cb.total : 0;
+        return pa - pb;
+      }
+      case "start": {
+        const da = parseDate(a.ausfuehrungsbeginn), db = parseDate(b.ausfuehrungsbeginn);
+        if (!da && !db) return 0;
+        if (!da) return 1; if (!db) return -1;
+        return da - db;
+      }
+      default: return 0;
+    }
+  });
+
+  return result;
 }
 
 function render() {
   const active = MAENGEL.filter(m => !isArchived(m.id));
   const archived = MAENGEL.filter(m => isArchived(m.id));
-  const list = (showArchived ? archived : active).filter(m => {
-    if (!query) return true;
-    return [m.id, m.address, m.bauleiter].join(" ").toLowerCase().includes(query.toLowerCase());
-  });
+  const base = showArchived ? archived : active;
+  const list = applyFiltersAndSort(base);
 
   document.getElementById("mangelList").innerHTML = list.length
     ? list.map(renderCard).join("")
-    : `<div class="empty-hint">${showArchived ? "Архив пуст" : "Нет активных Mängel"}</div>`;
+    : `<div class="empty-hint">${showArchived ? "Архив пуст" : "Ничего не найдено"}</div>`;
 
   document.getElementById("tabActive").classList.toggle("active", !showArchived);
   document.getElementById("tabArchived").classList.toggle("active", showArchived);
   document.getElementById("tabActive").textContent = `Активные (${active.length})`;
   document.getElementById("tabArchived").textContent = `Архив (${archived.length})`;
+}
+
+function populateBauleiterFilter() {
+  const sel = document.getElementById("filterBauleiter");
+  const names = [...new Set(MAENGEL.map(m => m.bauleiter).filter(Boolean))].sort();
+  names.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name; opt.textContent = name;
+    sel.appendChild(opt);
+  });
 }
 
 async function init() {
@@ -190,12 +263,13 @@ async function init() {
     document.getElementById("pageSub").textContent = "Обновлено: " + d.toLocaleString("ru-RU");
   }
 
+  populateBauleiterFilter();
   render();
 
-  document.getElementById("search").addEventListener("input", e => {
-    query = e.target.value.trim();
-    render();
-  });
+  document.getElementById("search").addEventListener("input", e => { query = e.target.value.trim(); render(); });
+  document.getElementById("filterBauleiter").addEventListener("change", e => { filterBauleiter = e.target.value; render(); });
+  document.getElementById("filterStatus").addEventListener("change", e => { filterStatus = e.target.value; render(); });
+  document.getElementById("sortBy").addEventListener("change", e => { sortBy = e.target.value; render(); });
   document.getElementById("tabActive").addEventListener("click", () => { showArchived = false; render(); });
   document.getElementById("tabArchived").addEventListener("click", () => { showArchived = true; render(); });
 }

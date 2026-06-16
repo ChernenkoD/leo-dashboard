@@ -14,8 +14,22 @@
         <div class="brand" id="pageTitle"></div>
         <div class="sub" id="pageSub"></div>
       </header>
-      <div class="toolbar">
-        <input type="text" id="search">
+      <div class="toolbar" style="flex-wrap:wrap; gap:8px;">
+        <input type="text" id="search" style="min-width:180px; flex:2;">
+        <select id="filterBauleiter"><option value="">Все Bauleiter</option></select>
+        <select id="filterStatus">
+          <option value="">Все статусы</option>
+          <option value="angenommen">angenommen</option>
+          <option value="behoben">Mangel behoben</option>
+          <option value="geprueft">behoben & geprüft</option>
+        </select>
+        <select id="sortBy">
+          <option value="deadline">По сроку ↑</option>
+          <option value="deadline_desc">По сроку ↓</option>
+          <option value="address">По адресу</option>
+          <option value="progress">По прогрессу</option>
+          <option value="start">По дате начала</option>
+        </select>
         <button class="tab-btn" id="tabActive">Активные</button>
         <button class="tab-btn" id="tabArchived">Архив</button>
       </div>
@@ -24,6 +38,6 @@
   </div>
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="mangel.js?v=2"></script>
+  <script src="mangel.js?v=3"></script>
 </body>
 </html>

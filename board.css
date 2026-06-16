@@ -106,6 +106,8 @@ body {
 .due-pill.today { background: #fde2e2; color: #c0231d; }
 .due-pill.soon { background: #fef0d8; color: #a6650a; }
 
+.pos-behoben { background: #fef3c7; color: #92600a; }
+
 .toolbar select, .toolbar input[type="date"] {
   background: var(--panel);
   border: 1px solid var(--border);
