@@ -23,7 +23,11 @@ function daysUntil(str) {
 function checkKey(mangelId, idx) { return `chk_${mangelId}_${idx}`; }
 function archivedKey(mangelId) { return `arch_${mangelId}`; }
 
-function isChecked(mangelId, idx) {
+function isAutoChecked(status) {
+  return status && status.toLowerCase().includes("geprüft");
+}
+function isChecked(mangelId, idx, status) {
+  if (isAutoChecked(status)) return true;
   return localStorage.getItem(checkKey(mangelId, idx)) === "1";
 }
 function setChecked(mangelId, idx, val) {
@@ -41,7 +45,7 @@ function setArchived(mangelId, val) {
 function checkedCount(m) {
   const positionen = m.positionen || [];
   if (!positionen.length) return { done: 0, total: m.anzahl || 0 };
-  const done = positionen.filter((_, i) => isChecked(m.id, i)).length;
+  const done = positionen.filter((p, i) => isChecked(m.id, i, p.status)).length;
   return { done, total: positionen.length };
 }
 
@@ -71,10 +75,11 @@ function renderPositionen(m) {
   }
 
   const items = positionen.map((p, i) => {
-    const checked = isChecked(m.id, i);
+    const auto = isAutoChecked(p.status);
+    const checked = isChecked(m.id, i, p.status);
     return `
       <label class="pos-item ${checked ? "pos-item-done" : ""}" onclick="event.stopPropagation()">
-        <input type="checkbox" ${checked ? "checked" : ""}
+        <input type="checkbox" ${checked ? "checked" : ""} ${auto ? "disabled title='Закрыто заказчиком'" : ""}
           onchange="toggleCheck('${m.id}', ${i}, this.checked)">
         <div class="pos-info">
           <span class="pos-code">${p.code || ""} · ${p.gewerk || ""}</span>
