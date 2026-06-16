@@ -151,11 +151,12 @@ def parse_positionen(page):
       div.text-apos p.kurztext (Mangelbeschreibung), div.section-price (menge)
     """
     positionen = []
-    sections = page.locator("div.section").all()
-    for sec in sections:
+    # Каждая позиция — div.section-description
+    containers = page.locator("div.section-description").all()
+    for container in containers:
         try:
             # Код позиции
-            code_el = sec.locator("p.top").first
+            code_el = container.locator("p.top").first
             if code_el.count() == 0:
                 continue
             code = code_el.inner_text().strip()
@@ -164,51 +165,42 @@ def parse_positionen(page):
 
             # Gewerk
             gewerk = None
-            gewerk_el = sec.locator("p.bottom").first
+            gewerk_el = container.locator("p.bottom").first
             if gewerk_el.count() > 0:
                 gewerk = gewerk_el.inner_text().strip()
 
             # Статус
             status = None
-            badge = sec.locator(".badge-icon .label").first
+            badge = container.locator(".badge-icon .label").first
             if badge.count() > 0:
                 status = badge.inner_text().strip()
 
-            # Leistung, bereich, mangel_beschreibung, menge — в соседних элементах
-            # Ищем родительский контейнер выше section и берём оттуда
-            parent = sec.locator("xpath=..").first
+            # Leistung (p.kurztext без "Mangelbeschreibung")
             leistung = None
-            bereich = None
-            mangel_beschreibung = None
-            menge = None
-
-            kurztext_els = parent.locator("p.kurztext").all()
-            for el in kurztext_els:
+            for el in container.locator("p.kurztext").all():
                 t = el.inner_text().strip()
-                if t.startswith("Mangelbeschreibung"):
-                    # следующий p.kurztext — текст
-                    continue
-                if t and len(t) > 5 and not leistung:
+                if t and "Mangelbeschreibung" not in t and len(t) > 5:
                     leistung = t
-
-            # Mangelbeschreibung — p после <b>Mangelbeschreibung:</b>
-            mb_els = parent.locator("div.text-apos p.kurztext").all()
-            texts = [e.inner_text().strip() for e in mb_els]
-            for i, t in enumerate(texts):
-                if "Mangelbeschreibung" in t and i + 1 < len(texts):
-                    mangel_beschreibung = texts[i + 1]
                     break
 
             # Bereich
-            zusatz = parent.locator("p.text-zusatz").first
+            bereich = None
+            zusatz = container.locator("p.text-zusatz").first
             if zusatz.count() > 0:
                 bereich = zusatz.inner_text().strip()
 
+            # Mangelbeschreibung — текст после метки
+            mangel_beschreibung = None
+            full_text = container.inner_text()
+            mb_match = re.search(r"Mangelbeschreibung[:\s]+(.+?)(?:\n|psch|m²|stk|$)", full_text, re.IGNORECASE)
+            if mb_match:
+                mangel_beschreibung = mb_match.group(1).strip()
+
             # Menge
-            price_el = parent.locator("div.section-price").first
+            menge = None
+            price_el = container.locator("div.section-price").first
             if price_el.count() > 0:
-                price_text = price_el.inner_text().strip().replace("\n", " ")
-                menge = price_text
+                menge = price_el.inner_text().strip().replace("\n", " ")
 
             positionen.append({
                 "code": code,
