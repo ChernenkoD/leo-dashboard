@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-16T21:25:05.390825+00:00",
+  "updatedAt": "2026-06-16T21:28:28.640113+00:00",
   "tasks": [
     {
       "type": "Rechnung abgelehnt",
@@ -64,7 +64,26 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0050",
+          "gewerk": "Elektro (i)",
+          "status": "angenommen",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.03.03.0050",
+          "gewerk": "Maler (i)",
+          "status": "Mangel behoben & geprüft",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-37182-1",
@@ -78,7 +97,17 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.02.0100",
+          "gewerk": "Sanitär (i)",
+          "status": "Mangel behoben & geprüft",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-37182-2",
@@ -92,7 +121,17 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.02.0100",
+          "gewerk": "Sanitär (i)",
+          "status": "Mangel behoben & geprüft",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-39236-1",
@@ -106,7 +145,17 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.03.02.0340",
+          "gewerk": "Maler (i)",
+          "status": "angenommen",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-46566-1",
@@ -120,7 +169,35 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 3,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.04.01.0030",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.04.02.0030",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.04.02.0120",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-47691-2",
@@ -134,7 +211,17 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0030",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-65383-3",
@@ -148,7 +235,17 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.01.0316",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-70394-1",
@@ -162,7 +259,17 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.03.03.0050",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-73542-4",
@@ -176,7 +283,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0050",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-75988-2",
@@ -190,7 +307,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.01.0316",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-76900-2",
@@ -204,7 +331,17 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0010",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-78296-2",
@@ -218,7 +355,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.02.0300",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-80335-1",
@@ -246,7 +393,17 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.01.0520",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-81859-1",
@@ -260,7 +417,44 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0070",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.05.01.0070",
+          "gewerk": "Maurer (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.02.01.0060",
+          "gewerk": "Reinigung (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.04.02.0140",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-81859-2",
@@ -274,7 +468,26 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.01.0240",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.01.01.0250",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-82038-1",
@@ -288,7 +501,26 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.03.01.0740",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.02.01.0060",
+          "gewerk": "Reinigung (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-82670-2",
@@ -302,7 +534,26 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.02.01.0050",
+          "gewerk": "Reinigung (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.01.01.0010",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-82999-3",
@@ -316,7 +567,26 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.01.0316",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.01.02.0100",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-83000-1",
@@ -330,7 +600,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0060",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-83000-2",
@@ -344,7 +624,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.01.0060",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-83619-1",
@@ -358,7 +648,26 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.03.01.0420",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.03.02.0190",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-84116-1",
@@ -372,7 +681,35 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.03.01.0440",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.03.02.0210",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.02.01.0055",
+          "gewerk": "Reinigung (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-84224-4",
@@ -386,7 +723,17 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.02.0300",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-84352-1",
@@ -400,7 +747,17 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.08.02.0350",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-85272-1",
@@ -414,7 +771,17 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.01.02.0110",
+          "gewerk": "Sanitär (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-86357-1",
@@ -428,7 +795,26 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.04.04.0125",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.02.01.0055",
+          "gewerk": "Reinigung (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     },
     {
       "id": "M-LWS-86895-1",
@@ -442,7 +828,98 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 10,
-      "positionen": []
+      "positionen": [
+        {
+          "code": "06.99.99.0001",
+          "gewerk": "Sonstige (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.08.02.0320",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.08.02.0340",
+          "gewerk": "Elektro (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.04.04.0125",
+          "gewerk": "Fliesen (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.03.05.0240",
+          "gewerk": "Maler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.06.01.0190",
+          "gewerk": "Tischler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.06.01.0030",
+          "gewerk": "Tischler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.06.02.0030",
+          "gewerk": "Tischler (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.99.99.0001",
+          "gewerk": "Sonstige (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        },
+        {
+          "code": "06.99.99.0001",
+          "gewerk": "Sonstige (i)",
+          "status": "",
+          "leistung": null,
+          "bereich": null,
+          "mangel_beschreibung": null,
+          "menge": null
+        }
+      ]
     }
   ]
 }
