@@ -332,6 +332,35 @@ def fmt_date(val):
     return str(val).strip() or None
 
 
+def collect_project_urls(page):
+    """Быстрый проход по всем страницам списка проектов: собираем {lws: url}."""
+    url_map = {}
+    table_id = "datatable_auftrag_laufend"
+    while True:
+        for link in page.locator("h5.section a.link-bold").all():
+            try:
+                lws = link.inner_text().strip()
+                href = link.get_attribute("href") or ""
+                if lws and href:
+                    url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+            except Exception:
+                continue
+
+        next_btn = page.locator(
+            f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
+        ).first
+        if next_btn.count() == 0:
+            break
+        try:
+            next_btn.click()
+            page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            break
+
+    print(f"  Собрано {len(url_map)} URL проектов")
+    return url_map
+
+
 def parse_projects(page):
     """
     Скачиваем Excel через кнопку Herunterladen на странице Projekte → Alle Projekte.
@@ -344,7 +373,10 @@ def parse_projects(page):
     page.click("text=Übersicht")
     page.wait_for_load_state("networkidle")
 
-    # Переключаемся на "Alle Projekte" чтобы получить все 491
+    # Собираем URL со страницы Laufende Aufträge (активные с ссылками)
+    url_map = collect_project_urls(page)
+
+    # Переключаемся на "Alle Projekte" чтобы скачать Excel со всеми
     try:
         alle_btn = page.locator("text=Alle Projekte").first
         if alle_btn.count() > 0:
@@ -416,7 +448,7 @@ def parse_projects(page):
                 "baustopp_ende":  fmt_date(baustopp_ende),
                 "fortschritt": fortschritt,                          # T
                 "status":   str(c(row, 20) or "").strip() or None,  # U
-                "leo_url":  None,
+                "leo_url":  url_map.get(lws),
             })
 
         wb.close()
