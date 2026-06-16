@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Статистика — LEO Board</title>
+<link rel="stylesheet" href="board.css?v=3">
+</head>
+<body>
+  <div class="app-layout">
+    <div id="sidebar-mount" data-active="stats"></div>
+    <div class="content">
+      <header class="topbar">
+        <div class="brand" id="pageTitle"></div>
+        <div class="sub" id="pageSub"></div>
+      </header>
+      <div class="toolbar">
+        <select id="monthFilter"></select>
+      </div>
+      <section class="stats" id="stats"></section>
+      <section id="weekChart" class="week-chart"></section>
+    </div>
+  </div>
+
+  <script src="i18n.js?v=2"></script>
+  <script src="sidebar.js"></script>
+  <script src="state.js"></script>
+  <script src="statistics.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+name: Scrape LEO data
+
+on:
+  schedule:
+    # Примерно 08:00 и 16:00 по Берлину (точное смещение скачет летом/зимой на час)
+    - cron: "0 6 * * *"
+    - cron: "0 14 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: scraper
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Restore LEO session
+        working-directory: scraper
+        run: echo "$LEO_SESSION" > storage_state.json
+        env:
+          LEO_SESSION: ${{ secrets.LEO_SESSION }}
+
+      - name: Run scraper
+        working-directory: scraper
+        run: python3 scrape.py
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name "leo-bot"
+          git config user.email "leo-bot@users.noreply.github.com"
+          git add data.json
+          git diff --cached --quiet || git commit -m "Auto-update data.json from LEO"
+          git push
