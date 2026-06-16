@@ -254,15 +254,24 @@ def parse_mangel(page):
     print(f"Найдено {len(items)} Mängel в списке")
 
     maengel = []
-    for m, detail_url in items:
+    for i, (m, detail_url) in enumerate(items):
         if detail_url:
             try:
                 page.goto(detail_url)
-                page.wait_for_load_state("networkidle", timeout=8000)
+                page.wait_for_load_state("networkidle", timeout=10000)
+                # Отладка: сохраняем HTML первой страницы
+                if i == 0:
+                    html = page.content()
+                    with open("../debug_detail.html", "w", encoding="utf-8") as f:
+                        f.write(html)
+                    print(f"  DEBUG title={page.title()}, html={len(html)}b")
+                    # Все видимые текстовые строки страницы
+                    body_text = page.locator("body").inner_text()
+                    print("  DEBUG body[:2000]:", body_text[:2000])
                 m["positionen"] = parse_positionen(page)
-                print(f"  {m['id']}: {len(m['positionen'])} позиций (url: {detail_url})")
+                print(f"  {m['id']}: {len(m['positionen'])} позиций")
             except Exception as e:
-                print(f"  {m['id']}: ошибка при загрузке позиций — {e}")
+                print(f"  {m['id']}: ошибка — {e}")
                 m["positionen"] = []
         else:
             m["positionen"] = []
