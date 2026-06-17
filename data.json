@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-17T10:52:05.404965+00:00",
+  "updatedAt": "2026-06-17T11:31:27.636935+00:00",
   "tasks": [
     {
       "type": "Rechnung abgelehnt",
@@ -58,6 +58,13 @@
       "due": "19.06.2026"
     },
     {
+      "type": "neuer Mangelauftrag",
+      "address": "Salzastraße 70 26388 Wilhelmshaven",
+      "lws": "LWS-86895",
+      "leg": "LEG-159031-0",
+      "due": "19.06.2026"
+    },
+    {
       "type": "Fehlende Nachweisdokumente für Positionen",
       "address": "Lüneburger Ring 11 38448 Wolfsburg",
       "lws": "LWS-84948",
@@ -92,7 +99,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=PgGkhY97ItER%2FWE2h3RmNkk5cUpSdmZvT3pHTmlLMHdaa2RwKzd4ckJpMDBBZHFWcS91NlJoRmJORy92WmUvSGYzQkduMWxMd1YxcmIweGQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Yd99VSJrSPHZ8UytDo7rsDFEbE1nejNiTWEyK2xMang4OWY1ZGpUYVZFUWlNZGthTU1Uayt0dS9qVXRTYlJFY1JDOEhVK2V6cTZaakZMNkM%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -126,7 +133,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=katARmUIERuzNDJCXoyx%2FVdGWWR1Y3gzZkE2c3hLdTUvSXlqWnQyZFhCYW12amY2aXF3VUhQSHZRWU1Rck45OVNodHNXY1ZSNDAwOVBDeXA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=yDtxIyC2yDRLGYTfshXOik03aWFQZzV1bDc2UEdYTC94MlFDQ0FTZnhxRDZPZU5RTHJScUhJYTVWV0xhZ0d6SUdJeVZIQXRJVGU4VEJzcEM%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -151,7 +158,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=QHntPRC9gPfV0On%2B8CRrGGlTNncydDZqekFlSGhUTjM4TWVTeFE2UHZXcW95NHhEU1lYQ2UyZnA3L1VWNCs4cWVvY1NZUjF0a2ZQQUsvcnU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=PB4a%2B8qOP23teS8eJc6nbVdnMXlsV0hJQllYZ1lRVFVrMlYyR2dkTkRpbFRmb2lZR09xbm14dWpRZzVKbExEYk03U3JLYTRZdkRSVFR5TVE%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -176,7 +183,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=%2FDMkuWX6kef55COgdFopAUlEMVZxcmJIcFFOTWpDdkFKNnRBZ1Z4Ri8ySys3NmZqSlloUWNJM250dHZVemNaeFg4bFhrSllTQ3FmYkF6Sk0%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=L3ahSw%2F73%2BCNR2FEF5MrckZQK1dYVkhscTV4WldkUzNGZHdZaXl4anRjNXc2MDVKaHloQTZRRlhwZE9IU3BxWHNLRG50dWJMdTRJNVQ4ZWY%3D",
       "positionen": [
         {
           "code": "06.03.02.0340",
@@ -201,7 +208,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=EEUTtHjvu1kXk7iY9CA5E0tRQ2ZHdS9tT0JCTlFkdUZ6T2FOYXpCUUQvUjJjbFJYQzJRSFBxRmZMM1R2algwSXNZdENMVU5xM0xvSU9JVDQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=PfXLl5we89yirb9gLXfihzRCZVRBMkl6T3JoSXFVOFMxSTZYd3JmRU9WUEt5dDlXY0FhZ1lhTkpZTWxISVp4Vi8wdUo2anFXU1JPNkV6YUk%3D",
       "positionen": [
         {
           "code": "06.04.01.0030",
@@ -244,7 +251,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=GCEVdRgnlNA9zypUgiXjASsvZUl5SjE5VGpHS0pJQjdxRXl2SGlkcHZBUDU3ZlcrNzZuMnk3d0dyaUlmcGhnbC9LSXVsQTZMMDY0SVlBRGw%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=%2B9ilgcFS0tRx%2F2e1IGe3aHQySCtVNDVpOExGQk82aDY0Z05sL29RUUJjT1B2WllCVXJ6ekJsaFdyY1RndFRKbVdEQ2lTZFVOb0dGOWVkTlY%3D",
       "positionen": [
         {
           "code": "06.08.01.0030",
@@ -269,7 +276,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=k8ZRu0nhVtpdGm5A%2Fd%2FOrHZjcXJEcGY3SThleGFNdTZGUWJvUnpwL2VBR1A0NkZxaGRwVVBuZ1Mvb0k4cEdkZlJSMVZEU09YcE0wTmRXZUw%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=EjwIxYMIZDLPRPEBXoVQejRzNHUyYlRrM2RIUFNrNFNYRWhMelNVbmpWZEVMdUdjWnlnWVJRSHlGVUNBSDB1K011b0p2ekFXRmZWNDRqbVg%3D",
       "positionen": [
         {
           "code": "06.01.01.0316",
@@ -294,7 +301,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=WcaCHKrzbsDYTpCukvYSl0hnUkhFbTZtL0hiTiswenN6MVk5elZLSzk5N0JUdHd4UE5XTlVJSzhXNTZpbEJiYnEzODFOQmtwOXk0VklrTTY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Gkxbvc42cxyg46gWZtizVkVoSW9jZE1SNTZuL3ljVk9oL2hGU1pIUEg1VC9meFEwVWRZTW5qMnA5ajhpcmRRRUxJSWg1QXZ6TlMvZXhkdkg%3D",
       "positionen": [
         {
           "code": "06.03.03.0050",
@@ -319,7 +326,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=pSbwsS%2F5sP%2FFBevCVajLl1ZtdzJ4NFBhck80MWIxblFXVTBucVVOeDJqUXVzNTdoVS9CeWtDSFRVZ3hNVXJDc0FudHJrS3h1aWpLTzFNMkU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=eG%2B%2F6B9ua%2FhBC7JrPCJzVGFUN0tvbXg1d08yMDh4UGczWkdpTHR6aXhzZG5QRzhYb0F6ZHZPM01qMHhYTnVOOXFDUmdyYXFBVjNIV3hWaWY%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -344,7 +351,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=7HL9Zv9Zw%2F6e3Dm%2BIoVy3HFtYUZ3bGRaL1BzaDhYZStYTWtJOTNDTFFCUnpPcVRXQ05MZnJlV01ZUUJHajI1TEs3YS9rSXhPbDF6V0I1eEU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=7uOo4Sb4L1wGtrVr8UIETyttSGdtRWhWUG92YUhabmc1YmhXeWlIczlMWDMvTTlWNVJsaXFSSVRFQVB3SUNSekpCRVdiQjFuWW5VK2Mwcno%3D",
       "positionen": [
         {
           "code": "06.01.01.0316",
@@ -369,7 +376,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=R9QSf%2FaCFaokX3BC8Rfp%2BzUzOHNqWkl3VjZTR0NObFNXTzRLUW5sblkvRE9hVTMzeWV5VGM4a1JjMFhuN2hJa2dTbGZFcEpNWWU2MmFZY0Y%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=laAC8FldVD5Lnm5UVEf4r3k1M3dSZWFocXZybjRaekpXY2VOL2NxbXM0VnBzSmk1WUd2cXFRY1A2ZC9DbXQ0dlFoR1JUYUtteXFZOTVXTHU%3D",
       "positionen": [
         {
           "code": "06.08.01.0010",
@@ -394,7 +401,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=%2FUjAa9%2FSVqakUdO%2B1KD3XlY0QjBGbDUraXJ0bGFhb3l6MlMyOWtrK0xvSEpWOFhqYUprUHg0ckJ1NlFUV2wzVXgyZG9LMzdtUlhNTW80MjY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=NRQjCkutZLkPH1ZkFua%2BsFo4ZTJtU1RzVkdRSzFQSnBKU3pLOFhlSUc4Z0VXWWg5Ky8zRFdmNnpmQ25XZzcrUXQ4bWlyRS9yRldlajk0T1Y%3D",
       "positionen": [
         {
           "code": "06.08.02.0300",
@@ -419,7 +426,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 0,
-      "leo_url": "https://leo-pro.de/index.php?q=pLYiP1l5MkvWTSl1Rx9kW1JHR2JrQjVjRlRHd2oyV3hnanlvaDAwZllDUUxzOEdBdXBPQnQ5SjB6L3lrS3BTMzBNamFNdHdsRnZRbzV6dmQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=EKFnklu%2FUj7D5%2FGpas7N1jZQd3pYSCtoaldSYldrWDIrdTF1RmtjNmJmNENrZXZUS1QzR3lIdHA5dWVYNjNkS1BmYlA5dDhNVERLUHRScFU%3D",
       "positionen": []
     },
     {
@@ -434,7 +441,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=OapUWdj7QeByqXDit19ErGVNbG1RWDVKQ28wMXJyZ1R2T0dZVUhXQncvcVZxUENUU1pDQVlOSklkUWJtYzBMMlA3VHZqS1J4RlpGYTZKVjk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=s4SjNC0apg4%2BbGQzovNgYElLMWgvdFRPR0tpN1luSTh3UUlBUVBiY2VZd1pVQW5WaEFYakRINU1kR3g2eW00WVMwUk5oR3VZUy95ZzAraEg%3D",
       "positionen": [
         {
           "code": "06.01.01.0520",
@@ -459,7 +466,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=3e2rjpeY302e1qMSCdVEMC81dE1NSlZVZ2k4T281bnprWUJva2xCNENwME51ZHRPcWhVc3A2dkFvclRXeFRZREFFVStFMzFUN29yeXBjV24%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=isPwFFVjvTrEMwuH1OS%2Fb3F6YXVMUWtJUDZaYzMyMmN6aFJxckJ6SEpNdXVtcDBwM3JIYWdEekZGUUgxdEJNVXRkM0xZSU1zWFFmajBYcjA%3D",
       "positionen": [
         {
           "code": "06.08.01.0070",
@@ -511,7 +518,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=G2obbCamsZRAtdAyoDV3zHZrOVgxbnk0RnBCWkg0SVFISnV1SWZWSUZPKzBrYStwRXhlWjYvTTRuUmJGZzdPMGVqRWh6UTJTb3QxZWJJUkQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=74p133mLu4KrgmjhoISA4TdnTWc5SU9zcCtubzhwOFJUZVN2ZlJIdW5NTEFHMGtRVmo1NTlSc3E5aHhCRG5YNEdkcitqaW92WEhsU2ZiTjg%3D",
       "positionen": [
         {
           "code": "06.01.01.0240",
@@ -545,7 +552,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=AG6KacMR1mr7onmPqv%2FrjlNBVDZxOWVDQXFadjBHdCtubkdPTGhxb09UWmc4OGxhV3pwWVh0MllUS000cUt1endoY3A4TE51bmdxS3FRcHc%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=0noKj29k1%2FLGkfuUCypT3VJMN2k5dVBhSGIxODVLdXVlWDNGdm4rSlpZMExuRnRpUjFjenBKeThUZHFlckhIUGU0bTlqVFA4NnR5cmszTEg%3D",
       "positionen": [
         {
           "code": "06.03.01.0740",
@@ -579,7 +586,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=1w0sFnCRxcDTKellVNjaejlLQURiODhhd2ZEOGIwdzZUTEFEd09NTWhmWVJHb0pPalZCdGc3RDkrRk8xampuZml2K0t6cWVjc3JmVXhsa0Y%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=mMragOt7acPv5eVvY6pDtG90dEVnQ0sxT0dlM3ovQllrU2pKM0VReXR0UUI3cU11ckZaVDgyY0FESEFaRC91UENoN3MyZW1RQTV5T1dGcFk%3D",
       "positionen": [
         {
           "code": "06.02.01.0050",
@@ -613,7 +620,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=rH%2BVfIs%2BTCKlMcXZXXXavklmZHY4dndvdURtcFp4bGlWN0tKSjZkSEtmdE4yM0tpRjZHSTFUa2hma0E3ZzIwVzZDOUo4S2RSUFBCT1JUZVA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Auocyt9Out3wbm%2F6o18GvmtHbEdsdklFTTB0N1Y4Z05zL1d1US8vcEFZbEVycmZNazRrOHk0Q2lLeWdJYk1EQUhaMnhsKzlzTDhzL0dOMk0%3D",
       "positionen": [
         {
           "code": "06.01.01.0316",
@@ -647,7 +654,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=9Fi8nODjXOvEEPVHqVf83WRBZ0xFUVZ0RkRtWEdaT1M2cXY1TmxVeUg0U2o2ZHZSSDZka0RIVGwzV1hzQ3QxcC9PV3poalcySjBXc2h6TlI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=M3yL9hjWT2z7AGPhpntnLG03SU9qb0JsSFZWc2dFOHVidERXUWYvOCsyWGVqYzQzQ0V1M3ZwN0VYbzNTQVp4M0tNTnBUNkYxeUZOTFZJdGI%3D",
       "positionen": [
         {
           "code": "06.08.01.0060",
@@ -672,7 +679,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=%2B0p3%2B98Ip9ZeihMW1FNinUxIdTNIcEVoNU9UMnYxVkpLTU52elpGdEdZWG9xWUE2VHU3VGlLYjBwVXRVTUZYWklLUWNLaWN6MU9MYjhLL2w%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=cLkmJm0hyizFBDqyKVq3RkxZVjBlYjVTRHVtK044d2hrSFZIaVRBTzRSdnc2bm02S2dCeEZQTFZESlBwTm5HY0JSWmR6d1o3cHJIUkIxZEY%3D",
       "positionen": [
         {
           "code": "06.08.01.0060",
@@ -697,7 +704,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=B%2FaafdlIRVQk96luj3C9omxRR3RXOHBDMTFMQTNSU3pBa1NlQlkwcjRvcDJVZmRZREJ1L001ckJvdThqV3RWdnVGaGJubjVGM3ZzeEt6LzE%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=4BrBRa19TEPJHl7%2F5YBUKEFyQ203Wi9hRVoyZWlEcG9NOUtMTjNML0lkaEZtWVhjYXBZUjJNblROTlc0NzkxdEtxMklnOFV4bk5zalVONzU%3D",
       "positionen": [
         {
           "code": "06.01.01.0010",
@@ -722,7 +729,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=co%2BA5E8Ir2m87vvra4YWIlBuWHdXMk9LZ3NyVEhReS82OXVoL2E1L2JQV2IremhTSnlHdFhKeDVPSWx5NnNSem1lU2RVeFkwR25rVzFUWWo%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=RGdCU4tvZCsvOF9K9GTYHUIrTXF5WTNablh0OXFCamRhWlVwV25ZOG5uOXR1b2F5Sm1nSU5xR3hBc2Q5U2x4MlhGY0FCaHJ0ajVEUHB2SFU%3D",
       "positionen": [
         {
           "code": "06.03.01.0420",
@@ -756,7 +763,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=q8QKxojUJAkH%2BSLNKzjV1VJXZVNlQTdLVDg5Snk4dGI3SGVCTmE4UTRpM2RwZmlsaExTR1RiQzdYSjZ4cm5LNWdKQzZsSzR5VU1wTTZyUFU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=zd8iIn4eSayxy28dvgYq%2FXdzdTlSbFFQZU8xNTlQeFZzOWRmcVR0aWlabEJnU0NBSGU3MGdhVEJPWnZqaSt3T1dIZ2ZERjJrRHJxWVlSZlc%3D",
       "positionen": [
         {
           "code": "06.08.02.0210",
@@ -790,7 +797,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=4Fb3Y3kqY%2BLcrLb7pmHC1nZBMTdSNG5qOVlkWXlrQWhYOEprSkNlQjFnVGpVNXRYNE90YkdFNFp4RFdSdGlBcmNaQjF1aHE1bDJGTUNKT1c%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=iIaRT3hygnaCWfnTGtn%2B82h2V3c3VDROV1BZMzkrUVJVbXBEOUNINWMxZWgxclZ3NitvTlNnTjE2SjYzb3lHblNDVnJvaDVoM1JCMHZHdTc%3D",
       "positionen": [
         {
           "code": "06.07.03.0050",
@@ -815,7 +822,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=vsd%2B2u3Hh5hn%2BHjSmzavszRxS042UzkzZ0NWUE1vY1lJYnhLbzhCcnA4M1RyVm5JTzQ2REtPQ0xzb1lQVjlQd0I4OFVaclRlR1RFckM5eVQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=p3c0S55jQfcTc1gRS4%2BYa1dmRlVEMzY1dHJyMmpaaFpFb2d6cFVMc0lkeWZlazBveFFZemlWdXB1d1hSejdielpLZ1VJMEtmZGc0c2dqbzM%3D",
       "positionen": [
         {
           "code": "06.03.01.0440",
@@ -858,7 +865,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=zwHdPVT%2Bb2Tr1oWy5m08E05QNUxXYkNZKzR6WWkzNXVPSzFaTklpOEZQOUVwWWZZSHMzdEtJQ211V2lrMzFydXpyMVdST2V1ZC9nL0FjQ1A%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=e8FDjqjd%2FxibVwlT%2FCLvtnVJcWJrSFZQU0wxQkY3UFdrN284RjI1TWFjVU5LT21rYU1nanRsSlBHWENBNkdXR0xkTXNHL2lPNExVdWdWSVQ%3D",
       "positionen": [
         {
           "code": "06.08.02.0300",
@@ -883,7 +890,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=eFpZyOW9Ta8qN6NsAptsUzlGbVZsNW5vaklacEM0dUNiWk5ERnZqbUtFaU1rcFBobmwwVGJXSDBOcU1QTXJTMWM4V01CeE5WdFNjZlVBd2k%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=TB0KusFvs%2BstUnMUTaJOunVaQzgyV05zamk1OFM3Q3U4M0V0NzVFY0ZyTGRmOW9tUkNrcm5jR2Z2NmpoUzg2TFFWajNUTGRzbEJ2UzhKSUQ%3D",
       "positionen": [
         {
           "code": "06.08.02.0350",
@@ -908,7 +915,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=QLxsdzubRyCF6QfKi707qWk5REgxUDk0Mkowb2h0WlhPMTlPK1VzT0ExUHo5cGtQVGJabE5QZlBaUStMc29ZcjIvcDNOQmpLSjlwRW0zU0w%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=ai%2FEMUmCk7As7jlW4xX%2F%2BHZEaFlOYm9Pd2FYb0tyUHZTb2xkbTNzMXBLRTFZcW02TnNZaEF4SjBZVjdiZlQ3OXlUMFZxWWJHNTNjU2RWcEI%3D",
       "positionen": [
         {
           "code": "06.01.02.0110",
@@ -933,7 +940,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=feJw%2B8HVLSYwKOMy0QJy1VJMTFNwU2ZGRWZKT2VUUzYxUkVBNnF1TUkyczFDZVZydjNYWFZwWlhiYnVDK1NFM05rUGtUcmxnM3F1eFM5dis%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=%2B4YgZsMNqiTk7iJw4q3bVDgwWXJqY3N0RFdNSk56ay9zTzE4Q1dBLzA4T05Sbm9QbzMvTmxQQXZxbStCbXVQMTJ6STVJb1oyNndCM2wwbDk%3D",
       "positionen": [
         {
           "code": "06.04.04.0125",
@@ -961,14 +968,32 @@
       "address": "Salzastraße 70, 26388 Wilhelmshaven",
       "lage": null,
       "leg": "LEG-159031-0",
-      "fortschritt": 90,
+      "fortschritt": 70,
       "ausfuehrungsbeginn": "15.06.2026",
       "fertigstellung": "16.06.2026",
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 10,
-      "leo_url": "https://leo-pro.de/index.php?q=2pCfQ2S9EgalVy0yyOO%2BG2N4UW1nTklNakE1cEptNS9BckNmYVgzZGZMMnVoTlltaHNWLzFFZ0s4MllJTERSc1kwZ1hkek5YSHJHWFJ6WDg%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=SwFTTO5NVsiKcrvc5vVKYTBkcFUvZEhZNkd6MWZETHB0ZDE3WUpRNDMyZTRhbmoxQVRXL09jbURoZzJ2bm1LMEJ2Q0xYeXNwUTdYZi9ESGo%3D",
       "positionen": [
+        {
+          "code": "06.04.04.0125",
+          "gewerk": "Fliesen (i)",
+          "status": "angenommen",
+          "leistung": "Fuge. Silikonfugen erneuern (Gewerkecluster x4.2)",
+          "bereich": "Bad, Küche, Schlafzimmer, Wohnzimmer",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "m 6,50"
+        },
+        {
+          "code": "06.06.01.0030",
+          "gewerk": "Tischler (i)",
+          "status": "angenommen",
+          "leistung": "3 Zi-Whg mit Küche-Diele-Bad / Türen gang- u. schließbar machen (Gewerkecluster x6.2)",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausgeführt, teilweise am schleifen.",
+          "menge": "psch 1,00"
+        },
         {
           "code": "06.99.99.0001",
           "gewerk": "Sonstige (i)",
@@ -979,9 +1004,18 @@
           "menge": "psch 2,00"
         },
         {
+          "code": "06.99.99.0001",
+          "gewerk": "Sonstige (i)",
+          "status": "Mangel behoben",
+          "leistung": "WAGO Klemmen liefern und montieren",
+          "bereich": "Wohnung",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "psch 1,00"
+        },
+        {
           "code": "06.08.02.0320",
           "gewerk": "Elektro (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "Geräteanschlussdose liefern und anschließen (Gewerkecluster x8.1)",
           "bereich": "Küche",
           "mangel_beschreibung": "Nicht ausgeführt",
@@ -990,25 +1024,16 @@
         {
           "code": "06.08.02.0340",
           "gewerk": "Elektro (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "Entfernung von elektr. Mietereigentum (Gewerkecluster x8.1)",
           "bereich": "Eingangsflur, Schlafzimmer",
           "mangel_beschreibung": "Nicht ausgeführt",
           "menge": "Stk 3,00"
         },
         {
-          "code": "06.04.04.0125",
-          "gewerk": "Fliesen (i)",
-          "status": "Mangel behoben",
-          "leistung": "Fuge. Silikonfugen erneuern (Gewerkecluster x4.2)",
-          "bereich": "Bad, Küche, Schlafzimmer, Wohnzimmer",
-          "mangel_beschreibung": "Nicht ausgeführt",
-          "menge": "m 6,50"
-        },
-        {
           "code": "06.03.05.0240",
           "gewerk": "Maler (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "Versiegelung Fugen mit Acryl bis 5,0 m (Gewerkecluster x3.1)",
           "bereich": "Bad, Kinderzimmer, Küche, Schlafzimmer, Wohnzimmer",
           "mangel_beschreibung": "Nicht ausgeführt",
@@ -1017,25 +1042,16 @@
         {
           "code": "06.06.01.0190",
           "gewerk": "Tischler (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "Lüftungsschlitz einbauen als Zulage (Gewerkecluster x6.2)",
           "bereich": "Küche",
           "mangel_beschreibung": "Nicht ausgeführt",
           "menge": "Stk 1,00"
         },
         {
-          "code": "06.06.01.0030",
-          "gewerk": "Tischler (i)",
-          "status": "Mangel behoben",
-          "leistung": "3 Zi-Whg mit Küche-Diele-Bad / Türen gang- u. schließbar machen (Gewerkecluster x6.2)",
-          "bereich": "Wohnung",
-          "mangel_beschreibung": "Nicht ausgeführt, teilweise am schleifen.",
-          "menge": "psch 1,00"
-        },
-        {
           "code": "06.06.02.0030",
           "gewerk": "Tischler (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "3 Zi-Whg mit Küche-Diele-Bad / Fenster gang- u. schließbar machen (Gewerkecluster x6.2)",
           "bereich": "Wohnung",
           "mangel_beschreibung": "Schwergängig",
@@ -1044,20 +1060,11 @@
         {
           "code": "06.99.99.0001",
           "gewerk": "Sonstige (i)",
-          "status": "Mangel behoben",
+          "status": "Mangel behoben & geprüft",
           "leistung": "Rohrschellen liefern und montieren",
           "bereich": "Wohnung",
           "mangel_beschreibung": "Nicht ausge",
           "menge": "psch 14,00"
-        },
-        {
-          "code": "06.99.99.0001",
-          "gewerk": "Sonstige (i)",
-          "status": "Mangel behoben",
-          "leistung": "WAGO Klemmen liefern und montieren",
-          "bereich": "Wohnung",
-          "mangel_beschreibung": "Nicht ausgeführt",
-          "menge": "psch 1,00"
         }
       ]
     }
@@ -41180,7 +41187,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=KUN9t8tEykWMyzdVfq70kEx1bnVNZERCTjhySGZGWjFCVm16d0J6VU03L0xnTUtqQnovQnpFdDdzak41SzBCbFM0WTR3d1lRYW5aU1RtRFY%3D",
       "has_mangel": false
     },
     {
@@ -41333,7 +41340,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=zB2M6IvDq7SC9VsQ3CUtG1ZqelpjYjNxMXNNZVppV2YvMFhzUElvQjNiS0diL1N0R0phUHMvb093TGlTWEhRWmdiZVQ5NlBTZDJDVHBidW4%3D",
       "has_mangel": false
     },
     {
@@ -41418,7 +41425,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=at%2FcT%2Boe4DGQiYoK%2FdyUAGJtZXhscEY0eGhyY29kS1hNYVZRaHduekhUZHpjN1NIZjZiSUZSUWhKYk9TTGMwYStZMGRtRDFOcDJVbiswbGE%3D",
       "has_mangel": false
     },
     {
@@ -41707,7 +41714,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=0Oo797sxuWrr%2FT3ft9CAejdzMFZDdWg3a2d3ODczSW4xM0hRMWNEV0trMnhJeU9lRkpyWGR3Z1lJSVlzTmdrNWw0N3kvMzRXY2NxMzJDdEk%3D",
       "has_mangel": false
     },
     {
@@ -41792,7 +41799,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=csKmda6cTDCCryR%2BVXSivkxiQ0lRQ0FuMmZoRHcyZ0U3Z0tUUnZCOWFVd20xa0NpTXVFSmxKTHBmeEE1QWxvamhLQklrOFdKOFJuRUNTTHk%3D",
       "has_mangel": false
     },
     {
@@ -42438,7 +42445,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=qyOIt6l68J3p3z%2FMvO2eI0pJZXJ1RWdxNHJSeWZFOW02UktIR0oxY1UrMU9PbDhnVnlTSG1SZ21KbzAzTVUzYnk2cFFUeU5IWU1XdWU4U0M%3D",
       "has_mangel": false
     },
     {
@@ -42523,7 +42530,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=0Dy9CrHv4z9Ie4pbsIFHCkJWNlNQbzR2TUJXYWNPTWpFSjc0a09EVGN1YzFZeE5iMnhCSWV4ak1sdmdCWXBJNjk0aTE1aGtDNnpteUtETEM%3D",
       "has_mangel": false
     },
     {
@@ -42829,7 +42836,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=Cfl%2Fe9KLWFxQoz4F2vGlfGdBS2VqU2MyaERtVG9VQzRiTkdDenM1dW51Um1hRy9kWlovRXFxTUROSDh0aGI3WUdYbjg5akhHSnBheTNKcVc%3D",
       "has_mangel": false
     },
     {
@@ -42897,7 +42904,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=3ap7UsCN1lU7pYfxa3a%2BnndvenNQamo5dUVRUC9iTTNSRXVNUkVpVFNHL1V0Q3hhb2FVbjBneDBhQ2NFeDgyTXlYZFl4NGROWGkyblFRRG8%3D",
       "has_mangel": false
     },
     {
@@ -42999,7 +43006,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=4w1AONNvp238UOJkdzvf4GgwVkJWNkJsTjhqVnZuaGJBSjk3T2NoekxuYlVRNndIejNGRVh2OWtVem9oZzJLRGRESUVPOXlFUEZ3U01KdkE%3D",
       "has_mangel": false
     },
     {
@@ -43016,7 +43023,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=ZwWaOP89LaTQF6uWMtr3CDNjUzRTeGZtWnF0cWtOVmR5S2FsRGc3ejN4d1dueUExLzJvWGQ0cFpoQ29WL0NKY2FOcDZZWVUwOTlJVzRuSFo%3D",
       "has_mangel": false
     },
     {
@@ -43033,7 +43040,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=6cIHJwN1bkKXkgP46c%2Fhxzg1S2ZxdlUzOWc0WmtsUGtXOHlOU0ZTNlFkb2tBV2JjUkxxVDM0b3R2eW9nSE1OanVpWFhrTkgwK3ZqL1ZDOGo%3D",
       "has_mangel": false
     },
     {
@@ -43169,7 +43176,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=0ySi6rp6vjHECH1xbmxvp2QrSVNiTWwyWXgwMkhueGpnL1lIR0NGd1VtSklEQWRnNDQ0dytFY3ZnRVhTTDYrNFFxR2RsVmxNUjFjUkQ2VzM%3D",
       "has_mangel": false
     },
     {
@@ -43203,7 +43210,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=ZJ267%2FoZGF6W1SrPRhjCY0EvYlVxYU82dnZoN29ESHE3bDRJR2E2cTZrZC9vcEQxakxWcEFrMklTamdJSkNXcE5QMW92Wm9heDJFMUZGODA%3D",
       "has_mangel": false
     },
     {
@@ -43373,7 +43380,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=fP7NNjYLD9jwIVPkAVg4aUVZejljeW1VU2VFVkdZc3V2TVdzeTkvci9WMzJlSlVnNm1MYmdkOUhpb21xUUx1VlFuY0lualFuY0NIRW1DaEQ%3D",
       "has_mangel": false
     },
     {
@@ -43390,7 +43397,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=lrZNo6qcK7ENayr%2BFIjl4m5CNElUajdFNXlNekd0R3VhVE9mOWtxTkZQUkNQSUx3bTZxZklWUzIzVWxjUEE4WU9sM3Z2RHIvbmh0aGZrQ3Q%3D",
       "has_mangel": false
     },
     {
@@ -43526,7 +43533,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=p95fdRsoE%2BjLeShcS9bgizArZTdiaU9RbERLcUNVeE43eFFVYVdpNjJlOUdNVDdHajVZUUQrclV2T3FTT21JcGJpbk9aa0trcE9hSmYzZ0s%3D",
       "has_mangel": false
     },
     {
@@ -43645,7 +43652,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=01uGVbhbyEhzrxKAjZrJ92dWVzdwMlpiNURjdG84VHdabmlyWWlCMEM3cDZtS3hxNW5lcjFLYzRJN0lCKzFHdHVwczJqbkh2Q2xnc00ra2w%3D",
       "has_mangel": false
     },
     {
@@ -43696,7 +43703,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=v79Uw5U%2FKuhxQN3A0dF7oUlYRTdaMlpCN1pFVXFpcFdiUGRsRDg2enNRc1JjM3FpVHpVVXA4T1JSZVpXMVFKTjhGdXRXcnhxZy9lQS9zaFY%3D",
       "has_mangel": false
     },
     {
@@ -43849,7 +43856,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=jn0fuhJeDGBzgpVdd%2BOPfTRoSzY2UEpCdDNHR0JkbkkxVEtYY3dwUVVSTUZwdDlTVVZuQ0IzTXVqUGJtN3JnUnNlNkhKOGJMbkNpU2lDQ2g%3D",
       "has_mangel": false
     },
     {
@@ -43917,7 +43924,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=uF80p%2FyiAtQL%2BeyQotwe0E5jMUFnd3hUZENPSTdjTUFGS0tTTGRvV0dZQ3Z6R09XaGFFUkU2Zm5FTy9sUitDUFBYelR3c1JyWUd0TnJidVc%3D",
       "has_mangel": false
     },
     {
@@ -43934,7 +43941,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=MbVSY7%2F0c7WsAn6NrHHDaWlORE11cE1hL3ExNE9VVUJnM2swZ09HeHFYZFhLaENzbW8vTXg4ZUc1SVFlbXI2MUhZRnVPQXRXUGJvajlKRVI%3D",
       "has_mangel": false
     },
     {
@@ -43968,7 +43975,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=5IAmfT%2FlqNJAh94CB%2FOjxXp2TUtOQVFkNHA5OHgzRTA1OWpEYXphY2V1WEhra05KbHlRL1JtYlpiVEQzM1pBNUQwR2hSNEN5aXg0QTAvcUY%3D",
       "has_mangel": false
     },
     {
@@ -44070,7 +44077,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=5BOBJoHqDs%2Fvl5o%2FYtcjWE1Ld3VUREFJRDNBRjBuZWNuREVJajhnRllPb0ErV01XM21QQm5yM1B4MnRpT1ZmSitpNmVTd1FBZWp0NWMybkE%3D",
       "has_mangel": false
     },
     {
@@ -44104,7 +44111,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=nrjKJHVv8UtsuEo1Tb%2BLvnE1SjJIaDdvU3gyRGZMVDBBM1lFaVV1aStQeXpCdXUyRnpkazdxNlpGNmUwcWxIcTFtK2pOWXl5VWZMUGlzcis%3D",
       "has_mangel": false
     },
     {
@@ -44121,7 +44128,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=XLAp0p%2BCP131RF15D4vw6jlYWXpNdVV1alZpRmxtU2NZRHFNOUN2YzhPQ1JKZUR1VkR4anREeWR1QmlEekhLS3A4SlFMWWR5cFRSOElucFE%3D",
       "has_mangel": false
     },
     {
@@ -44155,7 +44162,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=WsFnMP50KLG5D3OHEAP%2BznVZSngvcmNyZHlYSVppOU5aQkJod2UwanpOcUxKcnlMTlhTdG1NTEF6dzhGUTU2MnE1RE50WmdzcUlEd1NMK0c%3D",
       "has_mangel": false
     },
     {
@@ -44257,7 +44264,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=4s8%2FbHy7Mdpx5UdQ83L%2FuEJLS29UZERZWkduTFJDd1JSV2N4UWpwb2Z6bGtTSXpVR0traU5iM2hpZExaWkRheTJHY0NBTUQyL0c4aTFhQys%3D",
       "has_mangel": false
     },
     {
@@ -44308,7 +44315,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=EOPsTqLkriMfNH2R2CF2pHNQVGVJK0NITnVzdU5QcHk1a2E1aXVya2lKQ0tVMGVWbkI0dG9zTXZKOXlyTHJIZjZhS1BweElHMTJ3MTRnbnk%3D",
       "has_mangel": false
     },
     {
@@ -44325,7 +44332,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=jksfJugKUVOuLSmE2%2FeigGtIUnJQM3huVVZNNy9MT2VxTDZoenN3ZzlSaWV0UisySHJIMmVlZ0V2M2RXK3dmNHVNTHUzRS83dmwwRFNZQ1c%3D",
       "has_mangel": false
     },
     {
@@ -44495,7 +44502,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=gqKLNFV4JVPjaiKby2oiAlA0Z3BKZ2FzL042aVprWEgzZU5ud0RuTWdOK0RrNFN5Y3IvQ2VyNzhrMzFNa21OUjJZSExMbmdwT29jeTcxNWg%3D",
       "has_mangel": false
     },
     {
@@ -44546,7 +44553,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=w0dOVQLOstGmmXVnYt%2BBOzV3bXpQYUcwaE5TRmNHUGYwVWdIbmQwMDhxazhZYkJQOTVIZElSZlJ3NHZER1FrQ3BvVkxaQ3dpZFpPSXBKQ0M%3D",
       "has_mangel": false
     },
     {
@@ -44682,7 +44689,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=3MF6%2B5cYHVlTlyIQv9ZN4nM5aFFPcGI4QVI4Y3YzekJpSVpZVmF5SlZad1dTL3ExOG43Wmdtd0JudjRNODh1dURHamQxTmd4NnF2Um9tY0M%3D",
       "has_mangel": false
     },
     {
@@ -44767,7 +44774,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=7xGeAQWBvOfINs9gLcY27EdiWnhJVWNCdEZHM2lhMHFLdUM0d0ZoVWwrT0I3dnpSVXorVjRMWUFwYVNrcWxtT2Q5aUlQTkdjakVCcUdiYWY%3D",
       "has_mangel": false
     },
     {
@@ -45141,7 +45148,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=8y0GLi%2FQAgBoK6Dzc5Iwv0xOUXJCR0RkYUdtOTJpOXZ1Z3haQ3MwcXRaNTlNdVBqcERLOWN3YmdIUC9PdjF2ZW5pSTl4OE9YejY0TmpYaGc%3D",
       "has_mangel": false
     },
     {
@@ -45209,7 +45216,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=sYDOnz%2Fed4X1jHvwhryPHzVVTGVlK2VBTjFqdWZEdnhzM2ttczhHZWNRSVZGMjF0NXM5UXROdlE0WDJyT2F6clh6U3ZhSEY2ZTVWeVNUcm8%3D",
       "has_mangel": false
     },
     {
@@ -45260,7 +45267,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=CO7jo7Z6Wh99bta2lkBzd09yS0FITVNhUHFuZ281dU5nd1kwbEFUUkNicU9wMENZMmc0VE45UENDb2V1WDNJVExhWWtPREQ3eWpjQlNmNGg%3D",
       "has_mangel": false
     },
     {
@@ -45277,7 +45284,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=%2Bcsg3mhGpp6LH28t5myAgmpjSCtRY2RTdkpzQ0xXRlFrYUk3cFRLUGszSU15NUlsTmF6M1h1QXpvZ0RPaHV4Q09uT1RxSlgvNS8vS0l0K0M%3D",
       "has_mangel": false
     },
     {
@@ -45345,7 +45352,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=pZ7A9rK6W4HwKvWsZYFPq2t3SGtKaWw5ZUxSUE5LVVlhclRJQk16bUUyNWszNTcxajdrcE10ckJnQ0xIT2MyNmVJNDM1VWZLSkt3WU0rZW8%3D",
       "has_mangel": false
     },
     {
@@ -46297,7 +46304,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=oC2fRgNSTc8N8XW9TO9o7kt5cXhNTUZXaVNzbEtNdlhrclplbVFqT2ZQbFdNakxZRS9xanY2ZXJIcmF5SkxDZzhIQ1RwekljLzZYb2krNnU%3D",
       "has_mangel": false
     },
     {
@@ -46433,7 +46440,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=MAfKXbpiEzgFEjlh5C1e9FR1TnNTUEpEbDJjeG4zblhsQ3AycDkrOEtjODUyWTNUMHZDQXdKd1EvMUZ3LzFjUG53eGtGK2pZM3JudklkSGc%3D",
       "has_mangel": false
     },
     {
@@ -46450,7 +46457,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=5rF6GuwOOQQJ5bUpdoOL4G9LTXVSZVBiVDB3VnBBZ2NhMHNaTUdPWkV2OWpVQ21oVk9VNkU4bmJSU0p6aktXVmpOUEY0RFNXQUNIKzhRNGg%3D",
       "has_mangel": false
     },
     {
@@ -46552,7 +46559,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=vl%2FqOb1ZKbHqIPpJteSFj0g2RkJScnA4R3IyV0UwZVg2Y1FqU2RQRU1TQ1ZBcHAyWDRqWElZdzR2WTl0Q3E3cXFLRzh5S2J0d1ByaDhVNFg%3D",
       "has_mangel": false
     },
     {
@@ -46858,7 +46865,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=EL5c230RP5rDRb5W4tGCj0x1eC9TS3Y3ZXZnazl6eDFkblJWcmFRZXZRaVhOSnJuQWZvTzFqdlV2ZXBBcmRwMjB5M3JaTFQxKzRkRlNPYm4%3D",
       "has_mangel": false
     },
     {
@@ -74755,7 +74762,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=9XilITvLcrnQgR1N%2FdEM5E5TYUdVdlA3K0U3RUd1YXJUUlBNM1JySmhGa2lTVHJtK1l1d0VITml2RERUUHhYRUllYnlkMTFqWlBkOUVTQ2w%3D",
       "has_mangel": true
     },
     {
@@ -74882,8 +74889,8 @@
       "address": "Wilhelm-Busch-Straße 3, 38448 Wolfsburg",
       "lage": "7. Obergeschoss rechts",
       "bauleiter": "Roman Bartsch",
-      "start": "03.08.2026",
-      "ende": "05.08.2026",
+      "start": "25.06.2026",
+      "ende": "25.06.2026",
       "amount": 259.55,
       "fortschritt": 0,
       "status": "Veröffentlicht",
@@ -75401,7 +75408,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=p12bBZG7MmOhd8W2ME2H%2FFBicVZvNFFITlZzc3JOZGtZZFBJbXJVY1FwcFRlc3h6RGladmprdUtIaUROVWRxVDF4dHFobkJPVHVLZyt5aEw%3D",
       "has_mangel": false
     },
     {
@@ -77254,7 +77261,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=EdNqrcKTBXROvGVIqtR95zVib2JUMHJ2cWlNSE1JdUR4aTVWejl0ZlJIR2ZjbDlLL3UwdDFabU9vUFlmZ2xLVmlxNU95UnhpVXdoMUh5ZjI%3D",
       "has_mangel": false
     },
     {
@@ -77560,7 +77567,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=rvF1ODKQk5tMtRaAkxhykXFXblFIdjI5NmROVHZhb1Z6NWxuMnNFM1hNVjQ4VXF5Tk1vaGJvcUtqRUVkcXllSmNOY2VyTkF4cUVCVjBTMFk%3D",
       "has_mangel": false
     },
     {
@@ -77577,7 +77584,7 @@
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
-      "leo_url": null,
+      "leo_url": "https://leo-pro.de/index.php?q=%2FSzFjIOBLtiZUuuRyNzLwXNOZVc0U3lLclNWZW9VYXdjRngxTG0rOW5YcXN4NXFuM2JYUFJINUY3d0dQWTFtWHFPRnFNbHdIOVJPc3RjUXc%3D",
       "has_mangel": false
     },
     {
@@ -77886,5 +77893,6 @@
       "leo_url": null,
       "has_mangel": false
     }
-  ]
+  ],
+  "rechnungen": []
 }
