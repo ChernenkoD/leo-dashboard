@@ -525,12 +525,16 @@ def parse_projects(page):
         CLOSED = ["beendet", "abgeschlossen", "schlussgerechnet", "storniert"]
 
         projects = []
+        seen_lws = set()
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
             lws = str(row[I2_LWS] if I2_LWS < len(row) else "").strip()
             if not lws or not lws.startswith("LWS-"):
                 continue
+            if lws in seen_lws:
+                continue  # дубликат — пропускаем
+            seen_lws.add(lws)
 
             status = str(row[I2_STA] if I2_STA is not None and I2_STA < len(row) else "").strip()
             fortschritt = 0
@@ -615,14 +619,19 @@ def scrape_archiv(page):
                     ws = wb.active
                     h = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
                     print(f"  Rechnungen колонки: {h[:20]}")
+                    # Суммируем по LWS — один проект может иметь несколько счетов
+                    rech_by_lws = {}
                     for row in ws.iter_rows(min_row=2, values_only=True):
                         if not any(row): continue
-                        result["rechnungen"].append({
-                            "lws":    str(row[0] or "").strip(),
-                            "betrag": parse_amount(row[1]) if len(row) > 1 else None,
-                            "datum":  fmt_date(row[2]) if len(row) > 2 else None,
-                            "raw":    list(row[:10]),
-                        })
+                        lws_r = str(row[0] or "").strip()
+                        if not lws_r: continue
+                        betrag = parse_amount(row[1]) if len(row) > 1 else None
+                        datum  = fmt_date(row[2]) if len(row) > 2 else None
+                        if lws_r not in rech_by_lws:
+                            rech_by_lws[lws_r] = {"lws": lws_r, "betrag": 0, "datum": datum, "count": 0}
+                        rech_by_lws[lws_r]["betrag"] += betrag or 0
+                        rech_by_lws[lws_r]["count"] += 1
+                    result["rechnungen"] = list(rech_by_lws.values())
                     wb.close()
                     print(f"  Ausgangsrechnungen: {len(result['rechnungen'])} Einträge")
                 else:
