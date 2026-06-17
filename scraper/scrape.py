@@ -599,41 +599,55 @@ def scrape_archiv_maengel(page):
         return {}
 
     try:
-        # Открываем архив через меню профиля
-        page.goto(f"{BASE}/index.php")
-        page.wait_for_load_state("domcontentloaded", timeout=20000)
-        page.wait_for_timeout(1000)
-
-        # Кликаем на аватар/профиль чтобы открыть меню
-        for sel in ["[data-action='profile']", ".user-avatar", ".nav-user", "text=Admin", ".profile-btn"]:
-            try:
-                btn = page.locator(sel).first
-                if btn.count() > 0:
-                    btn.click()
-                    page.wait_for_timeout(500)
-                    break
-            except Exception:
-                continue
-
-        # Ищем ссылку Archiv в меню или в навигации
-        archiv_link = page.locator("a:has-text('Archiv'), a[href*='archiv']").first
-        if archiv_link.count() > 0:
-            archiv_link.click()
+        # Archiv открывается через dropdown профиля — пробуем разные варианты
+        archiv_opened = False
+        for url in [
+            f"{BASE}/index.php?page=archiv",
+            f"{BASE}/index.php?q=archiv",
+            f"{BASE}/archiv",
+            f"{BASE}/index.php/archiv",
+        ]:
+            page.goto(url)
             page.wait_for_load_state("domcontentloaded", timeout=15000)
-            page.wait_for_timeout(1000)
-        else:
-            page.goto(f"{BASE}/index.php?page=archiv")
-            page.wait_for_load_state("domcontentloaded", timeout=15000)
-            page.wait_for_timeout(1000)
+            page.wait_for_timeout(500)
+            if "archiv" in page.url.lower() or "Archiv" in page.title():
+                archiv_opened = True
+                break
 
-        print(f"  Archiv URL: {page.url}, title: {page.title()}")
+        if not archiv_opened:
+            # Кликаем на аватар/имя пользователя чтобы открыть dropdown
+            page.goto(f"{BASE}/index.php")
+            page.wait_for_load_state("domcontentloaded", timeout=20000)
+            page.wait_for_timeout(1000)
+            for sel in [".user-menu", ".avatar", "[class*='user']", "[class*='profile']",
+                        "[class*='account']", "img[src*='avatar']", ".nav-right a"]:
+                try:
+                    el = page.locator(sel).first
+                    if el.count() > 0:
+                        el.click()
+                        page.wait_for_timeout(600)
+                        lnk = page.locator("a:has-text('Archiv')").first
+                        if lnk.count() > 0:
+                            lnk.click()
+                            page.wait_for_load_state("domcontentloaded", timeout=15000)
+                            archiv_opened = True
+                            break
+                except Exception:
+                    continue
+
+        print(f"  Archiv URL: {page.url} | opened={archiv_opened}")
+        # Логируем все ссылки чтобы понять структуру
+        all_links = [(l.inner_text().strip()[:40], l.get_attribute("href") or "")
+                     for l in page.locator("a").all() if l.inner_text().strip()]
+        print(f"  Все ссылки на странице: {all_links[:30]}")
+
+        if not archiv_opened:
+            return {}
 
         # Кликаем на Mangelaufträge
         mangel_link = page.locator("a:has-text('Mangelaufträge'), a:has-text('Mängelaufträge')").first
         if mangel_link.count() == 0:
-            # Пробуем все ссылки на странице
-            links = [(l.inner_text().strip(), l.get_attribute("href")) for l in page.locator("a").all()]
-            print(f"  Archiv ссылки: {[(t,h) for t,h in links if t][:20]}")
+            print("  Mangelaufträge ссылка не найдена на странице Archiv")
             return {}
         mangel_link.click()
         page.wait_for_load_state("domcontentloaded", timeout=15000)
