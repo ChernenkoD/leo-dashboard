@@ -27,7 +27,7 @@ jobs:
 
       - name: Restore LEO session
         working-directory: scraper
-        run: echo "$LEO_SESSION" > storage_state.json
+        run: echo "$LEO_SESSION" | base64 -d > storage_state.json
         env:
           LEO_SESSION: ${{ secrets.LEO_SESSION }}
 
