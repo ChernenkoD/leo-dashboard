@@ -324,17 +324,21 @@ def parse_mangel(page):
     return maengel
 
 
-def parse_amount(text):
-    """'18.196,64 EUR' → 18196.64"""
-    if not text:
+def parse_amount(val):
+    """Excel float 18196.64 или строка '18.196,64 EUR' → float"""
+    if val is None:
         return None
-    m = re.search(r"([\d.]+,\d{2})", str(text))
-    if not m:
-        return None
-    try:
-        return float(m.group(1).replace(".", "").replace(",", "."))
-    except Exception:
-        return None
+    # Уже число из Excel
+    if isinstance(val, (int, float)):
+        return float(val) if val > 0 else None
+    # Строка с немецким форматом
+    m = re.search(r"([\d.]+,\d{2})", str(val))
+    if m:
+        try:
+            return float(m.group(1).replace(".", "").replace(",", "."))
+        except Exception:
+            pass
+    return None
 
 
 def fmt_date(val):
@@ -367,14 +371,12 @@ def parse_projects(page):
 
     table_id = "datatable_auftrag_laufend"
     while True:
-        found_new = False
         for link in page.locator("h5.section a.link-bold").all():
             try:
                 lws = link.inner_text().strip()
                 href = link.get_attribute("href") or ""
                 if lws and href and lws not in url_map:
                     url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-                    found_new = True
             except Exception:
                 continue
 
@@ -382,8 +384,6 @@ def parse_projects(page):
             f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
         ).first
         if next_btn.count() == 0:
-            break
-        if not found_new:
             break
         try:
             next_btn.click()
