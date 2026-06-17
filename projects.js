@@ -62,7 +62,8 @@ function filtered() {
     }
     if (baustopOnly) { if (!isBaustop(p)) return false; } else { if (isBaustop(p)) return false; }
     if (mangelQuery === "yes" && !p.has_mangel) return false;
-    if (mangelQuery === "no" && p.has_mangel) return false;
+    if (mangelQuery === "archiv" && !(p.archiv_mangel_count > 0)) return false;
+    if (mangelQuery === "no" && (p.has_mangel || p.archiv_mangel_count > 0)) return false;
     if (cityQuery) {
       const last = (p.address || "").split(",").pop()?.trim() || "";
       const city = last.replace(/^\d{4,5}\s*/, "").trim();
@@ -120,9 +121,12 @@ function renderTable() {
   }
 
   body.innerHTML = list.map(p => {
+    const archivCount = p.archiv_mangel_count || 0;
     const mangelIcon = p.has_mangel
-      ? `<span class="mangel-dot has" title="Hat Mängelauftrag">M</span>`
-      : `<span class="mangel-dot none">—</span>`;
+      ? `<span class="mangel-dot has" title="Aktiver Mängelauftrag${archivCount ? ` + ${archivCount} im Archiv` : ''}">M${archivCount ? ` <small>(+${archivCount})</small>` : ''}</span>`
+      : archivCount > 0
+        ? `<span class="mangel-dot archiv" title="${archivCount} Mängelauftrag im Archiv">${archivCount}</span>`
+        : `<span class="mangel-dot none">—</span>`;
     const rowClass = isBaustop(p) ? ' class="row-baustop"' : "";
     const leoLink = p.leo_url
       ? `<a href="${p.leo_url}" target="_blank" class="lws-link">${p.lws}</a>`
