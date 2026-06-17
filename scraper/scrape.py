@@ -370,14 +370,17 @@ def parse_projects(page):
     # ── 1. URL-кэш: только "Laufende Aufträge" (активные ~50 стр) ──
     if full_scrape:
         page.goto(f"{BASE}/index.php")
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state("networkidle", timeout=30000)
         page.click("text=Projekte")
         page.click("text=Übersicht")
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state("networkidle", timeout=30000)
         # Остаёмся на "Laufende Aufträge" (вкладка по умолчанию)
         # НЕ переключаемся на "Alle Projekte" — там 450+ страниц
         table_id = "datatable_auftrag_laufend"
+        url_page = 0
         while True:
+            url_page += 1
+            print(f"  URL-страница {url_page}...")
             for link in page.locator("h5.section a.link-bold").all():
                 try:
                     lws = link.inner_text().strip()
@@ -400,48 +403,9 @@ def parse_projects(page):
             json.dump(url_map, f, ensure_ascii=False, indent=2)
         print(f"  URL-кэш обновлён: {len(url_map)} записей")
 
-    # ── 2. Baustopp из Herunterladen Excel (колонки Q=Baustopp Start, R=Ende) ──
-    baustopp_map = {}  # lws → {baustopp, baustopp_start, baustopp_ende}
-    try:
-        # Переходим на Übersicht → Alle Projekte для скачивания Excel
-        page.goto(f"{BASE}/index.php")
-        page.wait_for_load_state("networkidle")
-        page.click("text=Projekte")
-        page.click("text=Übersicht")
-        page.wait_for_load_state("networkidle")
-        try:
-            alle_btn = page.locator("text=Alle Projekte").first
-            if alle_btn.count() > 0:
-                alle_btn.click()
-                page.wait_for_load_state("networkidle", timeout=8000)
-        except Exception:
-            pass
-
-        with tempfile.TemporaryDirectory() as tmpdir:
-            with page.expect_download(timeout=30000) as dl_info:
-                page.locator("text=Herunterladen").first.click()
-            dl = dl_info.value
-            xl_path = f"{tmpdir}/baustopp.xlsx"
-            dl.save_as(xl_path)
-            wb2 = openpyxl.load_workbook(xl_path, read_only=True, data_only=True)
-            ws2 = wb2.active
-            h2 = [str(c.value or "").strip() for c in next(ws2.iter_rows(min_row=1, max_row=1))]
-            print(f"  Herunterladen колонки: {h2}")
-            for row in ws2.iter_rows(min_row=2, values_only=True):
-                lws = str(row[0] or "").strip()
-                if not lws:
-                    continue
-                bs_start = fmt_date(row[16]) if len(row) > 16 else None  # Q
-                bs_ende  = fmt_date(row[17]) if len(row) > 17 else None  # R
-                baustopp_map[lws] = {
-                    "baustopp": bool(bs_start),
-                    "baustopp_start": bs_start,
-                    "baustopp_ende": bs_ende,
-                }
-            wb2.close()
-        print(f"  Baustopp данные: {sum(1 for v in baustopp_map.values() if v['baustopp'])} проектов с Baustopp")
-    except Exception as e:
-        print(f"  Baustopp Excel ошибка: {e}")
+    # ── 2. Baustopp из P-03 (колонки Q=Baustopp Start, R=Baustopp Ende) ──
+    # P-03 сам содержит Baustopp Start/Ende — берём оттуда, не нужен отдельный Excel
+    baustopp_map = {}  # заполним при парсинге P-03 ниже
 
     # ── 3. P-03 из Berichte — все проекты с суммами ──
     page.goto(f"{BASE}/index.php")
@@ -496,7 +460,10 @@ def parse_projects(page):
             status = str(cv(row, "Status") or "").strip()
             abgeschlossen = any(k in status.lower() for k in CLOSED_KEYWORDS) or fortschritt >= 100
 
-            bs = baustopp_map.get(lws, {"baustopp": False, "baustopp_start": None, "baustopp_ende": None})
+            # Baustopp из P-03 если есть колонки (Q=Baustopp Start, R=Baustopp Ende)
+            bs_start = fmt_date(cv(row, "Baustopp Start") or cv(row, "Baustopp Beginn"))
+            bs_ende  = fmt_date(cv(row, "Baustopp Ende"))
+            baustopp = bool(bs_start)
 
             projects.append({
                 "lws":            lws,
@@ -509,9 +476,9 @@ def parse_projects(page):
                 "fortschritt":    fortschritt,
                 "status":         status or None,
                 "abgeschlossen":  abgeschlossen,
-                "baustopp":       bs["baustopp"],
-                "baustopp_start": bs["baustopp_start"],
-                "baustopp_ende":  bs["baustopp_ende"],
+                "baustopp":       baustopp,
+                "baustopp_start": bs_start,
+                "baustopp_ende":  bs_ende,
                 "leo_url":        url_map.get(lws),
             })
 
