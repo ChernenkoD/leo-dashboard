@@ -1,30 +1,77 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Статистика — LEO Board</title>
-<link rel="stylesheet" href="board.css?v=3">
+<title>Statistik — LEO Board</title>
+<link rel="stylesheet" href="board.css?v=5">
 </head>
 <body>
   <div class="app-layout">
     <div id="sidebar-mount" data-active="stats"></div>
     <div class="content">
       <header class="topbar">
-        <div class="brand" id="pageTitle"></div>
+        <div class="brand" id="pageTitle">Statistik</div>
         <div class="sub" id="pageSub"></div>
       </header>
+
       <div class="toolbar">
-        <select id="monthFilter"></select>
+        <select id="yearFilter"></select>
       </div>
-      <section class="stats" id="stats"></section>
-      <section id="weekChart" class="week-chart"></section>
+
+      <main style="padding: 0 28px 40px; display:flex; flex-direction:column; gap:28px;">
+
+        <!-- KPI строка -->
+        <div class="stat-kpi-row" id="kpiRow"></div>
+
+        <!-- Выручка по месяцам -->
+        <div class="stat-card">
+          <div class="stat-card-title">Auftragsvolumen nach Monat (Fertigstellung)</div>
+          <div class="stat-bar-chart" id="chartMonth"></div>
+        </div>
+
+        <!-- По городам -->
+        <div class="stat-grid-2">
+          <div class="stat-card">
+            <div class="stat-card-title">Projekte nach Stadt</div>
+            <div id="chartCity"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Volumen nach Stadt</div>
+            <div id="chartCityVol"></div>
+          </div>
+        </div>
+
+        <!-- По Bauleiter -->
+        <div class="stat-card">
+          <div class="stat-card-title">Projekte & Volumen nach Bauleiter</div>
+          <div id="chartBauleiter"></div>
+        </div>
+
+        <!-- Mängel -->
+        <div class="stat-grid-2">
+          <div class="stat-card">
+            <div class="stat-card-title">Mängel: Mit / Ohne</div>
+            <div id="chartMangel"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Abrechnung Voronka</div>
+            <div id="chartAbr"></div>
+          </div>
+        </div>
+
+        <!-- Статус распределение -->
+        <div class="stat-card">
+          <div class="stat-card-title">Projekt-Status Verteilung (aktive)</div>
+          <div id="chartStatus"></div>
+        </div>
+
+      </main>
     </div>
   </div>
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="state.js"></script>
-  <script src="statistics.js"></script>
+  <script src="statistics.js?v=2"></script>
 </body>
 </html>

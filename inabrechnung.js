@@ -1,18 +1,33 @@
 let allProjects = [];
-let query = "";
-let workflowQuery = "";
+let filterStatus = "";
 
-// localStorage: inAbrechnung = [lws, ...] — список проектов отправленных в Abrechnung
-// localStorage: inAbrStatus_{lws} = "collecting"|"ready"|"submitted"|"approved"|"invoiced"
-// localStorage: inAbrDocs_{lws} = [true, false, ...] — чекбоксы документов
-
-const DEFAULT_DOCS = [
-  "E-Check Protokoll",
-  "Fotos Sanitär",
-  "Fotos Dämmung / Abdichtung",
-  "Fotos nach Anstrich",
-  "Zähler / Zählerantrag",
+const STAGES = [
+  { key: "collecting", label: "Dokumente sammeln", color: "#f59e0b", icon: "📋" },
+  { key: "ready",      label: "Bereit zur Einreichung", color: "#3b82f6", icon: "✅" },
+  { key: "submitted",  label: "Eingereicht",       color: "#8b5cf6", icon: "📤" },
+  { key: "approved",   label: "Genehmigt",         color: "#10b981", icon: "👍" },
+  { key: "invoiced",   label: "Rechnung gestellt", color: "#059669", icon: "🧾" },
 ];
+
+const DOCS = [
+  "Abnahmeprotokoll",
+  "Schlussrechnung",
+  "Aufmaß",
+  "Mängelprotokoll",
+  "Sonstiges",
+];
+
+function fmtMoney(n) {
+  if (!n) return "—";
+  return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+}
+
+function fmtDE(str) {
+  if (!str) return "—";
+  const [d, m, y] = str.split(".");
+  if (!d || !m || !y) return str;
+  return new Date(+y, +m-1, +d).toLocaleDateString("de-DE");
+}
 
 function getList() {
   try { return JSON.parse(localStorage.getItem("inAbrechnung") || "[]"); }
@@ -22,120 +37,134 @@ function getList() {
 function removeFromList(lws) {
   const list = getList().filter(l => l !== lws);
   localStorage.setItem("inAbrechnung", JSON.stringify(list));
+  // Очищаем данные
+  localStorage.removeItem(`inAbrStatus_${lws}`);
+  localStorage.removeItem(`inAbrDocs_${lws}`);
+  localStorage.removeItem(`inAbrNote_${lws}`);
+  localStorage.removeItem(`inAbrDate_${lws}`);
+  render();
 }
+
+function getStatus(lws)  { return localStorage.getItem(`inAbrStatus_${lws}`) || "collecting"; }
+function setStatus(lws, v) { localStorage.setItem(`inAbrStatus_${lws}`, v); }
 
 function getDocs(lws) {
-  try {
-    const saved = JSON.parse(localStorage.getItem(`inAbrDocs_${lws}`) || "null");
-    if (saved && saved.length === DEFAULT_DOCS.length) return saved;
-  } catch {}
-  return DEFAULT_DOCS.map(() => false);
+  try { return JSON.parse(localStorage.getItem(`inAbrDocs_${lws}`) || "{}"); }
+  catch { return {}; }
+}
+function setDoc(lws, doc, val) {
+  const d = getDocs(lws); d[doc] = val;
+  localStorage.setItem(`inAbrDocs_${lws}`, JSON.stringify(d));
 }
 
-function setDoc(lws, idx, val) {
-  const docs = getDocs(lws);
-  docs[idx] = val;
-  localStorage.setItem(`inAbrDocs_${lws}`, JSON.stringify(docs));
-  render();
-}
+function getNote(lws) { return localStorage.getItem(`inAbrNote_${lws}`) || ""; }
+function setNote(lws, v) { localStorage.setItem(`inAbrNote_${lws}`, v); }
 
-function getStatus(lws) {
-  return localStorage.getItem(`inAbrStatus_${lws}`) || null;
-}
-
-function setStatus(lws, status) {
-  localStorage.setItem(`inAbrStatus_${lws}`, status);
-  render();
-}
-
-function workflowKey(lws) {
-  const docs = getDocs(lws);
-  const allDone = docs.every(Boolean);
-  const status = getStatus(lws);
-  if (status === "invoiced") return "invoiced";
-  if (status === "approved") return "approved";
-  if (status === "submitted") return "submitted";
-  return allDone ? "ready" : "collecting";
-}
+function getAbrDate(lws) { return localStorage.getItem(`inAbrDate_${lws}`) || new Date().toISOString().slice(0,10); }
 
 function renderCard(p) {
-  const docs = getDocs(p.lws);
-  const done = docs.filter(Boolean).length;
-  const total = docs.length;
-  const allDone = done === total;
   const status = getStatus(p.lws);
-  const wk = workflowKey(p.lws);
-
-  const leoLink = p.leo_url
-    ? `<a href="${p.leo_url}" target="_blank" class="lws-link-home">${p.lws}</a>`
-    : p.lws;
-
-  let workflowHtml = "";
-  if (!allDone) {
-    workflowHtml = `<div class="workflow-hint">Bitte alle Dokumente abhaken</div>`;
-  } else if (!status) {
-    workflowHtml = `
-      <div class="workflow-row">
-        <span class="status-pill ready">Bereit</span>
-        <button class="primary" onclick="setStatus('${p.lws}', 'submitted')">Zur Prüfung einreichen</button>
-      </div>`;
-  } else if (status === "submitted") {
-    workflowHtml = `
-      <div class="workflow-row">
-        <span class="status-pill submitted">Eingereicht</span>
-        <button class="primary" onclick="setStatus('${p.lws}', 'approved')">Genehmigen</button>
-      </div>`;
-  } else if (status === "approved") {
-    workflowHtml = `
-      <div class="workflow-row">
-        <span class="status-pill approved">Genehmigt</span>
-        <button class="primary" onclick="setStatus('${p.lws}', 'invoiced')">Abrechnen</button>
-      </div>`;
-  } else if (status === "invoiced") {
-    workflowHtml = `
-      <div class="workflow-row">
-        <span class="status-pill invoiced">Abgerechnet</span>
-        <button class="btn-archive" onclick="removeFromList('${p.lws}'); render()">Entfernen</button>
-      </div>`;
-  }
+  const docs   = getDocs(p.lws);
+  const note   = getNote(p.lws);
+  const stage  = STAGES.find(s => s.key === status) || STAGES[0];
+  const docsOk = DOCS.filter(d => docs[d]).length;
 
   return `
-    <div class="card">
-      <div class="lws">${leoLink}${p.has_mangel ? ' <span class="mangel-dot has" title="Hat Mängelauftrag">M</span>' : ""}</div>
-      <div class="address">${p.address || "—"}</div>
-      ${p.lage ? `<div class="lage">${p.lage}</div>` : ""}
-      ${p.bauleiter ? `<div class="bauleiter-tag">BL: ${p.bauleiter}</div>` : ""}
-      <span class="tag">${done}/${total} Dokumente</span>
-      <div class="docs">
-        ${DEFAULT_DOCS.map((label, idx) => `
-          <label class="doc-row">
-            <input type="checkbox" ${docs[idx] ? "checked" : ""} onchange="setDoc('${p.lws}', ${idx}, this.checked)">
-            <span class="${docs[idx] ? "done" : ""}">${label}</span>
+  <div class="abr-card" data-lws="${p.lws}">
+    <div class="abr-card-head">
+      <div>
+        <div class="abr-lws">${p.leo_url
+          ? `<a href="${p.leo_url}" target="_blank" class="lws-link">${p.lws}</a>`
+          : p.lws}</div>
+        <div class="abr-address">${p.address || "—"}${p.lage ? ` · ${p.lage}` : ""}</div>
+      </div>
+      <div style="text-align:right">
+        ${p.amount ? `<div class="abr-amount">${fmtMoney(p.amount)}</div>` : ""}
+        <div class="abr-bl">${p.bauleiter || ""}</div>
+      </div>
+    </div>
+
+    <!-- Воронка статусов -->
+    <div class="abr-stages">
+      ${STAGES.map(s => `
+        <button class="abr-stage-btn${s.key === status ? " active" : ""}"
+          style="${s.key === status ? `background:${s.color};color:#fff` : ""}"
+          onclick="setStatus('${p.lws}','${s.key}');render()"
+          title="${s.label}">${s.icon} ${s.label}</button>
+      `).join("")}
+    </div>
+
+    <!-- Чеклист документов -->
+    <div class="abr-docs">
+      <div class="abr-docs-title">Dokumente (${docsOk}/${DOCS.length})</div>
+      <div class="abr-docs-list">
+        ${DOCS.map(doc => `
+          <label class="abr-doc-item${docs[doc] ? " checked" : ""}">
+            <input type="checkbox" ${docs[doc] ? "checked" : ""}
+              onchange="setDoc('${p.lws}','${doc}',this.checked);render()">
+            ${doc}
           </label>
         `).join("")}
       </div>
-      ${workflowHtml}
     </div>
-  `;
+
+    <!-- Заметка -->
+    <textarea class="abr-note" placeholder="Notiz…"
+      onblur="setNote('${p.lws}',this.value)">${note}</textarea>
+
+    <!-- Дата добавления + удалить -->
+    <div class="abr-footer">
+      <span class="abr-date-tag">In Abrechnung seit: ${fmtDE(getAbrDate(p.lws).split("-").reverse().join("."))}</span>
+      <button class="abr-remove-btn" onclick="if(confirm('${p.lws} aus Abrechnung entfernen?'))removeFromList('${p.lws}')">
+        ✕ Entfernen
+      </button>
+    </div>
+  </div>`;
 }
 
 function render() {
   const lwsList = getList();
-  let list = allProjects.filter(p => lwsList.includes(p.lws));
+  const projects = lwsList
+    .map(lws => allProjects.find(p => p.lws === lws))
+    .filter(Boolean);
 
-  if (workflowQuery) list = list.filter(p => workflowKey(p.lws) === workflowQuery);
-  if (query) list = list.filter(p =>
-    [p.lws, p.address, p.bauleiter].join(" ").toLowerCase().includes(query.toLowerCase())
-  );
+  // Счётчики по статусам
+  const counts = {};
+  STAGES.forEach(s => counts[s.key] = 0);
+  projects.forEach(p => { const st = getStatus(p.lws); if (counts[st] !== undefined) counts[st]++; });
 
-  document.getElementById("inabrechnungList").innerHTML = list.length
-    ? list.map(renderCard).join("")
-    : `<div class="empty-hint">Keine Projekte in Abrechnung. Projekte über die Hauptseite hinzufügen.</div>`;
+  // Фильтр
+  const visible = filterStatus
+    ? projects.filter(p => getStatus(p.lws) === filterStatus)
+    : projects;
+
+  document.getElementById("pageTitle").textContent = `In Abrechnung (${projects.length})`;
+
+  // Воронка-хедер
+  document.getElementById("abrFunnel").innerHTML = STAGES.map(s => `
+    <button class="funnel-btn${filterStatus === s.key ? " funnel-active" : ""}"
+      style="${filterStatus === s.key ? `border-color:${s.color};color:${s.color}` : ""}"
+      onclick="filterStatus=filterStatus==='${s.key}'?'':'${s.key}';render()">
+      ${s.icon} ${s.label} <b>${counts[s.key]}</b>
+    </button>
+  `).join("");
+
+  const body = document.getElementById("abrBody");
+  if (!projects.length) {
+    body.innerHTML = `<div class="empty-hint" style="padding:60px 0;text-align:center">
+      Keine Projekte in Abrechnung.<br>
+      <small>Auf der Hauptseite "Fertig → Abrechnung" klicken.</small>
+    </div>`;
+    return;
+  }
+  if (!visible.length) {
+    body.innerHTML = `<div class="empty-hint" style="padding:40px 0;text-align:center">Kein Projekt in diesem Status.</div>`;
+    return;
+  }
+  body.innerHTML = visible.map(renderCard).join("");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("pageTitle").textContent = "In Abrechnung";
-
   fetch("data.json?v=" + Date.now())
     .then(r => r.json())
     .then(data => {
@@ -143,17 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
       document.getElementById("pageSub").textContent = upd ? `Stand: ${upd}` : "";
 
-      document.getElementById("workflowFilter").innerHTML = `
-        <option value="">Alle Status</option>
-        <option value="collecting">Dokumente sammeln</option>
-        <option value="ready">Bereit</option>
-        <option value="submitted">Eingereicht</option>
-        <option value="approved">Genehmigt</option>
-      `;
+      // Сохраняем дату добавления если ещё не было
+      getList().forEach(lws => {
+        if (!localStorage.getItem(`inAbrDate_${lws}`)) {
+          localStorage.setItem(`inAbrDate_${lws}`, new Date().toISOString().slice(0,10));
+        }
+      });
 
       render();
     });
-
-  document.getElementById("search").addEventListener("input", e => { query = e.target.value.trim(); render(); });
-  document.getElementById("workflowFilter").addEventListener("change", e => { workflowQuery = e.target.value; render(); });
 });
