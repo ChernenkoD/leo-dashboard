@@ -422,55 +422,54 @@ def parse_projects(page):
             except (ValueError, IndexError):
                 return None
 
+        def cv(row, name):
+            """Значение колонки по точному имени."""
+            try:
+                return row[headers.index(name)]
+            except (ValueError, IndexError):
+                return None
+
         projects = []
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
 
-            # LWS — ищем колонку с "LWS" или первую
-            lws = None
-            for h in headers:
-                if "lws" in h.lower() or "projekt" in h.lower() or "auftrag" in h.lower():
-                    val = str(row[headers.index(h)] or "").strip()
-                    if val:
-                        lws = val
-                        break
-            if not lws:
-                lws = str(row[0] or "").strip()
+            lws = str(cv(row, "Projektnummer") or "").strip()
             if not lws:
                 continue
 
-            # Сумма — ищем колонку с "volumen", "summe", "betrag", "eur"
-            amount = None
-            for h in headers:
-                if any(k in h.lower() for k in ["volumen", "summe", "betrag", "eur", "netto"]):
-                    amount = parse_amount(row[headers.index(h)])
-                    if amount:
-                        break
+            # Адрес
+            strasse = str(cv(row, "Straße") or "").strip()
+            nr      = str(cv(row, "Nr.") or "").strip()
+            plz     = str(cv(row, "PLZ") or "").strip()
+            ort     = str(cv(row, "Ort") or "").strip()
+            address = f"{strasse} {nr}".strip()
+            if plz or ort:
+                address += f", {plz} {ort}".strip(", ")
 
             # Fortschritt
             fortschritt = 0
-            for h in headers:
-                if "fortschritt" in h.lower() or "%" in h:
-                    raw = str(row[headers.index(h)] or "0").replace("%", "").strip()
-                    try:
-                        fortschritt = int(float(raw))
-                    except Exception:
-                        pass
-                    break
+            try:
+                raw = str(cv(row, "Projektfortschritt") or "0").replace("%", "").strip()
+                fortschritt = int(float(raw))
+            except Exception:
+                pass
+
+            # Статус — пропускаем если 100% и abgeschlossen (уже в архиве)
+            status = str(cv(row, "Status") or "").strip()
 
             projects.append({
-                "lws": lws,
-                "address": str(col(row, next((h for h in headers if "straße" in h.lower() or "adresse" in h.lower()), "")) or "").strip() or None,
-                "lage": str(col(row, next((h for h in headers if "lage" in h.lower()), "")) or "").strip() or None,
-                "bauleiter": str(col(row, next((h for h in headers if "bauleiter" in h.lower()), "")) or "").strip() or None,
-                "start": fmt_date(col(row, next((h for h in headers if "beginn" in h.lower()), ""))),
-                "ende": fmt_date(col(row, next((h for h in headers if "fertig" in h.lower()), ""))),
-                "amount": amount,
+                "lws":        lws,
+                "address":    address or None,
+                "lage":       str(cv(row, "Lage") or "").strip() or None,
+                "bauleiter":  str(cv(row, "Bauleitung AG") or "").strip() or None,
+                "start":      fmt_date(cv(row, "Ausführungsbeginn Plan")),
+                "ende":       fmt_date(cv(row, "Fertigstellung Plan")),
+                "amount":     parse_amount(cv(row, "Auftragsvolumen gesamt")),
                 "fortschritt": fortschritt,
-                "status": str(col(row, next((h for h in headers if "status" in h.lower()), "")) or "").strip() or None,
-                "baustopp": False,
-                "leo_url": url_map.get(lws),
+                "status":     status or None,
+                "baustopp":   False,
+                "leo_url":    url_map.get(lws),
             })
 
         wb.close()
