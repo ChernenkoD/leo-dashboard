@@ -19,39 +19,37 @@
         <select id="yearFilter"></select>
       </div>
 
+      <!-- Активные фильтры-чипы -->
+      <div id="filterChips" class="filter-chips-bar"></div>
+
       <main style="padding: 0 28px 40px; display:flex; flex-direction:column; gap:28px;">
 
-        <!-- KPI строка -->
         <div class="stat-kpi-row" id="kpiRow"></div>
 
-        <!-- Выручка по месяцам -->
         <div class="stat-card">
           <div class="stat-card-title">Auftragsvolumen nach Monat (Fertigstellung)</div>
           <div class="stat-bar-chart" id="chartMonth"></div>
         </div>
 
-        <!-- По городам -->
         <div class="stat-grid-2">
           <div class="stat-card">
-            <div class="stat-card-title">Projekte nach Stadt</div>
+            <div class="stat-card-title">Projekte nach Stadt <span class="chart-hint">← klickbar</span></div>
             <div id="chartCity"></div>
           </div>
           <div class="stat-card">
-            <div class="stat-card-title">Volumen nach Stadt</div>
+            <div class="stat-card-title">Volumen nach Stadt <span class="chart-hint">← klickbar</span></div>
             <div id="chartCityVol"></div>
           </div>
         </div>
 
-        <!-- По Bauleiter -->
         <div class="stat-card">
-          <div class="stat-card-title">Projekte & Volumen nach Bauleiter</div>
+          <div class="stat-card-title">Projekte & Volumen nach Bauleiter <span class="chart-hint">← klickbar</span></div>
           <div id="chartBauleiter"></div>
         </div>
 
-        <!-- Mängel -->
         <div class="stat-grid-2">
           <div class="stat-card">
-            <div class="stat-card-title">Mängel: Mit / Ohne</div>
+            <div class="stat-card-title">Mängel: Mit / Ohne <span class="chart-hint">← klickbar</span></div>
             <div id="chartMangel"></div>
           </div>
           <div class="stat-card">
@@ -60,9 +58,8 @@
           </div>
         </div>
 
-        <!-- Статус распределение -->
         <div class="stat-card">
-          <div class="stat-card-title">Projekt-Status Verteilung (aktive)</div>
+          <div class="stat-card-title">Projekt-Status Verteilung <span class="chart-hint">← klickbar</span></div>
           <div id="chartStatus"></div>
         </div>
 
@@ -72,6 +69,6 @@
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="statistics.js?v=4"></script>
+  <script src="statistics.js?v=5"></script>
 </body>
 </html>

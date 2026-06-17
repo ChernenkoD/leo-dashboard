@@ -506,9 +506,25 @@ body {
 .bar-val { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 11px; font-weight: 600; color: var(--text); }
 .stat-bar-chart { max-height: 400px; overflow-y: auto; }
 
-.pie-row { display: flex; height: 32px; border-radius: 8px; overflow: hidden; gap: 2px; margin-bottom: 12px; }
-.pie-seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; min-width: 40px; }
+.pie-row { display: flex; height: 36px; border-radius: 8px; overflow: hidden; gap: 2px; margin-bottom: 12px; }
+.pie-seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #333; min-width: 24px; cursor: pointer; transition: opacity .2s; }
+.pie-seg:hover { opacity: .8; }
+.pie-seg-active { outline: 3px solid var(--accent); outline-offset: -2px; }
 .pie-legend { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.pie-legend span { cursor: pointer; border-radius: 4px; padding: 2px 4px; transition: background .15s; }
+.pie-legend span:hover { background: var(--bg); }
+.pie-legend-active { background: var(--bg); font-weight: 700; }
+
+.bar-row { cursor: default; border-radius: 6px; padding: 2px 4px; transition: background .15s; }
+.bar-row-active { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.bar-row[onclick]:hover { background: var(--bg); }
+
+.filter-chips-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 28px 12px; min-height: 0; }
+.filter-chip { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--accent) 15%, var(--panel)); border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 10px 4px 12px; font-size: 12px; font-weight: 600; }
+.filter-chip button { background: none; border: none; color: var(--accent); font-size: 14px; cursor: pointer; line-height: 1; padding: 0; }
+.chip-reset { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
+.chip-reset:hover { border-color: var(--accent); color: var(--accent); }
+.chart-hint { font-size: 10px; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
 /* ── In Abrechnung ── */
 .abr-funnel-bar {
