@@ -344,8 +344,12 @@ def fmt_date(val):
     if val is None:
         return None
     if hasattr(val, "strftime"):
+        # Excel хранит "нет даты" как 0 → 1900-01-00, игнорируем
+        if hasattr(val, "year") and val.year < 1970:
+            return None
         return val.strftime("%d.%m.%Y")
-    return str(val).strip() or None
+    s = str(val).strip()
+    return s if s and s != "0" else None
 
 
 def download_excel(page, click_fn, label, tmpdir, timeout=120000):
@@ -378,6 +382,42 @@ def parse_projects(page):
         page.click("text=Übersicht")
         page.wait_for_load_state("domcontentloaded", timeout=30000)
         page.wait_for_timeout(2000)  # ждём рендер таблицы
+
+        # ── URL-кэш: листаем "Laufende Aufträge" пока на Übersicht ──────────
+        url_map = {}
+        try:
+            with open("../project_urls.json", encoding="utf-8") as f:
+                url_map = json.load(f)
+            print(f"  URL-кэш загружен: {len(url_map)} записей")
+        except FileNotFoundError:
+            pass
+
+        # Собираем URL только для проектов которых нет в кэше
+        # DataTables: кнопка Next имеет класс .next, disabled когда последняя стр.
+        pg = 0
+        while pg < 200:  # hard cap
+            pg += 1
+            for link in page.locator("h5.section a.link-bold").all():
+                try:
+                    lws = link.inner_text().strip()
+                    href = link.get_attribute("href") or ""
+                    if lws and href and lws not in url_map:
+                        url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                except Exception:
+                    continue
+            nxt = page.locator("#datatable_auftrag_laufend_paginate .paginate_button.next:not(.disabled)").first
+            if nxt.count() == 0:
+                break
+            try:
+                nxt.click()
+                page.wait_for_load_state("domcontentloaded", timeout=10000)
+                page.wait_for_timeout(300)
+            except Exception:
+                break
+
+        with open("../project_urls.json", "w", encoding="utf-8") as f:
+            json.dump(url_map, f, ensure_ascii=False, indent=2)
+        print(f"  URL-кэш обновлён: {len(url_map)} записей (прошли {pg} стр.)")
 
         base_data = {}  # lws → dict
         try:
@@ -532,7 +572,7 @@ def parse_projects(page):
                 "baustopp":       base.get("baustopp", False),
                 "baustopp_start": base.get("baustopp_start"),
                 "baustopp_ende":  base.get("baustopp_ende"),
-                "leo_url":        None,  # строится на фронте если нужно
+                "leo_url":        url_map.get(lws),
             })
 
         wb.close()

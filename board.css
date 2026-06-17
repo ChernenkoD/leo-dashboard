@@ -465,3 +465,23 @@ body {
   padding: 14px;
   text-align: center;
 }
+
+/* Planungsdatum */
+.plan-cell { padding: 4px 8px; }
+.plan-input {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 6px;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--panel);
+  cursor: pointer;
+  width: 130px;
+}
+.plan-input:hover { border-color: var(--accent); }
+.plan-input.plan-overridden {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #92400e;
+  font-weight: 600;
+}
