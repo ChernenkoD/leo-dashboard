@@ -18,7 +18,6 @@ from playwright.sync_api import sync_playwright
 BASE = "https://leo-pro.de"
 STORAGE_STATE = "storage_state.json"
 OUTPUT_FILE = "../data.json"
-URL_CACHE_FILE = "../project_urls.json"
 
 
 def is_logged_out(page):
@@ -349,146 +348,199 @@ def fmt_date(val):
     return str(val).strip() or None
 
 
+def download_excel(page, click_fn, label, tmpdir, timeout=120000):
+    """Скачивает Excel файл, возвращает путь."""
+    path = f"{tmpdir}/{label}.xlsx"
+    with page.expect_download(timeout=timeout) as dl_info:
+        click_fn()
+    dl = dl_info.value
+    dl.save_as(path)
+    print(f"  Скачан {label}: {dl.suggested_filename}")
+    return path
+
+
 def parse_projects(page):
     """
-    1. URL-кэш: листаем только вкладку 'Laufende Aufträge' (~50 стр) — быстро
-    2. Baustopp: скачиваем Herunterladen Excel (там есть Baustopp Start/Ende)
-    3. P-03: скачиваем из Berichte — все проекты с суммами
-    Мержим всё по LWS.
+    Два Excel-файла, ноль пагинации — быстро и надёжно:
+      1. Herunterladen (Übersicht) — LWS, адрес, Lage, Bauleiter, даты, Baustopp (кол. Q/R)
+      2. P-03 (Berichte)           — суммы, Fortschritt, Status
+    Мерж по LWS.
     """
-    import os
-    full_scrape = os.environ.get("FULL_SCRAPE", "true").lower() == "true"
+    with tempfile.TemporaryDirectory() as tmpdir:
 
-    # Загружаем кэш URL
-    try:
-        with open(URL_CACHE_FILE, encoding="utf-8") as f:
-            url_map = json.load(f)
-        print(f"  URL-кэш загружен: {len(url_map)} записей")
-    except FileNotFoundError:
-        url_map = {}
-
-    # ── 1. URL-кэш: только "Laufende Aufträge" (активные ~50 стр) ──
-    if full_scrape:
+        # ── 1. Herunterladen Excel с Übersicht ──────────────────────────────
+        # Колонки (0-based): A=0 LWS, C=2 Straße, D=3 Nr, E=4 PLZ, F=5 Ort,
+        #   H=7 Lage, I=8 Bauleiter, J=9 AusfBeginn, K=10 Fertigstellung,
+        #   Q=16 Baustopp Start, R=17 Baustopp Ende
         page.goto(f"{BASE}/index.php")
-        page.wait_for_load_state("networkidle", timeout=30000)
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
         page.click("text=Projekte")
         page.click("text=Übersicht")
-        page.wait_for_load_state("networkidle", timeout=30000)
-        # Остаёмся на "Laufende Aufträge" (вкладка по умолчанию)
-        # НЕ переключаемся на "Alle Projekte" — там 450+ страниц
-        table_id = "datatable_auftrag_laufend"
-        url_page = 0
-        while True:
-            url_page += 1
-            print(f"  URL-страница {url_page}...")
-            for link in page.locator("h5.section a.link-bold").all():
-                try:
-                    lws = link.inner_text().strip()
-                    href = link.get_attribute("href") or ""
-                    if lws and href:
-                        url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-                except Exception:
-                    continue
-            next_btn = page.locator(
-                f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
-            ).first
-            if next_btn.count() == 0:
-                break
-            try:
-                next_btn.click()
-                page.wait_for_load_state("networkidle", timeout=8000)
-            except Exception:
-                break
-        with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
-            json.dump(url_map, f, ensure_ascii=False, indent=2)
-        print(f"  URL-кэш обновлён: {len(url_map)} записей")
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
+        page.wait_for_timeout(2000)  # ждём рендер таблицы
 
-    # ── 2. Baustopp из P-03 (колонки Q=Baustopp Start, R=Baustopp Ende) ──
-    # P-03 сам содержит Baustopp Start/Ende — берём оттуда, не нужен отдельный Excel
-    baustopp_map = {}  # заполним при парсинге P-03 ниже
+        base_data = {}  # lws → dict
+        try:
+            xl_path = download_excel(
+                page,
+                lambda: page.locator("a:has-text('Herunterladen'), button:has-text('Herunterladen')").first.click(),
+                "herunterladen", tmpdir, timeout=120000
+            )
+            wb = openpyxl.load_workbook(xl_path, read_only=True, data_only=True)
+            ws = wb.active
+            headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
+            print(f"  Herunterladen колонки: {headers[:25]}")
 
-    # ── 3. P-03 из Berichte — все проекты с суммами ──
-    page.goto(f"{BASE}/index.php")
-    page.wait_for_load_state("networkidle")
-    page.click("text=Berichte")
-    page.wait_for_load_state("networkidle")
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with page.expect_download(timeout=30000) as dl_info:
-            page.locator("tr", has_text="P-03").locator("a, button").first.click()
-        download = dl_info.value
-        xlsx_path = f"{tmpdir}/p03.xlsx"
-        download.save_as(xlsx_path)
-        print(f"  P-03 скачан: {download.suggested_filename}")
-
-        wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
-        ws = wb.active
-        headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
-        print(f"  Колонки P-03: {headers}")
-
-        def cv(row, name):
-            try:
-                return row[headers.index(name)]
-            except (ValueError, IndexError):
+            def gi(name, *fallbacks):
+                """Индекс колонки по имени или фоллбэк-имени."""
+                for n in (name,) + fallbacks:
+                    try:
+                        return headers.index(n)
+                    except ValueError:
+                        continue
                 return None
 
-        CLOSED_KEYWORDS = ["beendet", "abgeschlossen", "schlussgerechnet", "storniert"]
+            # Определяем индексы по именам (с фоллбэками) + хардкод по позиции
+            I_LWS  = gi("Projektnummer", "LWS") or 0
+            I_STR  = gi("Straße", "Strasse") or 2
+            I_NR   = gi("Nr.", "Hausnummer") or 3
+            I_PLZ  = gi("PLZ") or 4
+            I_ORT  = gi("Ort", "Stadt") or 5
+            I_LAGE = gi("Lage") or 7
+            I_BL   = gi("Bauleitung AG", "Bauleiter") or 8
+            I_STA  = gi("Ausführungsbeginn Plan", "Ausführungsbeginn") or 9
+            I_END  = gi("Fertigstellung Plan", "Fertigstellung") or 10
+            I_BSS  = gi("Baustopp Start", "Baustopp Beginn") or 16
+            I_BSE  = gi("Baustopp Ende") or 17
+
+            def g(row, idx):
+                return row[idx] if idx is not None and idx < len(row) else None
+
+            for row in ws.iter_rows(min_row=2, values_only=True):
+                lws = str(g(row, I_LWS) or "").strip()
+                if not lws or not lws.startswith("LWS-"):
+                    continue
+                strasse = str(g(row, I_STR) or "").strip()
+                nr      = str(g(row, I_NR) or "").strip()
+                plz     = str(g(row, I_PLZ) or "").strip()
+                ort     = str(g(row, I_ORT) or "").strip()
+                address = ", ".join(filter(None, [f"{strasse} {nr}".strip(), f"{plz} {ort}".strip()]))
+                bs_start = fmt_date(g(row, I_BSS))
+                bs_ende  = fmt_date(g(row, I_BSE))
+                base_data[lws] = {
+                    "address":        address or None,
+                    "lage":           str(g(row, I_LAGE) or "").strip() or None,
+                    "bauleiter":      str(g(row, I_BL) or "").strip() or None,
+                    "start":          fmt_date(g(row, I_STA)),
+                    "ende":           fmt_date(g(row, I_END)),
+                    "baustopp":       bool(bs_start),
+                    "baustopp_start": bs_start,
+                    "baustopp_ende":  bs_ende,
+                }
+            wb.close()
+            print(f"  Herunterladen: {len(base_data)} строк")
+        except Exception as e:
+            print(f"  WARN Herunterladen ошибка: {e} — продолжаем без доп. данных")
+
+        # ── 2. P-03 из Berichte — суммы + статус + fortschritt ─────────────
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
+        page.click("text=Berichte")
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
+        page.wait_for_timeout(1000)
+
+        p03_path = download_excel(
+            page,
+            lambda: page.locator("tr", has_text="P-03").locator("a, button").first.click(),
+            "p03", tmpdir, timeout=60000
+        )
+        wb = openpyxl.load_workbook(p03_path, read_only=True, data_only=True)
+        ws = wb.active
+        headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
+        print(f"  P-03 колонки: {headers[:25]}")
+
+        def gi2(name, *fallbacks):
+            for n in (name,) + fallbacks:
+                try:
+                    return headers.index(n)
+                except ValueError:
+                    continue
+            return None
+
+        # P-03: LWS в колонке A (Projektnummer), суммы, статус, fortschritt
+        I2_LWS  = gi2("Projektnummer") or 0
+        I2_AMT  = gi2("Auftragsvolumen gesamt", "Auftragsvolumen")
+        I2_FRT  = gi2("Projektfortschritt", "Fortschritt")
+        I2_STA  = gi2("Status")
+        # Если Herunterladen не дал адрес — берём из P-03
+        I2_STR  = gi2("Straße", "Strasse") or 2
+        I2_NR   = gi2("Nr.") or 3
+        I2_PLZ  = gi2("PLZ") or 4
+        I2_ORT  = gi2("Ort") or 5
+        I2_LAGE = gi2("Lage") or 7
+        I2_BL   = gi2("Bauleitung AG", "Bauleiter") or 8
+        I2_STRT = gi2("Ausführungsbeginn Plan", "Ausführungsbeginn") or 9
+        I2_END  = gi2("Fertigstellung Plan", "Fertigstellung") or 10
+
+        CLOSED = ["beendet", "abgeschlossen", "schlussgerechnet", "storniert"]
 
         projects = []
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
-            lws = str(cv(row, "Projektnummer") or "").strip()
-            if not lws:
+            lws = str(row[I2_LWS] if I2_LWS < len(row) else "").strip()
+            if not lws or not lws.startswith("LWS-"):
                 continue
 
-            strasse = str(cv(row, "Straße") or "").strip()
-            nr      = str(cv(row, "Nr.") or "").strip()
-            plz     = str(cv(row, "PLZ") or "").strip()
-            ort     = str(cv(row, "Ort") or "").strip()
-            address = ", ".join(filter(None, [f"{strasse} {nr}".strip(), f"{plz} {ort}".strip()]))
-
+            status = str(row[I2_STA] if I2_STA is not None and I2_STA < len(row) else "").strip()
             fortschritt = 0
             try:
-                raw = cv(row, "Projektfortschritt")
+                raw = row[I2_FRT] if I2_FRT is not None and I2_FRT < len(row) else None
                 if raw is not None:
-                    val = float(str(raw).replace("%", "").strip())
-                    fortschritt = int(val * 100) if val <= 1.0 else int(val)
+                    v = float(str(raw).replace("%", "").strip())
+                    fortschritt = int(v * 100) if v <= 1.0 else int(v)
             except Exception:
                 pass
 
-            status = str(cv(row, "Status") or "").strip()
-            abgeschlossen = any(k in status.lower() for k in CLOSED_KEYWORDS) or fortschritt >= 100
+            abgeschlossen = any(k in status.lower() for k in CLOSED) or fortschritt >= 100
 
-            # Baustopp из P-03 если есть колонки (Q=Baustopp Start, R=Baustopp Ende)
-            bs_start = fmt_date(cv(row, "Baustopp Start") or cv(row, "Baustopp Beginn"))
-            bs_ende  = fmt_date(cv(row, "Baustopp Ende"))
-            baustopp = bool(bs_start)
+            base = base_data.get(lws, {})
+
+            def p03_val(idx):
+                return row[idx] if idx is not None and idx < len(row) else None
+
+            # Берём адрес из Herunterladen если есть, иначе из P-03
+            address = base.get("address")
+            if not address:
+                strasse = str(p03_val(I2_STR) or "").strip()
+                nr      = str(p03_val(I2_NR) or "").strip()
+                plz     = str(p03_val(I2_PLZ) or "").strip()
+                ort     = str(p03_val(I2_ORT) or "").strip()
+                address = ", ".join(filter(None, [f"{strasse} {nr}".strip(), f"{plz} {ort}".strip()])) or None
 
             projects.append({
                 "lws":            lws,
-                "address":        address or None,
-                "lage":           str(cv(row, "Lage") or "").strip() or None,
-                "bauleiter":      str(cv(row, "Bauleitung AG") or "").strip() or None,
-                "start":          fmt_date(cv(row, "Ausführungsbeginn Plan")),
-                "ende":           fmt_date(cv(row, "Fertigstellung Plan")),
-                "amount":         parse_amount(cv(row, "Auftragsvolumen gesamt")),
+                "address":        address,
+                "lage":           base.get("lage") or str(p03_val(I2_LAGE) or "").strip() or None,
+                "bauleiter":      base.get("bauleiter") or str(p03_val(I2_BL) or "").strip() or None,
+                "start":          base.get("start") or fmt_date(p03_val(I2_STRT)),
+                "ende":           base.get("ende") or fmt_date(p03_val(I2_END)),
+                "amount":         parse_amount(p03_val(I2_AMT)),
                 "fortschritt":    fortschritt,
                 "status":         status or None,
                 "abgeschlossen":  abgeschlossen,
-                "baustopp":       baustopp,
-                "baustopp_start": bs_start,
-                "baustopp_ende":  bs_ende,
-                "leo_url":        url_map.get(lws),
+                "baustopp":       base.get("baustopp", False),
+                "baustopp_start": base.get("baustopp_start"),
+                "baustopp_ende":  base.get("baustopp_ende"),
+                "leo_url":        None,  # строится на фронте если нужно
             })
 
         wb.close()
 
-    with_amount  = sum(1 for p in projects if p["amount"])
-    abgeschl     = sum(1 for p in projects if p["abgeschlossen"])
-    with_url     = sum(1 for p in projects if p["leo_url"])
+    with_amount   = sum(1 for p in projects if p["amount"])
+    abgeschl      = sum(1 for p in projects if p["abgeschlossen"])
     with_baustopp = sum(1 for p in projects if p["baustopp"])
-    print(f"Итого: {len(projects)} проектов | суммы: {with_amount} | закрытых: {abgeschl} | URL: {with_url} | Baustopp: {with_baustopp}")
+    print(f"Итого: {len(projects)} проектов | суммы: {with_amount} | закрытых: {abgeschl} | Baustopp: {with_baustopp}")
     return projects
 
 
