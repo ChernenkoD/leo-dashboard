@@ -351,9 +351,14 @@ def fmt_date(val):
 
 def parse_projects(page):
     """
-    Скачиваем отчёт P-03 Projektübersicht из Berichte — там все проекты с суммами.
-    Дополнительно собираем URL со страницы Übersicht (кэшируем).
+    1. URL-кэш: листаем только вкладку 'Laufende Aufträge' (~50 стр) — быстро
+    2. Baustopp: скачиваем Herunterladen Excel (там есть Baustopp Start/Ende)
+    3. P-03: скачиваем из Berichte — все проекты с суммами
+    Мержим всё по LWS.
     """
+    import os
+    full_scrape = os.environ.get("FULL_SCRAPE", "true").lower() == "true"
+
     # Загружаем кэш URL
     try:
         with open(URL_CACHE_FILE, encoding="utf-8") as f:
@@ -362,28 +367,25 @@ def parse_projects(page):
     except FileNotFoundError:
         url_map = {}
 
-    import os
-    full_scrape = os.environ.get("FULL_SCRAPE", "true").lower() == "true"
-
+    # ── 1. URL-кэш: только "Laufende Aufträge" (активные ~50 стр) ──
     if full_scrape:
-        # Листаем Übersicht и собираем URL всех проектов
         page.goto(f"{BASE}/index.php")
         page.wait_for_load_state("networkidle")
         page.click("text=Projekte")
         page.click("text=Übersicht")
         page.wait_for_load_state("networkidle")
-
+        # Остаёмся на "Laufende Aufträge" (вкладка по умолчанию)
+        # НЕ переключаемся на "Alle Projekte" — там 450+ страниц
         table_id = "datatable_auftrag_laufend"
         while True:
             for link in page.locator("h5.section a.link-bold").all():
                 try:
                     lws = link.inner_text().strip()
                     href = link.get_attribute("href") or ""
-                    if lws and href and lws not in url_map:
+                    if lws and href:
                         url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
                 except Exception:
                     continue
-
             next_btn = page.locator(
                 f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
             ).first
@@ -394,23 +396,60 @@ def parse_projects(page):
                 page.wait_for_load_state("networkidle", timeout=8000)
             except Exception:
                 break
-
         with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
             json.dump(url_map, f, ensure_ascii=False, indent=2)
         print(f"  URL-кэш обновлён: {len(url_map)} записей")
-    else:
-        print(f"  URL-кэш (без обновления): {len(url_map)} записей")
-    with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
-        json.dump(url_map, f, ensure_ascii=False, indent=2)
 
-    # Скачиваем P-03 из Berichte
+    # ── 2. Baustopp из Herunterladen Excel (колонки Q=Baustopp Start, R=Ende) ──
+    baustopp_map = {}  # lws → {baustopp, baustopp_start, baustopp_ende}
+    try:
+        # Переходим на Übersicht → Alle Projekte для скачивания Excel
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("networkidle")
+        page.click("text=Projekte")
+        page.click("text=Übersicht")
+        page.wait_for_load_state("networkidle")
+        try:
+            alle_btn = page.locator("text=Alle Projekte").first
+            if alle_btn.count() > 0:
+                alle_btn.click()
+                page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            pass
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with page.expect_download(timeout=30000) as dl_info:
+                page.locator("text=Herunterladen").first.click()
+            dl = dl_info.value
+            xl_path = f"{tmpdir}/baustopp.xlsx"
+            dl.save_as(xl_path)
+            wb2 = openpyxl.load_workbook(xl_path, read_only=True, data_only=True)
+            ws2 = wb2.active
+            h2 = [str(c.value or "").strip() for c in next(ws2.iter_rows(min_row=1, max_row=1))]
+            print(f"  Herunterladen колонки: {h2}")
+            for row in ws2.iter_rows(min_row=2, values_only=True):
+                lws = str(row[0] or "").strip()
+                if not lws:
+                    continue
+                bs_start = fmt_date(row[16]) if len(row) > 16 else None  # Q
+                bs_ende  = fmt_date(row[17]) if len(row) > 17 else None  # R
+                baustopp_map[lws] = {
+                    "baustopp": bool(bs_start),
+                    "baustopp_start": bs_start,
+                    "baustopp_ende": bs_ende,
+                }
+            wb2.close()
+        print(f"  Baustopp данные: {sum(1 for v in baustopp_map.values() if v['baustopp'])} проектов с Baustopp")
+    except Exception as e:
+        print(f"  Baustopp Excel ошибка: {e}")
+
+    # ── 3. P-03 из Berichte — все проекты с суммами ──
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle")
     page.click("text=Berichte")
     page.wait_for_load_state("networkidle")
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        # Кликаем на кнопку скачивания P-03
         with page.expect_download(timeout=30000) as dl_info:
             page.locator("tr", has_text="P-03").locator("a, button").first.click()
         download = dl_info.value
@@ -420,85 +459,69 @@ def parse_projects(page):
 
         wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
         ws = wb.active
-
         headers = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
         print(f"  Колонки P-03: {headers}")
 
-        def col(row, name):
+        def cv(row, name):
             try:
                 return row[headers.index(name)]
             except (ValueError, IndexError):
                 return None
 
-        def cv(row, name):
-            """Значение колонки по точному имени."""
-            try:
-                return row[headers.index(name)]
-            except (ValueError, IndexError):
-                return None
+        CLOSED_KEYWORDS = ["beendet", "abgeschlossen", "schlussgerechnet", "storniert"]
 
         projects = []
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not any(row):
                 continue
-
             lws = str(cv(row, "Projektnummer") or "").strip()
             if not lws:
                 continue
 
-            # Адрес
             strasse = str(cv(row, "Straße") or "").strip()
             nr      = str(cv(row, "Nr.") or "").strip()
             plz     = str(cv(row, "PLZ") or "").strip()
             ort     = str(cv(row, "Ort") or "").strip()
-            street  = f"{strasse} {nr}".strip()
-            city    = f"{plz} {ort}".strip()
-            address = ", ".join(filter(None, [street, city]))
+            address = ", ".join(filter(None, [f"{strasse} {nr}".strip(), f"{plz} {ort}".strip()]))
 
-            # Fortschritt — Excel хранит как дробь 0.0–1.0, умножаем на 100
             fortschritt = 0
             try:
                 raw = cv(row, "Projektfortschritt")
                 if raw is not None:
                     val = float(str(raw).replace("%", "").strip())
-                    # Если значение <= 1.0 — это дробь (0.75 = 75%)
                     fortschritt = int(val * 100) if val <= 1.0 else int(val)
             except Exception:
                 pass
 
             status = str(cv(row, "Status") or "").strip()
-            # Закрытые проекты: Beendet, Abgeschlossen, Schlussgerechnet
-            CLOSED = {"beendet", "abgeschlossen", "schlussgerechnet", "storniert"}
-            abgeschlossen = status.lower() in CLOSED or fortschritt >= 100
+            abgeschlossen = any(k in status.lower() for k in CLOSED_KEYWORDS) or fortschritt >= 100
 
-            amount_raw = cv(row, "Auftragsvolumen gesamt")
-            amount = parse_amount(amount_raw)
+            bs = baustopp_map.get(lws, {"baustopp": False, "baustopp_start": None, "baustopp_ende": None})
 
             projects.append({
-                "lws":          lws,
-                "address":      address or None,
-                "lage":         str(cv(row, "Lage") or "").strip() or None,
-                "bauleiter":    str(cv(row, "Bauleitung AG") or "").strip() or None,
-                "start":        fmt_date(cv(row, "Ausführungsbeginn Plan")),
-                "ende":         fmt_date(cv(row, "Fertigstellung Plan")),
-                "amount":       amount,
-                "fortschritt":  fortschritt,
-                "status":       status or None,
-                "abgeschlossen": abgeschlossen,
-                "baustopp":     False,
-                "leo_url":      url_map.get(lws),
+                "lws":            lws,
+                "address":        address or None,
+                "lage":           str(cv(row, "Lage") or "").strip() or None,
+                "bauleiter":      str(cv(row, "Bauleitung AG") or "").strip() or None,
+                "start":          fmt_date(cv(row, "Ausführungsbeginn Plan")),
+                "ende":           fmt_date(cv(row, "Fertigstellung Plan")),
+                "amount":         parse_amount(cv(row, "Auftragsvolumen gesamt")),
+                "fortschritt":    fortschritt,
+                "status":         status or None,
+                "abgeschlossen":  abgeschlossen,
+                "baustopp":       bs["baustopp"],
+                "baustopp_start": bs["baustopp_start"],
+                "baustopp_ende":  bs["baustopp_ende"],
+                "leo_url":        url_map.get(lws),
             })
 
         wb.close()
 
-    with_amount = sum(1 for p in projects if p["amount"])
-    abgeschl = sum(1 for p in projects if p["abgeschlossen"])
-    print(f"Найдено {len(projects)} проектов из P-03 (с суммой: {with_amount}, закрытых: {abgeschl})")
-    # Диагностика: первый проект с суммой
-    for p in projects:
-        if p["amount"]:
-            print(f"  Пример с суммой: {p['lws']} = {p['amount']}")
-            break
+    with_amount  = sum(1 for p in projects if p["amount"])
+    abgeschl     = sum(1 for p in projects if p["abgeschlossen"])
+    with_url     = sum(1 for p in projects if p["leo_url"])
+    with_baustopp = sum(1 for p in projects if p["baustopp"])
+    print(f"Итого: {len(projects)} проектов | суммы: {with_amount} | закрытых: {abgeschl} | URL: {with_url} | Baustopp: {with_baustopp}")
     return projects
 
 
