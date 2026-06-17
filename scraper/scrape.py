@@ -642,6 +642,27 @@ def scrape_archiv_maengel(page):
         page.wait_for_load_state("domcontentloaded", timeout=20000)
         page.wait_for_timeout(1000)
 
+        # Логируем кол-во строк и ищем фильтры
+        rows_visible = page.locator("table tbody tr").count()
+        print(f"  Mangelaufträge видимых строк: {rows_visible}")
+
+        # Сбрасываем все фильтры — очищаем date inputs и нажимаем Reset/Zurücksetzen
+        for sel in ["input[type='date']", "input[name*='date']", "input[name*='datum']",
+                    "input[name*='von']", "input[name*='bis']"]:
+            for el in page.locator(sel).all():
+                try: el.fill("")
+                except: pass
+
+        reset_btn = page.locator("button:has-text('Zurücksetzen'), button:has-text('Reset'), a:has-text('Zurücksetzen'), input[value*='Reset']").first
+        if reset_btn.count() > 0:
+            reset_btn.click()
+            page.wait_for_load_state("domcontentloaded", timeout=15000)
+            page.wait_for_timeout(500)
+            print("  Фильтры сброшены")
+
+        rows_after = page.locator("table tbody tr").count()
+        print(f"  Строк после сброса фильтра: {rows_after}")
+
         # Пробуем скачать Excel
         dl_btn = page.locator("a:has-text('Herunterladen'), button:has-text('Herunterladen')").first
         if dl_btn.count() > 0:
