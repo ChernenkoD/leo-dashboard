@@ -588,80 +588,6 @@ def parse_projects(page):
     return projects
 
 
-def scrape_archiv(page):
-    """
-    Скачиваем из Archiv:
-      - Ausgangsrechnungen → реальная выручка (счета)
-      - Mangelaufträge     → все дефекты за всё время
-    Возвращает dict с двумя списками.
-    """
-    result = {"rechnungen": [], "archiv_maengel_count": 0}
-
-    try:
-        # Открываем Archiv через профиль
-        page.goto(f"{BASE}/index.php?q=archiv")
-        page.wait_for_load_state("domcontentloaded", timeout=20000)
-        page.wait_for_timeout(1500)
-
-        # Пробуем скачать Ausgangsrechnungen
-        with tempfile.TemporaryDirectory() as tmpdir:
-            try:
-                # Кликаем на ссылку Ausgangsrechnungen
-                page.locator("a:has-text('Ausgangsrechnungen')").first.click()
-                page.wait_for_load_state("domcontentloaded", timeout=15000)
-                page.wait_for_timeout(1000)
-
-                # Ищем кнопку скачивания Excel
-                dl_btn = page.locator("a:has-text('Herunterladen'), button:has-text('Herunterladen'), a:has-text('Export'), button:has-text('Export')").first
-                if dl_btn.count() > 0:
-                    xl_path = download_excel(page, lambda: dl_btn.click(), "rechnungen", tmpdir, timeout=60000)
-                    wb = openpyxl.load_workbook(xl_path, read_only=True, data_only=True)
-                    ws = wb.active
-                    h = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
-                    print(f"  Rechnungen колонки: {h[:20]}")
-                    # Суммируем по LWS — один проект может иметь несколько счетов
-                    rech_by_lws = {}
-                    for row in ws.iter_rows(min_row=2, values_only=True):
-                        if not any(row): continue
-                        lws_r = str(row[0] or "").strip()
-                        if not lws_r: continue
-                        betrag = parse_amount(row[1]) if len(row) > 1 else None
-                        datum  = fmt_date(row[2]) if len(row) > 2 else None
-                        if lws_r not in rech_by_lws:
-                            rech_by_lws[lws_r] = {"lws": lws_r, "betrag": 0, "datum": datum, "count": 0}
-                        rech_by_lws[lws_r]["betrag"] += betrag or 0
-                        rech_by_lws[lws_r]["count"] += 1
-                    result["rechnungen"] = list(rech_by_lws.values())
-                    wb.close()
-                    print(f"  Ausgangsrechnungen: {len(result['rechnungen'])} Einträge")
-                else:
-                    # Считаем строки в таблице
-                    count_el = page.locator(".dataTables_info, .pagination-info").first
-                    if count_el.count() > 0:
-                        print(f"  Rechnungen (без скачивания): {count_el.inner_text()}")
-            except Exception as e:
-                print(f"  WARN Ausgangsrechnungen: {e}")
-
-            # Считаем Mangelaufträge в архиве
-            try:
-                page.goto(f"{BASE}/index.php?q=archiv")
-                page.wait_for_load_state("domcontentloaded", timeout=15000)
-                page.wait_for_timeout(1000)
-                page.locator("a:has-text('Mangelaufträge')").first.click()
-                page.wait_for_load_state("domcontentloaded", timeout=15000)
-                page.wait_for_timeout(500)
-                rows = page.locator("table tbody tr").count()
-                result["archiv_maengel_count"] = rows
-                print(f"  Archiv Mangelaufträge: ~{rows} sichtbar")
-            except Exception as e:
-                print(f"  WARN Archiv Mängel: {e}")
-
-    except Exception as e:
-        print(f"  WARN Archiv nicht verfügbar: {e}")
-
-    return result
-
-
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -672,7 +598,6 @@ def main():
             tasks = parse_tasks(page)
             maengel = parse_mangel(page)
             projects = parse_projects(page)
-            archiv = scrape_archiv(page)
         except RuntimeError as e:
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
@@ -694,7 +619,6 @@ def main():
             "tasks": tasks,
             "maengel": maengel,
             "projects": projects,
-            "rechnungen": archiv.get("rechnungen", []),
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
