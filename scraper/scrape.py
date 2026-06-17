@@ -599,12 +599,43 @@ def scrape_archiv_maengel(page):
         return {}
 
     try:
-        page.goto(f"{BASE}/index.php?q=archiv")
+        # Открываем архив через меню профиля
+        page.goto(f"{BASE}/index.php")
         page.wait_for_load_state("domcontentloaded", timeout=20000)
-        page.wait_for_timeout(1500)
+        page.wait_for_timeout(1000)
 
-        # Кликаем на Mangelaufträge в архиве
-        page.locator("a:has-text('Mangelaufträge')").first.click()
+        # Кликаем на аватар/профиль чтобы открыть меню
+        for sel in ["[data-action='profile']", ".user-avatar", ".nav-user", "text=Admin", ".profile-btn"]:
+            try:
+                btn = page.locator(sel).first
+                if btn.count() > 0:
+                    btn.click()
+                    page.wait_for_timeout(500)
+                    break
+            except Exception:
+                continue
+
+        # Ищем ссылку Archiv в меню или в навигации
+        archiv_link = page.locator("a:has-text('Archiv'), a[href*='archiv']").first
+        if archiv_link.count() > 0:
+            archiv_link.click()
+            page.wait_for_load_state("domcontentloaded", timeout=15000)
+            page.wait_for_timeout(1000)
+        else:
+            page.goto(f"{BASE}/index.php?page=archiv")
+            page.wait_for_load_state("domcontentloaded", timeout=15000)
+            page.wait_for_timeout(1000)
+
+        print(f"  Archiv URL: {page.url}, title: {page.title()}")
+
+        # Кликаем на Mangelaufträge
+        mangel_link = page.locator("a:has-text('Mangelaufträge'), a:has-text('Mängelaufträge')").first
+        if mangel_link.count() == 0:
+            # Пробуем все ссылки на странице
+            links = [(l.inner_text().strip(), l.get_attribute("href")) for l in page.locator("a").all()]
+            print(f"  Archiv ссылки: {[(t,h) for t,h in links if t][:20]}")
+            return {}
+        mangel_link.click()
         page.wait_for_load_state("domcontentloaded", timeout=15000)
         page.wait_for_timeout(1000)
 
