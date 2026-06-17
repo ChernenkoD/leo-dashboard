@@ -64,8 +64,9 @@ function filtered() {
     if (mangelQuery === "yes" && !p.has_mangel) return false;
     if (mangelQuery === "no" && p.has_mangel) return false;
     if (cityQuery) {
-      const city = (p.address || "").split(",").pop()?.trim() || "";
-      if (!city.toLowerCase().includes(cityQuery.toLowerCase())) return false;
+      const last = (p.address || "").split(",").pop()?.trim() || "";
+      const city = last.replace(/^\d{4,5}\s*/, "").trim();
+      if (city.toLowerCase() !== cityQuery.toLowerCase()) return false;
     }
     if (query) {
       const q = query.toLowerCase();
@@ -158,7 +159,9 @@ function renderTable() {
 function fillCityFilter() {
   const cities = [...new Set(allProjects.map(p => {
     const parts = (p.address || "").split(",");
-    return parts[parts.length - 1]?.trim() || "";
+    const last = parts[parts.length - 1]?.trim() || "";
+    // Убираем PLZ (5 цифр в начале): "26382 Wilhelmshaven" → "Wilhelmshaven"
+    return last.replace(/^\d{4,5}\s*/, "").trim();
   }).filter(Boolean))].sort();
   const sel = document.getElementById("cityFilter");
   sel.innerHTML = `<option value="">Alle Städte</option>` +
