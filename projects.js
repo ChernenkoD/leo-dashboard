@@ -60,7 +60,7 @@ function filtered() {
     } else {
       if (isAbgeschlossen(p)) return false;
     }
-    if (baustopOnly && !isBaustop(p)) return false;
+    if (baustopOnly) { if (!isBaustop(p)) return false; } else { if (isBaustop(p)) return false; }
     if (mangelQuery === "yes" && !p.has_mangel) return false;
     if (mangelQuery === "no" && p.has_mangel) return false;
     if (cityQuery) {
