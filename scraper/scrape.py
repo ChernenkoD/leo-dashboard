@@ -455,11 +455,14 @@ def parse_projects(page):
             if plz or ort:
                 address += f", {plz} {ort}".strip(", ")
 
-            # Fortschritt
+            # Fortschritt — Excel хранит как дробь 0.0–1.0, умножаем на 100
             fortschritt = 0
             try:
-                raw = str(cv(row, "Projektfortschritt") or "0").replace("%", "").strip()
-                fortschritt = int(float(raw))
+                raw = cv(row, "Projektfortschritt")
+                if raw is not None:
+                    val = float(str(raw).replace("%", "").strip())
+                    # Если значение <= 1.0 — это дробь (0.75 = 75%)
+                    fortschritt = int(val * 100) if val <= 1.0 else int(val)
             except Exception:
                 pass
 
