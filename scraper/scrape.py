@@ -362,36 +362,44 @@ def parse_projects(page):
     except FileNotFoundError:
         url_map = {}
 
-    # Собираем URL со страницы Übersicht (только новые)
-    page.goto(f"{BASE}/index.php")
-    page.wait_for_load_state("networkidle")
-    page.click("text=Projekte")
-    page.click("text=Übersicht")
-    page.wait_for_load_state("networkidle")
+    import os
+    full_scrape = os.environ.get("FULL_SCRAPE", "true").lower() == "true"
 
-    table_id = "datatable_auftrag_laufend"
-    while True:
-        for link in page.locator("h5.section a.link-bold").all():
+    if full_scrape:
+        # Листаем Übersicht и собираем URL всех проектов
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("networkidle")
+        page.click("text=Projekte")
+        page.click("text=Übersicht")
+        page.wait_for_load_state("networkidle")
+
+        table_id = "datatable_auftrag_laufend"
+        while True:
+            for link in page.locator("h5.section a.link-bold").all():
+                try:
+                    lws = link.inner_text().strip()
+                    href = link.get_attribute("href") or ""
+                    if lws and href and lws not in url_map:
+                        url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                except Exception:
+                    continue
+
+            next_btn = page.locator(
+                f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
+            ).first
+            if next_btn.count() == 0:
+                break
             try:
-                lws = link.inner_text().strip()
-                href = link.get_attribute("href") or ""
-                if lws and href and lws not in url_map:
-                    url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                next_btn.click()
+                page.wait_for_load_state("networkidle", timeout=8000)
             except Exception:
-                continue
+                break
 
-        next_btn = page.locator(
-            f"#{table_id}_paginate .paginate_button:not(.current):not(.previous):not(.next):not(.disabled)"
-        ).first
-        if next_btn.count() == 0:
-            break
-        try:
-            next_btn.click()
-            page.wait_for_load_state("networkidle", timeout=8000)
-        except Exception:
-            break
-
-    print(f"  URL-кэш: {len(url_map)} записей")
+        with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(url_map, f, ensure_ascii=False, indent=2)
+        print(f"  URL-кэш обновлён: {len(url_map)} записей")
+    else:
+        print(f"  URL-кэш (без обновления): {len(url_map)} записей")
     with open(URL_CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(url_map, f, ensure_ascii=False, indent=2)
 
