@@ -356,6 +356,8 @@ body {
 .mangel-dot.has { background: #fef3c7; color: #92600a; }
 .mangel-dot.archiv { background: #ede9fe; color: #6d28d9; }
 .mangel-dot.none { color: var(--muted); }
+.card-archiv-leo { opacity: 0.85; border-left: 3px solid #8b5cf6; }
+.archiv-badge { display: inline-block; background: #ede9fe; color: #6d28d9; border-radius: 6px; padding: 1px 6px; font-size: 10px; font-weight: 700; margin-left: 6px; }
 .lws-link { color: var(--accent); text-decoration: none; font-weight: 600; }
 .lws-link:hover { text-decoration: underline; }
 .baustop-toggle { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #b91c1c; cursor: pointer; padding: 0 4px; }

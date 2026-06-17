@@ -681,28 +681,59 @@ def scrape_archiv_maengel(page):
                 h = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
                 print(f"  Archiv Mängel колонки: {h[:15]}")
 
-                # Ищем колонку с LWS/Projektnummer
-                lws_idx = next((i for i, n in enumerate(h) if "projekt" in n.lower() or "lws" in n.lower()), 0)
+                # Индексы колонок
+                def col(name):
+                    return next((i for i, n in enumerate(h) if name.lower() in n.lower()), None)
+
+                idx_id      = col("mangelauftrag")
+                idx_lws     = col("projekt")
+                idx_str     = col("straße") or col("strasse")
+                idx_nr      = col("nr")
+                idx_plz     = col("plz")
+                idx_ort     = col("ort")
+                idx_start   = col("ausführungsbeginn") or col("ausfuehrungsbeginn")
+                idx_end     = col("fertigstellung")
+                idx_bl      = col("bauleiter")
+                idx_inner   = col("innendienst")
 
                 stats = {}
+                records = []
                 for row in ws.iter_rows(min_row=2, values_only=True):
                     if not any(row): continue
-                    raw = str(row[lws_idx] or "").strip()
-                    m = re.search(r"LWS-\d+", raw)
+                    raw_lws = str(row[idx_lws] if idx_lws is not None else "").strip()
+                    m = re.search(r"LWS-\d+", raw_lws)
                     if not m: continue
                     lws = m.group(0)
                     stats[lws] = stats.get(lws, 0) + 1
+
+                    def cell(idx):
+                        if idx is None: return None
+                        v = row[idx]
+                        return str(v).strip() if v is not None else None
+
+                    street = " ".join(filter(None, [cell(idx_str), cell(idx_nr)]))
+                    address = ", ".join(filter(None, [street, " ".join(filter(None, [cell(idx_plz), cell(idx_ort)]))]))
+
+                    records.append({
+                        "id":               cell(idx_id) or "",
+                        "lws":              lws,
+                        "address":          address,
+                        "ausfuehrungsbeginn": fmt_date(row[idx_start] if idx_start is not None else None),
+                        "fertigstellung":   fmt_date(row[idx_end] if idx_end is not None else None),
+                        "bauleiter":        cell(idx_bl),
+                        "innendienst":      cell(idx_inner),
+                        "is_archiv":        True,
+                    })
                 wb.close()
-                print(f"  Archiv Mängel: {sum(stats.values())} gesamt, {len(stats)} Projekte")
-                return stats
+                print(f"  Archiv Mängel: {sum(stats.values())} gesamt, {len(stats)} Projekte, {len(records)} записей")
+                return stats, records
         else:
-            # Считаем видимые строки как приближение
             rows = page.locator("table tbody tr").count()
             print(f"  Archiv Mängel (без Excel): ~{rows} sichtbar")
-            return {}
+            return {}, []
     except Exception as e:
         print(f"  WARN Archiv Mängel: {e}")
-        return {}
+        return {}, []
 
 
 def main():
@@ -715,7 +746,7 @@ def main():
             tasks = parse_tasks(page)
             maengel = parse_mangel(page)
             projects = parse_projects(page)
-            archiv_mangel_stats = scrape_archiv_maengel(page)
+            archiv_mangel_stats, archiv_maengel = scrape_archiv_maengel(page)
         except RuntimeError as e:
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
@@ -742,6 +773,7 @@ def main():
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
             "maengel": maengel,
+            "archiv_maengel": archiv_maengel,
             "projects": projects,
             "archiv_mangel_stats": archiv_mangel_stats,
         }

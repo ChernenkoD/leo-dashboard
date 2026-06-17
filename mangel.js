@@ -1,4 +1,5 @@
 let MAENGEL = [];
+let ARCHIV_MAENGEL = [];
 let query = "";
 let showArchived = false;
 let filterBauleiter = "";
@@ -224,20 +225,38 @@ function applyFiltersAndSort(list) {
   return result;
 }
 
+function renderArchivCard(m) {
+  return `
+    <div class="card card-archiv-leo">
+      <div class="card-head">
+        <div class="lws">${m.id || "—"} <span class="archiv-badge">Archiv</span></div>
+        <div class="address">${m.address || "—"}</div>
+        <div class="dates">
+          <span>Начало: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
+          <span>Срок: <b>${fmtDate(m.fertigstellung)}</b></span>
+        </div>
+        <div class="dates" style="margin-top:4px;">
+          <span>Bauleiter: ${m.bauleiter || "—"}</span>
+          <span>Innendienst: ${m.innendienst || "—"}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function render() {
   const active = MAENGEL.filter(m => !isArchived(m.id));
-  const archived = MAENGEL.filter(m => isArchived(m.id));
-  const base = showArchived ? archived : active;
+  const base = showArchived ? ARCHIV_MAENGEL : active;
   const list = applyFiltersAndSort(base);
 
   document.getElementById("mangelList").innerHTML = list.length
-    ? list.map(renderCard).join("")
+    ? list.map(m => m.is_archiv ? renderArchivCard(m) : renderCard(m)).join("")
     : `<div class="empty-hint">${showArchived ? "Архив пуст" : "Ничего не найдено"}</div>`;
 
   document.getElementById("tabActive").classList.toggle("active", !showArchived);
   document.getElementById("tabArchived").classList.toggle("active", showArchived);
   document.getElementById("tabActive").textContent = `Активные (${active.length})`;
-  document.getElementById("tabArchived").textContent = `Архив (${archived.length})`;
+  document.getElementById("tabArchived").textContent = `Archiv LEO (${ARCHIV_MAENGEL.length})`;
 }
 
 function populateBauleiterFilter() {
@@ -257,6 +276,7 @@ async function init() {
   const res = await fetch("data.json");
   const data = await res.json();
   MAENGEL = data.maengel || [];
+  ARCHIV_MAENGEL = data.archiv_maengel || [];
 
   if (data.updatedAt) {
     const d = new Date(data.updatedAt);
