@@ -1,5 +1,6 @@
 let allProjects = [];
 let allMaengel = [];
+let archivMangelStats = {};
 let selectedYear = null;
 
 function fmtMoney(n) {
@@ -41,12 +42,13 @@ function renderKPI(projects) {
   const volTotal = projects.reduce((s, p) => s + (p.amount || 0), 0);
   const volActive = active.reduce((s, p) => s + (p.amount || 0), 0);
   const withMangel = projects.filter(p => p.has_mangel).length;
+  const archivMangel = Object.values(archivMangelStats).reduce((s, n) => s + n, 0);
 
   document.getElementById("kpiRow").innerHTML = [
     { label: "Aktive Projekte",    value: active.length,         sub: fmtMoney(volActive) },
     { label: "Abgeschlossen",      value: closed.length,         sub: fmtMoney(closed.reduce((s,p)=>s+(p.amount||0),0)) },
     { label: "Gesamtvolumen",      value: fmtMoney(volTotal),    sub: `${projects.length} Projekte` },
-    { label: "Mit Mängelauftrag",  value: withMangel,            sub: `${Math.round(withMangel/projects.length*100)||0}% aller Projekte` },
+    { label: "Mängel (aktiv)",     value: allMaengel.length,     sub: `Archiv: ${archivMangel} gesamt` },
     { label: "BAUSTOP",            value: baustopp.length,       sub: "aktuell eingefroren" },
     { label: "Ø Volumen/Projekt",  value: fmtMoney(volTotal / (projects.length || 1)), sub: "über alle Projekte" },
   ].map(k => `
@@ -132,18 +134,25 @@ function renderMangelChart(projects) {
   const mit    = projects.filter(p => p.has_mangel).length;
   const ohne   = projects.filter(p => !p.has_mangel).length;
   const total  = mit + ohne || 1;
+  // Архивные Mängel: считаем по проектам из текущей выборки
+  const archivTotal = projects.reduce((s, p) => s + (archivMangelStats[p.lws] || 0), 0);
+  const archivProjekte = projects.filter(p => archivMangelStats[p.lws]).length;
   document.getElementById("chartMangel").innerHTML = `
     <div class="pie-row">
       <div class="pie-seg" style="background:#f59e0b;width:${Math.round(mit/total*100)}%">${mit} mit</div>
       <div class="pie-seg" style="background:#e5e7eb;width:${Math.round(ohne/total*100)}%">${ohne} ohne</div>
     </div>
     <div class="pie-legend">
-      <span><b style="color:#f59e0b">■</b> Mit Mängelauftrag: ${mit} (${Math.round(mit/total*100)}%)</span>
+      <span><b style="color:#f59e0b">■</b> Mit Mängelauftrag (aktiv): ${mit} (${Math.round(mit/total*100)}%)</span>
       <span><b style="color:#9ca3af">■</b> Ohne: ${ohne} (${Math.round(ohne/total*100)}%)</span>
     </div>
     <div style="margin-top:16px;font-size:13px;color:var(--muted)">
-      Mängelaufträge gesamt: <b>${allMaengel.length}</b>
-    </div>`;
+      Aktive Mängelaufträge: <b>${allMaengel.length}</b>
+    </div>
+    ${archivTotal > 0 ? `
+    <div style="margin-top:8px;font-size:13px;color:var(--muted)">
+      Archiv Mängelaufträge: <b>${archivTotal}</b> (aus ${archivProjekte} Projekten)
+    </div>` : ""}`;
 }
 
 function renderAbrChart(projects) {
@@ -234,6 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       allProjects = data.projects || [];
       allMaengel  = data.maengel  || [];
+      archivMangelStats = data.archiv_mangel_stats || {};
       const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
       document.getElementById("pageSub").textContent = upd ? `Stand: ${upd}` : "";
       fillYearFilter(allProjects);
