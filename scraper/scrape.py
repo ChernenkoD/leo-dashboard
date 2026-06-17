@@ -599,58 +599,47 @@ def scrape_archiv_maengel(page):
         return {}
 
     try:
-        # Archiv открывается через dropdown профиля — пробуем разные варианты
-        archiv_opened = False
-        for url in [
-            f"{BASE}/index.php?page=archiv",
-            f"{BASE}/index.php?q=archiv",
-            f"{BASE}/archiv",
-            f"{BASE}/index.php/archiv",
-        ]:
-            page.goto(url)
-            page.wait_for_load_state("domcontentloaded", timeout=15000)
-            page.wait_for_timeout(500)
-            if "archiv" in page.url.lower() or "Archiv" in page.title():
-                archiv_opened = True
-                break
+        # Archiv скрыт в dropdown профиля — извлекаем href через JS и переходим напрямую
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("domcontentloaded", timeout=20000)
+        page.wait_for_timeout(1000)
 
-        if not archiv_opened:
-            # Кликаем на аватар/имя пользователя чтобы открыть dropdown
-            page.goto(f"{BASE}/index.php")
-            page.wait_for_load_state("domcontentloaded", timeout=20000)
-            page.wait_for_timeout(1000)
-            for sel in [".user-menu", ".avatar", "[class*='user']", "[class*='profile']",
-                        "[class*='account']", "img[src*='avatar']", ".nav-right a"]:
-                try:
-                    el = page.locator(sel).first
-                    if el.count() > 0:
-                        el.click()
-                        page.wait_for_timeout(600)
-                        lnk = page.locator("a:has-text('Archiv')").first
-                        if lnk.count() > 0:
-                            lnk.click()
-                            page.wait_for_load_state("domcontentloaded", timeout=15000)
-                            archiv_opened = True
-                            break
-                except Exception:
-                    continue
-
-        print(f"  Archiv URL: {page.url} | opened={archiv_opened}")
-        # Логируем все ссылки чтобы понять структуру
-        all_links = [(l.inner_text().strip()[:40], l.get_attribute("href") or "")
-                     for l in page.locator("a").all() if l.inner_text().strip()]
-        print(f"  Все ссылки на странице: {all_links[:30]}")
-
-        if not archiv_opened:
+        archiv_href = page.evaluate("""
+            () => {
+                const a = Array.from(document.querySelectorAll('a'))
+                    .find(el => el.textContent.trim() === 'Archiv');
+                return a ? a.href : null;
+            }
+        """)
+        print(f"  Archiv href: {archiv_href}")
+        if not archiv_href:
+            print("  Archiv ссылка не найдена в DOM")
             return {}
 
-        # Кликаем на Mangelaufträge
-        mangel_link = page.locator("a:has-text('Mangelaufträge'), a:has-text('Mängelaufträge')").first
-        if mangel_link.count() == 0:
-            print("  Mangelaufträge ссылка не найдена на странице Archiv")
+        page.goto(archiv_href)
+        page.wait_for_load_state("domcontentloaded", timeout=20000)
+        page.wait_for_timeout(1000)
+        print(f"  Archiv URL: {page.url}")
+
+        # Аналогично — Mangelaufträge тоже может быть скрыт, берём href через JS
+        mangel_href = page.evaluate("""
+            () => {
+                const a = Array.from(document.querySelectorAll('a'))
+                    .find(el => el.textContent.trim().includes('Mangelauftr'));
+                return a ? a.href : null;
+            }
+        """)
+        print(f"  Mangelaufträge href: {mangel_href}")
+        if not mangel_href:
+            all_links = page.evaluate("""
+                () => Array.from(document.querySelectorAll('a'))
+                    .map(a => a.textContent.trim() + ' -> ' + a.href).filter(s => s.length > 4)
+            """)
+            print(f"  Все ссылки: {all_links[:20]}")
             return {}
-        mangel_link.click()
-        page.wait_for_load_state("domcontentloaded", timeout=15000)
+
+        page.goto(mangel_href)
+        page.wait_for_load_state("domcontentloaded", timeout=20000)
         page.wait_for_timeout(1000)
 
         # Пробуем скачать Excel
