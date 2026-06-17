@@ -621,21 +621,29 @@ def scrape_archiv_maengel(page):
         page.wait_for_timeout(1000)
         print(f"  Archiv URL: {page.url}")
 
-        # Аналогично — Mangelaufträge тоже может быть скрыт, берём href через JS
+        # Mangelaufträge в архиве — ищем в main контенте (не nav/sidebar)
+        # Выводим все ссылки на странице для диагностики
+        all_links_on_archiv = page.evaluate("""
+            () => Array.from(document.querySelectorAll('a'))
+                .map(a => ({text: a.textContent.trim(), href: a.href,
+                             inNav: !!a.closest('nav,aside,.sidebar,.navbar,.nav'),
+                             inMain: !!a.closest('main,.content,.main-content,.wrapper')}))
+                .filter(a => a.text.length > 2)
+        """)
+        print(f"  Ссылки на Archive-странице: {[(a['text'][:30], a['inNav'], a['inMain']) for a in all_links_on_archiv[:25]]}")
+
+        # Ищем Mangelaufträge НЕ в навигации (в основном контенте)
         mangel_href = page.evaluate("""
             () => {
-                const a = Array.from(document.querySelectorAll('a'))
-                    .find(el => el.textContent.trim().includes('Mangelauftr'));
-                return a ? a.href : null;
+                const links = Array.from(document.querySelectorAll('a'))
+                    .filter(el => el.textContent.trim().includes('Mangelauftr'));
+                // Предпочитаем ссылку НЕ в nav/sidebar
+                const main = links.find(el => !el.closest('nav,aside,.sidebar,.navbar,.nav,.menu'));
+                return (main || links[0])?.href || null;
             }
         """)
         print(f"  Mangelaufträge href: {mangel_href}")
         if not mangel_href:
-            all_links = page.evaluate("""
-                () => Array.from(document.querySelectorAll('a'))
-                    .map(a => a.textContent.trim() + ' -> ' + a.href).filter(s => s.length > 4)
-            """)
-            print(f"  Все ссылки: {all_links[:20]}")
             return {}
 
         page.goto(mangel_href)
