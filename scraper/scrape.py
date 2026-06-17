@@ -451,9 +451,9 @@ def parse_projects(page):
             nr      = str(cv(row, "Nr.") or "").strip()
             plz     = str(cv(row, "PLZ") or "").strip()
             ort     = str(cv(row, "Ort") or "").strip()
-            address = f"{strasse} {nr}".strip()
-            if plz or ort:
-                address += f", {plz} {ort}".strip(", ")
+            street  = f"{strasse} {nr}".strip()
+            city    = f"{plz} {ort}".strip()
+            address = ", ".join(filter(None, [street, city]))
 
             # Fortschritt — Excel хранит как дробь 0.0–1.0, умножаем на 100
             fortschritt = 0
@@ -466,26 +466,39 @@ def parse_projects(page):
             except Exception:
                 pass
 
-            # Статус — пропускаем если 100% и abgeschlossen (уже в архиве)
             status = str(cv(row, "Status") or "").strip()
+            # Закрытые проекты: Beendet, Abgeschlossen, Schlussgerechnet
+            CLOSED = {"beendet", "abgeschlossen", "schlussgerechnet", "storniert"}
+            abgeschlossen = status.lower() in CLOSED or fortschritt >= 100
+
+            amount_raw = cv(row, "Auftragsvolumen gesamt")
+            amount = parse_amount(amount_raw)
 
             projects.append({
-                "lws":        lws,
-                "address":    address or None,
-                "lage":       str(cv(row, "Lage") or "").strip() or None,
-                "bauleiter":  str(cv(row, "Bauleitung AG") or "").strip() or None,
-                "start":      fmt_date(cv(row, "Ausführungsbeginn Plan")),
-                "ende":       fmt_date(cv(row, "Fertigstellung Plan")),
-                "amount":     parse_amount(cv(row, "Auftragsvolumen gesamt")),
-                "fortschritt": fortschritt,
-                "status":     status or None,
-                "baustopp":   False,
-                "leo_url":    url_map.get(lws),
+                "lws":          lws,
+                "address":      address or None,
+                "lage":         str(cv(row, "Lage") or "").strip() or None,
+                "bauleiter":    str(cv(row, "Bauleitung AG") or "").strip() or None,
+                "start":        fmt_date(cv(row, "Ausführungsbeginn Plan")),
+                "ende":         fmt_date(cv(row, "Fertigstellung Plan")),
+                "amount":       amount,
+                "fortschritt":  fortschritt,
+                "status":       status or None,
+                "abgeschlossen": abgeschlossen,
+                "baustopp":     False,
+                "leo_url":      url_map.get(lws),
             })
 
         wb.close()
 
-    print(f"Найдено {len(projects)} проектов из P-03")
+    with_amount = sum(1 for p in projects if p["amount"])
+    abgeschl = sum(1 for p in projects if p["abgeschlossen"])
+    print(f"Найдено {len(projects)} проектов из P-03 (с суммой: {with_amount}, закрытых: {abgeschl})")
+    # Диагностика: первый проект с суммой
+    for p in projects:
+        if p["amount"]:
+            print(f"  Пример с суммой: {p['lws']} = {p['amount']}")
+            break
     return projects
 
 

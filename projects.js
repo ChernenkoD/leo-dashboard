@@ -29,7 +29,7 @@ function isBaustop(p) {
 }
 
 function isAbgeschlossen(p) {
-  return p.fortschritt === 100;
+  return p.abgeschlossen === true || p.fortschritt >= 100;
 }
 
 function filtered() {

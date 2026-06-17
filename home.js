@@ -49,7 +49,7 @@ function urgencyTag(days) {
 }
 
 function activeProjects() {
-  return allProjects.filter(p => p.fortschritt < 100 && !p.baustopp);
+  return allProjects.filter(p => !p.abgeschlossen && p.fortschritt < 100 && !p.baustopp);
 }
 
 function visibleCards() {
