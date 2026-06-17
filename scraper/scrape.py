@@ -588,6 +588,60 @@ def parse_projects(page):
     return projects
 
 
+def scrape_archiv_maengel(page):
+    """
+    Из Archiv → Mangelaufträge берём агрегат по LWS для статистики.
+    Запускается только при FULL_SCRAPE=true (раз в день).
+    Возвращает: {lws: count} — сколько всего (архивных) Mängel на каждый проект.
+    """
+    import os
+    if os.environ.get("FULL_SCRAPE", "true").lower() != "true":
+        return {}
+
+    try:
+        page.goto(f"{BASE}/index.php?q=archiv")
+        page.wait_for_load_state("domcontentloaded", timeout=20000)
+        page.wait_for_timeout(1500)
+
+        # Кликаем на Mangelaufträge в архиве
+        page.locator("a:has-text('Mangelaufträge')").first.click()
+        page.wait_for_load_state("domcontentloaded", timeout=15000)
+        page.wait_for_timeout(1000)
+
+        # Пробуем скачать Excel
+        dl_btn = page.locator("a:has-text('Herunterladen'), button:has-text('Herunterladen')").first
+        if dl_btn.count() > 0:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                xl_path = download_excel(page, lambda: dl_btn.click(), "archiv_mangel", tmpdir, timeout=90000)
+                wb = openpyxl.load_workbook(xl_path, read_only=True, data_only=True)
+                ws = wb.active
+                h = [str(c.value or "").strip() for c in next(ws.iter_rows(min_row=1, max_row=1))]
+                print(f"  Archiv Mängel колонки: {h[:15]}")
+
+                # Ищем колонку с LWS/Projektnummer
+                lws_idx = next((i for i, n in enumerate(h) if "projekt" in n.lower() or "lws" in n.lower()), 0)
+
+                stats = {}
+                for row in ws.iter_rows(min_row=2, values_only=True):
+                    if not any(row): continue
+                    raw = str(row[lws_idx] or "").strip()
+                    m = re.search(r"LWS-\d+", raw)
+                    if not m: continue
+                    lws = m.group(0)
+                    stats[lws] = stats.get(lws, 0) + 1
+                wb.close()
+                print(f"  Archiv Mängel: {sum(stats.values())} gesamt, {len(stats)} Projekte")
+                return stats
+        else:
+            # Считаем видимые строки как приближение
+            rows = page.locator("table tbody tr").count()
+            print(f"  Archiv Mängel (без Excel): ~{rows} sichtbar")
+            return {}
+    except Exception as e:
+        print(f"  WARN Archiv Mängel: {e}")
+        return {}
+
+
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -598,6 +652,7 @@ def main():
             tasks = parse_tasks(page)
             maengel = parse_mangel(page)
             projects = parse_projects(page)
+            archiv_mangel_stats = scrape_archiv_maengel(page)
         except RuntimeError as e:
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
@@ -614,11 +669,18 @@ def main():
             match = re.search(r"LWS-\d+", p.get("lws", ""))
             p["has_mangel"] = bool(match and match.group(0) in mangel_lws_set)
 
+        # Помечаем проекты у которых есть архивные Mängel
+        for p in projects:
+            m = re.search(r"LWS-\d+", p.get("lws", ""))
+            if m:
+                p["archiv_mangel_count"] = archiv_mangel_stats.get(m.group(0), 0)
+
         data = {
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
             "maengel": maengel,
             "projects": projects,
+            "archiv_mangel_stats": archiv_mangel_stats,
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
