@@ -131,28 +131,31 @@ function renderBauleiterChart(projects) {
 }
 
 function renderMangelChart(projects) {
-  const mit    = projects.filter(p => p.has_mangel).length;
-  const ohne   = projects.filter(p => !p.has_mangel).length;
-  const total  = mit + ohne || 1;
-  // Архивные Mängel: считаем по проектам из текущей выборки
-  const archivTotal = projects.reduce((s, p) => s + (archivMangelStats[p.lws] || 0), 0);
-  const archivProjekte = projects.filter(p => archivMangelStats[p.lws]).length;
+  const mitAktiv  = projects.filter(p => p.has_mangel && !(p.archiv_mangel_count > 0)).length;
+  const mitArchiv = projects.filter(p => !p.has_mangel && p.archiv_mangel_count > 0).length;
+  const mitBeide  = projects.filter(p => p.has_mangel && p.archiv_mangel_count > 0).length;
+  const mitTotal  = mitAktiv + mitArchiv + mitBeide;
+  const ohne      = projects.filter(p => !p.has_mangel && !(p.archiv_mangel_count > 0)).length;
+  const total     = mitTotal + ohne || 1;
+  const archivAnzahl = projects.reduce((s, p) => s + (p.archiv_mangel_count || 0), 0);
+
   document.getElementById("chartMangel").innerHTML = `
     <div class="pie-row">
-      <div class="pie-seg" style="background:#f59e0b;width:${Math.round(mit/total*100)}%">${mit} mit</div>
+      <div class="pie-seg" style="background:#f59e0b;width:${Math.round(mitAktiv/total*100)}%" title="Nur aktiv">${mitAktiv}</div>
+      <div class="pie-seg" style="background:#8b5cf6;width:${Math.round(mitBeide/total*100)}%" title="Aktiv + Archiv">${mitBeide || ""}</div>
+      <div class="pie-seg" style="background:#ede9fe;color:#6d28d9;width:${Math.round(mitArchiv/total*100)}%" title="Nur Archiv">${mitArchiv}</div>
       <div class="pie-seg" style="background:#e5e7eb;width:${Math.round(ohne/total*100)}%">${ohne} ohne</div>
     </div>
     <div class="pie-legend">
-      <span><b style="color:#f59e0b">■</b> Mit Mängelauftrag (aktiv): ${mit} (${Math.round(mit/total*100)}%)</span>
+      <span><b style="color:#f59e0b">■</b> Nur aktiver Mängel: ${mitAktiv}</span>
+      <span><b style="color:#8b5cf6">■</b> Aktiv + Archiv: ${mitBeide}</span>
+      <span><b style="color:#8b5cf6" style="opacity:.4">■</b> Nur Archiv: ${mitArchiv}</span>
       <span><b style="color:#9ca3af">■</b> Ohne: ${ohne} (${Math.round(ohne/total*100)}%)</span>
     </div>
     <div style="margin-top:16px;font-size:13px;color:var(--muted)">
-      Aktive Mängelaufträge: <b>${allMaengel.length}</b>
-    </div>
-    ${archivTotal > 0 ? `
-    <div style="margin-top:8px;font-size:13px;color:var(--muted)">
-      Archiv Mängelaufträge: <b>${archivTotal}</b> (aus ${archivProjekte} Projekten)
-    </div>` : ""}`;
+      Aktive Mängelaufträge: <b>${allMaengel.length}</b> &nbsp;|&nbsp;
+      Archiv Mängelaufträge: <b>${archivAnzahl}</b> (aus ${mitArchiv + mitBeide} Projekten)
+    </div>`;
 }
 
 function renderAbrChart(projects) {
