@@ -50,10 +50,10 @@ def auto_login(page):
     }))""")
     print(f"  Buttons: {buttons}")
 
-    # Заполняем поля — пробуем все варианты
+    # Поля логина LEO: name='user' и name='pw'
     filled_user = False
-    for sel in ["input[name='username']", "input[name='email']", "input[type='email']",
-                "input[name='user']", "input[id*='user']", "input[id*='mail']", "input:not([type='hidden']):not([type='password']):not([type='submit'])"]:
+    for sel in ["input[name='user']", "input[name='username']", "input[name='email']",
+                "input[type='email']", "input[id='user']", "input[id*='user']"]:
         try:
             el = page.locator(sel).first
             if el.count() > 0:
@@ -65,7 +65,7 @@ def auto_login(page):
             continue
 
     filled_pass = False
-    for sel in ["input[name='password']", "input[type='password']"]:
+    for sel in ["input[name='pw']", "input[name='password']", "input[type='password']"]:
         try:
             el = page.locator(sel).first
             if el.count() > 0:
