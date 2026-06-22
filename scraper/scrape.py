@@ -27,6 +27,42 @@ def is_logged_out(page):
         return True
 
 
+def auto_login(page):
+    """Логинится через LEO_USER / LEO_PASS из окружения."""
+    import os
+    user = os.environ.get("LEO_USER", "")
+    pwd  = os.environ.get("LEO_PASS", "")
+    if not user or not pwd:
+        raise RuntimeError("Нет LEO_USER / LEO_PASS в окружении — добавь в GitHub Secrets")
+
+    print("  Автологин в LEO...")
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("domcontentloaded", timeout=20000)
+
+    # Ищем поля логина
+    for user_sel in ["input[name='username']", "input[name='email']", "input[type='email']", "input[name='user']", "input[id*='user']", "input[id*='login']"]:
+        if page.locator(user_sel).count() > 0:
+            page.locator(user_sel).first.fill(user)
+            break
+    for pass_sel in ["input[name='password']", "input[type='password']"]:
+        if page.locator(pass_sel).count() > 0:
+            page.locator(pass_sel).first.fill(pwd)
+            break
+
+    # Нажимаем кнопку входа
+    for btn_sel in ["button[type='submit']", "input[type='submit']", "button:has-text('Anmelden')", "button:has-text('Login')", "button:has-text('Einloggen')"]:
+        if page.locator(btn_sel).count() > 0:
+            page.locator(btn_sel).first.click()
+            break
+
+    page.wait_for_load_state("domcontentloaded", timeout=20000)
+    page.wait_for_timeout(2000)
+
+    if is_logged_out(page):
+        raise RuntimeError("Автологин не сработал — проверь LEO_USER и LEO_PASS в GitHub Secrets")
+    print("  Автологин успешен!")
+
+
 def lines_of(text):
     return [l.strip() for l in text.split("\n") if l.strip()]
 
@@ -61,9 +97,11 @@ def parse_task_block(text):
 
 def parse_tasks(page):
     page.goto(f"{BASE}/index.php")
-    page.wait_for_load_state("networkidle")
+    page.wait_for_load_state("domcontentloaded")
     if is_logged_out(page):
-        raise RuntimeError("Сессия LEO протухла — нужно перелогиниться локально и обновить LEO_SESSION secret")
+        auto_login(page)
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("domcontentloaded")
 
     seen_keys = set()
     tasks = []
@@ -737,9 +775,14 @@ def scrape_archiv_maengel(page):
 
 
 def main():
+    import os
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(storage_state=STORAGE_STATE)
+        # storage_state может не существовать — тогда стартуем без него
+        ctx_kwargs = {}
+        if os.path.exists(STORAGE_STATE):
+            ctx_kwargs["storage_state"] = STORAGE_STATE
+        context = browser.new_context(**ctx_kwargs)
         page = context.new_page()
 
         try:

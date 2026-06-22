@@ -26,15 +26,24 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
-      - name: Restore LEO session
+      - name: Restore LEO session (если есть)
         working-directory: scraper
-        run: echo "$LEO_SESSION" | base64 -d > storage_state.json
+        run: |
+          if [ -n "$LEO_SESSION" ]; then
+            echo "$LEO_SESSION" | base64 -d > storage_state.json
+            echo "Сессия восстановлена из секрета"
+          else
+            echo "LEO_SESSION не задан — будет автологин"
+          fi
         env:
           LEO_SESSION: ${{ secrets.LEO_SESSION }}
 
       - name: Run scraper
         working-directory: scraper
         run: python3 scrape.py
+        env:
+          LEO_USER: ${{ secrets.LEO_USER }}
+          LEO_PASS: ${{ secrets.LEO_PASS }}
 
       - name: Commit updated data.json
         run: |
