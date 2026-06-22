@@ -118,7 +118,7 @@ function barChart(containerId, items, { valueKey="amount", labelKey="label", col
     const label = moneyFormat ? fmtMoney(val) : val;
     const fv = filterVal ? item[filterVal] : item[labelKey];
     const isActive = activeVal === fv;
-    const clickable = filterKey ? `onclick="setFilter('${filterKey}','${fv.replace(/'/g,"\\'")}'')" style="cursor:pointer"` : "";
+    const clickable = filterKey ? `onclick="setFilter('${filterKey}','${fv.replace(/'/g,"\\'")}') " style="cursor:pointer"` : "";
     return `<div class="bar-row ${isActive ? 'bar-row-active' : ''}" ${clickable}>
       <div class="bar-label">${item[labelKey]}</div>
       <div class="bar-wrap">
@@ -174,7 +174,7 @@ function renderBauleiterChart(projects) {
   document.getElementById("chartBauleiter").innerHTML = items.map(i => {
     const isActive = filters.bauleiter === i.label;
     return `<div class="bar-row ${isActive?'bar-row-active':''}"
-      onclick="setFilter('bauleiter','${i.label.replace(/'/g,"\\'")}'')" style="cursor:pointer">
+      onclick="setFilter('bauleiter','${i.label.replace(/'/g,"\\'")}') " style="cursor:pointer">
       <div class="bar-label">${i.label} <span class="bar-count">(${i.count})</span></div>
       <div class="bar-wrap">
         <div class="bar-fill" style="width:${Math.round(i.amount/max*100)}%;background:${isActive?'var(--accent)':'#10b981'};transition:width .3s"></div>
@@ -249,7 +249,7 @@ function renderStatusChart(projects) {
   const max = Math.max(...items.map(i=>i.count),1);
   document.getElementById("chartStatus").innerHTML = items.map((i,idx)=>`
     <div class="bar-row ${filters.status===i.label?'bar-row-active':''}"
-      onclick="setFilter('status','${i.label.replace(/'/g,"\\'")}'')" style="cursor:pointer">
+      onclick="setFilter('status','${i.label.replace(/'/g,"\\'")}') " style="cursor:pointer">
       <div class="bar-label">${i.label}</div>
       <div class="bar-wrap">
         <div class="bar-fill" style="width:${Math.round(i.count/max*100)}%;background:${filters.status===i.label?'var(--accent)':colors[idx%colors.length]};transition:width .3s"></div>
