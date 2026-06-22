@@ -38,22 +38,59 @@ def auto_login(page):
     print("  Автологин в LEO...")
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("domcontentloaded", timeout=20000)
+    page.wait_for_timeout(1000)
 
-    # Ищем поля логина
-    for user_sel in ["input[name='username']", "input[name='email']", "input[type='email']", "input[name='user']", "input[id*='user']", "input[id*='login']"]:
-        if page.locator(user_sel).count() > 0:
-            page.locator(user_sel).first.fill(user)
-            break
-    for pass_sel in ["input[name='password']", "input[type='password']"]:
-        if page.locator(pass_sel).count() > 0:
-            page.locator(pass_sel).first.fill(pwd)
-            break
+    # Диагностика — выводим все input и button на странице
+    inputs = page.evaluate("""() => Array.from(document.querySelectorAll('input')).map(i => ({
+        type: i.type, name: i.name, id: i.id, placeholder: i.placeholder
+    }))""")
+    print(f"  Inputs на странице: {inputs}")
+    buttons = page.evaluate("""() => Array.from(document.querySelectorAll('button,input[type=submit]')).map(b => ({
+        type: b.type, text: b.textContent?.trim()[:30], name: b.name
+    }))""")
+    print(f"  Buttons: {buttons}")
+
+    # Заполняем поля — пробуем все варианты
+    filled_user = False
+    for sel in ["input[name='username']", "input[name='email']", "input[type='email']",
+                "input[name='user']", "input[id*='user']", "input[id*='mail']", "input:not([type='hidden']):not([type='password']):not([type='submit'])"]:
+        try:
+            el = page.locator(sel).first
+            if el.count() > 0:
+                el.fill(user)
+                filled_user = True
+                print(f"  Логин заполнен через: {sel}")
+                break
+        except Exception:
+            continue
+
+    filled_pass = False
+    for sel in ["input[name='password']", "input[type='password']"]:
+        try:
+            el = page.locator(sel).first
+            if el.count() > 0:
+                el.fill(pwd)
+                filled_pass = True
+                print(f"  Пароль заполнен через: {sel}")
+                break
+        except Exception:
+            continue
+
+    if not filled_user or not filled_pass:
+        print(f"  WARN: filled_user={filled_user}, filled_pass={filled_pass}")
 
     # Нажимаем кнопку входа
-    for btn_sel in ["button[type='submit']", "input[type='submit']", "button:has-text('Anmelden')", "button:has-text('Login')", "button:has-text('Einloggen')"]:
-        if page.locator(btn_sel).count() > 0:
-            page.locator(btn_sel).first.click()
-            break
+    for sel in ["button[type='submit']", "input[type='submit']",
+                "button:has-text('Anmelden')", "button:has-text('Login')",
+                "button:has-text('Einloggen')", "button:has-text('Einloggen')", "form button"]:
+        try:
+            el = page.locator(sel).first
+            if el.count() > 0:
+                el.click()
+                print(f"  Кнопка нажата: {sel}")
+                break
+        except Exception:
+            continue
 
     page.wait_for_load_state("domcontentloaded", timeout=20000)
     page.wait_for_timeout(2000)
