@@ -124,11 +124,10 @@ function renderCard(m) {
   const late = days !== null && days < 0;
   const soon = days !== null && days >= 0 && days <= 3;
   const { done, total } = checkedCount(m);
-  const archived = isArchived(m.id);
   const ms = MANGEL_STATUS_LABELS[m.mangel_status] || MANGEL_STATUS_LABELS.unknown;
 
   return `
-    <div class="card ${archived ? "card-archived" : ""}" id="card-${m.id}"
+    <div class="card" id="card-${m.id}"
          style="border-left: 4px solid ${ms.color}">
       <div class="card-head">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
