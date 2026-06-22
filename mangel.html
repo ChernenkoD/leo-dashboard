@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mängel — LEO Board</title>
-<link rel="stylesheet" href="board.css?v=9">
+<link rel="stylesheet" href="board.css?v=10">
 </head>
 <body>
   <div class="app-layout">
@@ -16,28 +16,29 @@
       </header>
       <div class="toolbar" style="flex-wrap:wrap; gap:8px;">
         <input type="text" id="search" style="min-width:180px; flex:2;">
-        <select id="filterBauleiter"><option value="">Все Bauleiter</option></select>
+        <select id="filterBauleiter"><option value="">Alle Bauleiter</option></select>
         <select id="filterStatus">
-          <option value="">Все статусы</option>
-          <option value="angenommen">angenommen</option>
-          <option value="behoben">Mangel behoben</option>
-          <option value="geprueft">behoben & geprüft</option>
+          <option value="">Alle Positionen</option>
+          <option value="angenommen">Offen (angenommen)</option>
+          <option value="behoben">Behoben – wartet</option>
+          <option value="geprueft">Geprüft ✓</option>
         </select>
         <select id="sortBy">
-          <option value="deadline">По сроку ↑</option>
-          <option value="deadline_desc">По сроку ↓</option>
-          <option value="address">По адресу</option>
-          <option value="progress">По прогрессу</option>
-          <option value="start">По дате начала</option>
+          <option value="deadline">Nach Termin ↑</option>
+          <option value="deadline_desc">Nach Termin ↓</option>
+          <option value="address">Nach Adresse</option>
+          <option value="progress">Nach Fortschritt</option>
+          <option value="start">Nach Beginn</option>
         </select>
-        <button class="tab-btn" id="tabActive">Активные</button>
-        <button class="tab-btn" id="tabArchived">Архив</button>
+        <button class="tab-btn" id="tabActive">Aktiv</button>
+        <button class="tab-btn" id="tabGeprueft">Geprüft ✓</button>
+        <button class="tab-btn" id="tabArchived">Archiv LEO</button>
       </div>
       <section id="mangelList" class="list"></section>
     </div>
   </div>
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="mangel.js?v=4"></script>
+  <script src="mangel.js?v=5"></script>
 </body>
 </html>

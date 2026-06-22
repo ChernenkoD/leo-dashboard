@@ -845,13 +845,29 @@ def main():
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
 
-        # Помечаем проекты у которых есть Mängel (по базовому LWS номеру)
+        # Добавляем mangel_status к каждому Mängelauftrag
+        for m in maengel:
+            pos = m.get("positionen", [])
+            statuses = [str(p.get("status") or "").lower() for p in pos]
+            if not pos:
+                m["mangel_status"] = "unknown"
+            elif all("geprüft" in s for s in statuses):
+                m["mangel_status"] = "geprueft"      # все закрыты заказчиком
+            elif any("geprüft" in s for s in statuses):
+                m["mangel_status"] = "teilweise"     # частично закрыты
+            elif all("behoben" in s for s in statuses):
+                m["mangel_status"] = "behoben"       # все исправлены, ждём проверки
+            else:
+                m["mangel_status"] = "offen"         # есть открытые позиции
+
+        # Помечаем проекты у которых есть Mängel (только реально открытые)
         # M-LWS-82670-2 → LWS-82670, проект LWS-82670 → совпадение
         mangel_lws_set = set()
         for m in maengel:
-            match = re.search(r"LWS-\d+", m.get("id", ""))
-            if match:
-                mangel_lws_set.add(match.group(0))
+            if m.get("mangel_status") in ("offen", "behoben", "teilweise", "unknown"):
+                match = re.search(r"LWS-\d+", m.get("id", ""))
+                if match:
+                    mangel_lws_set.add(match.group(0))
 
         for p in projects:
             match = re.search(r"LWS-\d+", p.get("lws", ""))
