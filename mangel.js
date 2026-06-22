@@ -23,9 +23,8 @@ function daysUntil(str) {
   return Math.round((dt - today) / 86400000);
 }
 
-// --- localStorage helpers ---
+// --- localStorage helpers (только чекбоксы позиций) ---
 function checkKey(mangelId, idx) { return `chk_${mangelId}_${idx}`; }
-function archivedKey(mangelId) { return `arch_${mangelId}`; }
 
 function isAutoChecked(status) {
   return status && status.toLowerCase().includes("geprüft");
@@ -37,13 +36,6 @@ function isChecked(mangelId, idx, status) {
 function setChecked(mangelId, idx, val) {
   if (val) localStorage.setItem(checkKey(mangelId, idx), "1");
   else localStorage.removeItem(checkKey(mangelId, idx));
-}
-function isArchived(mangelId) {
-  return localStorage.getItem(archivedKey(mangelId)) === "1";
-}
-function setArchived(mangelId, val) {
-  if (val) localStorage.setItem(archivedKey(mangelId), "1");
-  else localStorage.removeItem(archivedKey(mangelId));
 }
 
 function checkedCount(m) {
@@ -169,8 +161,6 @@ function toggleCheck(mangelId, idx, val) {
   document.getElementById(`card-${mangelId}`).outerHTML = renderCard(m);
 }
 
-function archiveMangel(mangelId) { setArchived(mangelId, true); render(); }
-function unarchiveMangel(mangelId) { setArchived(mangelId, false); render(); }
 
 function applyFiltersAndSort(list) {
   let result = list;
