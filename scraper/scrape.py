@@ -46,7 +46,7 @@ def auto_login(page):
     }))""")
     print(f"  Inputs на странице: {inputs}")
     buttons = page.evaluate("""() => Array.from(document.querySelectorAll('button,input[type=submit]')).map(b => ({
-        type: b.type, text: b.textContent?.trim()[:30], name: b.name
+        type: b.type, text: (b.textContent||'').trim().substring(0,30), name: b.name
     }))""")
     print(f"  Buttons: {buttons}")
 
