@@ -478,6 +478,7 @@ def parse_projects(page):
 
         # Собираем URL только для проектов которых нет в кэше
         # DataTables: кнопка Next имеет класс .next, disabled когда последняя стр.
+        used_urls = set(url_map.values())  # защита от дублей
         pg = 0
         while pg < 200:  # hard cap
             pg += 1
@@ -485,8 +486,12 @@ def parse_projects(page):
                 try:
                     lws = link.inner_text().strip()
                     href = link.get_attribute("href") or ""
-                    if lws and href and lws not in url_map:
-                        url_map[lws] = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                    if not lws or not href:
+                        continue
+                    full = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                    if lws not in url_map and full not in used_urls:
+                        url_map[lws] = full
+                        used_urls.add(full)
                 except Exception:
                     continue
             nxt = page.locator("#datatable_auftrag_laufend_paginate .paginate_button.next:not(.disabled)").first
