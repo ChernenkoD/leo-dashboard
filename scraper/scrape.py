@@ -95,6 +95,15 @@ def auto_login(page):
     page.wait_for_load_state("domcontentloaded", timeout=20000)
     page.wait_for_timeout(2000)
 
+    print(f"  URL после логина: {page.url}")
+    # Ищем сообщение об ошибке
+    err_text = page.evaluate("""() => {
+        const el = document.querySelector('.alert, .error, .login-error, [class*=error], [class*=alert]');
+        return el ? el.textContent.trim().substring(0, 200) : null;
+    }""")
+    if err_text:
+        print(f"  Сообщение на странице: {err_text}")
+
     if is_logged_out(page):
         raise RuntimeError("Автологин не сработал — проверь LEO_USER и LEO_PASS в GitHub Secrets")
     print("  Автологин успешен!")
