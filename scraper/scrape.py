@@ -332,19 +332,33 @@ def parse_positionen(page):
 
 
 def acknowledge_new_maengel(page):
-    """Принимает все новые Mängelaufträge — нажимает 'Zur Kenntnis genommen'."""
+    """
+    На ГЛАВНОЙ странице LEO (Alle Aufgaben) ищет 'neuer Mangelauftrag',
+    заходит в каждый и нажимает 'Zur Kenntnis genommen'.
+    После этого Mängel появляется в Projekte → Mangelaufträge.
+    """
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle", timeout=20000)
-    page.click("text=Projekte")
-    page.click("text=Mangelaufträge")
-    page.wait_for_load_state("networkidle", timeout=20000)
+    page.wait_for_timeout(1000)
 
     acknowledged = 0
-    for attempt in range(30):  # максимум 30 новых Mängel за один проход
-        # Ищем ссылки с текстом "neuer Mangelauftrag"
+
+    for attempt in range(50):
+        # Ищем "neuer Mangelauftrag" на главной странице
         new_links = page.locator("a:has-text('neuer Mangelauftrag')").all()
+
         if not new_links:
-            break
+            # Пробуем перейти на следующую страницу пагинации
+            nxt = page.locator(".paginate_button.next:not(.disabled)").first
+            if nxt.count() > 0:
+                try:
+                    nxt.click()
+                    page.wait_for_load_state("networkidle", timeout=10000)
+                    page.wait_for_timeout(500)
+                    continue
+                except Exception:
+                    pass
+            break  # Нет больше новых Mängel
 
         link = new_links[0]
         try:
@@ -355,9 +369,9 @@ def acknowledge_new_maengel(page):
             else:
                 link.click()
             page.wait_for_load_state("networkidle", timeout=15000)
-            page.wait_for_timeout(500)
+            page.wait_for_timeout(800)
 
-            # Ищем кнопку "Zur Kenntnis genommen"
+            # Нажимаем "Zur Kenntnis genommen"
             btn = page.locator("text=Zur Kenntnis genommen").first
             if btn.count() > 0:
                 btn.click()
@@ -366,22 +380,23 @@ def acknowledge_new_maengel(page):
                 acknowledged += 1
                 print(f"  ✓ Zur Kenntnis genommen #{acknowledged}")
             else:
-                print(f"  Кнопка не найдена на странице: {page.url}")
+                print(f"  Кнопка не найдена на: {page.url}")
 
         except Exception as e:
-            print(f"  Fehler: {e}")
+            print(f"  Fehler beim Annehmen: {e}")
 
-        # Возвращаемся к списку Mängelaufträge
+        # Возвращаемся на главную (Alle Aufgaben)
         try:
             page.goto(f"{BASE}/index.php")
             page.wait_for_load_state("networkidle", timeout=15000)
-            page.click("text=Projekte")
-            page.click("text=Mangelaufträge")
-            page.wait_for_load_state("networkidle", timeout=15000)
+            page.wait_for_timeout(500)
         except Exception:
             break
 
-    print(f"Neue Mängelaufträge angenommen: {acknowledged}")
+    if acknowledged:
+        print(f"Automatisch angenommen: {acknowledged} neue Mängelaufträge")
+    else:
+        print("Keine neuen Mängelaufträge auf der Startseite")
     return acknowledged
 
 
