@@ -142,39 +142,34 @@ const MANGEL_STATUS_LABELS = {
   unknown:   { label: "Unbekannt",                   color: "#9ca3af", bg: "#f9fafb" },
 };
 
-// ── Translation via Claude API ────────────────────────────────────────────────
-async function translatePos(mangelId, posIdx, text) {
+// ── Translation via Google Translate (free, no API key) ───────────────────────
+async function translatePos(mangelId, posIdx, text, targetLang) {
   const box = document.getElementById(`trans-${mangelId}-${posIdx}`);
   if (!box) return;
-  const apiKey = localStorage.getItem("claude_api_key");
-  if (!apiKey) {
-    box.innerHTML = `<span style="color:#dc2626;font-size:12px">⚠ Claude API Key in Einstellungen eintragen!</span>`;
-    box.style.display = "block";
+
+  // Toggle: если уже показан перевод на этот язык — скрываем
+  if (box.style.display !== "none" && box.dataset.lang === targetLang) {
+    box.style.display = "none";
+    box.dataset.lang = "";
     return;
   }
+
   box.innerHTML = `<span class="trans-loading">⏳ Übersetze...</span>`;
   box.style.display = "block";
+  box.dataset.lang = targetLang;
+
+  const srcLang = targetLang === "ru" ? "de" : "ru";
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${srcLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+
   try {
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 512,
-        messages: [{ role: "user", content: `Переведи на русский язык описание строительного дефекта. Только перевод, без пояснений:\n"${text}"` }]
-      })
-    });
+    const r = await fetch(url);
     const data = await r.json();
-    const translated = data.content?.[0]?.text || "Fehler";
-    const safe = translated.replace(/'/g, "\\'").replace(/\n/g, "\\n");
+    const translated = data[0].map(s => s[0]).join("");
+    const flag = targetLang === "ru" ? "🇷🇺" : "🇩🇪";
+    const escapedForCopy = translated.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
     box.innerHTML = `
-      <div class="trans-text">🇷🇺 ${translated}</div>
-      <button class="btn-copy-trans" onclick="navigator.clipboard.writeText('${safe}').then(()=>{this.textContent='✓ Kopiert!';setTimeout(()=>this.textContent='📋 Kopieren',2000)})">📋 Kopieren</button>
+      <div class="trans-text">${flag} ${translated}</div>
+      <button class="btn-copy-trans" onclick="navigator.clipboard.writeText('${escapedForCopy}').then(()=>{this.textContent='✓ Kopiert!';setTimeout(()=>this.textContent='📋 Kopieren',2000)})">📋 Kopieren</button>
     `;
   } catch(e) {
     box.innerHTML = `<span style="color:#dc2626;font-size:12px">Fehler: ${e.message}</span>`;
@@ -208,7 +203,7 @@ function renderPositionen(m) {
         <div class="pos-info">
           <span class="pos-code">${p.code || ""} · ${p.gewerk || ""}</span>
           ${p.leistung ? `<span class="pos-leistung">${p.leistung}</span>` : ""}
-          ${p.mangel_beschreibung ? `<div class="pos-desc-row"><b class="pos-desc">${p.mangel_beschreibung}</b>${hasDesc ? `<button class="btn-translate" onclick="event.stopPropagation();translatePos('${m.id}',${i},'${descText}')" title="Auf Russisch übersetzen">🇷🇺</button>` : ""}</div>` : ""}
+          ${p.mangel_beschreibung ? `<div class="pos-desc-row"><b class="pos-desc">${p.mangel_beschreibung}</b>${hasDesc ? `<span class="trans-btns"><button class="btn-translate" onclick="event.stopPropagation();translatePos('${m.id}',${i},'${descText}','ru')" title="Auf Russisch">🇩🇪→🇷🇺</button><button class="btn-translate" onclick="event.stopPropagation();translatePos('${m.id}',${i},'${descText}','de')" title="Auf Deutsch">🇷🇺→🇩🇪</button></span>` : ""}</div>` : ""}
           ${p.bereich ? `<span class="pos-gewerk">${p.bereich}</span>` : ""}
           <div id="trans-${m.id}-${i}" class="trans-box" style="display:none"></div>
         </div>
