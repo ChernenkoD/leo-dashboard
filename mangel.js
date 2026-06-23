@@ -142,6 +142,45 @@ const MANGEL_STATUS_LABELS = {
   unknown:   { label: "Unbekannt",                   color: "#9ca3af", bg: "#f9fafb" },
 };
 
+// ── Translation via Claude API ────────────────────────────────────────────────
+async function translatePos(mangelId, posIdx, text) {
+  const box = document.getElementById(`trans-${mangelId}-${posIdx}`);
+  if (!box) return;
+  const apiKey = localStorage.getItem("claude_api_key");
+  if (!apiKey) {
+    box.innerHTML = `<span style="color:#dc2626;font-size:12px">⚠ Claude API Key in Einstellungen eintragen!</span>`;
+    box.style.display = "block";
+    return;
+  }
+  box.innerHTML = `<span class="trans-loading">⏳ Übersetze...</span>`;
+  box.style.display = "block";
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 512,
+        messages: [{ role: "user", content: `Переведи на русский язык описание строительного дефекта. Только перевод, без пояснений:\n"${text}"` }]
+      })
+    });
+    const data = await r.json();
+    const translated = data.content?.[0]?.text || "Fehler";
+    const safe = translated.replace(/'/g, "\\'").replace(/\n/g, "\\n");
+    box.innerHTML = `
+      <div class="trans-text">🇷🇺 ${translated}</div>
+      <button class="btn-copy-trans" onclick="navigator.clipboard.writeText('${safe}').then(()=>{this.textContent='✓ Kopiert!';setTimeout(()=>this.textContent='📋 Kopieren',2000)})">📋 Kopieren</button>
+    `;
+  } catch(e) {
+    box.innerHTML = `<span style="color:#dc2626;font-size:12px">Fehler: ${e.message}</span>`;
+  }
+}
+
 // ── Render positions ──────────────────────────────────────────────────────────
 function renderPositionen(m) {
   const positionen = m.positionen || [];
@@ -160,6 +199,8 @@ function renderPositionen(m) {
   const items = positionen.map((p, i) => {
     const auto = isAutoChecked(p.status);
     const checked = isChecked(m.id, i, p.status);
+    const descText = (p.mangel_beschreibung || p.leistung || "").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    const hasDesc = !!(p.mangel_beschreibung || p.leistung);
     return `
       <label class="pos-item ${checked ? "pos-item-done" : ""}" onclick="event.stopPropagation()">
         <input type="checkbox" ${checked ? "checked" : ""} ${auto ? "disabled title='Закрыто заказчиком'" : ""}
@@ -167,8 +208,9 @@ function renderPositionen(m) {
         <div class="pos-info">
           <span class="pos-code">${p.code || ""} · ${p.gewerk || ""}</span>
           ${p.leistung ? `<span class="pos-leistung">${p.leistung}</span>` : ""}
-          ${p.mangel_beschreibung ? `<span class="pos-desc"><b>${p.mangel_beschreibung}</b></span>` : ""}
+          ${p.mangel_beschreibung ? `<div class="pos-desc-row"><b class="pos-desc">${p.mangel_beschreibung}</b>${hasDesc ? `<button class="btn-translate" onclick="event.stopPropagation();translatePos('${m.id}',${i},'${descText}')" title="Auf Russisch übersetzen">🇷🇺</button>` : ""}</div>` : ""}
           ${p.bereich ? `<span class="pos-gewerk">${p.bereich}</span>` : ""}
+          <div id="trans-${m.id}-${i}" class="trans-box" style="display:none"></div>
         </div>
         ${p.status ? `<span class="pos-badge ${statusClass(p.status)}">${p.status}</span>` : ""}
       </label>
@@ -302,21 +344,39 @@ function sendInArbeit(mangelId) {
 }
 
 // ── Card render ───────────────────────────────────────────────────────────────
+function getWorkflowBadge(mangelId) {
+  const asgn = getAssignment(mangelId);
+  if (asgn.date_finished) {
+    return `<span class="workflow-badge wf-fertig">✓ Fertig ${asgn.date_finished}</span>`;
+  }
+  if (asgn.sentAt) {
+    const mgr  = (PEOPLE.managers    || []).find(p => p.id === asgn.manager);
+    const tech = (PEOPLE.technicians || []).find(p => p.id === asgn.technician);
+    return `<span class="workflow-badge wf-arbeit">🔵 In Arbeit · ${tech ? tech.name.split(" ")[0] : "—"}</span>`;
+  }
+  if (asgn.manager || asgn.technician) {
+    return `<span class="workflow-badge wf-assigned">👤 Zugewiesen</span>`;
+  }
+  return "";
+}
+
 function renderCard(m) {
   const days = daysUntil(m.fertigstellung);
   const late = days !== null && days < 0;
   const soon = days !== null && days >= 0 && days <= 7;
   const ms = MANGEL_STATUS_LABELS[m.mangel_status] || MANGEL_STATUS_LABELS.unknown;
   const newToday = isNewToday(m);
+  const wfBadge = getWorkflowBadge(m.id);
 
   return `
-    <div class="card" id="card-${m.id}" style="border-left: 4px solid ${ms.color}">
+    <div class="card${newToday ? " card-neu" : ""}" id="card-${m.id}" style="border-left: 4px solid ${ms.color}">
       <div class="card-head">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">
+        <div class="card-badges">
           <span class="mangel-status-badge" style="background:${ms.bg};color:${ms.color}">${ms.label}</span>
-          ${newToday ? `<span class="due-pill soon">Neu ✨</span>` : ""}
-          ${late ? `<span class="due-pill late">${Math.abs(days)} Tage überfällig</span>` : ""}
-          ${soon && !late ? `<span class="due-pill soon">Fällig in ${days} T.</span>` : ""}
+          ${newToday ? `<span class="due-pill neu-badge">✨ Neu heute</span>` : ""}
+          ${late ? `<span class="due-pill late">⚠ ${Math.abs(days)} Tage überfällig</span>` : ""}
+          ${soon && !late ? `<span class="due-pill soon">⏰ Fällig in ${days} T.</span>` : ""}
+          ${wfBadge}
         </div>
         <div class="lws">${m.leo_url
           ? `<a href="${m.leo_url}" target="_blank" onclick="event.stopPropagation()">${m.id}</a>`
@@ -376,7 +436,13 @@ function applyFiltersAndSort(list) {
     );
   }
   if (filterBauleiter) result = result.filter(m => m.bauleiter === filterBauleiter);
-  if (filterStatus)    result = result.filter(m => mangelStatusGroup(m) === filterStatus);
+  if (filterStatus === "in_arbeit") {
+    result = result.filter(m => { const a = getAssignment(m.id); return a.sentAt && !a.date_finished; });
+  } else if (filterStatus === "fertig") {
+    result = result.filter(m => !!getAssignment(m.id).date_finished);
+  } else if (filterStatus) {
+    result = result.filter(m => mangelStatusGroup(m) === filterStatus);
+  }
 
   return [...result].sort((a, b) => {
     switch (sortBy) {
@@ -420,16 +486,28 @@ function render() {
     base = active; emptyMsg = "Keine aktiven Mängel";
   }
 
-  const list = applyFiltersAndSort(base);
+  // Neu heute сначала, потом остальные по deadline
+  let list = applyFiltersAndSort(base);
+  if (!showArchived) {
+    const neu = list.filter(isNewToday);
+    const rest = list.filter(m => !isNewToday(m));
+    list = [...neu, ...rest];
+  }
 
-  // "Neu heute" banner (nur in Aktiv-Tab)
-  const neuBanner = (!showArchived && neuHeute.length)
-    ? `<div class="neu-heute-bar">✨ Neu heute: ${neuHeute.length} Mängelauftrag${neuHeute.length > 1 ? "träge" : ""}</div>`
-    : "";
+  // "Neu heute" banner — отдельный блок над сеткой
+  const neuSection = document.getElementById("neuHeuteBanner");
+  if (neuSection) {
+    neuSection.innerHTML = (!showArchived && neuHeute.length)
+      ? `<div class="neu-heute-bar">
+           <span>✨ Neu heute — ${neuHeute.length} neue Mängelauftrag${neuHeute.length > 1 ? "träge" : ""}</span>
+           <span class="neu-hint">Oben angezeigt</span>
+         </div>`
+      : "";
+  }
 
-  document.getElementById("mangelList").innerHTML = neuBanner + (list.length
+  document.getElementById("mangelList").innerHTML = list.length
     ? list.map(m => m.is_archiv ? renderArchivCard(m) : renderCard(m)).join("")
-    : `<div class="empty-hint">${emptyMsg}</div>`);
+    : `<div class="empty-hint">${emptyMsg}</div>`;
 
   document.getElementById("tabActive").classList.toggle("active", showArchived === false);
   document.getElementById("tabGeprueft").classList.toggle("active", showArchived === "geprueft");

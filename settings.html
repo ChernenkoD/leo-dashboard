@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Einstellungen — LK Dashboard</title>
-<link rel="stylesheet" href="board.css?v=12">
+<link rel="stylesheet" href="board.css?v=13">
 <style>
 .settings-section { max-width: 700px; margin: 0 auto 32px; }
 .settings-section h2 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
@@ -47,6 +47,16 @@
         <div id="techList"></div>
         <button class="btn-add" onclick="addPerson('technician')">+ Techniker hinzufügen</button>
         <p class="tg-hint">Telegram ID: чтобы узнать свой ID, напиши боту @userinfobot</p>
+      </div>
+
+      <div class="settings-section">
+        <h2>🤖 Claude API (für Übersetzungen)</h2>
+        <div class="person-row">
+          <input type="password" id="claudeApiInput" placeholder="Claude API Key (sk-ant-...)"
+            style="flex:1">
+          <button class="btn-save-all" style="margin:0;padding:8px 16px;font-size:13px" onclick="saveClaudeKey()">Speichern</button>
+        </div>
+        <p class="tg-hint" id="claudeStatus">API Key wird nur lokal im Browser gespeichert. Hole ihn auf console.anthropic.com</p>
       </div>
 
       <div class="settings-section">
@@ -126,6 +136,15 @@ function removePerson(role, idx) {
   if (role === "manager") people.managers.splice(idx, 1);
   else people.technicians.splice(idx, 1);
   render();
+}
+
+function saveClaudeKey() {
+  const val = document.getElementById("claudeApiInput").value.trim();
+  if (!val) { alert("API Key eingeben!"); return; }
+  localStorage.setItem("claude_api_key", val);
+  document.getElementById("claudeApiInput").value = "";
+  document.getElementById("claudeStatus").textContent = "✓ API Key gespeichert";
+  setTimeout(() => document.getElementById("claudeStatus").textContent = "API Key wird lokal gespeichert.", 2500);
 }
 
 function saveGitHubPat() {
