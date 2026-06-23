@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einstellungen — LEO Board</title>
+<link rel="stylesheet" href="board.css?v=11">
+<style>
+.settings-section { max-width: 700px; margin: 0 auto 32px; }
+.settings-section h2 { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.person-row { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; }
+.person-row input { flex: 1; background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; color: var(--text); font-size: 13px; }
+.person-row input:focus { outline: none; border-color: var(--accent); }
+.person-row input::placeholder { color: var(--muted); }
+.person-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.tag-manager { background: #dbeafe; color: #1d4ed8; }
+.tag-tech { background: #dcfce7; color: #15803d; }
+.btn-del { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 4px 6px; border-radius: 4px; line-height: 1; }
+.btn-del:hover { background: #fee2e2; color: #dc2626; }
+.btn-add { display: flex; align-items: center; gap: 6px; background: none; border: 2px dashed var(--border); color: var(--muted); cursor: pointer; padding: 8px 14px; border-radius: 8px; font-size: 13px; width: 100%; justify-content: center; margin-top: 4px; }
+.btn-add:hover { border-color: var(--accent); color: var(--accent); }
+.btn-save-all { background: var(--accent); color: white; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; display: block; margin: 0 auto; }
+.btn-save-all:hover { opacity: 0.9; }
+.save-ok { text-align: center; color: #16a34a; font-size: 13px; margin-top: 8px; display: none; }
+.tg-hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="app-layout">
+  <div id="sidebar-mount" data-active="settings"></div>
+  <div class="content">
+    <header class="topbar">
+      <div class="brand">Einstellungen</div>
+      <div class="sub">Personen, Rollen, Telegram</div>
+    </header>
+
+    <div style="padding: 24px;">
+
+      <div class="settings-section">
+        <h2>👔 Manager</h2>
+        <div id="managerList"></div>
+        <button class="btn-add" onclick="addPerson('manager')">+ Manager hinzufügen</button>
+      </div>
+
+      <div class="settings-section">
+        <h2>🔧 Techniker</h2>
+        <div id="techList"></div>
+        <button class="btn-add" onclick="addPerson('technician')">+ Techniker hinzufügen</button>
+        <p class="tg-hint">Telegram ID: чтобы узнать свой ID, напиши боту @userinfobot</p>
+      </div>
+
+      <button class="btn-save-all" onclick="saveAll()">💾 Speichern</button>
+      <div class="save-ok" id="saveOk">✓ Gespeichert</div>
+    </div>
+  </div>
+</div>
+
+<script src="i18n.js?v=2"></script>
+<script src="sidebar.js"></script>
+<script>
+let people = { managers: [], technicians: [] };
+
+async function init() {
+  // Пробуем загрузить из localStorage (если редактировали), иначе из people.json
+  const local = localStorage.getItem("people_config");
+  if (local) {
+    try { people = JSON.parse(local); } catch {}
+  } else {
+    const r = await fetch("people.json?" + Date.now());
+    people = await r.json();
+  }
+  render();
+}
+
+function render() {
+  renderGroup("managerList", people.managers, "manager");
+  renderGroup("techList", people.technicians, "technician");
+}
+
+function renderGroup(containerId, list, role) {
+  const tag = role === "manager"
+    ? `<span class="person-tag tag-manager">Manager</span>`
+    : `<span class="person-tag tag-tech">Techniker</span>`;
+
+  document.getElementById(containerId).innerHTML = list.map((p, i) => `
+    <div class="person-row">
+      ${tag}
+      <input type="text" placeholder="Name" value="${esc(p.name)}"
+        oninput="updatePerson('${role}',${i},'name',this.value)">
+      <input type="text" placeholder="Telegram ID (z.B. 123456789)" value="${esc(p.telegram_id||'')}"
+        style="max-width:200px" oninput="updatePerson('${role}',${i},'telegram_id',this.value)">
+      <button class="btn-del" onclick="removePerson('${role}',${i})" title="Entfernen">×</button>
+    </div>
+  `).join("") || `<div style="color:var(--muted);font-size:13px;padding:8px">Noch niemand eingetragen</div>`;
+}
+
+function esc(s) { return (s||"").replace(/"/g,"&quot;"); }
+
+function updatePerson(role, idx, field, val) {
+  const list = role === "manager" ? people.managers : people.technicians;
+  list[idx][field] = val;
+}
+
+function addPerson(role) {
+  const id = role + "-" + Date.now();
+  const obj = { id, name: "", telegram_id: "" };
+  if (role === "manager") people.managers.push(obj);
+  else people.technicians.push(obj);
+  render();
+  // Focus last name input
+  const container = document.getElementById(role === "manager" ? "managerList" : "techList");
+  container.querySelectorAll("input")[container.querySelectorAll("input").length - 2]?.focus();
+}
+
+function removePerson(role, idx) {
+  if (role === "manager") people.managers.splice(idx, 1);
+  else people.technicians.splice(idx, 1);
+  render();
+}
+
+function saveAll() {
+  localStorage.setItem("people_config", JSON.stringify(people));
+  const ok = document.getElementById("saveOk");
+  ok.style.display = "block";
+  setTimeout(() => ok.style.display = "none", 2500);
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

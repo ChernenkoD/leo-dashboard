@@ -4,7 +4,8 @@ function renderSidebar(active) {
     { key: "projects", label: t("nav_projects"), href: "projects.html", icon: "📁" },
     { key: "mangel", label: t("nav_mangel"), href: "mangel.html", icon: "⚠️" },
     { key: "invoiced", label: t("nav_invoiced"), href: "inabrechnung.html", icon: "🧾" },
-    { key: "stats", label: t("nav_stats"), href: "statistics.html", icon: "📊" }
+    { key: "stats", label: t("nav_stats"), href: "statistics.html", icon: "📊" },
+    { key: "settings", label: t("nav_settings") || "Einstellungen", href: "settings.html", icon: "⚙️" }
   ];
   const lang = getLang();
   return `

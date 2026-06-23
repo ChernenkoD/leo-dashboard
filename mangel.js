@@ -1,11 +1,13 @@
 let MAENGEL = [];
 let ARCHIV_MAENGEL = [];
+let PEOPLE = { managers: [], technicians: [] };
 let query = "";
 let showArchived = false; // false | "geprueft" | "leo"
 let filterBauleiter = "";
 let filterStatus = "";
 let sortBy = "deadline";
 
+// ── Date helpers ─────────────────────────────────────────────────────────────
 function parseDate(str) {
   if (!str) return null;
   const [d, m, y] = str.split(".");
@@ -22,10 +24,38 @@ function daysUntil(str) {
   const today = new Date(); today.setHours(0,0,0,0);
   return Math.round((dt - today) / 86400000);
 }
+function isNewToday(m) {
+  // Считаем "новым сегодня" если Ausführungsbeginn = сегодня или вчера
+  // (scraper тянет дату начала из LEO)
+  const dt = parseDate(m.ausfuehrungsbeginn);
+  if (!dt) return false;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = Math.round((today - dt) / 86400000);
+  return diff <= 1;
+}
 
-// --- localStorage helpers (только чекбоксы позиций) ---
+// ── People / assignments ──────────────────────────────────────────────────────
+async function loadPeople() {
+  const local = localStorage.getItem("people_config");
+  if (local) { try { PEOPLE = JSON.parse(local); return; } catch {} }
+  try {
+    const r = await fetch("people.json?" + Date.now());
+    PEOPLE = await r.json();
+  } catch {}
+}
+
+function getAssignment(mangelId) {
+  try {
+    const raw = localStorage.getItem("assign_" + mangelId);
+    return raw ? JSON.parse(raw) : { manager: "", technician: "", sentAt: null };
+  } catch { return { manager: "", technician: "", sentAt: null }; }
+}
+function saveAssignment(mangelId, obj) {
+  localStorage.setItem("assign_" + mangelId, JSON.stringify(obj));
+}
+
+// ── localStorage position helpers ────────────────────────────────────────────
 function checkKey(mangelId, idx) { return `chk_${mangelId}_${idx}`; }
-
 function isAutoChecked(status) {
   return status && status.toLowerCase().includes("geprüft");
 }
@@ -38,13 +68,13 @@ function setChecked(mangelId, idx, val) {
   else localStorage.removeItem(checkKey(mangelId, idx));
 }
 
+// ── Status helpers ────────────────────────────────────────────────────────────
 function checkedCount(m) {
   const positionen = m.positionen || [];
   if (!positionen.length) return { done: 0, total: m.anzahl || 0 };
   const done = positionen.filter((p, i) => isChecked(m.id, i, p.status)).length;
   return { done, total: positionen.length };
 }
-
 function mangelStatusGroup(m) {
   const positionen = m.positionen || [];
   if (!positionen.length) return "angenommen";
@@ -53,7 +83,6 @@ function mangelStatusGroup(m) {
   if (statuses.some(s => s.includes("behoben"))) return "behoben";
   return "angenommen";
 }
-
 function statusClass(s) {
   if (!s) return "";
   const l = s.toLowerCase();
@@ -64,6 +93,15 @@ function statusClass(s) {
   return "";
 }
 
+const MANGEL_STATUS_LABELS = {
+  offen:     { label: "Offen",                      color: "#ef4444", bg: "#fef2f2" },
+  behoben:   { label: "Behoben – wartet auf Prüfung", color: "#f59e0b", bg: "#fffbeb" },
+  teilweise: { label: "Teilweise geprüft",           color: "#8b5cf6", bg: "#f5f3ff" },
+  geprueft:  { label: "Geprüft ✓",                  color: "#10b981", bg: "#f0fdf4" },
+  unknown:   { label: "Unbekannt",                   color: "#9ca3af", bg: "#f9fafb" },
+};
+
+// ── Render positions ──────────────────────────────────────────────────────────
 function renderPositionen(m) {
   const positionen = m.positionen || [];
   if (!positionen.length) {
@@ -73,12 +111,11 @@ function renderPositionen(m) {
       <label class="pos-item" onclick="event.stopPropagation()">
         <input type="checkbox" ${isChecked(m.id, i) ? "checked" : ""}
           onchange="toggleCheck('${m.id}', ${i}, this.checked)">
-        <span class="pos-label muted">Позиция ${i + 1}</span>
+        <span class="pos-label muted">Position ${i + 1}</span>
       </label>
     `).join("");
     return `<div class="pos-list">${items}</div>`;
   }
-
   const items = positionen.map((p, i) => {
     const auto = isAutoChecked(p.status);
     const checked = isChecked(m.id, i, p.status);
@@ -111,44 +148,127 @@ function renderProgress(m) {
   `;
 }
 
-const MANGEL_STATUS_LABELS = {
-  offen:     { label: "Offen",           color: "#ef4444", bg: "#fef2f2" },
-  behoben:   { label: "Behoben – wartet auf Prüfung", color: "#f59e0b", bg: "#fffbeb" },
-  teilweise: { label: "Teilweise geprüft", color: "#8b5cf6", bg: "#f5f3ff" },
-  geprueft:  { label: "Geprüft ✓",       color: "#10b981", bg: "#f0fdf4" },
-  unknown:   { label: "Unbekannt",        color: "#9ca3af", bg: "#f9fafb" },
-};
+// ── Assignment panel ──────────────────────────────────────────────────────────
+function renderAssignPanel(m) {
+  const asgn = getAssignment(m.id);
+  const mgrs = PEOPLE.managers || [];
+  const techs = PEOPLE.technicians || [];
 
+  const mgrOpts = `<option value="">— Manager —</option>` +
+    mgrs.map(p => `<option value="${p.id}" ${asgn.manager === p.id ? "selected" : ""}>${p.name}</option>`).join("");
+  const techOpts = `<option value="">— Techniker —</option>` +
+    techs.map(p => `<option value="${p.id}" ${asgn.technician === p.id ? "selected" : ""}>${p.name}</option>`).join("");
+
+  const sent = asgn.sentAt
+    ? `<span class="assign-sent">✓ Gesendet ${new Date(asgn.sentAt).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span>`
+    : "";
+
+  return `
+    <div class="assign-panel" onclick="event.stopPropagation()">
+      <select class="assign-select" onchange="onAssignChange('${m.id}','manager',this.value)">${mgrOpts}</select>
+      <select class="assign-select" onchange="onAssignChange('${m.id}','technician',this.value)">${techOpts}</select>
+      <button class="btn-senden" onclick="sendToTelegram('${m.id}')" ${asgn.technician ? "" : "disabled"}>
+        ✈ In Arbeit senden
+      </button>
+      ${sent}
+    </div>
+  `;
+}
+
+function onAssignChange(mangelId, field, val) {
+  const asgn = getAssignment(mangelId);
+  asgn[field] = val;
+  saveAssignment(mangelId, asgn);
+  // Re-render just the assign panel
+  const card = document.getElementById("card-" + mangelId);
+  if (card) {
+    const m = MAENGEL.find(x => x.id === mangelId);
+    if (m) card.outerHTML = renderCard(m);
+  }
+}
+
+function sendToTelegram(mangelId) {
+  const m = MAENGEL.find(x => x.id === mangelId);
+  if (!m) return;
+  const asgn = getAssignment(mangelId);
+  const tech = (PEOPLE.technicians || []).find(p => p.id === asgn.technician);
+  const mgr  = (PEOPLE.managers   || []).find(p => p.id === asgn.manager);
+
+  // Строим текст сообщения
+  const positions = (m.positionen || []).map((p, i) =>
+    `${i+1}. ${p.code || ""} ${p.gewerk || ""}: ${p.mangel_beschreibung || p.leistung || "—"}`
+  ).join("\n");
+
+  const msg = [
+    `⚠️ Neuer Mängelauftrag`,
+    `📋 ${m.id}`,
+    `📍 ${m.address || "—"}`,
+    m.lage ? `🏠 ${m.lage}` : null,
+    `📅 Termin: ${fmtDate(m.fertigstellung)}`,
+    `👔 Manager: ${mgr ? mgr.name : "—"}`,
+    `🔧 Techniker: ${tech ? tech.name : "—"}`,
+    ``,
+    positions || "Keine Positionen",
+    ``,
+    m.leo_url ? `🔗 ${m.leo_url}` : null,
+  ].filter(x => x !== null).join("\n");
+
+  if (tech && tech.telegram_id) {
+    // Если есть telegram_id техника — открываем глубокую ссылку
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://t.me/${tech.telegram_id}?text=${encoded}`, "_blank");
+  } else {
+    // Иначе — копируем текст в буфер
+    navigator.clipboard.writeText(msg).then(() => {
+      alert("Текст скопирован! Отправь вручную технику:\n\n" + (tech ? tech.name : "?"));
+    }).catch(() => {
+      prompt("Скопируй текст:", msg);
+    });
+  }
+
+  // Отмечаем как отправленный
+  asgn.sentAt = new Date().toISOString();
+  saveAssignment(mangelId, asgn);
+
+  // Обновляем карточку
+  const card = document.getElementById("card-" + mangelId);
+  if (card) card.outerHTML = renderCard(m);
+}
+
+// ── Card render ───────────────────────────────────────────────────────────────
 function renderCard(m) {
   const days = daysUntil(m.fertigstellung);
   const late = days !== null && days < 0;
-  const soon = days !== null && days >= 0 && days <= 3;
-  const { done, total } = checkedCount(m);
+  const soon = days !== null && days >= 0 && days <= 7;
   const ms = MANGEL_STATUS_LABELS[m.mangel_status] || MANGEL_STATUS_LABELS.unknown;
+  const newToday = isNewToday(m);
 
   return `
-    <div class="card" id="card-${m.id}"
-         style="border-left: 4px solid ${ms.color}">
+    <div class="card" id="card-${m.id}" style="border-left: 4px solid ${ms.color}">
       <div class="card-head">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">
           <span class="mangel-status-badge" style="background:${ms.bg};color:${ms.color}">${ms.label}</span>
-          ${late ? `<span class="due-pill late">${Math.abs(days)} д. просрочен</span>` : ""}
-          ${soon && !late ? `<span class="due-pill soon">Срок через ${days} д.</span>` : ""}
+          ${newToday ? `<span class="due-pill soon">Neu ✨</span>` : ""}
+          ${late ? `<span class="due-pill late">${Math.abs(days)} Tage überfällig</span>` : ""}
+          ${soon && !late ? `<span class="due-pill soon">Fällig in ${days} T.</span>` : ""}
         </div>
-        <div class="lws">${m.leo_url ? `<a href="${m.leo_url}" target="_blank" onclick="event.stopPropagation()">${m.id}</a>` : m.id}</div>
+        <div class="lws">${m.leo_url
+          ? `<a href="${m.leo_url}" target="_blank" onclick="event.stopPropagation()">${m.id}</a>`
+          : m.id}</div>
         <div class="address">${m.address || "—"}</div>
         ${m.lage ? `<div class="lage">${m.lage}</div>` : ""}
         <div class="dates">
-          <span>Начало: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
-          <span>Срок: <b>${fmtDate(m.fertigstellung)}</b></span>
+          <span>Beginn: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
+          <span>Fällig: <b>${fmtDate(m.fertigstellung)}</b></span>
         </div>
-        <div class="dates" style="margin-top:4px;">
+        <div class="dates" style="margin-top:4px">
           <span>Bauleiter: ${m.bauleiter || "—"}</span>
           <span>Innendienst: ${m.innendienst || "—"}</span>
         </div>
       </div>
       ${renderProgress(m)}
       ${renderPositionen(m)}
+      ${renderAssignPanel(m)}
     </div>
   `;
 }
@@ -160,64 +280,7 @@ function toggleCheck(mangelId, idx, val) {
   document.getElementById(`card-${mangelId}`).outerHTML = renderCard(m);
 }
 
-
-function applyFiltersAndSort(list) {
-  let result = list;
-
-  // Поиск
-  if (query) {
-    const q = query.toLowerCase();
-    result = result.filter(m =>
-      [m.id, m.address, m.bauleiter, m.innendienst, m.lage].join(" ").toLowerCase().includes(q)
-    );
-  }
-
-  // Фильтр по Bauleiter
-  if (filterBauleiter) {
-    result = result.filter(m => m.bauleiter === filterBauleiter);
-  }
-
-  // Фильтр по статусу
-  if (filterStatus) {
-    result = result.filter(m => mangelStatusGroup(m) === filterStatus);
-  }
-
-  // Сортировка
-  result = [...result].sort((a, b) => {
-    switch (sortBy) {
-      case "deadline": {
-        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
-        if (!da && !db) return 0;
-        if (!da) return 1; if (!db) return -1;
-        return da - db;
-      }
-      case "deadline_desc": {
-        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
-        if (!da && !db) return 0;
-        if (!da) return 1; if (!db) return -1;
-        return db - da;
-      }
-      case "address":
-        return (a.address || "").localeCompare(b.address || "", "de");
-      case "progress": {
-        const ca = checkedCount(a), cb = checkedCount(b);
-        const pa = ca.total ? ca.done / ca.total : 0;
-        const pb = cb.total ? cb.done / cb.total : 0;
-        return pa - pb;
-      }
-      case "start": {
-        const da = parseDate(a.ausfuehrungsbeginn), db = parseDate(b.ausfuehrungsbeginn);
-        if (!da && !db) return 0;
-        if (!da) return 1; if (!db) return -1;
-        return da - db;
-      }
-      default: return 0;
-    }
-  });
-
-  return result;
-}
-
+// ── Archive card ──────────────────────────────────────────────────────────────
 function renderArchivCard(m) {
   return `
     <div class="card card-archiv-leo">
@@ -225,10 +288,10 @@ function renderArchivCard(m) {
         <div class="lws">${m.id || "—"} <span class="archiv-badge">Archiv</span></div>
         <div class="address">${m.address || "—"}</div>
         <div class="dates">
-          <span>Начало: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
-          <span>Срок: <b>${fmtDate(m.fertigstellung)}</b></span>
+          <span>Beginn: <b>${fmtDate(m.ausfuehrungsbeginn)}</b></span>
+          <span>Fällig: <b>${fmtDate(m.fertigstellung)}</b></span>
         </div>
-        <div class="dates" style="margin-top:4px;">
+        <div class="dates" style="margin-top:4px">
           <span>Bauleiter: ${m.bauleiter || "—"}</span>
           <span>Innendienst: ${m.innendienst || "—"}</span>
         </div>
@@ -237,29 +300,70 @@ function renderArchivCard(m) {
   `;
 }
 
+// ── Filters & sort ────────────────────────────────────────────────────────────
+function applyFiltersAndSort(list) {
+  let result = list;
+  if (query) {
+    const q = query.toLowerCase();
+    result = result.filter(m =>
+      [m.id, m.address, m.bauleiter, m.innendienst, m.lage].join(" ").toLowerCase().includes(q)
+    );
+  }
+  if (filterBauleiter) result = result.filter(m => m.bauleiter === filterBauleiter);
+  if (filterStatus)    result = result.filter(m => mangelStatusGroup(m) === filterStatus);
+
+  return [...result].sort((a, b) => {
+    switch (sortBy) {
+      case "deadline": {
+        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
+        if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+        return da - db;
+      }
+      case "deadline_desc": {
+        const da = parseDate(a.fertigstellung), db = parseDate(b.fertigstellung);
+        if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+        return db - da;
+      }
+      case "address": return (a.address || "").localeCompare(b.address || "", "de");
+      case "progress": {
+        const ca = checkedCount(a), cb = checkedCount(b);
+        return (ca.total ? ca.done/ca.total : 0) - (cb.total ? cb.done/cb.total : 0);
+      }
+      case "start": {
+        const da = parseDate(a.ausfuehrungsbeginn), db = parseDate(b.ausfuehrungsbeginn);
+        if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+        return da - db;
+      }
+      default: return 0;
+    }
+  });
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
 function render() {
-  // Активные = не geprueft (offen, behoben, teilweise, unknown)
   const active   = MAENGEL.filter(m => m.mangel_status !== "geprueft");
-  // Закрытые = geprueft (закрыты заказчиком)
   const geprueft = MAENGEL.filter(m => m.mangel_status === "geprueft");
+  const neuHeute = active.filter(isNewToday);
 
   let base, emptyMsg;
   if (showArchived === "leo") {
-    base = ARCHIV_MAENGEL;
-    emptyMsg = "LEO-Archiv leer";
+    base = ARCHIV_MAENGEL; emptyMsg = "LEO-Archiv leer";
   } else if (showArchived === "geprueft") {
-    base = geprueft;
-    emptyMsg = "Keine geprüften Mängel";
+    base = geprueft; emptyMsg = "Keine geprüften Mängel";
   } else {
-    base = active;
-    emptyMsg = "Ничего не найдено";
+    base = active; emptyMsg = "Keine aktiven Mängel";
   }
 
   const list = applyFiltersAndSort(base);
 
-  document.getElementById("mangelList").innerHTML = list.length
+  // "Neu heute" banner (nur in Aktiv-Tab)
+  const neuBanner = (!showArchived && neuHeute.length)
+    ? `<div class="neu-heute-bar">✨ Neu heute: ${neuHeute.length} Mängelauftrag${neuHeute.length > 1 ? "träge" : ""}</div>`
+    : "";
+
+  document.getElementById("mangelList").innerHTML = neuBanner + (list.length
     ? list.map(m => m.is_archiv ? renderArchivCard(m) : renderCard(m)).join("")
-    : `<div class="empty-hint">${emptyMsg}</div>`;
+    : `<div class="empty-hint">${emptyMsg}</div>`);
 
   document.getElementById("tabActive").classList.toggle("active", showArchived === false);
   document.getElementById("tabGeprueft").classList.toggle("active", showArchived === "geprueft");
@@ -279,18 +383,20 @@ function populateBauleiterFilter() {
   });
 }
 
+// ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
   document.getElementById("pageTitle").textContent = "Mängelaufträge";
-  document.getElementById("search").placeholder = "Поиск по адресу, ID, Bauleiter…";
 
-  const res = await fetch("data.json");
+  await loadPeople();
+
+  const res = await fetch("data.json?" + Date.now());
   const data = await res.json();
   MAENGEL = data.maengel || [];
   ARCHIV_MAENGEL = data.archiv_maengel || [];
 
   if (data.updatedAt) {
     const d = new Date(data.updatedAt);
-    document.getElementById("pageSub").textContent = "Обновлено: " + d.toLocaleString("ru-RU");
+    document.getElementById("pageSub").textContent = "Stand: " + d.toLocaleString("de-DE");
   }
 
   populateBauleiterFilter();
