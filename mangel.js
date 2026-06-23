@@ -7,6 +7,47 @@ let filterBauleiter = "";
 let filterStatus = "";
 let sortBy = "deadline";
 
+const REPO = "ChernenkoD/leo-dashboard";
+const ASSIGNMENTS_FILE = "assignments.json";
+
+async function saveAssignmentToGitHub(mangelId) {
+  const token = localStorage.getItem("github_pat");
+  if (!token) return;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${ASSIGNMENTS_FILE}`, {
+      headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" }
+    });
+    const curr = await r.json();
+
+    // Собираем все assignments из localStorage
+    const allAssignments = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith("assign_")) {
+        const id = key.slice(7);
+        try {
+          const asgn = JSON.parse(localStorage.getItem(key));
+          // Добавляем имена людей
+          const mgr  = (PEOPLE.managers    || []).find(p => p.id === asgn.manager);
+          const tech = (PEOPLE.technicians || []).find(p => p.id === asgn.technician);
+          if (mgr)  asgn.manager_name    = mgr.name;
+          if (tech) asgn.technician_name = tech.name;
+          allAssignments[id] = asgn;
+        } catch {}
+      }
+    }
+
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({ assignments: allAssignments }, null, 2))));
+    await fetch(`https://api.github.com/repos/${REPO}/contents/${ASSIGNMENTS_FILE}`, {
+      method: "PUT",
+      headers: { Authorization: `token ${token}`, "Content-Type": "application/json", Accept: "application/vnd.github.v3+json" },
+      body: JSON.stringify({ message: `Update assignment ${mangelId}`, content, sha: curr.sha })
+    });
+  } catch(e) {
+    console.error("GitHub sync error:", e);
+  }
+}
+
 // ── Date helpers ─────────────────────────────────────────────────────────────
 function parseDate(str) {
   if (!str) return null;
@@ -47,8 +88,8 @@ async function loadPeople() {
 function getAssignment(mangelId) {
   try {
     const raw = localStorage.getItem("assign_" + mangelId);
-    return raw ? JSON.parse(raw) : { manager: "", technician: "", sentAt: null };
-  } catch { return { manager: "", technician: "", sentAt: null }; }
+    return raw ? JSON.parse(raw) : { manager: "", technician: "", sentAt: null, date_started: null, date_finished: null };
+  } catch { return { manager: "", technician: "", sentAt: null, date_started: null, date_finished: null }; }
 }
 function saveAssignment(mangelId, obj) {
   localStorage.setItem("assign_" + mangelId, JSON.stringify(obj));
@@ -159,18 +200,25 @@ function renderAssignPanel(m) {
   const techOpts = `<option value="">— Techniker —</option>` +
     techs.map(p => `<option value="${p.id}" ${asgn.technician === p.id ? "selected" : ""}>${p.name}</option>`).join("");
 
-  const sent = asgn.sentAt
-    ? `<span class="assign-sent">✓ Gesendet ${new Date(asgn.sentAt).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span>`
-    : "";
+  let statusRow = "";
+  if (asgn.date_finished) {
+    statusRow = `<span class="assign-sent assign-fertig">✓ Fertig: ${asgn.date_finished}</span>`;
+  } else if (asgn.sentAt) {
+    const sentStr = new Date(asgn.sentAt).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+    statusRow = `
+      <span class="assign-sent">✓ In Arbeit ${sentStr}</span>
+      <button class="btn-fertig" onclick="markFertig('${m.id}')">✓ Fertig markieren</button>
+    `;
+  }
 
   return `
     <div class="assign-panel" onclick="event.stopPropagation()">
       <select class="assign-select" onchange="onAssignChange('${m.id}','manager',this.value)">${mgrOpts}</select>
       <select class="assign-select" onchange="onAssignChange('${m.id}','technician',this.value)">${techOpts}</select>
-      <button class="btn-senden" onclick="sendToTelegram('${m.id}')" ${asgn.technician ? "" : "disabled"}>
+      <button class="btn-senden" onclick="sendInArbeit('${m.id}')" ${asgn.technician ? "" : "disabled"}>
         ✈ In Arbeit senden
       </button>
-      ${sent}
+      ${statusRow}
     </div>
   `;
 }
@@ -187,7 +235,21 @@ function onAssignChange(mangelId, field, val) {
   }
 }
 
-function sendToTelegram(mangelId) {
+function markFertig(mangelId) {
+  const today = new Date().toISOString().slice(0, 10);
+  const input = prompt("Datum Fertigstellung (JJJJ-MM-TT):", today);
+  if (!input) return;
+
+  const asgn = getAssignment(mangelId);
+  asgn.date_finished = input;
+  saveAssignment(mangelId, asgn);
+  saveAssignmentToGitHub(mangelId);
+
+  const m = MAENGEL.find(x => x.id === mangelId);
+  if (m) document.getElementById(`card-${mangelId}`).outerHTML = renderCard(m);
+}
+
+function sendInArbeit(mangelId) {
   const m = MAENGEL.find(x => x.id === mangelId);
   if (!m) return;
   const asgn = getAssignment(mangelId);
@@ -226,9 +288,13 @@ function sendToTelegram(mangelId) {
     });
   }
 
-  // Отмечаем как отправленный
+  // Отмечаем как отправленный + дата взятия в работу
   asgn.sentAt = new Date().toISOString();
+  asgn.date_started = new Date().toISOString().slice(0, 10);
   saveAssignment(mangelId, asgn);
+
+  // Сохраняем в GitHub (для синхронизации с Google Sheets)
+  saveAssignmentToGitHub(mangelId);
 
   // Обновляем карточку
   const card = document.getElementById("card-" + mangelId);

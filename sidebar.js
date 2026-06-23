@@ -10,7 +10,7 @@ function renderSidebar(active) {
   const lang = getLang();
   return `
     <aside class="sidebar">
-      <div class="sidebar-brand">LEO <span>Board</span></div>
+      <div class="sidebar-brand">LK <span>Dashboard</span></div>
       <nav>
         ${items.map(i => `
           <a class="side-link ${i.key === active ? "active" : ""}" href="${i.href}">

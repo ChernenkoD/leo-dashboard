@@ -903,6 +903,19 @@ def main():
 SHEET_ID   = "1kbSSyETlCqFG5htYdC70LyV8VUQ565yT0uDXRi7u3Ng"
 SHEET_NAME = "Mangel-LKBau"
 
+def load_assignments():
+    """Читает assignments.json из GitHub репозитория."""
+    import urllib.request
+    try:
+        url = f"https://raw.githubusercontent.com/ChernenkoD/leo-dashboard/main/assignments.json?t={int(datetime.now().timestamp())}"
+        with urllib.request.urlopen(url, timeout=10) as r:
+            data = json.loads(r.read().decode())
+        return data.get("assignments", {})
+    except Exception as e:
+        print(f"assignments.json не загружен: {e}")
+        return {}
+
+
 def sync_maengel_to_sheets(maengel):
     creds_json = os.environ.get("GOOGLE_SHEETS_CREDS", "")
     if not creds_json:
@@ -921,23 +934,28 @@ def sync_maengel_to_sheets(maengel):
         service = build("sheets", "v4", credentials=creds, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        # Читаем существующие строки чтобы не дублировать
+        # Загружаем assignments из дашборда
+        assignments = load_assignments()
+
+        # Читаем все существующие строки
         result = sheet.values().get(
             spreadsheetId=SHEET_ID,
-            range=f"{SHEET_NAME}!A:A"
+            range=f"{SHEET_NAME}!A:P"
         ).execute()
-        existing_ids = set()
-        for row in result.get("values", [])[1:]:  # skip header
+        existing_rows = result.get("values", [])
+        existing_ids = {}  # id → row_index (1-based)
+        for i, row in enumerate(existing_rows[1:], start=2):
             if row:
-                existing_ids.add(row[0])
+                existing_ids[row[0]] = i
 
         # Заголовок (если лист пустой)
-        if not result.get("values"):
+        if not existing_rows:
             header = [[
                 "Mängel-ID", "LWS", "Adresse", "Lage",
                 "Bauleiter", "Innendienst",
                 "Beginn", "Fällig", "Status",
-                "Positionen", "Eingangsdatum"
+                "Positionen", "Eingangsdatum",
+                "Manager", "Techniker", "Datum In Arbeit", "Datum Fertig", "Tage"
             ]]
             sheet.values().update(
                 spreadsheetId=SHEET_ID,
@@ -950,15 +968,17 @@ def sync_maengel_to_sheets(maengel):
         today = datetime.now().strftime("%d.%m.%Y")
         new_rows = []
         for m in maengel:
-            if m.get("id") in existing_ids:
+            mid = m.get("id", "")
+            if mid in existing_ids:
                 continue
+            asgn = assignments.get(mid, {})
             pos_text = "; ".join(
                 f"{p.get('code','')} {p.get('mangel_beschreibung','')}"
                 for p in (m.get("positionen") or [])
             )
             new_rows.append([
-                m.get("id", ""),
-                re.search(r"LWS-\d+", m.get("id","")).group(0) if re.search(r"LWS-\d+", m.get("id","")) else "",
+                mid,
+                re.search(r"LWS-\d+", mid).group(0) if re.search(r"LWS-\d+", mid) else "",
                 m.get("address", ""),
                 m.get("lage", "") or "",
                 m.get("bauleiter", "") or "",
@@ -968,6 +988,11 @@ def sync_maengel_to_sheets(maengel):
                 m.get("mangel_status", "") or "",
                 pos_text,
                 today,
+                asgn.get("manager_name", "") or "",
+                asgn.get("technician_name", "") or "",
+                asgn.get("date_started", "") or "",
+                asgn.get("date_finished", "") or "",
+                "",  # Tage — вычислим позже
             ])
 
         if new_rows:
@@ -981,6 +1006,50 @@ def sync_maengel_to_sheets(maengel):
             print(f"Google Sheets: добавлено {len(new_rows)} новых Mängel")
         else:
             print(f"Google Sheets: нет новых Mängel для добавления")
+
+        # Обновляем Manager/Techniker/даты для уже существующих строк
+        updates = []
+        # Перечитываем чтобы получить актуальные row indices после append
+        result2 = sheet.values().get(
+            spreadsheetId=SHEET_ID,
+            range=f"{SHEET_NAME}!A:A"
+        ).execute()
+        id_to_row = {}
+        for i, row in enumerate(result2.get("values", [])[1:], start=2):
+            if row:
+                id_to_row[row[0]] = i
+
+        for mid, asgn in assignments.items():
+            if mid not in id_to_row:
+                continue
+            row_num = id_to_row[mid]
+            manager  = asgn.get("manager_name", "") or ""
+            tech     = asgn.get("technician_name", "") or ""
+            started  = asgn.get("date_started", "") or ""
+            finished = asgn.get("date_finished", "") or ""
+
+            # Считаем дни если есть обе даты
+            tage = ""
+            if started and finished:
+                try:
+                    d0 = datetime.strptime(started, "%Y-%m-%d")
+                    d1 = datetime.strptime(finished, "%Y-%m-%d")
+                    tage = str((d1 - d0).days)
+                except Exception:
+                    pass
+
+            if any([manager, tech, started, finished]):
+                updates.append({
+                    "range": f"{SHEET_NAME}!L{row_num}:P{row_num}",
+                    "values": [[manager, tech, started, finished, tage]]
+                })
+
+        if updates:
+            sheet.values().batchUpdate(
+                spreadsheetId=SHEET_ID,
+                body={"valueInputOption": "RAW", "data": updates}
+            ).execute()
+            print(f"Google Sheets: обновлено {len(updates)} assignments")
 
     except Exception as e:
         print(f"Google Sheets sync ошибка: {e}", file=sys.stderr)

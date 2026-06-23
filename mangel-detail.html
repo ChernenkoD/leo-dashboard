@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mangel Detail — LEO Board</title>
-<link rel="stylesheet" href="board.css?v=10">
+<title>Mangel Detail — LK Dashboard</title>
+<link rel="stylesheet" href="board.css?v=12">
 <style>
 .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--accent); text-decoration:none; font-size:14px; font-weight:600; padding:18px 28px 0; }
 .back-link:hover { text-decoration:underline; }
@@ -83,7 +83,7 @@
         return;
       }
 
-      document.title = `${m.id} — LEO Board`;
+      document.title = `${m.id} — LK Dashboard`;
       document.getElementById("detailHeader").innerHTML = `
         <div class="detail-id">${m.id}</div>
         <div class="detail-address">${m.address || "—"}</div>
