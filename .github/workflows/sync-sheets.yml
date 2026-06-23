@@ -1,0 +1,26 @@
+name: Sync assignments to Google Sheets
+
+on:
+  schedule:
+    - cron: "*/2 6-20 * * *"  # каждые 2 минуты с 6:00 до 20:00 UTC
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install google-auth google-auth-httplib2 google-api-python-client
+
+      - name: Sync assignments to Google Sheets
+        working-directory: scraper
+        run: python3 sync_sheets.py
+        env:
+          GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
