@@ -44,6 +44,7 @@ jobs:
         env:
           LEO_USER: ${{ secrets.LEO_USER }}
           LEO_PASS: ${{ secrets.LEO_PASS }}
+          GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
 
       - name: Commit updated data.json
         run: |

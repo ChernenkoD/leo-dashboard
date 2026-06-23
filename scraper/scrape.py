@@ -8,6 +8,7 @@
 """
 
 import json
+import os
 import re
 import sys
 import tempfile
@@ -893,6 +894,96 @@ def main():
 
         print(f"Сохранено {len(tasks)} задач, {len(maengel)} Mängel, {len(projects)} проектов в {OUTPUT_FILE}")
         browser.close()
+
+    # Синхронизация с Google Sheets
+    sync_maengel_to_sheets(maengel)
+
+
+# ── Google Sheets sync ────────────────────────────────────────────────────────
+SHEET_ID   = "1kbSSyETlCqFG5htYdC70LyV8VUQ565yT0uDXRi7u3Ng"
+SHEET_NAME = "Mangel-LKBau"
+
+def sync_maengel_to_sheets(maengel):
+    creds_json = os.environ.get("GOOGLE_SHEETS_CREDS", "")
+    if not creds_json:
+        print("GOOGLE_SHEETS_CREDS не задан — пропускаем sync Google Sheets")
+        return
+
+    try:
+        from google.oauth2.service_account import Credentials
+        from googleapiclient.discovery import build
+
+        creds_data = json.loads(creds_json)
+        creds = Credentials.from_service_account_info(
+            creds_data,
+            scopes=["https://www.googleapis.com/auth/spreadsheets"]
+        )
+        service = build("sheets", "v4", credentials=creds, cache_discovery=False)
+        sheet = service.spreadsheets()
+
+        # Читаем существующие строки чтобы не дублировать
+        result = sheet.values().get(
+            spreadsheetId=SHEET_ID,
+            range=f"{SHEET_NAME}!A:A"
+        ).execute()
+        existing_ids = set()
+        for row in result.get("values", [])[1:]:  # skip header
+            if row:
+                existing_ids.add(row[0])
+
+        # Заголовок (если лист пустой)
+        if not result.get("values"):
+            header = [[
+                "Mängel-ID", "LWS", "Adresse", "Lage",
+                "Bauleiter", "Innendienst",
+                "Beginn", "Fällig", "Status",
+                "Positionen", "Eingangsdatum"
+            ]]
+            sheet.values().update(
+                spreadsheetId=SHEET_ID,
+                range=f"{SHEET_NAME}!A1",
+                valueInputOption="RAW",
+                body={"values": header}
+            ).execute()
+
+        # Добавляем только новые Mängel
+        today = datetime.now().strftime("%d.%m.%Y")
+        new_rows = []
+        for m in maengel:
+            if m.get("id") in existing_ids:
+                continue
+            pos_text = "; ".join(
+                f"{p.get('code','')} {p.get('mangel_beschreibung','')}"
+                for p in (m.get("positionen") or [])
+            )
+            new_rows.append([
+                m.get("id", ""),
+                re.search(r"LWS-\d+", m.get("id","")).group(0) if re.search(r"LWS-\d+", m.get("id","")) else "",
+                m.get("address", ""),
+                m.get("lage", "") or "",
+                m.get("bauleiter", "") or "",
+                m.get("innendienst", "") or "",
+                m.get("ausfuehrungsbeginn", "") or "",
+                m.get("fertigstellung", "") or "",
+                m.get("mangel_status", "") or "",
+                pos_text,
+                today,
+            ])
+
+        if new_rows:
+            sheet.values().append(
+                spreadsheetId=SHEET_ID,
+                range=f"{SHEET_NAME}!A1",
+                valueInputOption="RAW",
+                insertDataOption="INSERT_ROWS",
+                body={"values": new_rows}
+            ).execute()
+            print(f"Google Sheets: добавлено {len(new_rows)} новых Mängel")
+        else:
+            print(f"Google Sheets: нет новых Mängel для добавления")
+
+    except Exception as e:
+        print(f"Google Sheets sync ошибка: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
