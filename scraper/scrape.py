@@ -331,6 +331,60 @@ def parse_positionen(page):
     return positionen
 
 
+def acknowledge_new_maengel(page):
+    """Принимает все новые Mängelaufträge — нажимает 'Zur Kenntnis genommen'."""
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle", timeout=20000)
+    page.click("text=Projekte")
+    page.click("text=Mangelaufträge")
+    page.wait_for_load_state("networkidle", timeout=20000)
+
+    acknowledged = 0
+    for attempt in range(30):  # максимум 30 новых Mängel за один проход
+        # Ищем ссылки с текстом "neuer Mangelauftrag"
+        new_links = page.locator("a:has-text('neuer Mangelauftrag')").all()
+        if not new_links:
+            break
+
+        link = new_links[0]
+        try:
+            href = link.get_attribute("href")
+            if href:
+                detail_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
+                page.goto(detail_url)
+            else:
+                link.click()
+            page.wait_for_load_state("networkidle", timeout=15000)
+            page.wait_for_timeout(500)
+
+            # Ищем кнопку "Zur Kenntnis genommen"
+            btn = page.locator("text=Zur Kenntnis genommen").first
+            if btn.count() > 0:
+                btn.click()
+                page.wait_for_load_state("networkidle", timeout=10000)
+                page.wait_for_timeout(500)
+                acknowledged += 1
+                print(f"  ✓ Zur Kenntnis genommen #{acknowledged}")
+            else:
+                print(f"  Кнопка не найдена на странице: {page.url}")
+
+        except Exception as e:
+            print(f"  Fehler: {e}")
+
+        # Возвращаемся к списку Mängelaufträge
+        try:
+            page.goto(f"{BASE}/index.php")
+            page.wait_for_load_state("networkidle", timeout=15000)
+            page.click("text=Projekte")
+            page.click("text=Mangelaufträge")
+            page.wait_for_load_state("networkidle", timeout=15000)
+        except Exception:
+            break
+
+    print(f"Neue Mängelaufträge angenommen: {acknowledged}")
+    return acknowledged
+
+
 def collect_mangel_list(page):
     """Шаг 1: собираем все Mängel и их URL со списка, без заходов внутрь."""
     page.goto(f"{BASE}/index.php")
@@ -378,6 +432,9 @@ def collect_mangel_list(page):
 
 
 def parse_mangel(page):
+    # Сначала принимаем все новые Mängelaufträge
+    acknowledge_new_maengel(page)
+    # Теперь собираем полный список (включая только что принятые)
     items = collect_mangel_list(page)
     print(f"Найдено {len(items)} Mängel в списке")
 
