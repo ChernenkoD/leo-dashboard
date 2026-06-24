@@ -648,12 +648,17 @@ function statusBadge(ms) {
 }
 
 function getAssignmentBadge(id) {
-  const manager   = localStorage.getItem(`assignment_${id}`);
-  const techniker = localStorage.getItem(`tech_${id}`);
-  const parts = [];
-  if (manager)   parts.push(`<span class="mbadge mbadge-assign">👤 ${manager}</span>`);
-  if (techniker) parts.push(`<span class="mbadge mbadge-assign">🔧 ${techniker}</span>`);
-  return parts.join("");
+  try {
+    const raw = localStorage.getItem("assign_" + id);
+    if (!raw) return "";
+    const a = JSON.parse(raw);
+    const parts = [];
+    if (a.manager)   parts.push(`<span class="mbadge mbadge-assign">👤 ${a.manager}</span>`);
+    if (a.techniker) parts.push(`<span class="mbadge mbadge-assign">🔧 ${a.techniker}</span>`);
+    if (a.sentAt && !a.date_finished) parts.push(`<span class="mbadge" style="background:#dbeafe;color:#1d4ed8">🔵 In Arbeit</span>`);
+    if (a.date_finished) parts.push(`<span class="mbadge" style="background:#dcfce7;color:#166534">✓ Fertig ${a.date_finished}</span>`);
+    return parts.join("");
+  } catch { return ""; }
 }
 
 function buildMangelFilterBar() {
