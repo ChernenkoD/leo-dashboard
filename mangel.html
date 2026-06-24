@@ -15,57 +15,70 @@
         <div class="sub" id="pageSub"></div>
       </header>
 
-      <!-- KPI row -->
-      <div id="mangelKPI" class="stat-grid-5" style="margin-bottom:20px"></div>
+      <div id="mangelKPI" class="mk-kpi-row"></div>
 
-      <!-- Filter + tabs bar -->
-      <div class="toolbar" style="flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <input type="text" id="mfSearch" placeholder="Adresse, ID, Bauleiter…" style="min-width:180px;flex:2">
-        <select id="mfBauleiter"><option value="">Alle Bauleiter</option></select>
-        <select id="mfStatus">
-          <option value="">Alle Status</option>
-          <option value="offen">🔴 Offen</option>
-          <option value="behoben">🟡 Behoben</option>
-          <option value="geprueft">✅ Geprüft</option>
-          <option value="in_arbeit">🔵 In Arbeit</option>
-          <option value="fertig">✓ Fertig</option>
-        </select>
-        <select id="mfFaellig">
-          <option value="">Alle Fristen</option>
-          <option value="ueberfaellig">⚠ Überfällig</option>
-          <option value="le3">≤3 Tage</option>
-          <option value="le7">≤7 Tage</option>
-          <option value="le14">≤14 Tage</option>
-          <option value="gt14">&gt;14 Tage</option>
-        </select>
-        <select id="mfSort">
-          <option value="faellig">Fälligste zuerst</option>
-          <option value="newest">Neueste zuerst</option>
-          <option value="oldest">Älteste zuerst</option>
-          <option value="address">Nach Adresse</option>
-          <option value="deadline_desc">Termin ↓</option>
-        </select>
-        <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;white-space:nowrap">
-          <input type="checkbox" id="mfNeu"> Neu (≤7d)
-        </label>
-        <div style="display:flex;gap:4px">
-          <button class="view-toggle-btn" id="btnViewList" onclick="setView('list')">☰ Liste</button>
-          <button class="view-toggle-btn" id="btnViewCard" onclick="setView('card')">🃏 Karten</button>
+      <div class="mk-filterbar">
+        <div class="mk-filter-left">
+          <div class="mk-search-wrap">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9ca3af"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="m15 15 3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="text" id="mfSearch" placeholder="Suche…" class="mk-search">
+          </div>
+          <select id="mfBauleiter" class="mk-select"><option value="">Bauleiter</option></select>
+          <select id="mfStadt" class="mk-select"><option value="">Stadt</option></select>
+          <select id="mfStatus" class="mk-select">
+            <option value="">Status</option>
+            <option value="offen">🔴 Offen</option>
+            <option value="behoben">🟡 Behoben</option>
+            <option value="geprueft">✅ Geprüft</option>
+            <option value="in_arbeit">🔵 In Arbeit</option>
+            <option value="fertig">✓ Fertig</option>
+          </select>
+          <select id="mfFaellig" class="mk-select">
+            <option value="">Fälligkeit</option>
+            <option value="ueberfaellig">⚠ Überfällig</option>
+            <option value="le3">≤ 3 Tage</option>
+            <option value="le7">≤ 7 Tage</option>
+            <option value="le14">≤ 14 Tage</option>
+            <option value="gt14">&gt; 14 Tage</option>
+          </select>
+          <select id="mfManager" class="mk-select"><option value="">Manager</option></select>
+          <select id="mfTechniker" class="mk-select"><option value="">Techniker</option></select>
+          <label class="mk-neu-label">
+            <input type="checkbox" id="mfNeu"> <span>Neu ≤7d</span>
+          </label>
         </div>
-        <div style="display:flex;gap:4px;border-left:1px solid var(--border);padding-left:8px">
-          <button class="tab-btn" id="tabActive">Aktiv</button>
-          <button class="tab-btn" id="tabGeprueft">Geprüft ✓</button>
-          <button class="tab-btn" id="tabArchived">Archiv LEO</button>
+        <div class="mk-filter-right">
+          <select id="mfSort" class="mk-select">
+            <option value="faellig">Fälligste zuerst</option>
+            <option value="newest">Neueste zuerst</option>
+            <option value="oldest">Älteste zuerst</option>
+            <option value="address">A–Z Adresse</option>
+            <option value="deadline_desc">Termin ↓</option>
+          </select>
+          <div class="mk-view-toggle">
+            <button id="btnViewList" class="mk-view-btn active" onclick="setView('list')" title="Liste">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect y="1" width="16" height="2" rx="1"/><rect y="7" width="16" height="2" rx="1"/><rect y="13" width="16" height="2" rx="1"/></svg>
+            </button>
+            <button id="btnViewCard" class="mk-view-btn" onclick="setView('card')" title="Karten">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect width="7" height="7" rx="1"/><rect x="9" width="7" height="7" rx="1"/><rect y="9" width="7" height="7" rx="1"/><rect x="9" y="9" width="7" height="7" rx="1"/></svg>
+            </button>
+          </div>
+          <div class="mk-tabs">
+            <button class="mk-tab active" id="tabActive">Aktiv</button>
+            <button class="mk-tab" id="tabGeprueft">Geprüft</button>
+            <button class="mk-tab" id="tabArchived">Archiv</button>
+          </div>
+          <button onclick="resetFilters()" class="mk-reset" id="mkResetBtn" style="display:none">× Reset</button>
         </div>
-        <button onclick="resetFilters()" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);cursor:pointer;font-size:12px">× Reset</button>
       </div>
 
+      <div id="mkChips" class="mk-chips"></div>
       <div id="neuHeuteBanner"></div>
       <section id="mangelList"></section>
     </div>
   </div>
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="mangel.js?v=9"></script>
+  <script src="mangel.js?v=10"></script>
 </body>
 </html>
