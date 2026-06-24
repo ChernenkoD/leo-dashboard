@@ -1083,6 +1083,12 @@ def sync_maengel_to_sheets(maengel):
                 f"{p.get('code','')} {p.get('mangel_beschreibung','')}"
                 for p in (m.get("positionen") or [])
             )
+            # first_seen — YYYY-MM-DD → конвертируем в DD.MM.YYYY для Sheets
+            fs_raw = m.get("first_seen", "")
+            try:
+                fs_date = datetime.strptime(fs_raw, "%Y-%m-%d").strftime("%d.%m.%Y") if fs_raw else today
+            except Exception:
+                fs_date = today
             new_rows.append([
                 mid,
                 re.search(r"LWS-\d+", mid).group(0) if re.search(r"LWS-\d+", mid) else "",
@@ -1094,7 +1100,7 @@ def sync_maengel_to_sheets(maengel):
                 m.get("fertigstellung", "") or "",
                 m.get("mangel_status", "") or "",
                 pos_text,
-                today,
+                fs_date,
                 asgn.get("manager_name", "") or "",
                 asgn.get("technician_name", "") or "",
                 asgn.get("date_started", "") or "",

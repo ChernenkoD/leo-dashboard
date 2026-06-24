@@ -80,6 +80,14 @@ def main():
     # Новые строки для Mängel которых нет в таблице
     existing_ids = set(id_to_row.keys())
     today = datetime.now().strftime("%d.%m.%Y")
+
+    def fmt_first_seen(m):
+        fs = m.get("first_seen", "")
+        try:
+            return datetime.strptime(fs, "%Y-%m-%d").strftime("%d.%m.%Y") if fs else today
+        except Exception:
+            return today
+
     new_rows = []
     for mid, m in maengel.items():
         if mid in existing_ids:
@@ -101,7 +109,7 @@ def main():
             m.get("fertigstellung", "") or "",
             m.get("mangel_status", "") or "",
             pos_text,
-            today,
+            fmt_first_seen(m),
             asgn.get("manager_name", "") or "",
             asgn.get("technician_name", "") or "",
             asgn.get("date_started", "") or "",

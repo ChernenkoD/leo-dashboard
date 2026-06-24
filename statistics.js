@@ -1068,16 +1068,18 @@ function renderMangel() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function getWochePeriod(offset) {
+  // Неделя = Вторник 00:00 → Среда 23:59
+  // Находим ближайший прошедший вторник (или сегодня если вторник)
   const now = new Date();
-  const dow = now.getDay();
-  const daysToLastWed = (dow - 3 + 7) % 7;
-  const lastWed = new Date(now);
-  lastWed.setDate(now.getDate() - daysToLastWed + offset * 7);
-  lastWed.setHours(23, 59, 59, 0);
-  const prevTue = new Date(lastWed);
-  prevTue.setDate(lastWed.getDate() - 6);
-  prevTue.setHours(0, 0, 0, 0);
-  return { von: prevTue, bis: lastWed };
+  const dow = now.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed...
+  const daysToLastTue = (dow - 2 + 7) % 7;
+  const thisTue = new Date(now);
+  thisTue.setDate(now.getDate() - daysToLastTue + offset * 7);
+  thisTue.setHours(0, 0, 0, 0);
+  const thisWed = new Date(thisTue);
+  thisWed.setDate(thisTue.getDate() + 1);
+  thisWed.setHours(23, 59, 59, 0);
+  return { von: thisTue, bis: thisWed };
 }
 
 function getKW(d) {
