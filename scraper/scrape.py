@@ -5,6 +5,9 @@
 
 Если сессия протухла — скрипт это обнаружит и завершится с понятной
 ошибкой, ничего не поломав в data.json.
+
+v2024-06-24: robust Mängel selector (case-insensitive, fallback td/div),
+             pagination fix (always try next page), multi-selector next button.
 """
 
 import json
@@ -115,15 +118,24 @@ def lines_of(text):
 
 
 def click_next_and_wait(page):
-    next_link = page.locator("text=Nächste").first
-    if next_link.count() == 0:
-        return False
-    try:
-        next_link.click()
-        page.wait_for_load_state("networkidle", timeout=5000)
-        return True
-    except Exception:
-        return False
+    """Try multiple selectors for DataTable 'next' button."""
+    selectors = [
+        ".paginate_button.next:not(.disabled)",
+        "a:has-text('Nächste')",
+        "a:has-text('Next')",
+        "[data-dt-idx='next']",
+    ]
+    for sel in selectors:
+        nxt = page.locator(sel).first
+        if nxt.count() > 0:
+            try:
+                nxt.click()
+                page.wait_for_load_state("networkidle", timeout=5000)
+                page.wait_for_timeout(300)
+                return True
+            except Exception:
+                continue
+    return False
 
 
 def parse_task_block(text):
@@ -344,8 +356,10 @@ def acknowledge_new_maengel(page):
     acknowledged = 0
 
     for attempt in range(50):
-        # Ищем "neuer Mangelauftrag" на главной странице
-        new_links = page.locator("a:has-text('neuer Mangelauftrag')").all()
+        # Ищем "neuer Mangelauftrag" на главной странице (case-insensitive, extra whitespace tolerant)
+        new_links = page.locator("a").filter(has_text=re.compile(r"neuer\s+mangelauftrag", re.IGNORECASE)).all()
+        if not new_links:
+            new_links = page.locator("td:has-text('Mangelauftrag'), div:has-text('Mangelauftrag')").locator("a").all()
 
         if not new_links:
             # Пробуем перейти на следующую страницу пагинации
@@ -438,8 +452,9 @@ def collect_mangel_list(page):
             items.append((m, detail_url))
             new_found = True
 
-        if not new_found:
-            break
+        # Always attempt pagination even if no new items found on this page
+        # (earlier pages might have been all-seen, later pages might have new ones).
+        # Only break when pagination itself is unavailable.
         if not click_next_and_wait(page):
             break
 

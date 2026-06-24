@@ -1,5 +1,5 @@
 // ============================================================
-// statistics.js — LK Bauservice GmbH Dashboard v10
+// statistics.js — LK Bauservice GmbH Dashboard v11
 // Tabs: Alle Projekte | Aktive Projekte | Mängel | Wochenbericht
 // ============================================================
 
@@ -30,7 +30,11 @@ let mangelFilters = {
   status: "",
   faelligkeit: "",
   sort: "faellig",
+  neu: false,
 };
+
+let mangelView = "list"; // "list" | "card"
+let mangelExpanded = new Set(); // expanded row IDs
 
 // Tab 4 (Woche) state
 let wocheOffset = 0;
@@ -136,6 +140,73 @@ let currentTab = "archiv";
     .woche-list-red { color: #b91c1c; font-weight: 700; }
 
     .bar-row-active { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+
+    /* System font stack */
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+
+    /* Tab fade */
+    main { animation: fadeIn .2s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+    /* KPI top border variant */
+    .kpi-card { border-top: 3px solid transparent; }
+    .kpi-card-red    { border-top-color: #ef4444; }
+    .kpi-card-orange { border-top-color: #f97316; }
+    .kpi-card-blue   { border-top-color: #3b82f6; }
+    .kpi-card-green  { border-top-color: #22c55e; }
+
+    /* Loading skeleton */
+    .skeleton { background: linear-gradient(90deg, var(--border) 25%, var(--panel) 50%, var(--border) 75%);
+      background-size:200% 100%; animation: shimmer 1.5s infinite; border-radius:6px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Better empty state */
+    .empty-state {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:48px; color:var(--muted); gap:12px;
+    }
+    .empty-state-icon { font-size:48px; opacity:.3; }
+    .empty-state-text { font-size:14px; }
+
+    /* View toggle */
+    .view-toggle { display:flex; gap:4px; }
+    .view-toggle-btn {
+      padding:5px 10px; border:1px solid var(--border); border-radius:6px;
+      background:none; color:var(--muted); cursor:pointer; font-size:12px;
+    }
+    .view-toggle-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+    /* Mangel list table */
+    .mangel-list-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .mangel-list-table thead th {
+      padding:8px 12px; font-size:10px; font-weight:700;
+      text-transform:uppercase; letter-spacing:.06em; color:var(--muted);
+      border-bottom:2px solid var(--border); background:var(--bg); position:sticky; top:0; z-index:1;
+    }
+    .ml-row { border-left:3px solid transparent; cursor:pointer; transition:background .12s; }
+    .ml-row:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+    .ml-row td { padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:middle; }
+    .ml-row--red    { border-left-color: #ef4444; }
+    .ml-row--orange { border-left-color: #f97316; }
+    .ml-row--yellow { border-left-color: #eab308; }
+    .ml-row--green  { border-left-color: #22c55e; }
+    .ml-deadline-pill {
+      display:inline-block; padding:2px 8px; border-radius:20px;
+      font-size:11px; font-weight:800; white-space:nowrap;
+    }
+    .ml-expanded-row td { background:var(--bg); padding:12px 16px; }
+    .ml-positionen { display:flex; flex-direction:column; gap:6px; }
+    .ml-pos-item { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:12px; }
+
+    /* Compact card grid */
+    .mangel-card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; margin-top:4px; }
+
+    /* Print */
+    @media print {
+      .toolbar, #sidebar-mount, .topbar, .plan-filter-bar, #kpiWoche, .stat-grid-2 .stat-card:last-child { display:none!important; }
+      .woche-summary-box { border:1px solid #ccc; }
+      body { font-size:12px; }
+    }
   `;
   document.head.appendChild(style);
 })();
@@ -712,12 +783,31 @@ function buildMangelFilterBar() {
         <option value="address" ${mangelFilters.sort==='address'?'selected':''}>Nach Adresse</option>
       </select>
     </div>
+    <div class="plan-filter-group" style="align-self:flex-end">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+        <input type="checkbox" id="mfNeu" ${mangelFilters.neu?'checked':''}
+          onchange="mangelFilters.neu=this.checked; renderMangel()">
+        Neu (≤7d)
+      </label>
+    </div>
+    <div class="plan-filter-group" style="align-self:flex-end">
+      <div class="view-toggle">
+        <button class="view-toggle-btn ${mangelView==='list'?'active':''}" onclick="setMangelView('list')">☰ Liste</button>
+        <button class="view-toggle-btn ${mangelView==='card'?'active':''}" onclick="setMangelView('card')">🃏 Karten</button>
+      </div>
+    </div>
     <button class="plan-btn-reset" onclick="resetMangelFilters()">× Filter zurücksetzen</button>
   `;
 }
 
+function setMangelView(v) {
+  mangelView = v;
+  buildMangelFilterBar();
+  renderMangel();
+}
+
 function resetMangelFilters() {
-  mangelFilters = { search:"", bauleiter:"", status:"", faelligkeit:"", sort:"faellig" };
+  mangelFilters = { search:"", bauleiter:"", status:"", faelligkeit:"", sort:"faellig", neu: false };
   buildMangelFilterBar();
   renderMangel();
 }
@@ -731,6 +821,10 @@ function applyMangelFilters(maengel) {
     }
     if (mangelFilters.bauleiter && m.bauleiter !== mangelFilters.bauleiter) return false;
     if (mangelFilters.status && m.mangel_status !== mangelFilters.status) return false;
+    if (mangelFilters.neu) {
+      const sevenAgo = new Date(today0()); sevenAgo.setDate(sevenAgo.getDate() - 7);
+      if (!m.first_seen || new Date(m.first_seen) < sevenAgo) return false;
+    }
     if (mangelFilters.faelligkeit) {
       const days = daysUntil(m.fertigstellung);
       const isPrueft = m.mangel_status === "geprueft";
@@ -784,12 +878,12 @@ function renderMangelKPI() {
   const geprueft = allMaengel.filter(m => m.mangel_status === "geprueft").length;
 
   document.getElementById("kpiMangel").innerHTML = [
-    { label:"Gesamt aktive Mängel", value: total,       sub: "in Bearbeitung", border: "" },
-    { label:"Überfällig",           value: ueberfaellig, sub: "Deadline überschritten", border: "border-left:3px solid #b91c1c", valColor:"color:#b91c1c" },
-    { label:"Fällig in ≤7 Tagen",   value: le7,          sub: "dringend",       border: "border-left:3px solid #f59e0b", valColor:"color:#d97706" },
-    { label:"Neu diese Woche",      value: neuWoche,     sub: "first_seen <7d", border: "border-left:3px solid #3b82f6", valColor:"color:#2563eb" },
-    { label:"Geprüft ✅",            value: geprueft,     sub: "abgeschlossen",  border: "border-left:3px solid #10b981", valColor:"color:#16a34a" },
-  ].map(k => `<div class="kpi-card" style="${k.border}">
+    { label:"Gesamt aktive Mängel", value: total,       sub: "in Bearbeitung",        cls: "" },
+    { label:"Überfällig",           value: ueberfaellig, sub: "Deadline überschritten", cls: "kpi-card-red",    valColor:"color:#b91c1c" },
+    { label:"Fällig in ≤7 Tagen",   value: le7,          sub: "dringend",              cls: "kpi-card-orange", valColor:"color:#d97706" },
+    { label:"Neu diese Woche",      value: neuWoche,     sub: "first_seen <7d",        cls: "kpi-card-blue",   valColor:"color:#2563eb" },
+    { label:"Geprüft ✅",            value: geprueft,     sub: "abgeschlossen",         cls: "kpi-card-green",  valColor:"color:#16a34a" },
+  ].map(k => `<div class="kpi-card ${k.cls}">
     <div class="kpi-val" style="${k.valColor||''}">${k.value}</div>
     <div class="kpi-label">${k.label}</div>
     <div class="kpi-sub">${k.sub}</div>
@@ -836,6 +930,106 @@ function renderMangelCard(m) {
   </div>`;
 }
 
+function deadlineRowClass(m) {
+  const days = daysUntil(m.fertigstellung);
+  if (days === null) return "";
+  if (days < 0) return "ml-row--red";
+  if (days <= 3) return "ml-row--red";
+  if (days <= 7) return "ml-row--orange";
+  if (days <= 14) return "ml-row--yellow";
+  return "ml-row--green";
+}
+
+function deadlinePillHTML(m) {
+  const days = daysUntil(m.fertigstellung);
+  if (days === null) return `<span class="ml-deadline-pill" style="background:var(--bg);color:var(--muted)">—</span>`;
+  if (days < 0) return `<span class="ml-deadline-pill" style="background:#fee2e2;color:#b91c1c">${Math.abs(days)}d !</span>`;
+  if (days === 0) return `<span class="ml-deadline-pill" style="background:#fee2e2;color:#b91c1c">Heute</span>`;
+  if (days <= 3) return `<span class="ml-deadline-pill" style="background:#fee2e2;color:#b91c1c">${days}d</span>`;
+  if (days <= 7) return `<span class="ml-deadline-pill" style="background:#ffedd5;color:#c2410c">${days}d</span>`;
+  if (days <= 14) return `<span class="ml-deadline-pill" style="background:#fef9c3;color:#854d0e">${days}d</span>`;
+  return `<span class="ml-deadline-pill" style="background:#dcfce7;color:#166534">${days}d</span>`;
+}
+
+function toggleMangelRow(id) {
+  if (mangelExpanded.has(id)) {
+    mangelExpanded.delete(id);
+  } else {
+    mangelExpanded.add(id);
+  }
+  const expRow = document.getElementById("expand-" + id);
+  if (expRow) {
+    expRow.style.display = mangelExpanded.has(id) ? "" : "none";
+    return;
+  }
+  // Re-render if row not found
+  renderMangel();
+}
+
+function renderMangelListView(filtered) {
+  if (!filtered.length) {
+    return `<div class="empty-state">
+      <div class="empty-state-icon">📋</div>
+      <div class="empty-state-text">Keine Mängel gefunden</div>
+    </div>`;
+  }
+  const rows = filtered.map(m => {
+    const rowCls = deadlineRowClass(m);
+    const posCount = (m.positionen || []).length;
+    const assignBadge = getAssignmentBadge(m.id);
+    const expanded = mangelExpanded.has(m.id);
+    const pos = m.positionen || [];
+    const expandedRow = expanded ? `<tr class="ml-expanded-row" id="expand-${m.id}">
+      <td colspan="7">
+        <div class="ml-positionen">
+          ${pos.length
+            ? pos.map(p => `<div class="ml-pos-item">
+                <b>${p.gewerk || "—"}</b> · ${p.status || "—"} · <span style="color:var(--muted)">${p.mangel_beschreibung || ""}</span>
+              </div>`).join("")
+            : `<div style="color:var(--muted);font-size:12px">Keine Positionen</div>`}
+        </div>
+      </td>
+    </tr>` : `<tr class="ml-expanded-row" id="expand-${m.id}" style="display:none">
+      <td colspan="7">
+        <div class="ml-positionen">
+          ${pos.length
+            ? pos.map(p => `<div class="ml-pos-item">
+                <b>${p.gewerk || "—"}</b> · ${p.status || "—"} · <span style="color:var(--muted)">${p.mangel_beschreibung || ""}</span>
+              </div>`).join("")
+            : `<div style="color:var(--muted);font-size:12px">Keine Positionen</div>`}
+        </div>
+      </td>
+    </tr>`;
+    return `<tr class="ml-row ${rowCls}" onclick="toggleMangelRow('${m.id}')">
+      <td>${deadlinePillHTML(m)}</td>
+      <td>
+        <div style="font-weight:700;font-size:13px">${m.address || "—"}</div>
+        <div style="font-size:11px;color:var(--muted)">${m.id || ""} ${m.lage ? "· " + m.lage : ""}</div>
+      </td>
+      <td style="font-size:12px">${m.bauleiter || "—"}</td>
+      <td>${statusBadge(m.mangel_status)}</td>
+      <td style="font-size:11px;color:var(--muted);white-space:nowrap">
+        ${m.ausfuehrungsbeginn || "—"}<br>→ ${m.fertigstellung || "—"}
+      </td>
+      <td style="font-size:11px">${assignBadge || `<span style="color:var(--muted)">—</span>`}</td>
+      <td><a href="${m.leo_url || '#'}" target="_blank" class="btn-leo" onclick="event.stopPropagation()">→</a></td>
+    </tr>${expandedRow}`;
+  }).join("");
+
+  return `<table class="mangel-list-table">
+    <thead><tr>
+      <th style="width:80px">Fällig</th>
+      <th>Adresse</th>
+      <th style="width:130px">Bauleiter</th>
+      <th style="width:90px">Status</th>
+      <th style="width:120px">Beginn/Ende</th>
+      <th style="width:120px">Beauftragt</th>
+      <th style="width:40px"></th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
 function renderMangel() {
   renderMangelKPI();
 
@@ -845,8 +1039,24 @@ function renderMangel() {
   const grid = document.getElementById("mangelGrid");
   if (!grid) return;
 
+  if (mangelView === "list") {
+    grid.style.display = "block";
+    grid.style.gridTemplateColumns = "";
+    grid.style.gap = "";
+    grid.innerHTML = renderMangelListView(filtered);
+    return;
+  }
+
+  // Card view
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "repeat(auto-fill,minmax(300px,1fr))";
+  grid.style.gap = "16px";
+
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty-hint" style="grid-column:1/-1">Keine Mängel gefunden</div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-state-icon">📋</div>
+      <div class="empty-state-text">Keine Mängel gefunden</div>
+    </div>`;
     return;
   }
 
