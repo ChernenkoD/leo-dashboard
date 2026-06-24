@@ -934,7 +934,8 @@ def main():
             sys.exit(1)
 
         # Загружаем/обновляем first_seen dates
-        mangel_dates_file = os.path.join(os.path.dirname(OUTPUT_FILE), "mangel_dates.json")
+        # Пишем в scraper/ рядом со скриптом, чтобы git add scraper/mangel_dates.json работал
+        mangel_dates_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mangel_dates.json")
         if os.path.exists(mangel_dates_file):
             with open(mangel_dates_file, encoding="utf-8") as f:
                 mangel_dates = json.load(f)
