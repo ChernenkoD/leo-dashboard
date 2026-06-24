@@ -243,28 +243,25 @@ function today0() { const d = new Date(); d.setHours(0,0,0,0); return d; }
 // ── Tab switching ──────────────────────────────────────────────────────────────
 function switchTab(tab) {
   currentTab = tab;
-  const tabs = ["archiv","aktiv","mangel","woche"];
+  const tabs = ["archiv","aktiv","woche"];
   tabs.forEach(t => {
     const id = "tab" + t.charAt(0).toUpperCase() + t.slice(1);
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle("active", t === tab);
   });
 
-  const archivMain  = document.querySelector("main:not(#aktivSection):not(#wocheSection):not(#mangelSection)");
+  const archivMain = document.querySelector("main:not(#aktivSection):not(#wocheSection)");
   if (archivMain) archivMain.style.display = tab === "archiv" ? "flex" : "none";
-  const aktivSection  = document.getElementById("aktivSection");
-  const wocheSection  = document.getElementById("wocheSection");
-  const mangelSection = document.getElementById("mangelSection");
-  if (aktivSection)  aktivSection.style.display  = tab === "aktiv"  ? "flex" : "none";
-  if (wocheSection)  wocheSection.style.display   = tab === "woche"  ? "flex" : "none";
-  if (mangelSection) mangelSection.style.display  = tab === "mangel" ? "block" : "none";
+  const aktivSection = document.getElementById("aktivSection");
+  const wocheSection = document.getElementById("wocheSection");
+  if (aktivSection) aktivSection.style.display = tab === "aktiv" ? "flex" : "none";
+  if (wocheSection) wocheSection.style.display  = tab === "woche" ? "flex" : "none";
 
   const yf = document.getElementById("yearFilter");
   if (yf) yf.style.display = tab === "archiv" ? "" : "none";
 
-  if (tab === "aktiv")  renderAktiv();
-  if (tab === "woche")  renderWoche();
-  if (tab === "mangel") renderMangel();
+  if (tab === "aktiv") renderAktiv();
+  if (tab === "woche") renderWoche();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
