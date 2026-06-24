@@ -288,18 +288,36 @@ function switchTab(tab) {
   if (tab === "aktiv") renderAktiv();
 }
 
-// ── Active projects charts ────────────────────────────────────────────────────
+// ── Active projects / Planung ─────────────────────────────────────────────────
 const MONTHS_DE = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+let planVon = null, planBis = null;
 
 function getActiveProjects() {
-  return allProjects.filter(p => !p.abgeschlossen && p.fortschritt < 100 &&
+  return allProjects.filter(p => !p.abgeschlossen && (p.fortschritt||0) < 100 &&
     !["Beendet","Abgeschlossen"].includes(p.status || ""));
 }
 
-function groupByMonth(projects, dateField) {
+function filterByPeriod(projects) {
+  return projects.filter(p => {
+    const d = parseDE(p.ende);
+    if (!d) return false;
+    if (planVon && d < planVon) return false;
+    if (planBis && d > planBis) return false;
+    return true;
+  });
+}
+
+function resetPlanFilter() {
+  planVon = planBis = null;
+  document.getElementById("planVon").value = "";
+  document.getElementById("planBis").value = "";
+  renderAktiv();
+}
+
+function groupByMonth(projects) {
   const map = {};
   projects.forEach(p => {
-    const d = parseDE(p[dateField]);
+    const d = parseDE(p.ende);
     if (!d) return;
     const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
     if (!map[key]) map[key] = { count: 0, amount: 0, projects: [] };
@@ -310,60 +328,69 @@ function groupByMonth(projects, dateField) {
   return Object.entries(map).sort(([a],[b]) => a.localeCompare(b));
 }
 
-function renderMonthBarChart(containerId, entries, colorFn) {
-  const el = document.getElementById(containerId);
+function renderEndeMonthChart(projects) {
+  const el = document.getElementById("chartEndeMonth");
   if (!el) return;
-  if (!entries.length) { el.innerHTML = `<div class="empty-hint">Keine Daten</div>`; return; }
-  const maxCount = Math.max(...entries.map(([,v]) => v.count));
+  const entries = groupByMonth(projects);
+  if (!entries.length) { el.innerHTML = `<div class="empty-hint">Keine Projekte im gewählten Zeitraum</div>`; return; }
+  const maxAmt = Math.max(...entries.map(([,v]) => v.amount));
+  const now = new Date();
+  const thisMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+
   el.innerHTML = entries.map(([key, val]) => {
     const [yr, mo] = key.split("-");
     const label = `${MONTHS_DE[+mo-1]} ${yr}`;
-    const pct = Math.round((val.count / maxCount) * 100);
-    const color = colorFn ? colorFn(key) : "#3b82f6";
+    const pct = maxAmt > 0 ? Math.max(4, Math.round((val.amount / maxAmt) * 100)) : 4;
+    const isPast = key < thisMonth;
+    const isCurrent = key === thisMonth;
+    const color = isPast ? "#9ca3af" : isCurrent ? "#f59e0b" : "#10b981";
+    const badge = isCurrent ? ` <span class="month-current-badge">aktuell</span>` : "";
     return `
-      <div class="bar-row">
-        <div class="bar-label">${label}</div>
-        <div class="bar-wrap">
-          <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
-          <span class="bar-val">${val.count} Proj. · ${fmtMoney(val.amount)}</span>
+      <div class="plan-month-row" onclick="filterTableByMonth('${key}')">
+        <div class="plan-month-label">${label}${badge}</div>
+        <div class="plan-bar-wrap">
+          <div class="plan-bar-fill" style="width:${pct}%;background:${color}">
+            <span class="plan-bar-inner">${val.count} Proj.</span>
+          </div>
         </div>
+        <div class="plan-month-amount">${fmtMoney(val.amount)}</div>
       </div>`;
   }).join("");
 }
 
-function renderAktivVolumenChart(projects) {
-  const el = document.getElementById("chartAktivVolumen");
-  if (!el) return;
-  const entries = groupByMonth(projects, "ende");
-  if (!entries.length) { el.innerHTML = `<div class="empty-hint">Keine Daten</div>`; return; }
-  const maxAmt = Math.max(...entries.map(([,v]) => v.amount));
-  el.innerHTML = entries.map(([key, val]) => {
-    const [yr, mo] = key.split("-");
-    const label = `${MONTHS_DE[+mo-1]} ${yr}`;
-    const pct = maxAmt > 0 ? Math.round((val.amount / maxAmt) * 100) : 0;
-    const now = new Date();
-    const isPast = new Date(+yr, +mo-1) < new Date(now.getFullYear(), now.getMonth());
-    const color = isPast ? "#9ca3af" : "#10b981";
-    return `
-      <div class="bar-row">
-        <div class="bar-label">${label}</div>
-        <div class="bar-wrap">
-          <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
-          <span class="bar-val">${val.count} · ${fmtMoney(val.amount)}</span>
-        </div>
-      </div>`;
-  }).join("");
+let tableMonthFilter = null;
+function filterTableByMonth(key) {
+  tableMonthFilter = tableMonthFilter === key ? null : key;
+  renderAktiv();
 }
 
 function renderAktivTable(projects) {
   const el = document.getElementById("aktivTable");
+  const titleEl = document.getElementById("aktivTableTitle");
   if (!el) return;
-  const sorted = [...projects].sort((a,b) => {
+
+  let filtered = tableMonthFilter
+    ? projects.filter(p => {
+        const d = parseDE(p.ende);
+        if (!d) return false;
+        const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+        return k === tableMonthFilter;
+      })
+    : projects;
+
+  const [yr, mo] = tableMonthFilter ? tableMonthFilter.split("-") : [];
+  if (titleEl) titleEl.textContent = tableMonthFilter
+    ? `Projekte: ${MONTHS_DE[+mo-1]} ${yr} (${filtered.length})`
+    : `Alle Projekte (${filtered.length})`;
+
+  const sorted = [...filtered].sort((a,b) => {
     const da = parseDE(a.ende), db = parseDE(b.ende);
     if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
     return da - db;
   });
-  el.innerHTML = `
+
+  const now = new Date(); now.setHours(0,0,0,0);
+  el.innerHTML = sorted.length ? `
     <table class="aktiv-table">
       <thead><tr>
         <th>LWS</th><th>Adresse</th><th>Bauleiter</th>
@@ -371,47 +398,53 @@ function renderAktivTable(projects) {
       </tr></thead>
       <tbody>${sorted.map(p => {
         const d = parseDE(p.ende);
-        const now = new Date(); now.setHours(0,0,0,0);
         const late = d && d < now;
         const soon = d && !late && (d - now) / 86400000 <= 14;
-        const rowClass = late ? "row-late" : soon ? "row-soon" : "";
-        return `<tr class="${rowClass}">
+        const cls = late ? "row-late" : soon ? "row-soon" : "";
+        return `<tr class="${cls}">
           <td><a href="${p.leo_url||'#'}" target="_blank">${p.lws||"—"}</a></td>
-          <td>${p.address||"—"}</td>
+          <td style="max-width:220px">${p.address||"—"}</td>
           <td>${p.bauleiter||"—"}</td>
           <td>${p.start||"—"}</td>
-          <td>${p.ende||"—"}</td>
+          <td><b>${p.ende||"—"}</b></td>
           <td><div class="mini-progress"><div style="width:${p.fortschritt||0}%"></div></div>${p.fortschritt||0}%</td>
-          <td>${fmtMoney(p.amount)}</td>
+          <td><b>${fmtMoney(p.amount)}</b></td>
         </tr>`;
       }).join("")}</tbody>
-    </table>`;
+    </table>` : `<div class="empty-hint">Keine Projekte</div>`;
 }
 
 function renderAktiv() {
-  const active = getActiveProjects();
-  const totalAmount = active.reduce((s,p) => s + (p.amount||0), 0);
+  const allActive = getActiveProjects();
+  const filtered = (planVon || planBis) ? filterByPeriod(allActive) : allActive;
+  const totalAmount = filtered.reduce((s,p) => s + (p.amount||0), 0);
+  const now = new Date(); now.setHours(0,0,0,0);
+  const overdue = filtered.filter(p => { const d = parseDE(p.ende); return d && d < now; });
+  const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+  const thisMonth = filtered.filter(p => {
+    const d = parseDE(p.ende);
+    if (!d) return false;
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}` === thisMonthKey;
+  });
+
+  // Filter info
+  const infoEl = document.getElementById("planFilterInfo");
+  if (infoEl) {
+    infoEl.textContent = (planVon || planBis)
+      ? `Gefiltert: ${filtered.length} von ${allActive.length} Projekten`
+      : `Gesamt: ${allActive.length} aktive Projekte`;
+  }
 
   // KPI
   document.getElementById("kpiAktiv").innerHTML = `
-    <div class="kpi-card"><div class="kpi-val">${active.length}</div><div class="kpi-label">Aktive Projekte</div></div>
+    <div class="kpi-card"><div class="kpi-val">${filtered.length}</div><div class="kpi-label">Aktive Projekte</div></div>
     <div class="kpi-card"><div class="kpi-val">${fmtMoney(totalAmount)}</div><div class="kpi-label">Gesamtvolumen</div></div>
-    <div class="kpi-card"><div class="kpi-val">${active.filter(p=>p.has_mangel).length}</div><div class="kpi-label">Mit Mängeln</div></div>
-    <div class="kpi-card"><div class="kpi-val">${active.filter(p=>(p.fortschritt||0)===0).length}</div><div class="kpi-label">Noch nicht begonnen</div></div>
+    <div class="kpi-card" style="${overdue.length ? 'border-left:3px solid #ef4444' : ''}"><div class="kpi-val" style="${overdue.length ? 'color:#ef4444' : ''}">${overdue.length}</div><div class="kpi-label">Überfällig</div></div>
+    <div class="kpi-card" style="border-left:3px solid #f59e0b"><div class="kpi-val" style="color:#f59e0b">${thisMonth.length}</div><div class="kpi-label">Fällig diesen Monat · ${fmtMoney(thisMonth.reduce((s,p)=>s+(p.amount||0),0))}</div></div>
   `;
 
-  // Starts pro Monat
-  renderMonthBarChart("chartStartMonth", groupByMonth(active, "start"), () => "#6366f1");
-  // Abschlüsse pro Monat
-  renderMonthBarChart("chartEndeMonth", groupByMonth(active, "ende"), key => {
-    const [yr, mo] = key.split("-");
-    const now = new Date();
-    return new Date(+yr, +mo-1) < new Date(now.getFullYear(), now.getMonth()) ? "#ef4444" : "#10b981";
-  });
-  // Volumen chart
-  renderAktivVolumenChart(active);
-  // Tabelle
-  renderAktivTable(active);
+  renderEndeMonthChart(filtered);
+  renderAktivTable(filtered);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -431,5 +464,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("yearFilter").addEventListener("change", e => {
     filters.year = e.target.value || null;
     render();
+  });
+
+  document.getElementById("planVon").addEventListener("change", e => {
+    planVon = e.target.value ? new Date(e.target.value) : null;
+    tableMonthFilter = null;
+    renderAktiv();
+  });
+  document.getElementById("planBis").addEventListener("change", e => {
+    planBis = e.target.value ? new Date(e.target.value + "T23:59:59") : null;
+    tableMonthFilter = null;
+    renderAktiv();
   });
 });

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Statistik — LK Dashboard</title>
-<link rel="stylesheet" href="board.css?v=15">
+<link rel="stylesheet" href="board.css?v=16">
 </head>
 <body>
   <div class="app-layout">
@@ -67,29 +67,35 @@
 
       </main>
 
-      <!-- ── AKTIVE PROJEKTE TAB ── -->
-      <main id="aktivSection" style="display:none; padding: 0 28px 40px; display:none; flex-direction:column; gap:28px;">
+      <!-- ── AKTIVE PROJEKTE / PLANUNG TAB ── -->
+      <main id="aktivSection" style="display:none; padding: 0 28px 40px; flex-direction:column; gap:20px;">
 
+        <!-- Фильтр периода -->
+        <div class="plan-filter-bar">
+          <div class="plan-filter-group">
+            <label>Fertigstellung von</label>
+            <input type="date" id="planVon">
+          </div>
+          <div class="plan-filter-group">
+            <label>bis</label>
+            <input type="date" id="planBis">
+          </div>
+          <button class="plan-btn-reset" onclick="resetPlanFilter()">× Zurücksetzen</button>
+          <span id="planFilterInfo" class="plan-filter-info"></span>
+        </div>
+
+        <!-- KPI -->
         <div class="stat-kpi-row" id="kpiAktiv"></div>
 
-        <div class="stat-grid-2">
-          <div class="stat-card">
-            <div class="stat-card-title">Ausführungsbeginn — Starts pro Monat</div>
-            <div id="chartStartMonth"></div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-title">Fertigstellung — Abschlüsse pro Monat</div>
-            <div id="chartEndeMonth"></div>
-          </div>
+        <!-- Monatschart -->
+        <div class="stat-card">
+          <div class="stat-card-title">Projekte & Volumen nach Fertigstellungsmonat</div>
+          <div id="chartEndeMonth"></div>
         </div>
 
+        <!-- Tabelle -->
         <div class="stat-card">
-          <div class="stat-card-title">Aktive Projekte — Volumen pro Monat (Fertigstellung)</div>
-          <div class="stat-bar-chart" id="chartAktivVolumen"></div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-card-title">Aktive Projekte Liste</div>
+          <div class="stat-card-title" id="aktivTableTitle">Projektliste</div>
           <div id="aktivTable"></div>
         </div>
 
@@ -99,6 +105,6 @@
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="statistics.js?v=7"></script>
+  <script src="statistics.js?v=8"></script>
 </body>
 </html>
