@@ -1,17 +1,146 @@
+// ============================================================
+// statistics.js — LK Bauservice GmbH Dashboard v10
+// Tabs: Alle Projekte | Aktive Projekte | Mängel | Wochenbericht
+// ============================================================
+
+// ── State ─────────────────────────────────────────────────────────────────────
 let allProjects = [];
 let allMaengel = [];
 let archivMangelStats = {};
 let archivMaengelList = [];
 
-// Активные фильтры
+// Tab 1 filters
 let filters = {
-  year:      null,
-  city:      null,
+  year: null,
+  city: null,
   bauleiter: null,
-  status:    null,
-  mangel:    null, // "aktiv" | "archiv" | "beide" | "ohne"
+  status: null,
+  mangel: null,
 };
 
+// Tab 2 (Aktiv) state
+const MONTHS_DE = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+let planVon = null, planBis = null;
+let tableMonthFilter = null;
+
+// Tab 3 (Mängel) filters
+let mangelFilters = {
+  search: "",
+  bauleiter: "",
+  status: "",
+  faelligkeit: "",
+  sort: "faellig",
+};
+
+// Tab 4 (Woche) state
+let wocheOffset = 0;
+
+let currentTab = "archiv";
+
+// ── Inject extra CSS ───────────────────────────────────────────────────────────
+(function injectCSS() {
+  const style = document.createElement("style");
+  style.textContent = `
+    .kpi-val { font-size: 26px; font-weight: 800; color: var(--text); }
+    .kpi-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px 14px; }
+    .kpi-label { font-size: 11px; color: var(--muted); margin: 4px 0 2px; text-transform: uppercase; letter-spacing: .04em; }
+    .kpi-sub { font-size: 12px; color: var(--accent); }
+
+    /* Mängel grid cards */
+    .mangel-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+      position: relative;
+      transition: box-shadow .15s;
+    }
+    .mangel-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .mangel-card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .mangel-deadline-badge {
+      display: flex; flex-direction: column; align-items: flex-end;
+      min-width: 90px; flex-shrink: 0;
+    }
+    .deadline-pill {
+      font-size: 13px; font-weight: 800;
+      padding: 4px 11px; border-radius: 20px;
+      white-space: nowrap; margin-bottom: 3px;
+    }
+    .deadline-pill.red    { background: #fee2e2; color: #b91c1c; }
+    .deadline-pill.orange { background: #ffedd5; color: #c2410c; }
+    .deadline-pill.yellow { background: #fef9c3; color: #854d0e; }
+    .deadline-pill.green  { background: #dcfce7; color: #166534; }
+    .deadline-pill.none   { background: var(--bg); color: var(--muted); }
+    .deadline-date { font-size: 10px; color: var(--muted); text-align: right; }
+
+    .mangel-address { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .mangel-lage    { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .mangel-meta    { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin-bottom: 8px; flex-wrap: wrap; }
+    .mangel-meta b  { color: var(--text); }
+    .mangel-dates   { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .mangel-dates span { color: var(--text); font-weight: 600; }
+    .mangel-badges  { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+
+    .mbadge { display: inline-block; border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+    .mbadge-offen     { background: #fee2e2; color: #b91c1c; }
+    .mbadge-behoben   { background: #fef9c3; color: #854d0e; }
+    .mbadge-teilweise { background: #ffedd5; color: #c2410c; }
+    .mbadge-geprueft  { background: #dcfce7; color: #166534; }
+    .mbadge-unknown   { background: var(--bg); color: var(--muted); }
+    .mbadge-pos       { background: #eef2ff; color: #3730a3; }
+    .mbadge-assign    { background: #f3f4f6; color: #374151; }
+
+    .mangel-progress-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .mangel-progress-bar { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .mangel-progress-fill { height: 100%; background: #10b981; border-radius: 3px; }
+    .mangel-progress-pct { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    .mangel-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .btn-leo { color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 600; }
+    .btn-leo:hover { text-decoration: underline; }
+
+    /* Mängel filter bar overrides */
+    #mangelFilterBar select,
+    #mangelFilterBar input[type=text] {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg);
+    }
+    #mangelFilterBar select:focus,
+    #mangelFilterBar input[type=text]:focus { outline: none; border-color: var(--accent); }
+    #mangelFilterBar .plan-filter-group label { font-size: 11px; }
+
+    /* Wochenbericht summary box */
+    .woche-summary-box {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      background: var(--panel);
+      font-size: 14px;
+      line-height: 2;
+    }
+    .woche-summary-box table { border-collapse: collapse; width: 100%; }
+    .woche-summary-box td { padding: 2px 12px 2px 0; }
+    .woche-summary-box td:first-child { color: var(--muted); font-size: 13px; }
+    .woche-summary-box td:nth-child(2) { font-weight: 800; font-size: 18px; color: var(--text); }
+    .woche-summary-box td:nth-child(3) { font-size: 12px; color: var(--accent); }
+
+    .woche-list-col { display: flex; flex-direction: column; gap: 8px; }
+    .woche-list-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; }
+    .woche-list-id { font-weight: 700; color: var(--accent); font-size: 11px; }
+    .woche-list-addr { font-size: 12px; color: var(--text); }
+    .woche-list-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .woche-list-red { color: #b91c1c; font-weight: 700; }
+
+    .bar-row-active { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  `;
+  document.head.appendChild(style);
+})();
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
 function fmtMoney(n) {
   if (!n && n !== 0) return "—";
   return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
@@ -21,6 +150,12 @@ function parseDE(str) {
   const [d, m, y] = str.split(".");
   if (!d || !m || !y) return null;
   return new Date(+y, +m - 1, +d);
+}
+function fmtDE(d) {
+  return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+function fmtDEshort(d) {
+  return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" });
 }
 function cityOf(p) {
   const last = (p.address || "").split(",").pop()?.trim() || "";
@@ -32,8 +167,39 @@ function getAbrList() {
   catch { return new Set(); }
 }
 function getAbrStatus(lws) { return localStorage.getItem(`inAbrStatus_${lws}`) || "collecting"; }
+function today0() { const d = new Date(); d.setHours(0,0,0,0); return d; }
 
-// ── Применяем фильтры ────────────────────────────────────────────────────────
+// ── Tab switching ──────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  const tabs = ["archiv","aktiv","mangel","woche"];
+  tabs.forEach(t => {
+    const id = "tab" + t.charAt(0).toUpperCase() + t.slice(1);
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.toggle("active", t === tab);
+  });
+
+  const archivMain  = document.querySelector("main:not(#aktivSection):not(#wocheSection):not(#mangelSection)");
+  if (archivMain) archivMain.style.display = tab === "archiv" ? "flex" : "none";
+  const aktivSection  = document.getElementById("aktivSection");
+  const wocheSection  = document.getElementById("wocheSection");
+  const mangelSection = document.getElementById("mangelSection");
+  if (aktivSection)  aktivSection.style.display  = tab === "aktiv"  ? "flex" : "none";
+  if (wocheSection)  wocheSection.style.display   = tab === "woche"  ? "flex" : "none";
+  if (mangelSection) mangelSection.style.display  = tab === "mangel" ? "block" : "none";
+
+  const yf = document.getElementById("yearFilter");
+  if (yf) yf.style.display = tab === "archiv" ? "" : "none";
+
+  if (tab === "aktiv")  renderAktiv();
+  if (tab === "woche")  renderWoche();
+  if (tab === "mangel") renderMangel();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// TAB 1 — ALLE PROJEKTE
+// ═══════════════════════════════════════════════════════════════════════════════
+
 function applyFilters(projects) {
   return projects.filter(p => {
     if (filters.year) {
@@ -60,14 +226,13 @@ function setFilter(key, val) {
   render();
 }
 
-// ── Чипы активных фильтров ───────────────────────────────────────────────────
 function renderFilterChips() {
   const labels = {
-    year: v => `Jahr: ${v}`,
-    city: v => `Stadt: ${v}`,
+    year:      v => `Jahr: ${v}`,
+    city:      v => `Stadt: ${v}`,
     bauleiter: v => `Bauleiter: ${v}`,
-    status: v => `Status: ${v}`,
-    mangel: v => ({ aktiv:"Mängel: aktiv", archiv:"Mängel: Archiv", beide:"Mängel: beide", ohne:"Ohne Mängel" }[v]),
+    status:    v => `Status: ${v}`,
+    mangel:    v => ({ aktiv:"Mängel: aktiv", archiv:"Mängel: Archiv", beide:"Mängel: beide", ohne:"Ohne Mängel" }[v]),
   };
   const chips = Object.entries(filters)
     .filter(([, v]) => v)
@@ -75,6 +240,7 @@ function renderFilterChips() {
       <button onclick="setFilter('${k}',null)" title="Entfernen">×</button>
     </span>`).join("");
   const bar = document.getElementById("filterChips");
+  if (!bar) return;
   bar.innerHTML = chips
     ? `${chips}<button class="chip-reset" onclick="clearAllFilters()">Alle zurücksetzen</button>`
     : "";
@@ -82,31 +248,32 @@ function renderFilterChips() {
 
 function clearAllFilters() {
   Object.keys(filters).forEach(k => filters[k] = null);
-  document.getElementById("yearFilter").value = "";
+  const yf = document.getElementById("yearFilter");
+  if (yf) yf.value = "";
   render();
 }
 
-// ── KPI ──────────────────────────────────────────────────────────────────────
 function renderKPI(projects) {
-  const active   = projects.filter(p => !isAbgeschlossen(p) && !p.baustopp);
-  const closed   = projects.filter(p => isAbgeschlossen(p));
-  const baustopp = projects.filter(p => p.baustopp);
+  const active    = projects.filter(p => !isAbgeschlossen(p) && !p.baustopp);
+  const closed    = projects.filter(p => isAbgeschlossen(p));
+  const baustopp  = projects.filter(p => p.baustopp);
   const volTotal  = projects.reduce((s, p) => s + (p.amount || 0), 0);
   const volActive = active.reduce((s, p) => s + (p.amount || 0), 0);
   const archivTotal = Object.values(archivMangelStats).reduce((s, n) => s + n, 0);
-
   document.getElementById("kpiRow").innerHTML = [
-    { label: "Aktive Projekte",   value: active.length,      sub: fmtMoney(volActive) },
-    { label: "Abgeschlossen",     value: closed.length,      sub: fmtMoney(closed.reduce((s,p)=>s+(p.amount||0),0)) },
-    { label: "Gesamtvolumen",     value: fmtMoney(volTotal), sub: `${projects.length} Projekte` },
-    { label: "Mängel",            value: allMaengel.length,  sub: `Archiv: ${archivTotal}` },
-    { label: "BAUSTOP",           value: baustopp.length,    sub: "eingefroren" },
-    { label: "Ø Volumen",         value: fmtMoney(volTotal / (projects.length || 1)), sub: "je Projekt" },
-  ].map(k => `<div class="kpi-card"><div class="kpi-value">${k.value}</div>
-    <div class="kpi-label">${k.label}</div><div class="kpi-sub">${k.sub}</div></div>`).join("");
+    { label: "Aktive Projekte",  value: active.length,      sub: fmtMoney(volActive) },
+    { label: "Abgeschlossen",    value: closed.length,      sub: fmtMoney(closed.reduce((s,p)=>s+(p.amount||0),0)) },
+    { label: "Gesamtvolumen",    value: fmtMoney(volTotal), sub: `${projects.length} Projekte` },
+    { label: "Mängel",           value: allMaengel.length,  sub: `Archiv: ${archivTotal}` },
+    { label: "BAUSTOPP",         value: baustopp.length,    sub: "eingefroren" },
+    { label: "Ø Volumen",        value: fmtMoney(volTotal / (projects.length || 1)), sub: "je Projekt" },
+  ].map(k => `<div class="kpi-card">
+    <div class="kpi-val">${k.value}</div>
+    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-sub">${k.sub}</div>
+  </div>`).join("");
 }
 
-// ── Бар-чарт с кликом ────────────────────────────────────────────────────────
 function barChart(containerId, items, { valueKey="amount", labelKey="label", color="var(--accent)",
     moneyFormat=true, filterKey=null, filterVal=null, activeVal=null } = {}) {
   const el = document.getElementById(containerId);
@@ -118,7 +285,7 @@ function barChart(containerId, items, { valueKey="amount", labelKey="label", col
     const label = moneyFormat ? fmtMoney(val) : val;
     const fv = filterVal ? item[filterVal] : item[labelKey];
     const isActive = activeVal === fv;
-    const clickable = filterKey ? `onclick="setFilter('${filterKey}','${fv.replace(/'/g,"\\'")}') " style="cursor:pointer"` : "";
+    const clickable = filterKey ? `onclick="setFilter('${filterKey}','${String(fv).replace(/'/g,"\\'")}') " style="cursor:pointer"` : "";
     return `<div class="bar-row ${isActive ? 'bar-row-active' : ''}" ${clickable}>
       <div class="bar-label">${item[labelKey]}</div>
       <div class="bar-wrap">
@@ -129,7 +296,6 @@ function barChart(containerId, items, { valueKey="amount", labelKey="label", col
   }).join("");
 }
 
-// ── Графики ───────────────────────────────────────────────────────────────────
 function renderMonthChart(projects) {
   const byMonth = {};
   projects.forEach(p => {
@@ -191,7 +357,6 @@ function renderMangelChart(projects) {
   const ohne      = projects.filter(p => !p.has_mangel && !(p.archiv_mangel_count>0));
   const total = projects.length || 1;
   const archivAnzahl = projects.reduce((s,p)=>s+(p.archiv_mangel_count||0),0);
-
   const segs = [
     { key:"aktiv",  label:`Nur aktiv (${mitAktiv.length})`,   n:mitAktiv.length,  color:"#f59e0b" },
     { key:"beide",  label:`Aktiv+Archiv (${mitBeide.length})`, n:mitBeide.length,  color:"#8b5cf6" },
@@ -260,10 +425,10 @@ function renderStatusChart(projects) {
 function fillYearFilter() {
   const years = [...new Set(allProjects.map(p=>{const d=parseDE(p.ende);return d?d.getFullYear():null}).filter(Boolean))].sort((a,b)=>b-a);
   const sel = document.getElementById("yearFilter");
+  if (!sel) return;
   sel.innerHTML = `<option value="">Alle Jahre</option>` + years.map(y=>`<option value="${y}">${y}</option>`).join("");
 }
 
-// ── Главный рендер ────────────────────────────────────────────────────────────
 function render() {
   const projects = applyFilters(allProjects);
   renderFilterChips();
@@ -276,25 +441,9 @@ function render() {
   renderStatusChart(projects);
 }
 
-// ── Tab switching ─────────────────────────────────────────────────────────────
-let currentTab = "archiv";
-function switchTab(tab) {
-  currentTab = tab;
-  ["archiv","aktiv","woche"].forEach(t => {
-    const btn = document.getElementById("tab" + t.charAt(0).toUpperCase() + t.slice(1));
-    if (btn) btn.classList.toggle("active", t === tab);
-  });
-  document.querySelector("main:not(#aktivSection):not(#wocheSection)").style.display = tab === "archiv" ? "flex" : "none";
-  document.getElementById("aktivSection").style.display = tab === "aktiv" ? "flex" : "none";
-  document.getElementById("wocheSection").style.display = tab === "woche" ? "flex" : "none";
-  document.getElementById("yearFilter").style.display = tab === "archiv" ? "" : "none";
-  if (tab === "aktiv") renderAktiv();
-  if (tab === "woche") renderWoche();
-}
-
-// ── Active projects / Planung ─────────────────────────────────────────────────
-const MONTHS_DE = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
-let planVon = null, planBis = null;
+// ═══════════════════════════════════════════════════════════════════════════════
+// TAB 2 — AKTIVE PROJEKTE
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function getActiveProjects() {
   return allProjects.filter(p => !p.abgeschlossen && (p.fortschritt||0) < 100 &&
@@ -313,8 +462,10 @@ function filterByPeriod(projects) {
 
 function resetPlanFilter() {
   planVon = planBis = null;
-  document.getElementById("planVon").value = "";
-  document.getElementById("planBis").value = "";
+  const pv = document.getElementById("planVon");
+  const pb = document.getElementById("planBis");
+  if (pv) pv.value = "";
+  if (pb) pb.value = "";
   renderAktiv();
 }
 
@@ -340,7 +491,6 @@ function renderEndeMonthChart(projects) {
   const maxAmt = Math.max(...entries.map(([,v]) => v.amount));
   const now = new Date();
   const thisMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
-
   el.innerHTML = entries.map(([key, val]) => {
     const [yr, mo] = key.split("-");
     const label = `${MONTHS_DE[+mo-1]} ${yr}`;
@@ -348,21 +498,20 @@ function renderEndeMonthChart(projects) {
     const isPast = key < thisMonth;
     const isCurrent = key === thisMonth;
     const color = isPast ? "#9ca3af" : isCurrent ? "#f59e0b" : "#10b981";
+    const isActive = tableMonthFilter === key;
     const badge = isCurrent ? ` <span class="month-current-badge">aktuell</span>` : "";
-    return `
-      <div class="plan-month-row" onclick="filterTableByMonth('${key}')">
-        <div class="plan-month-label">${label}${badge}</div>
-        <div class="plan-bar-wrap">
-          <div class="plan-bar-fill" style="width:${pct}%;background:${color}">
-            <span class="plan-bar-inner">${val.count} Proj.</span>
-          </div>
+    return `<div class="plan-month-row${isActive?' bar-row-active':''}" onclick="filterTableByMonth('${key}')">
+      <div class="plan-month-label">${label}${badge}</div>
+      <div class="plan-bar-wrap">
+        <div class="plan-bar-fill" style="width:${pct}%;background:${color}">
+          <span class="plan-bar-inner">${val.count} Proj.</span>
         </div>
-        <div class="plan-month-amount">${fmtMoney(val.amount)}</div>
-      </div>`;
+      </div>
+      <div class="plan-month-amount">${fmtMoney(val.amount)}</div>
+    </div>`;
   }).join("");
 }
 
-let tableMonthFilter = null;
 function filterTableByMonth(key) {
   tableMonthFilter = tableMonthFilter === key ? null : key;
   renderAktiv();
@@ -372,7 +521,6 @@ function renderAktivTable(projects) {
   const el = document.getElementById("aktivTable");
   const titleEl = document.getElementById("aktivTableTitle");
   if (!el) return;
-
   let filtered = tableMonthFilter
     ? projects.filter(p => {
         const d = parseDE(p.ende);
@@ -381,19 +529,16 @@ function renderAktivTable(projects) {
         return k === tableMonthFilter;
       })
     : projects;
-
   const [yr, mo] = tableMonthFilter ? tableMonthFilter.split("-") : [];
   if (titleEl) titleEl.textContent = tableMonthFilter
     ? `Projekte: ${MONTHS_DE[+mo-1]} ${yr} (${filtered.length})`
     : `Alle Projekte (${filtered.length})`;
-
   const sorted = [...filtered].sort((a,b) => {
     const da = parseDE(a.ende), db = parseDE(b.ende);
     if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
     return da - db;
   });
-
-  const now = new Date(); now.setHours(0,0,0,0);
+  const now = today0();
   el.innerHTML = sorted.length ? `
     <table class="aktiv-table">
       <thead><tr>
@@ -412,7 +557,7 @@ function renderAktivTable(projects) {
           <td>${p.start||"—"}</td>
           <td><b>${p.ende||"—"}</b></td>
           <td><div class="mini-progress"><div style="width:${p.fortschritt||0}%"></div></div>${p.fortschritt||0}%</td>
-          <td><b>${fmtMoney(p.amount)}</b></td>
+          <td><b>${fmtMoney(p.amount||0)}</b></td>
         </tr>`;
       }).join("")}</tbody>
     </table>` : `<div class="empty-hint">Keine Projekte</div>`;
@@ -422,7 +567,7 @@ function renderAktiv() {
   const allActive = getActiveProjects();
   const filtered = (planVon || planBis) ? filterByPeriod(allActive) : allActive;
   const totalAmount = filtered.reduce((s,p) => s + (p.amount||0), 0);
-  const now = new Date(); now.setHours(0,0,0,0);
+  const now = today0();
   const overdue = filtered.filter(p => { const d = parseDE(p.ende); return d && d < now; });
   const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
   const thisMonth = filtered.filter(p => {
@@ -430,124 +575,402 @@ function renderAktiv() {
     if (!d) return false;
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}` === thisMonthKey;
   });
-
-  // Filter info
   const infoEl = document.getElementById("planFilterInfo");
-  if (infoEl) {
-    infoEl.textContent = (planVon || planBis)
-      ? `Gefiltert: ${filtered.length} von ${allActive.length} Projekten`
-      : `Gesamt: ${allActive.length} aktive Projekte`;
-  }
-
-  // KPI
+  if (infoEl) infoEl.textContent = (planVon || planBis)
+    ? `Gefiltert: ${filtered.length} von ${allActive.length} Projekten`
+    : `Gesamt: ${allActive.length} aktive Projekte`;
   document.getElementById("kpiAktiv").innerHTML = `
     <div class="kpi-card"><div class="kpi-val">${filtered.length}</div><div class="kpi-label">Aktive Projekte</div></div>
     <div class="kpi-card"><div class="kpi-val">${fmtMoney(totalAmount)}</div><div class="kpi-label">Gesamtvolumen</div></div>
-    <div class="kpi-card" style="${overdue.length ? 'border-left:3px solid #ef4444' : ''}"><div class="kpi-val" style="${overdue.length ? 'color:#ef4444' : ''}">${overdue.length}</div><div class="kpi-label">Überfällig</div></div>
-    <div class="kpi-card" style="border-left:3px solid #f59e0b"><div class="kpi-val" style="color:#f59e0b">${thisMonth.length}</div><div class="kpi-label">Fällig diesen Monat · ${fmtMoney(thisMonth.reduce((s,p)=>s+(p.amount||0),0))}</div></div>
+    <div class="kpi-card" style="${overdue.length ? 'border-left:3px solid #ef4444' : ''}">
+      <div class="kpi-val" style="${overdue.length ? 'color:#ef4444' : ''}">${overdue.length}</div>
+      <div class="kpi-label">Überfällig</div>
+    </div>
+    <div class="kpi-card" style="border-left:3px solid #f59e0b">
+      <div class="kpi-val" style="color:#f59e0b">${thisMonth.length}</div>
+      <div class="kpi-label">Fällig diesen Monat · ${fmtMoney(thisMonth.reduce((s,p)=>s+(p.amount||0),0))}</div>
+    </div>
   `;
-
   renderEndeMonthChart(filtered);
   renderAktivTable(filtered);
 }
 
-// ── Wochenbericht ─────────────────────────────────────────────────────────────
-// Неделя считается Вт–Ср (Dienstag–Mittwoch)
-let wocheOffset = 0; // 0 = текущая неделя, -1 = прошлая и т.д.
+// ═══════════════════════════════════════════════════════════════════════════════
+// TAB 3 — MÄNGEL (main feature)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function daysUntil(dateDE) {
+  if (!dateDE) return null;
+  const d = parseDE(dateDE);
+  if (!d) return null;
+  const now = today0();
+  return Math.round((d - now) / 86400000);
+}
+
+function deadlineBadgeHTML(m) {
+  const days = daysUntil(m.fertigstellung);
+  const isPrueft = m.mangel_status === "geprueft";
+  if (days === null) return `<div class="mangel-deadline-badge"><span class="deadline-pill none">Kein Datum</span></div>`;
+  let pillClass, text;
+  if (isPrueft) {
+    pillClass = "green";
+    text = "✅ Geprüft";
+  } else if (days < 0) {
+    pillClass = "red";
+    text = `${Math.abs(days)} Tage überfällig`;
+  } else if (days <= 7) {
+    pillClass = days === 0 ? "orange" : "orange";
+    text = days === 0 ? "Heute fällig" : `${days} Tage`;
+  } else if (days <= 14) {
+    pillClass = "yellow";
+    text = `${days} Tage`;
+  } else {
+    pillClass = "green";
+    text = `${days} Tage`;
+  }
+  const dateLine = m.fertigstellung ? `<div class="deadline-date">Fällig: ${m.fertigstellung}</div>` : "";
+  return `<div class="mangel-deadline-badge">
+    <span class="deadline-pill ${pillClass}">${text}</span>
+    ${dateLine}
+  </div>`;
+}
+
+function statusBadge(ms) {
+  const map = {
+    offen:     ["mbadge-offen",     "🔴 Offen"],
+    behoben:   ["mbadge-behoben",   "🟡 Behoben"],
+    teilweise: ["mbadge-teilweise", "🟠 Teilweise"],
+    geprueft:  ["mbadge-geprueft",  "✅ Geprüft"],
+    unknown:   ["mbadge-unknown",   "—"],
+  };
+  const [cls, label] = map[ms] || ["mbadge-unknown", ms || "—"];
+  return `<span class="mbadge ${cls}">${label}</span>`;
+}
+
+function getAssignmentBadge(id) {
+  const manager   = localStorage.getItem(`assignment_${id}`);
+  const techniker = localStorage.getItem(`tech_${id}`);
+  const parts = [];
+  if (manager)   parts.push(`<span class="mbadge mbadge-assign">👤 ${manager}</span>`);
+  if (techniker) parts.push(`<span class="mbadge mbadge-assign">🔧 ${techniker}</span>`);
+  return parts.join("");
+}
+
+function buildMangelFilterBar() {
+  const bar = document.getElementById("mangelFilterBar");
+  if (!bar) return;
+
+  // Collect unique Bauleiter
+  const bls = [...new Set(allMaengel.map(m => m.bauleiter).filter(Boolean))].sort();
+
+  bar.innerHTML = `
+    <div class="plan-filter-group">
+      <label>Suche</label>
+      <input type="text" id="mfSearch" placeholder="Adresse, ID, Bauleiter…" style="width:200px"
+        value="${mangelFilters.search}" oninput="mangelFilters.search=this.value; renderMangel()">
+    </div>
+    <div class="plan-filter-group">
+      <label>Bauleiter</label>
+      <select id="mfBauleiter" onchange="mangelFilters.bauleiter=this.value; renderMangel()">
+        <option value="">Alle</option>
+        ${bls.map(b=>`<option value="${b}" ${mangelFilters.bauleiter===b?'selected':''}>${b}</option>`).join("")}
+      </select>
+    </div>
+    <div class="plan-filter-group">
+      <label>Status</label>
+      <select id="mfStatus" onchange="mangelFilters.status=this.value; renderMangel()">
+        <option value="">Alle</option>
+        <option value="offen" ${mangelFilters.status==='offen'?'selected':''}>Offen</option>
+        <option value="behoben" ${mangelFilters.status==='behoben'?'selected':''}>Behoben</option>
+        <option value="teilweise" ${mangelFilters.status==='teilweise'?'selected':''}>Teilweise</option>
+        <option value="geprueft" ${mangelFilters.status==='geprueft'?'selected':''}>Geprüft</option>
+      </select>
+    </div>
+    <div class="plan-filter-group">
+      <label>Fälligkeit</label>
+      <select id="mfFaellig" onchange="mangelFilters.faelligkeit=this.value; renderMangel()">
+        <option value="">Alle</option>
+        <option value="ueberfaellig" ${mangelFilters.faelligkeit==='ueberfaellig'?'selected':''}>Überfällig</option>
+        <option value="heute" ${mangelFilters.faelligkeit==='heute'?'selected':''}>Heute fällig</option>
+        <option value="le3" ${mangelFilters.faelligkeit==='le3'?'selected':''}>≤3 Tage</option>
+        <option value="le7" ${mangelFilters.faelligkeit==='le7'?'selected':''}>≤7 Tage</option>
+        <option value="le14" ${mangelFilters.faelligkeit==='le14'?'selected':''}>≤14 Tage</option>
+        <option value="gt14" ${mangelFilters.faelligkeit==='gt14'?'selected':''}>＞14 Tage</option>
+      </select>
+    </div>
+    <div class="plan-filter-group">
+      <label>Sortierung</label>
+      <select id="mfSort" onchange="mangelFilters.sort=this.value; renderMangel()">
+        <option value="faellig" ${mangelFilters.sort==='faellig'?'selected':''}>Fälligste zuerst</option>
+        <option value="newest" ${mangelFilters.sort==='newest'?'selected':''}>Neueste zuerst</option>
+        <option value="oldest" ${mangelFilters.sort==='oldest'?'selected':''}>Älteste zuerst</option>
+        <option value="address" ${mangelFilters.sort==='address'?'selected':''}>Nach Adresse</option>
+      </select>
+    </div>
+    <button class="plan-btn-reset" onclick="resetMangelFilters()">× Filter zurücksetzen</button>
+  `;
+}
+
+function resetMangelFilters() {
+  mangelFilters = { search:"", bauleiter:"", status:"", faelligkeit:"", sort:"faellig" };
+  buildMangelFilterBar();
+  renderMangel();
+}
+
+function applyMangelFilters(maengel) {
+  return maengel.filter(m => {
+    const q = mangelFilters.search.toLowerCase();
+    if (q) {
+      const hay = `${m.address||""} ${m.id||""} ${m.bauleiter||""}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    if (mangelFilters.bauleiter && m.bauleiter !== mangelFilters.bauleiter) return false;
+    if (mangelFilters.status && m.mangel_status !== mangelFilters.status) return false;
+    if (mangelFilters.faelligkeit) {
+      const days = daysUntil(m.fertigstellung);
+      const isPrueft = m.mangel_status === "geprueft";
+      const f = mangelFilters.faelligkeit;
+      if (f === "ueberfaellig" && (days === null || days >= 0 || isPrueft)) return false;
+      if (f === "heute"        && (days === null || days !== 0)) return false;
+      if (f === "le3"          && (days === null || days < 0 || days > 3)) return false;
+      if (f === "le7"          && (days === null || days < 0 || days > 7)) return false;
+      if (f === "le14"         && (days === null || days < 0 || days > 14)) return false;
+      if (f === "gt14"         && (days === null || days <= 14)) return false;
+    }
+    return true;
+  });
+}
+
+function sortMaengel(maengel) {
+  const copy = [...maengel];
+  if (mangelFilters.sort === "faellig") {
+    copy.sort((a,b) => {
+      const da = daysUntil(a.fertigstellung) ?? 9999;
+      const db = daysUntil(b.fertigstellung) ?? 9999;
+      return da - db;
+    });
+  } else if (mangelFilters.sort === "newest") {
+    copy.sort((a,b) => (b.first_seen||"").localeCompare(a.first_seen||""));
+  } else if (mangelFilters.sort === "oldest") {
+    copy.sort((a,b) => (a.first_seen||"").localeCompare(b.first_seen||""));
+  } else if (mangelFilters.sort === "address") {
+    copy.sort((a,b) => (a.address||"").localeCompare(b.address||""));
+  }
+  return copy;
+}
+
+function renderMangelKPI() {
+  const now = today0();
+  const total = allMaengel.length;
+  const ueberfaellig = allMaengel.filter(m => {
+    const d = parseDE(m.fertigstellung);
+    return d && d < now && m.mangel_status !== "geprueft";
+  }).length;
+  const le7 = allMaengel.filter(m => {
+    const days = daysUntil(m.fertigstellung);
+    return days !== null && days >= 0 && days <= 7 && m.mangel_status !== "geprueft";
+  }).length;
+  const sevenAgo = new Date(now); sevenAgo.setDate(now.getDate() - 7);
+  const neuWoche = allMaengel.filter(m => {
+    if (!m.first_seen) return false;
+    const d = new Date(m.first_seen);
+    return d >= sevenAgo && d <= now;
+  }).length;
+  const geprueft = allMaengel.filter(m => m.mangel_status === "geprueft").length;
+
+  document.getElementById("kpiMangel").innerHTML = [
+    { label:"Gesamt aktive Mängel", value: total,       sub: "in Bearbeitung", border: "" },
+    { label:"Überfällig",           value: ueberfaellig, sub: "Deadline überschritten", border: "border-left:3px solid #b91c1c", valColor:"color:#b91c1c" },
+    { label:"Fällig in ≤7 Tagen",   value: le7,          sub: "dringend",       border: "border-left:3px solid #f59e0b", valColor:"color:#d97706" },
+    { label:"Neu diese Woche",      value: neuWoche,     sub: "first_seen <7d", border: "border-left:3px solid #3b82f6", valColor:"color:#2563eb" },
+    { label:"Geprüft ✅",            value: geprueft,     sub: "abgeschlossen",  border: "border-left:3px solid #10b981", valColor:"color:#16a34a" },
+  ].map(k => `<div class="kpi-card" style="${k.border}">
+    <div class="kpi-val" style="${k.valColor||''}">${k.value}</div>
+    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-sub">${k.sub}</div>
+  </div>`).join("");
+}
+
+function renderMangelCard(m) {
+  const posCount = (m.positionen || []).length;
+  const assignBadge = getAssignmentBadge(m.id);
+  const fortschritt = m.fortschritt || 0;
+  const progressRow = fortschritt > 0 ? `
+    <div class="mangel-progress-row">
+      <div class="mangel-progress-bar"><div class="mangel-progress-fill" style="width:${fortschritt}%"></div></div>
+      <div class="mangel-progress-pct">${fortschritt}%</div>
+    </div>` : "";
+
+  return `<div class="mangel-card">
+    <div class="mangel-card-head">
+      <div style="flex:1;min-width:0">
+        <div class="mangel-address">${m.address || "—"}</div>
+        <div class="mangel-lage">${m.lage || ""}</div>
+      </div>
+      ${deadlineBadgeHTML(m)}
+    </div>
+    <div class="mangel-meta">
+      <span>Bauleiter: <b>${m.bauleiter || "—"}</b></span>
+      ${m.innendienst ? `<span>Innendienst: <b>${m.innendienst}</b></span>` : ""}
+    </div>
+    <div class="mangel-dates">
+      Beginn: <span>${m.ausfuehrungsbeginn || "—"}</span>
+      &nbsp;→&nbsp;
+      Fällig: <span>${m.fertigstellung || "—"}</span>
+    </div>
+    <div class="mangel-badges">
+      ${statusBadge(m.mangel_status)}
+      ${posCount > 0 ? `<span class="mbadge mbadge-pos">${posCount} Position${posCount>1?'en':''}</span>` : ""}
+      ${assignBadge}
+    </div>
+    ${progressRow}
+    <div class="mangel-footer">
+      <span style="font-size:11px;color:var(--muted)">${m.id || ""}</span>
+      <a href="${m.leo_url || '#'}" target="_blank" class="btn-leo">Zur LEO →</a>
+    </div>
+  </div>`;
+}
+
+function renderMangel() {
+  renderMangelKPI();
+
+  let filtered = applyMangelFilters(allMaengel);
+  filtered = sortMaengel(filtered);
+
+  const grid = document.getElementById("mangelGrid");
+  if (!grid) return;
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-hint" style="grid-column:1/-1">Keine Mängel gefunden</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(renderMangelCard).join("");
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// TAB 4 — WOCHENBERICHT
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function getWochePeriod(offset) {
-  // Находим последнюю среду (конец недели)
   const now = new Date();
-  const dow = now.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
-  // Среда = 3. Сколько дней назад была последняя среда?
-  const daysToLastWed = (dow - 3 + 7) % 7; // 0 если сегодня среда
+  const dow = now.getDay();
+  const daysToLastWed = (dow - 3 + 7) % 7;
   const lastWed = new Date(now);
   lastWed.setDate(now.getDate() - daysToLastWed + offset * 7);
   lastWed.setHours(23, 59, 59, 0);
-
-  // Вторник = за 6 дней до среды
   const prevTue = new Date(lastWed);
   prevTue.setDate(lastWed.getDate() - 6);
   prevTue.setHours(0, 0, 0, 0);
-
   return { von: prevTue, bis: lastWed };
 }
 
-function fmtDE(d) {
-  return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+function getKW(d) {
+  const jan4 = new Date(d.getFullYear(), 0, 4);
+  const startOfWeek1 = new Date(jan4);
+  startOfWeek1.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7));
+  const diff = d - startOfWeek1;
+  return Math.ceil((diff / 86400000 + 1) / 7);
 }
 
 function wocheNavPrev() { wocheOffset--; renderWoche(); }
-function wocheNavNext() { wocheOffset++; if (wocheOffset > 0) wocheOffset = 0; renderWoche(); }
+function wocheNavNext() { if (wocheOffset < 0) { wocheOffset++; renderWoche(); } }
 
-function renderMangelTable(maengel, containerId) {
+function renderWocheList(items, containerId, redMode) {
   const el = document.getElementById(containerId);
   if (!el) return;
-  if (!maengel.length) { el.innerHTML = `<div class="empty-hint">Keine Mängel</div>`; return; }
-  el.innerHTML = `<table class="aktiv-table">
-    <thead><tr><th>ID</th><th>Adresse</th><th>Bauleiter</th><th>Fällig</th><th>Status</th><th>Eingang</th></tr></thead>
-    <tbody>${maengel.map(m => {
-      const fs = m.fertigstellung || "—";
-      const fsD = m.fertigstellung ? parseDE(m.fertigstellung) : null;
-      const now = new Date(); now.setHours(0,0,0,0);
-      const overdue = fsD && fsD < now && !["geprueft"].includes(m.mangel_status);
-      const cls = overdue ? "row-late" : "";
-      const statusLabel = { offen:"🔴 Offen", behoben:"🟡 Behoben", teilweise:"🟠 Teilw.", geprueft:"✅ Geprüft", unknown:"—" }[m.mangel_status] || m.mangel_status || "—";
-      const badge = overdue ? `<span style="font-size:10px;background:#fee2e2;color:#dc2626;padding:1px 5px;border-radius:4px">überfällig</span>` : "";
-      return `<tr class="${cls}">
-        <td><a href="${m.leo_url||'#'}" target="_blank" style="font-size:11px">${m.id||"—"}</a></td>
-        <td style="max-width:180px;font-size:12px">${m.address||"—"}</td>
-        <td style="font-size:12px">${m.bauleiter||"—"}</td>
-        <td style="font-size:12px">${fs} ${badge}</td>
-        <td style="font-size:12px">${statusLabel}</td>
-        <td style="font-size:11px;color:var(--muted)">${m.first_seen||"—"}</td>
-      </tr>`;
-    }).join("")}</tbody></table>`;
+  if (!items.length) { el.innerHTML = `<div class="empty-hint">Keine Einträge</div>`; return; }
+  el.innerHTML = `<div class="woche-list-col">${items.map(m => {
+    const days = daysUntil(m.fertigstellung);
+    let sub = "";
+    if (redMode) {
+      sub = days !== null ? `<span class="woche-list-red">${Math.abs(days)} Tage überfällig</span>` : "";
+    } else {
+      sub = days !== null
+        ? (days < 0 ? `<span class="woche-list-red">${Math.abs(days)} Tage überfällig</span>`
+           : `Fällig in ${days} Tage${days!==1?'n':''}`)
+        : "";
+    }
+    return `<div class="woche-list-item">
+      <div class="woche-list-id">${m.id||"—"}</div>
+      <div class="woche-list-addr">${m.address||"—"}</div>
+      <div class="woche-list-sub">${sub}${m.bauleiter ? ` · ${m.bauleiter}` : ""}</div>
+    </div>`;
+  }).join("")}</div>`;
 }
 
 function renderWoche() {
   const { von, bis } = getWochePeriod(wocheOffset);
-  const now = new Date(); now.setHours(0,0,0,0);
+  const now = today0();
+  const kw = getKW(bis);
 
-  // Период
   document.getElementById("wochePeriod").textContent =
-    `KW: ${fmtDE(von)} – ${fmtDE(bis)}`;
+    `KW ${kw}: ${fmtDEshort(von)} – ${fmtDE(bis)}`;
   const nextBtn = document.getElementById("btnWocheNext");
   if (nextBtn) nextBtn.disabled = wocheOffset >= 0;
 
-  // Новые Mängel за период (по first_seen)
+  // Neue Mängel in period (by first_seen)
   const neue = allMaengel.filter(m => {
     if (!m.first_seen) return false;
     const d = new Date(m.first_seen);
     return d >= von && d <= bis;
   });
 
-  // Просроченные: first_seen > 7 дней назад И статус не geprueft
-  const sevenDaysAgo = new Date(now);
-  sevenDaysAgo.setDate(now.getDate() - 7);
+  // Überfällig: fertigstellung < today AND not geprueft
   const ueberfaellig = allMaengel.filter(m => {
     if (m.mangel_status === "geprueft") return false;
-    if (!m.first_seen) return false;
-    return new Date(m.first_seen) <= sevenDaysAgo;
+    const d = parseDE(m.fertigstellung);
+    return d && d < now;
   });
 
-  // Обновляем счётчики в заголовке
+  // New projects this period (by start date)
+  const neueProjekte = allProjects.filter(p => {
+    const d = parseDE(p.start);
+    return d && d >= von && d <= bis;
+  });
+  const fertigProjekte = allProjects.filter(p => {
+    const d = parseDE(p.ende);
+    return d && d >= von && d <= bis && isAbgeschlossen(p);
+  });
+
   document.getElementById("neueCount").textContent = neue.length;
-  document.getElementById("uebCount").textContent = ueberfaellig.length;
+  document.getElementById("uebCount").textContent  = ueberfaellig.length;
 
   // KPI
   const openAll = allMaengel.filter(m => m.mangel_status !== "geprueft");
   document.getElementById("kpiWoche").innerHTML = `
     <div class="kpi-card"><div class="kpi-val">${allMaengel.length}</div><div class="kpi-label">Gesamt aktive Mängel</div></div>
-    <div class="kpi-card"><div class="kpi-val" style="color:#3b82f6">${neue.length}</div><div class="kpi-label">Neu diese Woche</div></div>
-    <div class="kpi-card" style="border-left:3px solid #ef4444"><div class="kpi-val" style="color:#ef4444">${ueberfaellig.length}</div><div class="kpi-label">Überfällig (&gt;7 Tage)</div></div>
+    <div class="kpi-card" style="border-left:3px solid #3b82f6"><div class="kpi-val" style="color:#2563eb">${neue.length}</div><div class="kpi-label">Neu diese Woche</div></div>
+    <div class="kpi-card" style="border-left:3px solid #ef4444"><div class="kpi-val" style="color:#ef4444">${ueberfaellig.length}</div><div class="kpi-label">Überfällig</div></div>
     <div class="kpi-card"><div class="kpi-val">${openAll.filter(m=>m.mangel_status==="offen").length}</div><div class="kpi-label">Noch offen</div></div>
   `;
 
-  renderMangelTable(neue, "wocheNeueList");
-  renderMangelTable(ueberfaellig, "wocheUebList");
-  renderMangelTable(allMaengel, "wocheAlleTable");
+  // Summary box
+  const summaryEl = document.getElementById("wocheSummary");
+  if (summaryEl) {
+    const neuVol = neueProjekte.reduce((s,p)=>s+(p.amount||0),0);
+    const fertigVol = fertigProjekte.reduce((s,p)=>s+(p.amount||0),0);
+    summaryEl.innerHTML = `
+      <div class="woche-summary-box">
+        <div style="font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">
+          Wochenbericht KW ${kw} &nbsp;—&nbsp; ${fmtDEshort(von)} bis ${fmtDE(bis)}
+        </div>
+        <table>
+          <tr><td>Neue Mängel diese Woche</td><td>${neue.length}</td><td></td></tr>
+          <tr><td>Neue Projekte</td><td>${neueProjekte.length}</td><td>${neuVol>0?fmtMoney(neuVol):''}</td></tr>
+          <tr><td>Überfällig</td><td style="color:#b91c1c">${ueberfaellig.length}</td><td style="color:#b91c1c;font-size:12px">Mängel</td></tr>
+          <tr><td>Fertig diese Woche</td><td>${fertigProjekte.length}</td><td>${fertigVol>0?fmtMoney(fertigVol):''}</td></tr>
+        </table>
+      </div>`;
+  }
+
+  renderWocheList(neue,         "wocheNeueList", false);
+  renderWocheList(ueberfaellig, "wocheUebList",  true);
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════════
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json?v=" + Date.now())
@@ -558,22 +981,29 @@ document.addEventListener("DOMContentLoaded", () => {
       archivMangelStats = data.archiv_mangel_stats || {};
       archivMaengelList = data.archiv_maengel || [];
       const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
-      document.getElementById("pageSub").textContent = upd ? `Stand: ${upd}` : "";
+      const sub = document.getElementById("pageSub");
+      if (sub) sub.textContent = upd ? `Stand: ${upd}` : "";
       fillYearFilter();
+      buildMangelFilterBar();
       render();
-    });
+    })
+    .catch(err => console.error("data.json load error:", err));
 
-  document.getElementById("yearFilter").addEventListener("change", e => {
+  const yf = document.getElementById("yearFilter");
+  if (yf) yf.addEventListener("change", e => {
     filters.year = e.target.value || null;
     render();
   });
 
-  document.getElementById("planVon").addEventListener("change", e => {
+  const pv = document.getElementById("planVon");
+  if (pv) pv.addEventListener("change", e => {
     planVon = e.target.value ? new Date(e.target.value) : null;
     tableMonthFilter = null;
     renderAktiv();
   });
-  document.getElementById("planBis").addEventListener("change", e => {
+
+  const pb = document.getElementById("planBis");
+  if (pb) pb.addEventListener("change", e => {
     planBis = e.target.value ? new Date(e.target.value + "T23:59:59") : null;
     tableMonthFilter = null;
     renderAktiv();
