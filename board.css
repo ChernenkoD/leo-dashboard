@@ -559,6 +559,13 @@ body {
 .mini-progress { display: inline-block; width: 60px; height: 6px; background: var(--border); border-radius: 3px; margin-right: 4px; vertical-align: middle; }
 .mini-progress div { height: 100%; background: #10b981; border-radius: 3px; }
 
+/* ── Wochenbericht ── */
+.woche-header { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px 20px; }
+.woche-period { font-size:18px; font-weight:800; color:var(--text); }
+.woche-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+.woche-badge { display:inline-flex; align-items:center; justify-content:center; min-width:22px; height:22px; background:var(--accent); color:#fff; border-radius:11px; font-size:12px; font-weight:700; padding:0 6px; margin-left:6px; }
+.woche-badge-red { background:#ef4444; }
+
 /* ── In Abrechnung ── */
 .abr-funnel-bar {
   display: flex;

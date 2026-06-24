@@ -280,12 +280,16 @@ function render() {
 let currentTab = "archiv";
 function switchTab(tab) {
   currentTab = tab;
-  document.getElementById("tabArchiv").classList.toggle("active", tab === "archiv");
-  document.getElementById("tabAktiv").classList.toggle("active", tab === "aktiv");
-  document.querySelector("main:not(#aktivSection)").style.display = tab === "archiv" ? "flex" : "none";
+  ["archiv","aktiv","woche"].forEach(t => {
+    const btn = document.getElementById("tab" + t.charAt(0).toUpperCase() + t.slice(1));
+    if (btn) btn.classList.toggle("active", t === tab);
+  });
+  document.querySelector("main:not(#aktivSection):not(#wocheSection)").style.display = tab === "archiv" ? "flex" : "none";
   document.getElementById("aktivSection").style.display = tab === "aktiv" ? "flex" : "none";
+  document.getElementById("wocheSection").style.display = tab === "woche" ? "flex" : "none";
   document.getElementById("yearFilter").style.display = tab === "archiv" ? "" : "none";
   if (tab === "aktiv") renderAktiv();
+  if (tab === "woche") renderWoche();
 }
 
 // ── Active projects / Planung ─────────────────────────────────────────────────
@@ -445,6 +449,104 @@ function renderAktiv() {
 
   renderEndeMonthChart(filtered);
   renderAktivTable(filtered);
+}
+
+// ── Wochenbericht ─────────────────────────────────────────────────────────────
+// Неделя считается Вт–Ср (Dienstag–Mittwoch)
+let wocheOffset = 0; // 0 = текущая неделя, -1 = прошлая и т.д.
+
+function getWochePeriod(offset) {
+  // Находим последнюю среду (конец недели)
+  const now = new Date();
+  const dow = now.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+  // Среда = 3. Сколько дней назад была последняя среда?
+  const daysToLastWed = (dow - 3 + 7) % 7; // 0 если сегодня среда
+  const lastWed = new Date(now);
+  lastWed.setDate(now.getDate() - daysToLastWed + offset * 7);
+  lastWed.setHours(23, 59, 59, 0);
+
+  // Вторник = за 6 дней до среды
+  const prevTue = new Date(lastWed);
+  prevTue.setDate(lastWed.getDate() - 6);
+  prevTue.setHours(0, 0, 0, 0);
+
+  return { von: prevTue, bis: lastWed };
+}
+
+function fmtDE(d) {
+  return d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
+function wocheNavPrev() { wocheOffset--; renderWoche(); }
+function wocheNavNext() { wocheOffset++; if (wocheOffset > 0) wocheOffset = 0; renderWoche(); }
+
+function renderMangelTable(maengel, containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!maengel.length) { el.innerHTML = `<div class="empty-hint">Keine Mängel</div>`; return; }
+  el.innerHTML = `<table class="aktiv-table">
+    <thead><tr><th>ID</th><th>Adresse</th><th>Bauleiter</th><th>Fällig</th><th>Status</th><th>Eingang</th></tr></thead>
+    <tbody>${maengel.map(m => {
+      const fs = m.fertigstellung || "—";
+      const fsD = m.fertigstellung ? parseDE(m.fertigstellung) : null;
+      const now = new Date(); now.setHours(0,0,0,0);
+      const overdue = fsD && fsD < now && !["geprueft"].includes(m.mangel_status);
+      const cls = overdue ? "row-late" : "";
+      const statusLabel = { offen:"🔴 Offen", behoben:"🟡 Behoben", teilweise:"🟠 Teilw.", geprueft:"✅ Geprüft", unknown:"—" }[m.mangel_status] || m.mangel_status || "—";
+      const badge = overdue ? `<span style="font-size:10px;background:#fee2e2;color:#dc2626;padding:1px 5px;border-radius:4px">überfällig</span>` : "";
+      return `<tr class="${cls}">
+        <td><a href="${m.leo_url||'#'}" target="_blank" style="font-size:11px">${m.id||"—"}</a></td>
+        <td style="max-width:180px;font-size:12px">${m.address||"—"}</td>
+        <td style="font-size:12px">${m.bauleiter||"—"}</td>
+        <td style="font-size:12px">${fs} ${badge}</td>
+        <td style="font-size:12px">${statusLabel}</td>
+        <td style="font-size:11px;color:var(--muted)">${m.first_seen||"—"}</td>
+      </tr>`;
+    }).join("")}</tbody></table>`;
+}
+
+function renderWoche() {
+  const { von, bis } = getWochePeriod(wocheOffset);
+  const now = new Date(); now.setHours(0,0,0,0);
+
+  // Период
+  document.getElementById("wochePeriod").textContent =
+    `KW: ${fmtDE(von)} – ${fmtDE(bis)}`;
+  const nextBtn = document.getElementById("btnWocheNext");
+  if (nextBtn) nextBtn.disabled = wocheOffset >= 0;
+
+  // Новые Mängel за период (по first_seen)
+  const neue = allMaengel.filter(m => {
+    if (!m.first_seen) return false;
+    const d = new Date(m.first_seen);
+    return d >= von && d <= bis;
+  });
+
+  // Просроченные: first_seen > 7 дней назад И статус не geprueft
+  const sevenDaysAgo = new Date(now);
+  sevenDaysAgo.setDate(now.getDate() - 7);
+  const ueberfaellig = allMaengel.filter(m => {
+    if (m.mangel_status === "geprueft") return false;
+    if (!m.first_seen) return false;
+    return new Date(m.first_seen) <= sevenDaysAgo;
+  });
+
+  // Обновляем счётчики в заголовке
+  document.getElementById("neueCount").textContent = neue.length;
+  document.getElementById("uebCount").textContent = ueberfaellig.length;
+
+  // KPI
+  const openAll = allMaengel.filter(m => m.mangel_status !== "geprueft");
+  document.getElementById("kpiWoche").innerHTML = `
+    <div class="kpi-card"><div class="kpi-val">${allMaengel.length}</div><div class="kpi-label">Gesamt aktive Mängel</div></div>
+    <div class="kpi-card"><div class="kpi-val" style="color:#3b82f6">${neue.length}</div><div class="kpi-label">Neu diese Woche</div></div>
+    <div class="kpi-card" style="border-left:3px solid #ef4444"><div class="kpi-val" style="color:#ef4444">${ueberfaellig.length}</div><div class="kpi-label">Überfällig (&gt;7 Tage)</div></div>
+    <div class="kpi-card"><div class="kpi-val">${openAll.filter(m=>m.mangel_status==="offen").length}</div><div class="kpi-label">Noch offen</div></div>
+  `;
+
+  renderMangelTable(neue, "wocheNeueList");
+  renderMangelTable(ueberfaellig, "wocheUebList");
+  renderMangelTable(allMaengel, "wocheAlleTable");
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -918,6 +918,26 @@ def main():
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
 
+        # Загружаем/обновляем first_seen dates
+        mangel_dates_file = os.path.join(os.path.dirname(OUTPUT_FILE), "mangel_dates.json")
+        if os.path.exists(mangel_dates_file):
+            with open(mangel_dates_file, encoding="utf-8") as f:
+                mangel_dates = json.load(f)
+        else:
+            mangel_dates = {}
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        changed = False
+        for m in maengel:
+            mid = m.get("id")
+            if mid and mid not in mangel_dates:
+                mangel_dates[mid] = today_str
+                changed = True
+        if changed:
+            with open(mangel_dates_file, "w", encoding="utf-8") as f:
+                json.dump(mangel_dates, f, ensure_ascii=False, indent=2)
+        for m in maengel:
+            m["first_seen"] = mangel_dates.get(m.get("id"), today_str)
+
         # Добавляем mangel_status к каждому Mängelauftrag
         for m in maengel:
             pos = m.get("positionen", [])
