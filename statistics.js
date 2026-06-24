@@ -276,6 +276,144 @@ function render() {
   renderStatusChart(projects);
 }
 
+// ── Tab switching ─────────────────────────────────────────────────────────────
+let currentTab = "archiv";
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById("tabArchiv").classList.toggle("active", tab === "archiv");
+  document.getElementById("tabAktiv").classList.toggle("active", tab === "aktiv");
+  document.querySelector("main:not(#aktivSection)").style.display = tab === "archiv" ? "flex" : "none";
+  document.getElementById("aktivSection").style.display = tab === "aktiv" ? "flex" : "none";
+  document.getElementById("yearFilter").style.display = tab === "archiv" ? "" : "none";
+  if (tab === "aktiv") renderAktiv();
+}
+
+// ── Active projects charts ────────────────────────────────────────────────────
+const MONTHS_DE = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+
+function getActiveProjects() {
+  return allProjects.filter(p => !p.abgeschlossen && p.fortschritt < 100 &&
+    !["Beendet","Abgeschlossen"].includes(p.status || ""));
+}
+
+function groupByMonth(projects, dateField) {
+  const map = {};
+  projects.forEach(p => {
+    const d = parseDE(p[dateField]);
+    if (!d) return;
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+    if (!map[key]) map[key] = { count: 0, amount: 0, projects: [] };
+    map[key].count++;
+    map[key].amount += p.amount || 0;
+    map[key].projects.push(p);
+  });
+  return Object.entries(map).sort(([a],[b]) => a.localeCompare(b));
+}
+
+function renderMonthBarChart(containerId, entries, colorFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!entries.length) { el.innerHTML = `<div class="empty-hint">Keine Daten</div>`; return; }
+  const maxCount = Math.max(...entries.map(([,v]) => v.count));
+  el.innerHTML = entries.map(([key, val]) => {
+    const [yr, mo] = key.split("-");
+    const label = `${MONTHS_DE[+mo-1]} ${yr}`;
+    const pct = Math.round((val.count / maxCount) * 100);
+    const color = colorFn ? colorFn(key) : "#3b82f6";
+    return `
+      <div class="bar-row">
+        <div class="bar-label">${label}</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
+          <span class="bar-val">${val.count} Proj. · ${fmtMoney(val.amount)}</span>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function renderAktivVolumenChart(projects) {
+  const el = document.getElementById("chartAktivVolumen");
+  if (!el) return;
+  const entries = groupByMonth(projects, "ende");
+  if (!entries.length) { el.innerHTML = `<div class="empty-hint">Keine Daten</div>`; return; }
+  const maxAmt = Math.max(...entries.map(([,v]) => v.amount));
+  el.innerHTML = entries.map(([key, val]) => {
+    const [yr, mo] = key.split("-");
+    const label = `${MONTHS_DE[+mo-1]} ${yr}`;
+    const pct = maxAmt > 0 ? Math.round((val.amount / maxAmt) * 100) : 0;
+    const now = new Date();
+    const isPast = new Date(+yr, +mo-1) < new Date(now.getFullYear(), now.getMonth());
+    const color = isPast ? "#9ca3af" : "#10b981";
+    return `
+      <div class="bar-row">
+        <div class="bar-label">${label}</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
+          <span class="bar-val">${val.count} · ${fmtMoney(val.amount)}</span>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function renderAktivTable(projects) {
+  const el = document.getElementById("aktivTable");
+  if (!el) return;
+  const sorted = [...projects].sort((a,b) => {
+    const da = parseDE(a.ende), db = parseDE(b.ende);
+    if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+    return da - db;
+  });
+  el.innerHTML = `
+    <table class="aktiv-table">
+      <thead><tr>
+        <th>LWS</th><th>Adresse</th><th>Bauleiter</th>
+        <th>Beginn</th><th>Fertig</th><th>Fortschritt</th><th>Summe</th>
+      </tr></thead>
+      <tbody>${sorted.map(p => {
+        const d = parseDE(p.ende);
+        const now = new Date(); now.setHours(0,0,0,0);
+        const late = d && d < now;
+        const soon = d && !late && (d - now) / 86400000 <= 14;
+        const rowClass = late ? "row-late" : soon ? "row-soon" : "";
+        return `<tr class="${rowClass}">
+          <td><a href="${p.leo_url||'#'}" target="_blank">${p.lws||"—"}</a></td>
+          <td>${p.address||"—"}</td>
+          <td>${p.bauleiter||"—"}</td>
+          <td>${p.start||"—"}</td>
+          <td>${p.ende||"—"}</td>
+          <td><div class="mini-progress"><div style="width:${p.fortschritt||0}%"></div></div>${p.fortschritt||0}%</td>
+          <td>${fmtMoney(p.amount)}</td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table>`;
+}
+
+function renderAktiv() {
+  const active = getActiveProjects();
+  const totalAmount = active.reduce((s,p) => s + (p.amount||0), 0);
+
+  // KPI
+  document.getElementById("kpiAktiv").innerHTML = `
+    <div class="kpi-card"><div class="kpi-val">${active.length}</div><div class="kpi-label">Aktive Projekte</div></div>
+    <div class="kpi-card"><div class="kpi-val">${fmtMoney(totalAmount)}</div><div class="kpi-label">Gesamtvolumen</div></div>
+    <div class="kpi-card"><div class="kpi-val">${active.filter(p=>p.has_mangel).length}</div><div class="kpi-label">Mit Mängeln</div></div>
+    <div class="kpi-card"><div class="kpi-val">${active.filter(p=>(p.fortschritt||0)===0).length}</div><div class="kpi-label">Noch nicht begonnen</div></div>
+  `;
+
+  // Starts pro Monat
+  renderMonthBarChart("chartStartMonth", groupByMonth(active, "start"), () => "#6366f1");
+  // Abschlüsse pro Monat
+  renderMonthBarChart("chartEndeMonth", groupByMonth(active, "ende"), key => {
+    const [yr, mo] = key.split("-");
+    const now = new Date();
+    return new Date(+yr, +mo-1) < new Date(now.getFullYear(), now.getMonth()) ? "#ef4444" : "#10b981";
+  });
+  // Volumen chart
+  renderAktivVolumenChart(active);
+  // Tabelle
+  renderAktivTable(active);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json?v=" + Date.now())
     .then(r => r.json())

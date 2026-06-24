@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Statistik — LK Dashboard</title>
-<link rel="stylesheet" href="board.css?v=12">
+<link rel="stylesheet" href="board.css?v=15">
 </head>
 <body>
   <div class="app-layout">
@@ -15,8 +15,10 @@
         <div class="sub" id="pageSub"></div>
       </header>
 
-      <div class="toolbar">
-        <select id="yearFilter"></select>
+      <div class="toolbar" style="gap:8px;">
+        <button class="tab-btn active" id="tabArchiv" onclick="switchTab('archiv')">📁 Alle Projekte</button>
+        <button class="tab-btn" id="tabAktiv" onclick="switchTab('aktiv')">🟢 Aktive Projekte</button>
+        <select id="yearFilter" style="margin-left:auto"></select>
       </div>
 
       <!-- Активные фильтры-чипы -->
@@ -64,11 +66,39 @@
         </div>
 
       </main>
+
+      <!-- ── AKTIVE PROJEKTE TAB ── -->
+      <main id="aktivSection" style="display:none; padding: 0 28px 40px; display:none; flex-direction:column; gap:28px;">
+
+        <div class="stat-kpi-row" id="kpiAktiv"></div>
+
+        <div class="stat-grid-2">
+          <div class="stat-card">
+            <div class="stat-card-title">Ausführungsbeginn — Starts pro Monat</div>
+            <div id="chartStartMonth"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Fertigstellung — Abschlüsse pro Monat</div>
+            <div id="chartEndeMonth"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Aktive Projekte — Volumen pro Monat (Fertigstellung)</div>
+          <div class="stat-bar-chart" id="chartAktivVolumen"></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-title">Aktive Projekte Liste</div>
+          <div id="aktivTable"></div>
+        </div>
+
+      </main>
     </div>
   </div>
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="statistics.js?v=6"></script>
+  <script src="statistics.js?v=7"></script>
 </body>
 </html>
