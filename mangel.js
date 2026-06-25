@@ -135,6 +135,10 @@ const ASSIGNMENTS_FILE = "assignments.json";
     .assign-select  { padding:4px 8px; border:1px solid var(--border); border-radius:6px; font-size:12px; background:var(--bg); color:var(--text); flex:1; min-width:100px; }
     .btn-senden     { padding:5px 12px; background:var(--accent); color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer; font-weight:600; }
     .btn-senden:disabled { opacity:.4; cursor:not-allowed; }
+    .mk-photos-row  { margin:8px 0 4px; min-height:0; }
+    .mk-photo-grid  { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+    .mk-photo-thumb { width:80px; height:80px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:zoom-in; transition:transform .15s; }
+    .mk-photo-thumb:hover { transform:scale(1.06); box-shadow:0 4px 12px rgba(0,0,0,.2); }
     .btn-fertig     { padding:4px 10px; background:#10b981; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer; }
     .assign-sent    { font-size:11px; color:var(--muted); }
     .assign-fertig  { color:#10b981; font-weight:700; }
@@ -354,7 +358,23 @@ function renderListView(list){
 }
 function renderExpandContent(m){
   if(m.is_archiv)return`<div style="color:var(--muted);font-size:12px">Archiv · ${m.address||""}</div><div></div>`;
-  return`<div><div style="font-weight:700;font-size:14px;margin-bottom:4px">${m.address||"—"}</div>${m.lage?`<div style="color:var(--muted);font-size:12px;margin-bottom:4px">${m.lage}</div>`:""}<div style="font-size:12px;color:var(--muted);line-height:1.8">Beginn: ${fmtDate(m.ausfuehrungsbeginn)} → Fällig: ${fmtDate(m.fertigstellung)}<br>Bauleiter: ${m.bauleiter||"—"} · Innendienst: ${m.innendienst||"—"}${m.first_seen?`<br>Eingangsdatum: <b>${m.first_seen}</b>`:""}</div>${renderProgress(m)}${renderPositionen(m)}</div><div>${renderAssignPanel(m)}</div>`;
+  const photoHtml = `<div id="photos-${m.id}" class="mk-photos-row"><span style="font-size:11px;color:var(--muted)">📸 Lade Fotos…</span></div>`;
+  setTimeout(()=>loadPhotos(m.id), 50);
+  return`<div><div style="font-weight:700;font-size:14px;margin-bottom:4px">${m.address||"—"}</div>${m.lage?`<div style="color:var(--muted);font-size:12px;margin-bottom:4px">${m.lage}</div>`:""}<div style="font-size:12px;color:var(--muted);line-height:1.8">Beginn: ${fmtDate(m.ausfuehrungsbeginn)} → Fällig: ${fmtDate(m.fertigstellung)}<br>Bauleiter: ${m.bauleiter||"—"} · Innendienst: ${m.innendienst||"—"}${m.first_seen?`<br>Eingangsdatum: <b>${m.first_seen}</b>`:""}</div>${renderProgress(m)}${photoHtml}${renderPositionen(m)}</div><div>${renderAssignPanel(m)}</div>`;
+}
+
+async function loadPhotos(mangel_id) {
+  const box = document.getElementById("photos-"+mangel_id);
+  if (!box) return;
+  try {
+    const r = await fetch(`https://api.github.com/repos/ChernenkoD/leo-dashboard/contents/photos/${mangel_id}?t=${Date.now()}`);
+    if (!r.ok) { box.innerHTML = ""; return; }
+    const files = await r.json();
+    const imgs = files.filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name));
+    if (!imgs.length) { box.innerHTML = ""; return; }
+    box.innerHTML = `<div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px">📸 Fotos (${imgs.length})</div>`
+      + `<div class="mk-photo-grid">${imgs.map(f=>`<a href="${f.download_url}" target="_blank" title="${f.name}"><img src="${f.download_url}" class="mk-photo-thumb" loading="lazy"/></a>`).join("")}</div>`;
+  } catch(e) { box.innerHTML = ""; }
 }
 
 function renderCardView(list){ if(!list.length)return`<div class="mk-empty"><div class="mk-empty-icon">📋</div><div class="mk-empty-text">Keine Mängel</div></div>`; return`<div class="mk-card-grid">${list.map(m=>m.is_archiv?renderArchivCard(m):renderCard(m)).join("")}</div>`; }

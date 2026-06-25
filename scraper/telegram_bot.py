@@ -85,27 +85,38 @@ def create_topic_for_mangel(m):
     topics[mid] = thread_id
     save_topics(topics)
 
-    # Первое сообщение в треде — детали Mängel
+    # Первое сообщение в треде — детали Mängel с двуязычными позициями
     days_str = f"{abs(days)} Tage {'überfällig ⚠️' if days < 0 else 'verbleibend'}" if days is not None else "Kein Datum"
-    pos_text = ""
-    for p in (m.get("positionen") or [])[:5]:
-        desc = p.get("mangel_beschreibung") or p.get("leistung") or ""
-        if desc:
-            pos_text += f"\n  • {p.get('gewerk','—')}: {desc[:80]}"
 
+    pos_lines = []
+    for i, p in enumerate((m.get("positionen") or [])[:10], 1):
+        desc = p.get("mangel_beschreibung") or p.get("leistung") or ""
+        gewerk = p.get("gewerk", "—")
+        if not desc:
+            continue
+        ru = _translate(desc, "ru") or ""
+        line = f"*{i}. {gewerk}*\n🇩🇪 {desc[:120]}"
+        if ru and ru.lower() != desc.lower():
+            line += f"\n🇷🇺 {ru[:120]}"
+        pos_lines.append(line)
+
+    pos_block = "\n\n".join(pos_lines) if pos_lines else "Keine Positionen"
+
+    lage = m.get("lage", "")
     text = (
         f"🔧 *Neuer Mängelauftrag*\n"
         f"━━━━━━━━━━━━━━━\n"
         f"📋 `{mid}`\n"
         f"📍 {m.get('address','—')}\n"
-        f"🏠 {m.get('lage','')}\n"
-        f"👷 Bauleiter: {m.get('bauleiter','—')}\n"
+        + (f"🏠 {lage}\n" if lage else "")
+        + f"👷 Bauleiter: {m.get('bauleiter','—')}\n"
         f"📅 Beginn: {m.get('ausfuehrungsbeginn','—')}\n"
         f"🗓 Fällig: {m.get('fertigstellung','—')} ({days_str})\n"
-        f"━━━━━━━━━━━━━━━"
-        f"{pos_text if pos_text else chr(10)+'  Keine Positionen'}\n"
         f"━━━━━━━━━━━━━━━\n"
-        f"📸 *Hier Fotos posten wenn fertig!*"
+        f"*📋 Positionen:*\n\n"
+        f"{pos_block}\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"📸 *Fotos hier posten wenn fertig!\nФото сюда после завершения!*"
     )
     _api("sendMessage", {
         "chat_id": GROUP_ID,
@@ -180,6 +191,18 @@ def send_to_technician(telegram_user_id, text):
         "text": text,
         "parse_mode": "Markdown",
     })
+
+
+def _translate(text, target_lang):
+    """Перевод через Google Translate (бесплатный endpoint)."""
+    try:
+        q = urllib.parse.quote(text[:500])
+        url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={target_lang}&dt=t&q={q}"
+        with urllib.request.urlopen(url, timeout=8) as r:
+            data = json.loads(r.read().decode())
+            return "".join(s[0] for s in data[0] if s[0])
+    except Exception:
+        return ""
 
 
 def _days_until(date_str):
