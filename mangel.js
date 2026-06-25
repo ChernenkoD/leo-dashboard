@@ -141,6 +141,14 @@ const ASSIGNMENTS_FILE = "assignments.json";
     .mk-photo-thumb { width:80px; height:80px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:zoom-in; transition:transform .15s; }
     .mk-photo-thumb:hover { transform:scale(1.06); box-shadow:0 4px 12px rgba(0,0,0,.2); }
     .mk-badge--photo { background:#ede9fe; color:#7c3aed; border:1px solid #c4b5fd; font-weight:700; }
+    .wf-badge        { display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px; }
+    .wf-badge--arbeit  { background:#eff6ff;color:#1d4ed8; }
+    .wf-badge--waiting { background:#fafafa;color:#6b7280;border:1px dashed #d1d5db; }
+    .wf-badge--done    { background:#f0fdf4;color:#16a34a; }
+    .btn-fertig        { padding:6px 14px;background:#f0fdf4;color:#16a34a;border:2px solid #86efac;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s; }
+    .btn-fertig--ready { background:#16a34a;color:#fff;border-color:#16a34a;animation:fertigPulse 1.5s ease-in-out infinite; }
+    .btn-fertig--ready:hover { background:#15803d; transform:scale(1.03); }
+    @keyframes fertigPulse{0%,100%{box-shadow:0 0 0 0 #16a34a44}50%{box-shadow:0 0 0 6px #16a34a00}}
     .mk-kpi--photo   { border-top:3px solid #7c3aed; animation:photoPulse 2s ease-in-out infinite; }
     @keyframes photoPulse { 0%,100%{box-shadow:0 0 0 0 #7c3aed33} 50%{box-shadow:0 0 0 6px #7c3aed00} }
     tr[data-has-foto="1"] td:first-child { border-left:3px solid #7c3aed; }
@@ -220,13 +228,62 @@ function renderAssignPanel(m){
   const a=getAssignment(m.id); const mgrs=PEOPLE.managers||[]; const techs=PEOPLE.technicians||[];
   const mO=`<option value="">— Manager —</option>`+mgrs.map(p=>`<option value="${p.id}" ${a.manager===p.id?"selected":""}>${p.name}</option>`).join("");
   const tO=`<option value="">— Techniker —</option>`+techs.map(p=>`<option value="${p.id}" ${a.technician===p.id?"selected":""}>${p.name}</option>`).join("");
-  let extra="";
-  if(a.date_finished) extra=`<span class="assign-sent assign-fertig">✓ Fertig: ${a.date_finished}</span>`;
-  else if(a.sentAt){ const d=new Date(a.sentAt).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}); extra=`<span class="assign-sent">✓ In Arbeit ${d}</span><button class="btn-fertig" onclick="markFertig('${m.id}')">✓ Fertig</button>`; }
-  return`<div class="assign-panel" onclick="event.stopPropagation()"><select class="assign-select" onchange="onAssignChange('${m.id}','manager',this.value)">${mO}</select><select class="assign-select" onchange="onAssignChange('${m.id}','technician',this.value)">${tO}</select><button class="btn-senden" onclick="sendInArbeit('${m.id}')" ${a.technician?"":"disabled"}>✈ In Arbeit</button>${extra}</div>`;
+
+  // Workflow: Neu → In Arbeit → (Fotos da →) Fertig
+  const inArbeit = !!a.sentAt;
+  const fertig   = !!a.date_finished;
+  const fotos    = hasPhotos(m.id);
+
+  if(fertig){
+    // Уже закрыт — только инфо
+    return`<div class="assign-panel" onclick="event.stopPropagation()">
+      <span class="wf-badge wf-badge--done">✅ Fertig ${a.date_finished}</span>
+      <span style="font-size:11px;color:var(--muted)">Manager: ${(mgrs.find(p=>p.id===a.manager)||{}).name||"—"} · Tech: ${(techs.find(p=>p.id===a.technician)||{}).name||"—"}</span>
+    </div>`;
+  }
+
+  if(inArbeit){
+    const d=new Date(a.sentAt).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+    const fertigBtn = fotos
+      ? `<button class="btn-fertig btn-fertig--ready" onclick="markFertig('${m.id}')">✅ Fertig — auf LEO schließen!</button>`
+      : `<span class="wf-badge wf-badge--waiting">📸 Warte auf Fotos…</span>`;
+    return`<div class="assign-panel" onclick="event.stopPropagation()">
+      <span class="wf-badge wf-badge--arbeit">🔵 In Arbeit seit ${d}</span>
+      <span style="font-size:11px;color:var(--muted)">Manager: ${(mgrs.find(p=>p.id===a.manager)||{}).name||"—"} · Tech: ${(techs.find(p=>p.id===a.technician)||{}).name||"—"}</span>
+      ${fertigBtn}
+    </div>`;
+  }
+
+  // Neu — показываем выбор + кнопку In Arbeit
+  return`<div class="assign-panel" onclick="event.stopPropagation()">
+    <select class="assign-select" onchange="onAssignChange('${m.id}','manager',this.value)">${mO}</select>
+    <select class="assign-select" onchange="onAssignChange('${m.id}','technician',this.value)">${tO}</select>
+    <button class="btn-senden" onclick="sendInArbeit('${m.id}')" ${a.technician?"":"disabled"}>✈ In Arbeit senden</button>
+  </div>`;
 }
 function onAssignChange(id,field,val){ const a=getAssignment(id); a[field]=val; saveAssignment(id,a); render(); }
-function markFertig(id){ const t=new Date().toISOString().slice(0,10); const input=prompt("Datum Fertigstellung (JJJJ-MM-TT):",t); if(!input)return; const a=getAssignment(id); a.date_finished=input; saveAssignment(id,a); saveAssignmentToGitHub(id); render(); }
+
+async function markFertig(id){
+  const a=getAssignment(id);
+  a.date_finished=new Date().toISOString().slice(0,10);
+  saveAssignment(id,a); saveAssignmentToGitHub(id);
+
+  // Удаляем тред в Telegram
+  const TG_TOKEN="8965752014:AAHmLt64ORP4ijB7UACg2Zo50_m0W3f6BvI";
+  const TG_GROUP="-1004348117970";
+  try{
+    const topics=await fetch("https://raw.githubusercontent.com/ChernenkoD/leo-dashboard/main/scraper/telegram_topics.json?t="+Date.now()).then(r=>r.ok?r.json():{}).catch(()=>({}));
+    const threadId=topics[id];
+    if(threadId){
+      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/deleteForumTopic`,{
+        method:"POST",
+        body:new URLSearchParams({chat_id:TG_GROUP,message_thread_id:threadId})
+      });
+    }
+  }catch(e){console.warn("Telegram deleteForumTopic:",e);}
+
+  render();
+}
 async function sendInArbeit(id) {
   const m = MAENGEL.find(x => x.id === id); if (!m) return;
   const a = getAssignment(id);
@@ -327,7 +384,13 @@ function renderChips(){
   const nl=document.querySelector(".mk-neu-label"); if(nl) nl.classList.toggle("mk-active",mfNeu);
 }
 
-function getBase(){ if(showTab==="leo")return ARCHIV_MAENGEL; if(showTab==="geprueft")return MAENGEL.filter(m=>m.mangel_status==="geprueft"); return MAENGEL.filter(m=>m.mangel_status!=="geprueft"); }
+function isLocalFertig(id){ return !!getAssignment(id).date_finished; }
+function getBase(){
+  if(showTab==="leo") return ARCHIV_MAENGEL;
+  if(showTab==="geprueft") return MAENGEL.filter(m=>m.mangel_status==="geprueft"||isLocalFertig(m.id));
+  // Активные: исключаем те что мы уже пометили Fertig локально (и не geprüft на портале)
+  return MAENGEL.filter(m=>m.mangel_status!=="geprueft"&&!isLocalFertig(m.id));
+}
 function applyFilters(list){
   return list.filter(m=>{
     if(mfSearch){ const q=mfSearch.toLowerCase(); if(!`${m.id||""} ${m.address||""} ${m.bauleiter||""} ${m.lage||""}`.toLowerCase().includes(q))return false; }
