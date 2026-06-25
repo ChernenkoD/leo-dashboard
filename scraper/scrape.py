@@ -18,6 +18,8 @@ import tempfile
 import openpyxl
 from datetime import datetime, timezone
 from playwright.sync_api import sync_playwright
+import urllib.request
+import urllib.parse
 
 BASE = "https://leo-pro.de"
 STORAGE_STATE = "storage_state.json"
@@ -765,6 +767,36 @@ def parse_projects(page):
     return projects
 
 
+def _delete_telegram_topic(mangel_id):
+    """Удаляет тред в Telegram когда Mängel полностью geprüft."""
+    if not mangel_id:
+        return
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    group_id = os.environ.get("TELEGRAM_GROUP_ID", "")
+    if not token or not group_id:
+        return
+    topics_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "telegram_topics.json")
+    if not os.path.exists(topics_file):
+        return
+    try:
+        with open(topics_file, encoding="utf-8") as f:
+            topics = json.load(f)
+        thread_id = topics.get(mangel_id)
+        if not thread_id:
+            return
+        url = f"https://api.telegram.org/bot{token}/deleteForumTopic"
+        data = urllib.parse.urlencode({"chat_id": group_id, "message_thread_id": thread_id}).encode()
+        with urllib.request.urlopen(url, data=data, timeout=10) as r:
+            res = json.loads(r.read().decode())
+            if res.get("ok"):
+                print(f"  Telegram тред удалён для {mangel_id} (geprüft)")
+                del topics[mangel_id]
+                with open(topics_file, "w", encoding="utf-8") as f:
+                    json.dump(topics, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"  Telegram удаление треда {mangel_id}: {e}")
+
+
 def scrape_archiv_maengel(page):
     """
     Из Archiv → Mangelaufträge берём агрегат по LWS для статистики.
@@ -977,6 +1009,7 @@ def main():
                 m["mangel_status"] = "unknown"
             elif all("geprüft" in s for s in statuses):
                 m["mangel_status"] = "geprueft"      # все закрыты заказчиком
+                _delete_telegram_topic(m.get("id", ""))
             elif any("geprüft" in s for s in statuses):
                 m["mangel_status"] = "teilweise"     # частично закрыты
             elif all("behoben" in s for s in statuses):
