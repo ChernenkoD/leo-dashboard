@@ -1,0 +1,62 @@
+name: Telegram Daily Digest + Photo Sync
+
+on:
+  schedule:
+    # Ежедневный дайджест — каждое утро в 8:00 (Berlin time = UTC+2, значит 06:00 UTC)
+    - cron: '0 6 * * *'
+    # Синхронизация фото — каждые 10 минут
+    - cron: '*/10 6-20 * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Photo sync (скачать фото из Telegram)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+        run: python scraper/telegram_photo_sync.py
+
+      - name: Daily digest (только в 8:00)
+        if: github.event.schedule == '0 6 * * *' || github.event_name == 'workflow_dispatch'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+        run: |
+          python3 -c "
+          import json, sys, os
+          sys.path.insert(0, 'scraper')
+          from telegram_bot import send_daily_digest
+          try:
+              with open('data.json', encoding='utf-8') as f:
+                  data = json.load(f)
+              maengel = [m for m in data.get('maengel', []) if m.get('mangel_status') != 'geprueft']
+              send_daily_digest(maengel)
+              print(f'Дайджест отправлен для {len(maengel)} Mängel')
+          except Exception as e:
+              print(f'Ошибка дайджеста: {e}')
+          "
+
+      - name: Commit photos
+        run: |
+          git config user.name "leo-bot"
+          git config user.email "leo-bot@users.noreply.github.com"
+          git add photos/ scraper/telegram_offset.json scraper/telegram_topics.json || true
+          git diff --cached --quiet || git commit -m "Auto-sync: Telegram photos + offset"
+          git fetch origin main
+          git reset --soft origin/main
+          git add photos/ scraper/telegram_offset.json scraper/telegram_topics.json || true
+          git diff --cached --quiet || git commit -m "Auto-sync: Telegram photos"
+          git push origin main || true

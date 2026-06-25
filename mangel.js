@@ -218,7 +218,57 @@ function renderAssignPanel(m){
 }
 function onAssignChange(id,field,val){ const a=getAssignment(id); a[field]=val; saveAssignment(id,a); render(); }
 function markFertig(id){ const t=new Date().toISOString().slice(0,10); const input=prompt("Datum Fertigstellung (JJJJ-MM-TT):",t); if(!input)return; const a=getAssignment(id); a.date_finished=input; saveAssignment(id,a); saveAssignmentToGitHub(id); render(); }
-function sendInArbeit(id){ const m=MAENGEL.find(x=>x.id===id); if(!m)return; const a=getAssignment(id); const tech=(PEOPLE.technicians||[]).find(p=>p.id===a.technician); const mgr=(PEOPLE.managers||[]).find(p=>p.id===a.manager); const positions=(m.positionen||[]).map((p,i)=>`${i+1}. ${p.code||""} ${p.gewerk||""}: ${p.mangel_beschreibung||p.leistung||"—"}`).join("\n"); const msg=[`⚠️ Neuer Mängelauftrag`,`📋 ${m.id}`,`📍 ${m.address||"—"}`,m.lage?`🏠 ${m.lage}`:null,`📅 Termin: ${fmtDate(m.fertigstellung)}`,`👔 Manager: ${mgr?mgr.name:"—"}`,`🔧 Techniker: ${tech?tech.name:"—"}`,``,positions||"Keine Positionen",``,m.leo_url?`🔗 ${m.leo_url}`:null].filter(Boolean).join("\n"); if(tech?.telegram_id){ window.open(`https://t.me/${tech.telegram_id}?text=${encodeURIComponent(msg)}`,"_blank"); }else{ navigator.clipboard.writeText(msg).then(()=>alert("Kopiert!\n\n"+(tech?.name||"?"))).catch(()=>prompt("",msg)); } a.sentAt=new Date().toISOString(); a.date_started=new Date().toISOString().slice(0,10); saveAssignment(id,a); saveAssignmentToGitHub(id); render(); }
+async function sendInArbeit(id) {
+  const m = MAENGEL.find(x => x.id === id); if (!m) return;
+  const a = getAssignment(id);
+  const tech = (PEOPLE.technicians||[]).find(p => p.id === a.technician);
+  const mgr  = (PEOPLE.managers  ||[]).find(p => p.id === a.manager);
+  const positions = (m.positionen||[]).map((p,i) =>
+    `${i+1}. ${p.code||""} ${p.gewerk||""}: ${p.mangel_beschreibung||p.leistung||"—"}`
+  ).join("\n");
+  const fullMsg = [
+    `⚠️ *Neuer Mängelauftrag*`, `📋 ${m.id}`, `📍 ${m.address||"—"}`,
+    m.lage ? `🏠 ${m.lage}` : null,
+    `📅 Termin: ${fmtDate(m.fertigstellung)}`,
+    `👔 Manager: ${mgr?mgr.name:"—"}`, `🔧 Techniker: ${tech?tech.name:"—"}`,
+    ``, positions||"Keine Positionen", ``,
+    m.leo_url ? `🔗 ${m.leo_url}` : null,
+    ``, `📸 _Fotos nach Fertigstellung in den Telegram-Thread hochladen!_`
+  ].filter(x=>x!==null).join("\n");
+
+  const TG_TOKEN = "8965752014:AAHmLt64ORP4ijB7UACg2Zo50_m0W3f6BvI";
+  const TG_GROUP = "-1004348117970";
+
+  // 1. Уведомление в групповой тред
+  try {
+    const topics = await fetch(
+      "https://raw.githubusercontent.com/ChernenkoD/leo-dashboard/main/scraper/telegram_topics.json?t="+Date.now()
+    ).then(r=>r.ok?r.json():{}).catch(()=>({}));
+    const threadId = topics[m.id];
+    const p = new URLSearchParams({
+      chat_id: TG_GROUP,
+      text: `✈️ *In Arbeit gesetzt*\n👔 ${mgr?mgr.name:"—"}\n🔧 ${tech?tech.name:"—"}\n📅 ${new Date().toLocaleString("de-DE",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}`,
+      parse_mode: "Markdown",
+    });
+    if (threadId) p.append("message_thread_id", threadId);
+    await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {method:"POST", body:p});
+  } catch(e) { console.warn("Telegram group notify:", e); }
+
+  // 2. Личное сообщение технику (если задан telegram_id)
+  if (tech?.telegram_id) {
+    try {
+      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+        method: "POST",
+        body: new URLSearchParams({ chat_id: tech.telegram_id, text: fullMsg, parse_mode: "Markdown" })
+      });
+    } catch(e) { console.warn("Telegram personal:", e); }
+  }
+
+  navigator.clipboard.writeText(fullMsg).catch(()=>{});
+  a.sentAt = new Date().toISOString(); a.date_started = new Date().toISOString().slice(0,10);
+  saveAssignment(id, a); saveAssignmentToGitHub(id); render();
+  alert(`✈️ Отправлено в Telegram!\nТехник: ${tech?.name||"?"}`);
+}
 function toggleCheck(id,idx,val){ setChecked(id,idx,val); render(); }
 
 function renderKPI(){
