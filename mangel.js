@@ -3,6 +3,7 @@
 let MAENGEL = [];
 let ARCHIV_MAENGEL = [];
 let PEOPLE = { managers: [], technicians: [] };
+let PHOTO_INDEX = {};  // mangel_id → {count, last}
 
 let mfSearch = "";
 let mfBauleiter = "";
@@ -139,6 +140,10 @@ const ASSIGNMENTS_FILE = "assignments.json";
     .mk-photo-grid  { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
     .mk-photo-thumb { width:80px; height:80px; object-fit:cover; border-radius:6px; border:1px solid var(--border); cursor:zoom-in; transition:transform .15s; }
     .mk-photo-thumb:hover { transform:scale(1.06); box-shadow:0 4px 12px rgba(0,0,0,.2); }
+    .mk-badge--photo { background:#ede9fe; color:#7c3aed; border:1px solid #c4b5fd; font-weight:700; }
+    .mk-kpi--photo   { border-top:3px solid #7c3aed; animation:photoPulse 2s ease-in-out infinite; }
+    @keyframes photoPulse { 0%,100%{box-shadow:0 0 0 0 #7c3aed33} 50%{box-shadow:0 0 0 6px #7c3aed00} }
+    tr[data-has-foto="1"] td:first-child { border-left:3px solid #7c3aed; }
     .btn-fertig     { padding:4px 10px; background:#10b981; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer; }
     .assign-sent    { font-size:11px; color:var(--muted); }
     .assign-fertig  { color:#10b981; font-weight:700; }
@@ -275,6 +280,9 @@ async function sendInArbeit(id) {
 }
 function toggleCheck(id,idx,val){ setChecked(id,idx,val); render(); }
 
+function hasPhotos(id){ return !!PHOTO_INDEX[id]; }
+function photoCount(id){ return PHOTO_INDEX[id]?.count||0; }
+
 function renderKPI(){
   const now=today0(); const all=MAENGEL;
   const ueb=all.filter(m=>{const d=parseDate(m.fertigstellung);return d&&d<now&&m.mangel_status!=="geprueft";}).length;
@@ -282,13 +290,18 @@ function renderKPI(){
   const s7=new Date(now); s7.setDate(now.getDate()-7);
   const neuW=all.filter(m=>m.first_seen&&new Date(m.first_seen)>=s7).length;
   const gep=all.filter(m=>m.mangel_status==="geprueft").length;
-  document.getElementById("mangelKPI").innerHTML=[
-    {val:all.length,label:"Gesamt Mängel",  sub:"aktiv",                 cls:"",        clr:""},
-    {val:ueb,       label:"Überfällig",      sub:"Deadline überschritten",cls:"--red",   clr:"color:#b91c1c"},
-    {val:le7,       label:"Fällig ≤7 Tage", sub:"dringend",              cls:"--orange",clr:"color:#d97706"},
-    {val:neuW,      label:"Neu diese Woche", sub:"first_seen <7d",        cls:"--blue",  clr:"color:#2563eb"},
-    {val:gep,       label:"Geprüft",         sub:"abgeschlossen",         cls:"--green", clr:"color:#16a34a"},
-  ].map(k=>`<div class="mk-kpi mk-kpi${k.cls}"><div class="mk-kpi-val" style="${k.clr}">${k.val}</div><div class="mk-kpi-label">${k.label}</div><div class="mk-kpi-sub">${k.sub}</div></div>`).join("");
+  const mitFoto=all.filter(m=>hasPhotos(m.id)&&m.mangel_status!=="geprueft").length;
+  const kpis=[
+    {val:all.filter(m=>m.mangel_status!=="geprueft").length, label:"Aktiv",          sub:"offen",                 cls:"",        clr:"", onclick:""},
+    {val:ueb,       label:"Überfällig",      sub:"Deadline überschritten",cls:"--red",   clr:"color:#b91c1c", onclick:""},
+    {val:le7,       label:"Fällig ≤7 Tage", sub:"dringend",              cls:"--orange",clr:"color:#d97706", onclick:""},
+    {val:neuW,      label:"Neu diese Woche", sub:"first_seen <7d",        cls:"--blue",  clr:"color:#2563eb", onclick:""},
+    {val:mitFoto,   label:"📸 Fotos da",     sub:"auf LEO schließen!",    cls:mitFoto?"--photo":"--green", clr:mitFoto?"color:#7c3aed":"color:#16a34a", onclick:mitFoto?"onclick=\"filterFotos()\"":" "},
+    {val:gep,       label:"Geprüft",         sub:"abgeschlossen",         cls:"--green", clr:"color:#16a34a", onclick:""},
+  ];
+  document.getElementById("mangelKPI").innerHTML=kpis.map(k=>
+    `<div class="mk-kpi mk-kpi${k.cls}" ${k.onclick} style="${k.onclick?"cursor:pointer":""}"><div class="mk-kpi-val" style="${k.clr}">${k.val}</div><div class="mk-kpi-label">${k.label}</div><div class="mk-kpi-sub">${k.sub}</div></div>`
+  ).join("");
 }
 
 function renderChips(){
@@ -338,15 +351,19 @@ function applyFilters(list){
 }
 function sortList(list){ const copy=[...list]; if(mfSort==="faellig")copy.sort((a,b)=>(daysUntil(a.fertigstellung)??9999)-(daysUntil(b.fertigstellung)??9999)); else if(mfSort==="newest")copy.sort((a,b)=>(b.first_seen||"").localeCompare(a.first_seen||"")); else if(mfSort==="oldest")copy.sort((a,b)=>(a.first_seen||"").localeCompare(b.first_seen||"")); else if(mfSort==="address")copy.sort((a,b)=>(a.address||"").localeCompare(b.address||"","de")); else if(mfSort==="deadline_desc")copy.sort((a,b)=>(daysUntil(b.fertigstellung)??-9999)-(daysUntil(a.fertigstellung)??-9999)); return copy; }
 
+function filterFotos(){ showTab="active"; mfStatus=""; render(); setTimeout(()=>{ const el=document.getElementById("mangelList"); if(el){ const first=el.querySelector("[data-has-foto]"); if(first)first.scrollIntoView({behavior:"smooth",block:"start"}); } },200); }
+
 function renderListView(list){
   if(!list.length)return`<div class="mk-empty"><div class="mk-empty-icon">📋</div><div class="mk-empty-text">Keine Mängel gefunden</div></div>`;
   const rows=list.map(m=>{
     const isArch=m.is_archiv; const rowCls=isArch?"mk-row--gray":deadlineRowClass(m); const posCount=(m.positionen||[]).length; const exp=expandedRows.has(m.id);
-    return`<tr class="mk-row ${rowCls}" onclick="toggleRow('${m.id}')">
+    const foto=hasPhotos(m.id);
+    const fotoRowStyle=foto?"background:linear-gradient(90deg,#f5f3ff 0,transparent 320px);":"";
+    return`<tr class="mk-row ${rowCls}" data-has-foto="${foto?1:0}" style="${fotoRowStyle}" onclick="toggleRow('${m.id}')">
       <td style="width:72px">${isArch?`<span class="mk-badge mk-badge--gray">Archiv</span>`:deadlinePill(m)}</td>
       <td><div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px">${m.address||"—"}</div><div style="font-size:11px;color:var(--muted)">${m.id||""} ${m.lage?"· "+m.lage:""}</div></td>
       <td style="font-size:12px;white-space:nowrap">${m.bauleiter||"—"}</td>
-      <td style="white-space:nowrap">${statusBadge(m.mangel_status)} ${workflowBadge(m.id)}</td>
+      <td style="white-space:nowrap">${statusBadge(m.mangel_status)} ${foto?`<span class="mk-badge mk-badge--photo">📸 ${photoCount(m.id)} Fotos</span>`:""} ${workflowBadge(m.id)}</td>
       <td style="font-size:11px;color:var(--muted);white-space:nowrap">${m.ausfuehrungsbeginn||"—"}<br>→ ${m.fertigstellung||"—"}</td>
       <td style="text-align:center">${posCount?`<span class="mk-badge mk-badge--pos">${posCount}P</span>`:""}</td>
       <td style="font-size:11px;color:var(--muted)">${m.first_seen||""}</td>
@@ -381,7 +398,10 @@ function renderCardView(list){ if(!list.length)return`<div class="mk-empty"><div
 function renderCard(m){
   const d=daysUntil(m.fertigstellung); const isNew=isNewToday(m); const{done,total}=checkedCount(m); const pct=total?Math.round((done/total)*100):0; const bc=borderColor(m);
   const idLink = m.leo_url?`<a href="${m.leo_url}" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700;font-size:11px">${m.id}</a>`:`<span style="font-weight:700;font-size:11px;color:var(--accent)">${m.id}</span>`;
-  return`<div class="mk-card" id="card-${m.id}" style="border-left-color:${bc}"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="flex:1;min-width:0;padding-right:8px">${idLink}<div style="font-weight:800;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px">${m.address||"—"}</div>${m.lage?`<div style="font-size:11px;color:var(--muted)">${m.lage}</div>`:""}</div>${deadlinePill(m)}</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${statusBadge(m.mangel_status)}${isNew?`<span class="mk-badge mk-badge--new">✨ Neu</span>`:""}${workflowBadge(m.id)}</div><div style="font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.7"><div>${m.bauleiter||"—"} · ${m.innendienst||"—"}</div><div>${m.ausfuehrungsbeginn||"—"} → ${m.fertigstellung||"—"}</div>${m.first_seen?`<div>Eingang: ${m.first_seen}</div>`:""}</div>${total?`<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div><span class="progress-label">${done}/${total}</span></div>`:""}${renderPositionen(m)}${renderAssignPanel(m)}</div>`;
+  const foto = hasPhotos(m.id);
+  const fotoBadge = foto?`<span class="mk-badge mk-badge--photo" title="${photoCount(m.id)} Fotos vorhanden — auf LEO schließen!">📸 ${photoCount(m.id)} Foto${photoCount(m.id)>1?"s":""} · Schließen!</span>`:"";
+  const cardStyle = foto ? `border-left-color:${bc};box-shadow:0 0 0 2px #7c3aed22;` : `border-left-color:${bc}`;
+  return`<div class="mk-card" id="card-${m.id}" data-has-foto="${foto?1:0}" style="${cardStyle}">${foto?`<div style="background:#f5f3ff;border-radius:6px;padding:4px 8px;margin-bottom:8px;font-size:11px;font-weight:600;color:#7c3aed">📸 Fotos erhalten — bitte auf LEO schließen!</div>`:""}<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="flex:1;min-width:0;padding-right:8px">${idLink}<div style="font-weight:800;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px">${m.address||"—"}</div>${m.lage?`<div style="font-size:11px;color:var(--muted)">${m.lage}</div>`:""}</div>${deadlinePill(m)}</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${statusBadge(m.mangel_status)}${isNew?`<span class="mk-badge mk-badge--new">✨ Neu</span>`:""}${fotoBadge}${workflowBadge(m.id)}</div><div style="font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.7"><div>${m.bauleiter||"—"} · ${m.innendienst||"—"}</div><div>${m.ausfuehrungsbeginn||"—"} → ${m.fertigstellung||"—"}</div>${m.first_seen?`<div>Eingang: ${m.first_seen}</div>`:""}</div>${total?`<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div><span class="progress-label">${done}/${total}</span></div>`:""}${renderPositionen(m)}${renderAssignPanel(m)}</div>`;
 }
 function renderArchivCard(m){ return`<div class="mk-card" style="opacity:.65;border-left-color:var(--border)"><div style="font-size:11px;color:var(--muted);margin-bottom:4px"><span class="mk-badge mk-badge--gray">Archiv</span></div><div style="font-weight:700">${m.address||"—"}</div><div style="font-size:12px;color:var(--muted);margin-top:4px">${m.id||""}<br>${m.ausfuehrungsbeginn||"—"} → ${m.fertigstellung||"—"}</div></div>`; }
 
@@ -410,7 +430,12 @@ function populateSelects(){
 
 async function init(){
   await loadPeople();
-  const res=await fetch("data.json?"+Date.now()); const data=await res.json();
+  const [res, photoRes] = await Promise.all([
+    fetch("data.json?"+Date.now()),
+    fetch("https://raw.githubusercontent.com/ChernenkoD/leo-dashboard/main/photos/index.json?t="+Date.now()).catch(()=>null)
+  ]);
+  const data=await res.json();
+  if(photoRes?.ok) PHOTO_INDEX=await photoRes.json().catch(()=>({}));
   MAENGEL=data.maengel||[]; ARCHIV_MAENGEL=data.archiv_maengel||[];
   if(data.updatedAt) document.getElementById("pageSub").textContent="Stand: "+new Date(data.updatedAt).toLocaleString("de-DE");
   populateSelects(); setView("list");

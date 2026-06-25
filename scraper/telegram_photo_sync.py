@@ -125,6 +125,29 @@ def main():
     save_offset(offset)
     print(f"Скачано фото: {downloaded}, новый offset: {offset}")
 
+    # Обновляем photos/index.json — список Mängel у которых есть фото
+    _update_photo_index()
+
+
+def _update_photo_index():
+    """Создаёт photos/index.json: {mangel_id: {count, last_photo}}"""
+    photos_dir = os.path.join(REPO_DIR, "photos")
+    index = {}
+    if os.path.isdir(photos_dir):
+        for mid in os.listdir(photos_dir):
+            subdir = os.path.join(photos_dir, mid)
+            if not os.path.isdir(subdir):
+                continue
+            imgs = sorted([f for f in os.listdir(subdir)
+                           if f.lower().endswith((".jpg",".jpeg",".png",".webp"))])
+            if imgs:
+                index[mid] = {"count": len(imgs), "last": imgs[-1]}
+    index_path = os.path.join(photos_dir, "index.json")
+    os.makedirs(photos_dir, exist_ok=True)
+    with open(index_path, "w", encoding="utf-8") as f:
+        json.dump(index, f, ensure_ascii=False, indent=2)
+    print(f"Photo index обновлён: {len(index)} Mängel с фото")
+
 
 if __name__ == "__main__":
     main()
