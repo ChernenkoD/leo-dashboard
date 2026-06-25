@@ -1,13 +1,31 @@
 {
   "assignments": {
+    "M-LWS-76900-2": {
+      "manager": "mgr-1",
+      "technician": "tech-4",
+      "sentAt": null,
+      "date_started": null,
+      "date_finished": null,
+      "manager_name": "Dmitrii Chernenko",
+      "technician_name": "Droniak Oleh"
+    },
     "M-LWS-33973-1": {
       "manager": "mgr-1",
       "technician": "tech-3",
-      "sentAt": "2026-06-23T14:05:22.889Z",
-      "date_started": "2026-06-23",
+      "sentAt": "2026-06-25T21:44:09.551Z",
+      "date_started": "2026-06-25",
       "date_finished": "2026-06-23",
       "manager_name": "Dmitrii Chernenko",
       "technician_name": "Batseniuk Volodymyr"
+    },
+    "M-LWS-75988-2": {
+      "manager": "mgr-1",
+      "technician": "tech-2",
+      "sentAt": null,
+      "date_started": null,
+      "date_finished": null,
+      "manager_name": "Dmitrii Chernenko",
+      "technician_name": "Barkhatov Volodymyr"
     }
   }
 }
