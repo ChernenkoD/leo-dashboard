@@ -943,16 +943,31 @@ def main():
             mangel_dates = {}
         today_str = datetime.now().strftime("%Y-%m-%d")
         changed = False
+        new_maengel = []  # для Telegram-уведомлений
         for m in maengel:
             mid = m.get("id")
             if mid and mid not in mangel_dates:
                 mangel_dates[mid] = today_str
                 changed = True
+                new_maengel.append(m)
         if changed:
             with open(mangel_dates_file, "w", encoding="utf-8") as f:
                 json.dump(mangel_dates, f, ensure_ascii=False, indent=2)
         for m in maengel:
             m["first_seen"] = mangel_dates.get(m.get("id"), today_str)
+
+        # Telegram: создаём треды для новых Mängel
+        if new_maengel:
+            try:
+                import sys as _sys
+                _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                from telegram_bot import create_topic_for_mangel
+                for m in new_maengel:
+                    tid = create_topic_for_mangel(m)
+                    if tid:
+                        print(f"  Telegram тред создан для {m.get('id')}: {tid}")
+            except Exception as e:
+                print(f"  Telegram ошибка: {e}")
 
         # Добавляем mangel_status к каждому Mängelauftrag
         for m in maengel:
