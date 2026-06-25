@@ -1,5 +1,8 @@
 name: Telegram Daily Digest + Photo Sync
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # Ежедневный дайджест — каждое утро в 8:00 (Berlin time = UTC+2, значит 06:00 UTC)
