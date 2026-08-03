@@ -182,6 +182,55 @@ def send_daily_digest(maengel):
     })
 
 
+def notify_pending_mangel(item):
+    """Уведомление про новый Mangelauftrag, который ЕЩЁ НЕ принят на портале.
+    Бот ничего не нажимает — кто-то должен принять его вручную в LEO, после
+    чего он появится в Projekte → Mangelaufträge с полными деталями."""
+    if not GROUP_ID:
+        return
+    text = (
+        f"🆕 *Neuer Mangelauftrag (wartet auf Kenntnisnahme)*\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"📋 `{item.get('lws','—')}`\n"
+        f"🗓 Fällig: {item.get('due','—')}\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"_Bitte im LEO-Portal auf der Startseite 'Zur Kenntnis genommen' klicken —\n"
+        f"пожалуйста, примите вручную на портале LEO_"
+    )
+    _api("sendMessage", {
+        "chat_id": GROUP_ID,
+        "text": text,
+        "parse_mode": "Markdown",
+    })
+
+
+def notify_new_nachtrag(item):
+    """Уведомление в общий чат про новый Nachtrag. Только информирует — принятие/отклонение
+    делает менеджер сам в LEO, бот тут ничего не решает."""
+    if not GROUP_ID:
+        return
+    desc_de = item.get("description_de") or "—"
+    desc_ru = _translate(desc_de, "ru") if desc_de and desc_de != "—" else "—"
+    gewerk_line = f" · {item.get('gewerk')}" if item.get("gewerk") else ""
+    text = (
+        f"📎 *Neuer Nachtrag*\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"📋 `{item.get('lws','—')}`{gewerk_line}\n"
+        f"🔢 Position: `{item.get('position_code','—')}`\n"
+        f"🗓 Fällig: {item.get('due','—')}\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"🇩🇪 {desc_de}\n"
+        f"🇷🇺 {desc_ru}\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"_Annehmen/Ablehnen im LEO-Portal_"
+    )
+    _api("sendMessage", {
+        "chat_id": GROUP_ID,
+        "text": text,
+        "parse_mode": "Markdown",
+    })
+
+
 def send_to_technician(telegram_user_id, text):
     """Личное сообщение технику."""
     if not telegram_user_id:

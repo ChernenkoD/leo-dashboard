@@ -165,7 +165,7 @@ function render() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("data.json?v=" + Date.now())
+  fetch("data.json")
     .then(r => r.json())
     .then(data => {
       allProjects = data.projects || [];

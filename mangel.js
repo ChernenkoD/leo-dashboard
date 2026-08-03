@@ -2,6 +2,7 @@
 
 let MAENGEL = [];
 let ARCHIV_MAENGEL = [];
+let PENDING_MAENGEL = [];
 let PEOPLE = { managers: [], technicians: [] };
 let PHOTO_INDEX = {};  // mangel_id → {count, last}
 
@@ -472,6 +473,17 @@ function toggleRow(id){ const was=expandedRows.has(id); if(was){ expandedRows.de
 function setView(v){ currentView=v; document.getElementById("btnViewList").classList.toggle("active",v==="list"); document.getElementById("btnViewCard").classList.toggle("active",v==="card"); render(); }
 function resetFilters(){ mfSearch="";mfBauleiter="";mfStadt="";mfStatus="";mfFaellig="";mfManager="";mfTechniker="";mfNeu=false;mfSort="faellig"; ["mfSearch","mfBauleiter","mfStadt","mfStatus","mfFaellig","mfManager","mfTechniker"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";}); const s=document.getElementById("mfSort");if(s)s.value="faellig"; const n=document.getElementById("mfNeu");if(n)n.checked=false; render(); }
 
+function renderPendingMangelBanner(){
+  const el=document.getElementById("pendingMangelBanner");
+  if(!el) return;
+  if(!PENDING_MAENGEL.length){ el.innerHTML=""; return; }
+  el.innerHTML=`<div class="neu-heute-bar" style="background:#fef3c7;color:#92400e">
+    ⏳ ${PENDING_MAENGEL.length} neue${PENDING_MAENGEL.length>1?"r":""} Mangelauftrag wartet auf Kenntnisnahme in LEO —
+    ${PENDING_MAENGEL.map(p=>p.lws).filter(Boolean).join(", ")}
+    <span style="font-size:11px;opacity:.8">(im LEO-Portal manuell annehmen)</span>
+  </div>`;
+}
+
 function render(){
   renderKPI(); renderChips();
   const active=MAENGEL.filter(m=>m.mangel_status!=="geprueft"); const geprueft=MAENGEL.filter(m=>m.mangel_status==="geprueft");
@@ -494,12 +506,13 @@ function populateSelects(){
 async function init(){
   await loadPeople();
   const [res, photoRes] = await Promise.all([
-    fetch("data.json?"+Date.now()),
+    fetch("data.json"),
     fetch("https://raw.githubusercontent.com/ChernenkoD/leo-dashboard/main/photos/index.json?t="+Date.now()).catch(()=>null)
   ]);
   const data=await res.json();
   if(photoRes?.ok) PHOTO_INDEX=await photoRes.json().catch(()=>({}));
-  MAENGEL=data.maengel||[]; ARCHIV_MAENGEL=data.archiv_maengel||[];
+  MAENGEL=data.maengel||[]; ARCHIV_MAENGEL=data.archiv_maengel||[]; PENDING_MAENGEL=data.pending_maengel||[];
+  renderPendingMangelBanner();
   if(data.updatedAt) document.getElementById("pageSub").textContent="Stand: "+new Date(data.updatedAt).toLocaleString("de-DE");
   populateSelects(); setView("list");
   document.getElementById("tabActive").addEventListener("click",()=>{showTab="active";render();});

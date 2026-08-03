@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("pageTitle").textContent = "Dashboard";
   document.getElementById("search").placeholder = "Suchen…";
 
-  fetch("data.json?v=" + Date.now())
+  fetch("data.json")
     .then(r => r.json())
     .then(data => {
       allProjects = data.projects || [];

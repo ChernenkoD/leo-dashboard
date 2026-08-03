@@ -7,18 +7,39 @@ on:
   schedule:
     # Каждые 10 минут с 06:00 до 18:00 UTC (08:00-20:00 Берлин)
     - cron: "*/10 6-18 * * *"
+    # Полный архивный скрейп — раз в сутки, до начала обычного окна
+    - cron: "0 5 * * *"
   workflow_dispatch:
+    inputs:
+      full_scrape:
+        description: "Полный архивный скрейп (Excel-выгрузка архива Mängel)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: scrape-leo
+  cancel-in-progress: false
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25  # обычный прогон короткий; раз в сутки (FULL_SCRAPE) добавляются archiv+handover обходы
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: scraper/requirements.txt
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('scraper/requirements.txt') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
       - name: Install dependencies
         working-directory: scraper
@@ -45,6 +66,9 @@ jobs:
           LEO_USER: ${{ secrets.LEO_USER }}
           LEO_PASS: ${{ secrets.LEO_PASS }}
           GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+          FULL_SCRAPE: ${{ (github.event.schedule == '0 5 * * *' && 'true') || (github.event.inputs.full_scrape == 'true' && 'true') || 'false' }}
 
       - name: Commit updated data.json
         run: |
@@ -55,5 +79,7 @@ jobs:
           git add data.json || true
           git add project_urls.json || true
           git add scraper/mangel_dates.json || true
+          git add scraper/nachtrag_seen.json || true
+          git add scraper/pending_mangel_seen.json || true
           git diff --cached --quiet || git commit -m "Auto-update data.json from LEO"
           git push origin main

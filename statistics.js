@@ -8,6 +8,9 @@ let allProjects = [];
 let allMaengel = [];
 let archivMangelStats = {};
 let archivMaengelList = [];
+let allNachtraege = [];
+let positionKpi = {};
+let allHandover = {};
 
 // Tab 1 filters
 let filters = {
@@ -21,6 +24,8 @@ let filters = {
 // Tab 2 (Aktiv) state
 const MONTHS_DE = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
 let planVon = null, planBis = null;
+let planPreset = null;
+let planBauleiter = "";
 let tableMonthFilter = null;
 
 // Tab 3 (Mängel) filters
@@ -520,6 +525,7 @@ function getActiveProjects() {
 
 function filterByPeriod(projects) {
   return projects.filter(p => {
+    if (planBauleiter && p.bauleiter !== planBauleiter) return false;
     const d = parseDE(p.ende);
     if (!d) return false;
     if (planVon && d < planVon) return false;
@@ -530,11 +536,65 @@ function filterByPeriod(projects) {
 
 function resetPlanFilter() {
   planVon = planBis = null;
+  planPreset = null;
+  planBauleiter = "";
   const pv = document.getElementById("planVon");
   const pb = document.getElementById("planBis");
+  const bl = document.getElementById("planBauleiter");
   if (pv) pv.value = "";
   if (pb) pb.value = "";
+  if (bl) bl.value = "";
   renderAktiv();
+}
+
+// Wochenanfang = Dienstag, passend zum Wochenbericht-Zeitraum (getWochePeriod)
+function weekRange(offsetWeeks) {
+  const now = today0();
+  const day = now.getDay(); // 0=So..6=Sa
+  const sinceTue = (day - 2 + 7) % 7;
+  const von = new Date(now); von.setDate(von.getDate() - sinceTue + offsetWeeks*7);
+  const bis = new Date(von); bis.setDate(bis.getDate() + 6); bis.setHours(23,59,59,999);
+  return { von, bis };
+}
+
+function monthRange(offsetMonths) {
+  const now = today0();
+  const von = new Date(now.getFullYear(), now.getMonth()+offsetMonths, 1);
+  const bis = new Date(now.getFullYear(), now.getMonth()+offsetMonths+1, 0, 23,59,59,999);
+  return { von, bis };
+}
+
+const PLAN_PRESETS = {
+  week0:  () => weekRange(0),
+  week1:  () => weekRange(1),
+  week2:  () => weekRange(2),
+  month0: () => monthRange(0),
+  month1: () => monthRange(1),
+  month2: () => monthRange(2),
+};
+
+function setPlanPreset(key) {
+  planPreset = planPreset === key ? null : key;
+  if (!planPreset) { planVon = planBis = null; }
+  else { const { von, bis } = PLAN_PRESETS[planPreset](); planVon = von; planBis = bis; }
+  const pv = document.getElementById("planVon");
+  const pb = document.getElementById("planBis");
+  if (pv) pv.value = planVon ? planVon.toISOString().slice(0,10) : "";
+  if (pb) pb.value = planBis ? planBis.toISOString().slice(0,10) : "";
+  renderAktiv();
+}
+
+function setPlanBauleiter(val) {
+  planBauleiter = val;
+  renderAktiv();
+}
+
+function fillPlanBauleiterFilter() {
+  const sel = document.getElementById("planBauleiter");
+  if (!sel) return;
+  const names = [...new Set(getActiveProjects().map(p => p.bauleiter).filter(Boolean))].sort();
+  sel.innerHTML = `<option value="">Alle Bauleiter</option>` + names.map(n =>
+    `<option value="${n}">${n}</option>`).join("");
 }
 
 function groupByMonth(projects) {
@@ -631,9 +691,81 @@ function renderAktivTable(projects) {
     </table>` : `<div class="empty-hint">Keine Projekte</div>`;
 }
 
+function projectByLws(lws) { return allProjects.find(p => p.lws === lws); }
+
+function renderNachtragSection() {
+  const kpi = positionKpi;
+  const kpiEl = document.getElementById("kpiNachtrag");
+  if (kpiEl) {
+    const items = [
+      { key: "nicht angenommen", label: "Nicht angenommen", color: "#f59e0b" },
+      { key: "Annahme überfällig", label: "Annahme überfällig", color: "#ef4444" },
+      { key: "abgelehnt", label: "Abgelehnt", color: "#ef4444" },
+      { key: "nicht durchführbar", label: "Nicht durchführbar", color: "#6b7280" },
+    ];
+    kpiEl.innerHTML = items.map(i => `
+      <div class="kpi-card" style="${kpi[i.key] ? `border-left:3px solid ${i.color}` : ''}">
+        <div class="kpi-val" style="${kpi[i.key] ? `color:${i.color}` : ''}">${kpi[i.key] || 0}</div>
+        <div class="kpi-label">${i.label}</div>
+      </div>`).join("");
+  }
+
+  const listEl = document.getElementById("nachtragList");
+  if (!listEl) return;
+  const sorted = [...allNachtraege].sort((a, b) => {
+    const da = parseDE(a.due), db = parseDE(b.due);
+    if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+    return da - db;
+  });
+  listEl.innerHTML = sorted.length ? sorted.slice(0, 20).map(n => {
+    const p = projectByLws(n.lws);
+    const days = daysUntil(n.due);
+    const overdue = days !== null && days < 0;
+    return `<div class="woche-list-item">
+      <div class="woche-list-id">${n.lws} · ${n.position_code || "—"}${n.gewerk ? ` · ${n.gewerk}` : ""}</div>
+      <div class="woche-list-addr">${(n.description_de || "").slice(0, 110)}</div>
+      <div class="woche-list-sub">${overdue ? `<span class="woche-list-red">${Math.abs(days)} Tage überfällig</span>` : `Fällig: ${n.due || "—"}`}${p && p.bauleiter ? ` · ${p.bauleiter}` : ""}</div>
+    </div>`;
+  }).join("") : `<div class="empty-hint">Keine offenen Nachträge</div>`;
+}
+
+function renderHandoverSection() {
+  const el = document.getElementById("handoverList");
+  if (!el) return;
+  const ready = Object.entries(allHandover)
+    .filter(([, h]) => !h.vermietet)
+    .map(([lws, h]) => ({ lws, ...h, project: projectByLws(lws) }))
+    .sort((a, b) => {
+      const da = parseDE(a.leerstand_seit), db = parseDE(b.leerstand_seit);
+      if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+      return da - db;
+    });
+  el.innerHTML = ready.length ? ready.map(h => {
+    const days = h.leerstand_seit ? Math.round((today0() - parseDE(h.leerstand_seit)) / 86400000) : null;
+    return `<div class="woche-list-item">
+      <div class="woche-list-id">${h.lws}</div>
+      <div class="woche-list-addr">${h.project ? h.project.address + (h.project.lage ? ` · ${h.project.lage}` : "") : "—"}</div>
+      <div class="woche-list-sub">${days !== null ? `<span class="woche-list-red">${days} Tage leer</span>` : "Leerstand unbekannt"}${h.project && h.project.bauleiter ? ` · ${h.project.bauleiter}` : ""}</div>
+    </div>`;
+  }).join("") : `<div class="empty-hint">Keine Quartiere zur Übergabe</div>`;
+}
+
+function renderPlanPresets() {
+  const el = document.getElementById("planPresets");
+  if (!el) return;
+  const labels = {
+    week0:"Diese Woche", week1:"Nächste Woche", week2:"In 2 Wochen",
+    month0:"Dieser Monat", month1:"Nächster Monat", month2:"In 2 Monaten",
+  };
+  el.innerHTML = Object.entries(labels).map(([key,label]) =>
+    `<button class="plan-preset-btn${planPreset===key?' plan-preset-active':''}" onclick="setPlanPreset('${key}')">${label}</button>`
+  ).join("");
+}
+
 function renderAktiv() {
   const allActive = getActiveProjects();
-  const filtered = (planVon || planBis) ? filterByPeriod(allActive) : allActive;
+  const hasFilter = planVon || planBis || planBauleiter;
+  const filtered = hasFilter ? filterByPeriod(allActive) : allActive;
   const totalAmount = filtered.reduce((s,p) => s + (p.amount||0), 0);
   const now = today0();
   const overdue = filtered.filter(p => { const d = parseDE(p.ende); return d && d < now; });
@@ -643,8 +775,9 @@ function renderAktiv() {
     if (!d) return false;
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}` === thisMonthKey;
   });
+  renderPlanPresets();
   const infoEl = document.getElementById("planFilterInfo");
-  if (infoEl) infoEl.textContent = (planVon || planBis)
+  if (infoEl) infoEl.textContent = hasFilter
     ? `Gefiltert: ${filtered.length} von ${allActive.length} Projekten`
     : `Gesamt: ${allActive.length} aktive Projekte`;
   document.getElementById("kpiAktiv").innerHTML = `
@@ -661,6 +794,8 @@ function renderAktiv() {
   `;
   renderEndeMonthChart(filtered);
   renderAktivTable(filtered);
+  renderNachtragSection();
+  renderHandoverSection();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1187,17 +1322,21 @@ function renderWoche() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("data.json?v=" + Date.now())
+  fetch("data.json")
     .then(r => r.json())
     .then(data => {
       allProjects       = data.projects || [];
       allMaengel        = data.maengel  || [];
       archivMangelStats = data.archiv_mangel_stats || {};
       archivMaengelList = data.archiv_maengel || [];
+      allNachtraege     = data.nachtraege || [];
+      positionKpi       = data.position_kpi || {};
+      allHandover       = data.handover || {};
       const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
       const sub = document.getElementById("pageSub");
       if (sub) sub.textContent = upd ? `Stand: ${upd}` : "";
       fillYearFilter();
+      fillPlanBauleiterFilter();
       buildMangelFilterBar();
       render();
     })
@@ -1212,6 +1351,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pv = document.getElementById("planVon");
   if (pv) pv.addEventListener("change", e => {
     planVon = e.target.value ? new Date(e.target.value) : null;
+    planPreset = null;
     tableMonthFilter = null;
     renderAktiv();
   });
@@ -1219,7 +1359,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const pb = document.getElementById("planBis");
   if (pb) pb.addEventListener("change", e => {
     planBis = e.target.value ? new Date(e.target.value + "T23:59:59") : null;
+    planPreset = null;
     tableMonthFilter = null;
     renderAktiv();
   });
+
+  const plBl = document.getElementById("planBauleiter");
+  if (plBl) plBl.addEventListener("change", e => setPlanBauleiter(e.target.value));
 });

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Statistik — LK Dashboard</title>
-<link rel="stylesheet" href="board.css?v=16">
+<link rel="stylesheet" href="board.css?v=17">
 </head>
 <body>
   <div class="app-layout">
@@ -72,6 +72,8 @@
       <!-- ── TAB 2: AKTIVE PROJEKTE ── -->
       <main id="aktivSection" style="display:none; padding: 0 28px 40px; flex-direction:column; gap:20px;">
 
+        <div class="plan-presets" id="planPresets"></div>
+
         <div class="plan-filter-bar">
           <div class="plan-filter-group">
             <label>Fertigstellung von</label>
@@ -81,11 +83,27 @@
             <label>bis</label>
             <input type="date" id="planBis">
           </div>
+          <div class="plan-filter-group">
+            <label>Bauleiter</label>
+            <select id="planBauleiter"></select>
+          </div>
           <button class="plan-btn-reset" onclick="resetPlanFilter()">× Zurücksetzen</button>
           <span id="planFilterInfo" class="plan-filter-info"></span>
         </div>
 
         <div class="stat-kpi-row" id="kpiAktiv"></div>
+
+        <div class="stat-grid-2">
+          <div class="stat-card">
+            <div class="stat-card-title">Nachträge</div>
+            <div class="stat-kpi-row" id="kpiNachtrag"></div>
+            <div id="nachtragList" style="margin-top:12px"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-title">Quartiere zur Übergabe <span class="chart-hint">100% fertig, noch nicht vermietet</span></div>
+            <div id="handoverList"></div>
+          </div>
+        </div>
 
         <div class="stat-card">
           <div class="stat-card-title">Projekte &amp; Volumen nach Fertigstellungsmonat</div>
@@ -138,6 +156,6 @@
 
   <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="statistics.js?v=12"></script>
+  <script src="statistics.js?v=13"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@ on:
     - cron: "*/2 6-20 * * *"  # каждые 2 минуты с 6:00 до 20:00 UTC
   workflow_dispatch:
 
+concurrency:
+  group: sync-sheets
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -15,6 +19,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
       - name: Install dependencies
         run: pip install google-auth google-auth-httplib2 google-api-python-client

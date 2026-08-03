@@ -192,6 +192,138 @@ def parse_tasks(page):
     return tasks
 
 
+NACHTRAG_TASK_TEXT = "neuer Nachtrag (von GU)"
+NACHTRAG_GEWERKE = ["Elektro", "Sanitär", "Fliesen", "Maler", "Boden", "Tischler", "Reinigung", "Sonstige"]
+
+
+def find_nachtrag_tasks(page):
+    """Строки 'neuer Nachtrag (von GU)' на Home — lws/leg/due/href, без дублей."""
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
+    if is_logged_out(page):
+        auto_login(page)
+        page.goto(f"{BASE}/index.php")
+        page.wait_for_load_state("networkidle")
+
+    results = []
+    seen_keys = set()
+    for _ in range(10):
+        links = page.locator(f"text={NACHTRAG_TASK_TEXT}").all()
+        new_found = False
+        for link in links:
+            href = link.get_attribute("href")
+            row = link.locator("xpath=ancestor::tr[1]")
+            if row.count() == 0 or not href:
+                continue
+            text = row.first.inner_text().strip()
+            lws_match = re.search(r"(?<!M-)LWS-\d+", text)
+            leg_match = re.search(r"LEG-\d+-\d+", text)
+            dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", text)
+            key = (lws_match.group(0) if lws_match else None, dates[-1] if dates else None)
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            results.append({
+                "lws": lws_match.group(0) if lws_match else None,
+                "leg": leg_match.group(0) if leg_match else None,
+                "due": dates[-1] if dates else None,
+                "href": href,
+            })
+            new_found = True
+        if not new_found:
+            break
+        if not click_next_and_wait(page):
+            break
+    return results
+
+
+def parse_nachtrag_detail(page, href):
+    """Открывает карточку одного Nachtrag-задания, читает код позиции/Gewerk/полное описание."""
+    page.goto(f"{BASE}/{href}")
+    page.wait_for_load_state("networkidle")
+    body_text = page.locator("body").inner_text()
+
+    code_match = re.search(r"\d{2}\.\d{2}\.\d{2}\.\d{4}", body_text)
+    gewerk = next((g for g in NACHTRAG_GEWERKE if f"{g} (i)" in body_text), None)
+
+    description_de = None
+    try:
+        btn = page.locator("text=Beschreibung lesen").first
+        if btn.count() > 0:
+            btn.click(force=True)
+            page.wait_for_timeout(800)
+            modal = page.locator(".modal").first
+            if modal.count() > 0:
+                raw = modal.inner_text()
+                description_de = (raw.replace("Ausführliche Beschreibung", "")
+                                      .replace("Schließen", "").strip(" \n•"))
+    except Exception:
+        pass
+
+    return {
+        "position_code": code_match.group(0) if code_match else None,
+        "gewerk": gewerk,
+        "description_de": description_de,
+    }
+
+
+def check_new_nachtraege(page):
+    """Новые Nachtrag-задания → уведомление в Telegram, помечаем как виденные."""
+    seen_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "nachtrag_seen.json")
+    try:
+        with open(seen_file, encoding="utf-8") as f:
+            seen = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        seen = {}
+
+    tasks = find_nachtrag_tasks(page)
+    changed = False
+    for t in tasks:
+        key = f"{t['lws']}|{t['due']}"
+        if key in seen:
+            continue
+        detail = parse_nachtrag_detail(page, t["href"])
+        entry = {**t, **detail, "first_seen": datetime.now(timezone.utc).date().isoformat()}
+        del entry["href"]
+        seen[key] = entry
+        changed = True
+        try:
+            from telegram_bot import notify_new_nachtrag
+            notify_new_nachtrag(entry)
+        except Exception as e:
+            print(f"Telegram Nachtrag notify failed: {e}", file=sys.stderr)
+
+    if changed:
+        with open(seen_file, "w", encoding="utf-8") as f:
+            json.dump(seen, f, ensure_ascii=False, indent=2)
+
+    return list(seen.values())
+
+
+POSITION_KPI_LABELS = [
+    "angenommen", "nicht angenommen", "neuer Nachtrag", "abgeschlossen",
+    "Annahme überfällig", "Fertigstellung überfällig", "fehlende Dokumente",
+    "abgelehnt", "nicht durchführbar",
+]
+
+
+def parse_position_kpi(page):
+    """Глобальная сводка Nachträge/Positionen со страницы Positionsübersicht."""
+    page.goto(f"{BASE}/index.php")
+    page.wait_for_load_state("networkidle")
+    page.click("text=Projekte", force=True)
+    page.wait_for_timeout(300)
+    page.click("text=Positionsübersicht", force=True)
+    page.wait_for_load_state("networkidle")
+
+    lines = lines_of(page.locator("body").inner_text())
+    kpi = {}
+    for i, line in enumerate(lines):
+        if line in POSITION_KPI_LABELS and i > 0 and re.match(r"^\d+$", lines[i - 1]):
+            kpi[line] = int(lines[i - 1])
+    return kpi
+
+
 def parse_mangel_block(text):
     lines = lines_of(text)
     id_match = re.search(r"M-LWS-\d+-\d+", text)
@@ -345,75 +477,84 @@ def parse_positionen(page):
     return positionen
 
 
-def acknowledge_new_maengel(page):
+def find_pending_mangel_tasks(page):
     """
-    На ГЛАВНОЙ странице LEO (Alle Aufgaben) ищет 'neuer Mangelauftrag',
-    заходит в каждый и нажимает 'Zur Kenntnis genommen'.
-    После этого Mängel появляется в Projekte → Mangelaufträge.
+    На ГЛАВНОЙ странице LEO (Alle Aufgaben) читает строки 'neuer Mangelauftrag' —
+    ТОЛЬКО чтение, никаких кликов/Kenntnisnahme. Пока кто-то не примет их вручную
+    в LEO, они не попадут в Projekte → Mangelaufträge — этот список нужен, чтобы
+    не потерять их из виду до момента ручного принятия.
     """
     page.goto(f"{BASE}/index.php")
     page.wait_for_load_state("networkidle", timeout=20000)
-    page.wait_for_timeout(1000)
 
-    acknowledged = 0
+    results = []
+    seen_keys = set()
+    for _ in range(10):
+        links = page.locator("a").filter(has_text=re.compile(r"neuer\s+mangelauftrag", re.IGNORECASE)).all()
+        new_found = False
+        for link in links:
+            href = link.get_attribute("href")
+            row = link.locator("xpath=ancestor::tr[1]")
+            if row.count() == 0 or not href:
+                continue
+            text = row.first.inner_text().strip()
+            lws_match = re.search(r"(?<!M-)LWS-\d+", text)
+            leg_match = re.search(r"LEG-\d+-\d+", text)
+            dates = re.findall(r"\d{2}\.\d{2}\.\d{4}", text)
+            key = lws_match.group(0) if lws_match else href
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            results.append({
+                "lws": lws_match.group(0) if lws_match else None,
+                "leg": leg_match.group(0) if leg_match else None,
+                "due": dates[-1] if dates else None,
+            })
+            new_found = True
 
-    for attempt in range(50):
-        # Ищем "neuer Mangelauftrag" на главной странице (case-insensitive, extra whitespace tolerant)
-        new_links = page.locator("a").filter(has_text=re.compile(r"neuer\s+mangelauftrag", re.IGNORECASE)).all()
-        if not new_links:
-            new_links = page.locator("td:has-text('Mangelauftrag'), div:has-text('Mangelauftrag')").locator("a").all()
-
-        if not new_links:
-            # Пробуем перейти на следующую страницу пагинации
+        if not new_found:
             nxt = page.locator(".paginate_button.next:not(.disabled)").first
             if nxt.count() > 0:
                 try:
                     nxt.click()
                     page.wait_for_load_state("networkidle", timeout=10000)
-                    page.wait_for_timeout(500)
                     continue
                 except Exception:
                     pass
-            break  # Нет больше новых Mängel
-
-        link = new_links[0]
-        try:
-            href = link.get_attribute("href")
-            if href:
-                detail_url = href if href.startswith("http") else f"{BASE}/{href.lstrip('/')}"
-                page.goto(detail_url)
-            else:
-                link.click()
-            page.wait_for_load_state("networkidle", timeout=15000)
-            page.wait_for_timeout(800)
-
-            # Нажимаем "Zur Kenntnis genommen"
-            btn = page.locator("text=Zur Kenntnis genommen").first
-            if btn.count() > 0:
-                btn.click()
-                page.wait_for_load_state("networkidle", timeout=10000)
-                page.wait_for_timeout(500)
-                acknowledged += 1
-                print(f"  ✓ Zur Kenntnis genommen #{acknowledged}")
-            else:
-                print(f"  Кнопка не найдена на: {page.url}")
-
-        except Exception as e:
-            print(f"  Fehler beim Annehmen: {e}")
-
-        # Возвращаемся на главную (Alle Aufgaben)
-        try:
-            page.goto(f"{BASE}/index.php")
-            page.wait_for_load_state("networkidle", timeout=15000)
-            page.wait_for_timeout(500)
-        except Exception:
             break
+    return results
 
-    if acknowledged:
-        print(f"Automatisch angenommen: {acknowledged} neue Mängelaufträge")
-    else:
-        print("Keine neuen Mängelaufträge auf der Startseite")
-    return acknowledged
+
+def check_pending_maengel(page):
+    """Новые 'neuer Mangelauftrag' на Home → уведомление в Telegram. Не принимает их сам —
+    только сообщает, чтобы кто-то принял вручную в LEO."""
+    seen_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pending_mangel_seen.json")
+    try:
+        with open(seen_file, encoding="utf-8") as f:
+            seen = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        seen = {}
+
+    pending = find_pending_mangel_tasks(page)
+    changed = False
+    for t in pending:
+        key = t["lws"] or t["leg"]
+        if not key or key in seen:
+            continue
+        entry = {**t, "first_seen": datetime.now(timezone.utc).date().isoformat()}
+        seen[key] = entry
+        changed = True
+        try:
+            from telegram_bot import notify_pending_mangel
+            notify_pending_mangel(entry)
+        except Exception as e:
+            print(f"Telegram pending-Mangel notify failed: {e}", file=sys.stderr)
+
+    if changed:
+        with open(seen_file, "w", encoding="utf-8") as f:
+            json.dump(seen, f, ensure_ascii=False, indent=2)
+
+    return pending
 
 
 def collect_mangel_list(page):
@@ -464,9 +605,9 @@ def collect_mangel_list(page):
 
 
 def parse_mangel(page):
-    # Сначала принимаем все новые Mängelaufträge
-    acknowledge_new_maengel(page)
-    # Теперь собираем полный список (включая только что принятые)
+    # Собираем список из Projekte → Mangelaufträge. Новые непринятые Mängel сюда
+    # ещё не попадают (LEO держит их только на Home, пока их не примут вручную) —
+    # см. check_pending_maengel(), который их только читает и уведомляет.
     items = collect_mangel_list(page)
     print(f"Найдено {len(items)} Mängel в списке")
 
@@ -945,6 +1086,65 @@ def scrape_archiv_maengel(page):
         return {}, []
 
 
+def _parse_de_date(s):
+    if not s:
+        return None
+    try:
+        d, m, y = s.split(".")
+        return datetime(int(y), int(m), int(d))
+    except Exception:
+        return None
+
+
+def parse_handover_fields(text):
+    """Leerstand/Vermietet/Bewohnt с карточки проекта — определяет готовность квартиры к сдаче."""
+    lines = lines_of(text)
+
+    def value_after(label):
+        try:
+            idx = lines.index(label)
+            v = lines[idx + 1]
+            return None if v == "-" else v
+        except (ValueError, IndexError):
+            return None
+
+    return {
+        "leerstand_seit": value_after("Leerstand seit:"),
+        "vermietet": value_after("Vermietet:"),
+        "bewohnt_seit": value_after("Bewohnt seit:"),
+    }
+
+
+def scrape_handover_candidates(page, projects):
+    """
+    Квартиры на сдачу: fortschritt>=90% и Fertigstellung в окне [-14, +45] дней от сегодня.
+    Обход карточек — тяжёлая операция, гоняем только при FULL_SCRAPE=true (раз в сутки),
+    иначе список остаётся от предыдущего полного прогона (см. main()).
+    """
+    if os.environ.get("FULL_SCRAPE", "true").lower() != "true":
+        return None  # None = "не обновляли в этом прогоне", data.json сохранит старое значение
+
+    now = datetime.now()
+    results = {}
+    for p in projects:
+        url = p.get("leo_url")
+        if not url:
+            continue
+        d = _parse_de_date(p.get("ende"))
+        if not d:
+            continue
+        days = (now - d).days
+        if (p.get("fortschritt") or 0) < 90 or not (-14 <= days <= 45):
+            continue
+        try:
+            page.goto(url)
+            page.wait_for_load_state("networkidle")
+            results[p["lws"]] = parse_handover_fields(page.locator("body").inner_text())
+        except Exception:
+            continue
+    return results
+
+
 def main():
     import os
     with sync_playwright() as p:
@@ -964,6 +1164,40 @@ def main():
         except RuntimeError as e:
             print(f"ОШИБКА: {e}", file=sys.stderr)
             sys.exit(1)
+
+        try:
+            pending_maengel = check_pending_maengel(page)
+        except Exception as e:
+            print(f"Pending-Mangel scrape failed: {e}", file=sys.stderr)
+            pending_maengel = []
+
+        try:
+            nachtraege = check_new_nachtraege(page)
+        except Exception as e:
+            print(f"Nachträge scrape failed: {e}", file=sys.stderr)
+            nachtraege = []
+
+        try:
+            position_kpi = parse_position_kpi(page)
+        except Exception as e:
+            print(f"Positionsübersicht KPI scrape failed: {e}", file=sys.stderr)
+            position_kpi = {}
+
+        try:
+            handover_new = scrape_handover_candidates(page, projects)
+        except Exception as e:
+            print(f"Handover scrape failed: {e}", file=sys.stderr)
+            handover_new = None
+
+        if handover_new is None:
+            # не FULL_SCRAPE в этом прогоне (или упало) — оставляем прошлый результат
+            try:
+                with open(OUTPUT_FILE, encoding="utf-8") as f:
+                    handover = json.load(f).get("handover", {})
+            except Exception:
+                handover = {}
+        else:
+            handover = handover_new
 
         # Загружаем/обновляем first_seen dates
         # Пишем в scraper/ рядом со скриптом, чтобы git add scraper/mangel_dates.json работал
@@ -1043,6 +1277,10 @@ def main():
             "archiv_maengel": archiv_maengel,
             "projects": projects,
             "archiv_mangel_stats": archiv_mangel_stats,
+            "pending_maengel": pending_maengel,
+            "nachtraege": nachtraege,
+            "position_kpi": position_kpi,
+            "handover": handover,
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
