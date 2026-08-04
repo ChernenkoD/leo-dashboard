@@ -74,12 +74,23 @@ jobs:
         run: |
           git config user.name "leo-bot"
           git config user.email "leo-bot@users.noreply.github.com"
-          git fetch origin main
-          git reset --soft origin/main
-          git add data.json || true
-          git add project_urls.json || true
-          git add scraper/mangel_dates.json || true
-          git add scraper/nachtrag_seen.json || true
-          git add scraper/pending_mangel_seen.json || true
-          git diff --cached --quiet || git commit -m "Auto-update data.json from LEO"
-          git push origin main
+          git add data.json project_urls.json scraper/mangel_dates.json \
+                  scraper/nachtrag_seen.json scraper/pending_mangel_seen.json || true
+          if git diff --cached --quiet; then
+            echo "Нечего коммитить"
+            exit 0
+          fi
+          git commit -m "Auto-update data.json from LEO"
+          # commit (не reset --soft!) — иначе любой файл, не добавленный явно выше,
+          # молча откатывается к состоянию checkout'а, стирая параллельные пуши
+          # в другие файлы (home.js/board.css/...), сделанные, пока скрапер работал
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin main; then exit 0; fi
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 10 + 5))
+          done
+          echo "Не удалось запушить после 5 попыток" >&2
+          exit 1

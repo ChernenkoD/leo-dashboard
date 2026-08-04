@@ -63,9 +63,20 @@ jobs:
           git config user.name "leo-bot"
           git config user.email "leo-bot@users.noreply.github.com"
           git add photos/ scraper/telegram_offset.json scraper/telegram_topics.json || true
-          git diff --cached --quiet || git commit -m "Auto-sync: Telegram photos + offset"
-          git fetch origin main
-          git reset --soft origin/main
-          git add photos/ scraper/telegram_offset.json scraper/telegram_topics.json || true
-          git diff --cached --quiet || git commit -m "Auto-sync: Telegram photos"
-          git push origin main || true
+          if git diff --cached --quiet; then
+            echo "Нечего коммитить"
+            exit 0
+          fi
+          git commit -m "Auto-sync: Telegram photos"
+          # commit (не reset --soft!) — иначе любой файл, не добавленный явно выше,
+          # молча откатывается к состоянию checkout'а, стирая параллельные пуши
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin main; then exit 0; fi
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((RANDOM % 10 + 5))
+          done
+          echo "Не удалось запушить после 5 попыток" >&2
+          exit 1

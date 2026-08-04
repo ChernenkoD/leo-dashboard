@@ -1,6 +1,10 @@
 let allProjects = [];
+let allNachtraege = [];
+let allHandover = {};
+let allPendingMangel = [];
 let query = "";
 let monthQuery = "";
+let bauleiterQuery = "";
 let horizonDays = 14;
 
 function fmtMoney(n) {
@@ -59,6 +63,7 @@ function visibleCards() {
         const q = query.toLowerCase();
         if (![p.lws, p.address, p.lage, p.bauleiter].join(" ").toLowerCase().includes(q)) return false;
       }
+      if (bauleiterQuery && p.bauleiter !== bauleiterQuery) return false;
       if (monthQuery) {
         return monthKey(p.ende) === monthQuery;
       }
@@ -183,9 +188,81 @@ function renderRing(cards) {
   `;
 }
 
+function projectByLws(lws) { return allProjects.find(p => p.lws === lws); }
+
+function fillBauleiterFilter() {
+  const sel = document.getElementById("bauleiterFilter");
+  if (!sel) return;
+  const names = [...new Set(allProjects.map(p => p.bauleiter).filter(Boolean))].sort();
+  sel.innerHTML = `<option value="">Alle Bauleiter</option>` + names.map(n =>
+    `<option value="${n}">${n}</option>`).join("");
+}
+
+function renderPlanerKPI() {
+  const el = document.getElementById("planerKPI");
+  if (!el) return;
+  const readyHandover = Object.entries(allHandover).filter(([, h]) => !h.vermietet);
+  const kpi = [
+    { value: readyHandover.length, label: "Quartiere zur Übergabe" },
+    { value: allNachtraege.length, label: "Nachträge offen", color: allNachtraege.length ? "#f59e0b" : "" },
+    { value: allPendingMangel.length, label: "Neue Mängel (LEO)", color: allPendingMangel.length ? "#ef4444" : "" },
+  ];
+  el.innerHTML = kpi.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-value" style="${k.color ? `color:${k.color}` : ""}">${k.value}</div>
+      <div class="kpi-label">${k.label}</div>
+    </div>`).join("");
+}
+
+function renderPlanerHandover() {
+  const el = document.getElementById("planerHandover");
+  if (!el) return;
+  const ready = Object.entries(allHandover)
+    .filter(([, h]) => !h.vermietet)
+    .map(([lws, h]) => ({ lws, ...h, project: projectByLws(lws) }))
+    .sort((a, b) => {
+      const da = parseDE(a.leerstand_seit), db = parseDE(b.leerstand_seit);
+      if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+      return da - db;
+    });
+  el.innerHTML = ready.length ? ready.slice(0, 8).map(h => {
+    const days = h.leerstand_seit ? Math.round((new Date().setHours(0,0,0,0) - parseDE(h.leerstand_seit)) / 86400000) : null;
+    return `<div class="woche-list-item">
+      <div class="woche-list-id">${h.project?.leo_url ? `<a href="${h.project.leo_url}" target="_blank" class="lws-link-home">${h.lws}</a>` : h.lws}</div>
+      <div class="woche-list-addr">${h.project ? h.project.address + (h.project.lage ? ` · ${h.project.lage}` : "") : "—"}</div>
+      <div class="woche-list-sub">${days !== null ? `<span class="woche-list-red">${days} Tage leer</span>` : "Leerstand unbekannt"}${h.project?.bauleiter ? ` · ${h.project.bauleiter}` : ""}</div>
+    </div>`;
+  }).join("") + (ready.length > 8 ? `<a class="open-stats-link" href="statistics.html">Alle ${ready.length} ansehen →</a>` : "")
+    : `<div class="empty-hint">Keine Quartiere zur Übergabe</div>`;
+}
+
+function renderPlanerNachtrag() {
+  const el = document.getElementById("planerNachtrag");
+  if (!el) return;
+  const sorted = [...allNachtraege].sort((a, b) => {
+    const da = parseDE(a.due), db = parseDE(b.due);
+    if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+    return da - db;
+  });
+  el.innerHTML = sorted.length ? sorted.slice(0, 8).map(n => {
+    const p = projectByLws(n.lws);
+    const days = daysUntil(n.due);
+    const overdue = days !== null && days < 0;
+    return `<div class="woche-list-item">
+      <div class="woche-list-id">${n.lws} · ${n.position_code || "—"}${n.gewerk ? ` · ${n.gewerk}` : ""}</div>
+      <div class="woche-list-addr">${(n.description_de || "").slice(0, 100)}</div>
+      <div class="woche-list-sub">${overdue ? `<span class="woche-list-red">${Math.abs(days)} Tage überfällig</span>` : `Fällig: ${n.due || "—"}`}${p?.bauleiter ? ` · ${p.bauleiter}` : ""}</div>
+    </div>`;
+  }).join("") + (sorted.length > 8 ? `<a class="open-stats-link" href="statistics.html">Alle ${sorted.length} ansehen →</a>` : "")
+    : `<div class="empty-hint">Keine offenen Nachträge</div>`;
+}
+
 function render() {
   const cards = visibleCards();
   renderRing(cards);
+  renderPlanerKPI();
+  renderPlanerHandover();
+  renderPlanerNachtrag();
   document.getElementById("urgentZadel").innerHTML = cards.length
     ? cards.map(renderCard).join("")
     : `<div class="empty-hint">Keine Projekte im gewählten Zeitraum</div>`;
@@ -199,10 +276,14 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(r => r.json())
     .then(data => {
       allProjects = data.projects || [];
+      allNachtraege = data.nachtraege || [];
+      allHandover = data.handover || {};
+      allPendingMangel = data.pending_maengel || [];
       const upd = data.updatedAt ? new Date(data.updatedAt).toLocaleString("de-DE") : "";
       document.getElementById("pageSub").textContent = upd ? `Stand: ${upd}` : "";
 
       fillMonthFilter();
+      fillBauleiterFilter();
       renderHorizonGroup();
       render();
     })
@@ -213,6 +294,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("search").addEventListener("input", e => {
     query = e.target.value.trim(); render();
+  });
+  document.getElementById("bauleiterFilter").addEventListener("change", e => {
+    bauleiterQuery = e.target.value; render();
   });
   document.getElementById("monthFilter").addEventListener("change", e => {
     monthQuery = e.target.value;

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Главная — LK Dashboard</title>
-<link rel="stylesheet" href="board.css?v=17">
+<link rel="stylesheet" href="board.css?v=18">
 </head>
 <body>
   <div class="app-layout">
@@ -17,7 +17,21 @@
       <div class="toolbar">
         <input type="text" id="search">
         <select id="monthFilter"></select>
+        <select id="bauleiterFilter"></select>
         <div class="horizon-group" id="horizonFilter"></div>
+      </div>
+
+      <div class="stat-kpi-row home-section" id="planerKPI"></div>
+
+      <div class="stat-grid-2 home-section">
+        <div class="stat-card">
+          <div class="stat-card-title">🏠 Quartiere zur Übergabe <span class="chart-hint">100% fertig, nicht vermietet</span></div>
+          <div id="planerHandover"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">📎 Nachträge warten auf Annahme</div>
+          <div id="planerNachtrag"></div>
+        </div>
       </div>
 
       <div class="home-layout">
@@ -27,8 +41,8 @@
     </div>
   </div>
 
-  <script src="i18n.js?v=3"></script>
+  <script src="i18n.js?v=2"></script>
   <script src="sidebar.js"></script>
-  <script src="home.js?v=5"></script>
+  <script src="home.js?v=6"></script>
 </body>
 </html>

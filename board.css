@@ -196,6 +196,14 @@ body {
 
 /* legacy stat styles removed — see bottom of file */
 
+.home-section { padding: 0 28px 24px; }
+.woche-list-col { display: flex; flex-direction: column; gap: 8px; }
+.woche-list-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; margin-bottom: 8px; }
+.woche-list-item:last-child { margin-bottom: 0; }
+.woche-list-id { font-weight: 700; color: var(--accent); font-size: 11px; }
+.woche-list-addr { font-size: 12px; color: var(--text); }
+.woche-list-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.woche-list-red { color: #b91c1c; font-weight: 700; }
 .home-layout { display: flex; gap: 20px; padding: 0 28px 28px; align-items: flex-start; }
 .home-list { flex: 1; padding: 0; min-width: 0; }
 .ring-panel {
