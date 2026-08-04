@@ -157,12 +157,15 @@ def parse_task_block(text):
 
 
 def parse_tasks(page):
+    # networkidle, а не domcontentloaded: список задач подгружается AJAX-ом
+    # (inc/datatables_json/aufgaben-uebersicht.php) уже ПОСЛЕ domcontentloaded,
+    # из-за чего tasks всегда получался пустым
     page.goto(f"{BASE}/index.php")
-    page.wait_for_load_state("domcontentloaded")
+    page.wait_for_load_state("networkidle")
     if is_logged_out(page):
         auto_login(page)
         page.goto(f"{BASE}/index.php")
-        page.wait_for_load_state("domcontentloaded")
+        page.wait_for_load_state("networkidle")
 
     seen_keys = set()
     tasks = []
@@ -678,6 +681,65 @@ def download_excel(page, click_fn, label, tmpdir, timeout=120000):
     return path
 
 
+def scrape_finance(page):
+    """
+    Отчёт F-05 (Berichte) — деньги по текущим проектам:
+      Summe abgerechnet   — сколько уже выставлено счетами
+      Auftragsvolumen     — сколько всего по заказу
+      Leistung geprüft    — дата приёмки работ заказчиком
+    Разница «принято, но не выставлено» = живые деньги, о которых иначе никто не помнит.
+    """
+    with tempfile.TemporaryDirectory() as tmpdir:
+        try:
+            page.goto(f"{BASE}/index.php")
+            page.wait_for_load_state("networkidle", timeout=30000)
+            page.click("text=Berichte", force=True)
+            page.wait_for_load_state("networkidle", timeout=30000)
+            row = page.locator("table tbody tr").filter(has_text="F-05").first
+            if row.count() == 0:
+                print("  WARN F-05: строка отчёта не найдена")
+                return {}
+            xl = download_excel(page, lambda: row.locator("a").first.click(),
+                                "f05", tmpdir, timeout=90000)
+            wb = openpyxl.load_workbook(xl, read_only=True, data_only=True)
+            ws = wb.active
+            rows = list(ws.iter_rows(values_only=True))
+            wb.close()
+            if not rows:
+                return {}
+            hdr = [str(h or "").strip() for h in rows[0]]
+
+            def idx(name):
+                try:
+                    return hdr.index(name)
+                except ValueError:
+                    return None
+
+            i_lws = idx("Projektnummer")
+            i_abg = idx("Summe abgerechnet")
+            i_vol = idx("Auftragsvolumen gesamt")
+            i_gep = idx("Leistung geprüft")
+            if i_lws is None:
+                print(f"  WARN F-05: нет колонки Projektnummer, есть {hdr}")
+                return {}
+
+            fin = {}
+            for r in rows[1:]:
+                lws = str(r[i_lws] or "").strip()
+                if not lws.startswith("LWS-"):
+                    continue
+                fin[lws] = {
+                    "abgerechnet": float(r[i_abg] or 0) if i_abg is not None else 0.0,
+                    "volumen": float(r[i_vol] or 0) if i_vol is not None else 0.0,
+                    "leistung_geprueft": fmt_date(r[i_gep]) if i_gep is not None else None,
+                }
+            print(f"  F-05 Finanzen: {len(fin)} laufende Projekte")
+            return fin
+        except Exception as e:
+            print(f"  WARN F-05: {e}")
+            return {}
+
+
 def parse_projects(page):
     """
     Два Excel-файла, ноль пагинации — быстро и надёжно:
@@ -1152,6 +1214,235 @@ def scrape_handover_candidates(page, projects):
     return results
 
 
+CHAT_FEED_URL = f"{BASE}/php/chat_notification.php?action=2&mode=0"
+CHAT_COUNT_URL = f"{BASE}/php/chat_notification.php?action=1"
+
+# Классификация сообщений заказчика по ключевым словам. Порядок важен:
+# первое совпадение выигрывает, поэтому самое «дорогое» (отмена) идёт первым.
+CHAT_RULES = [
+    ("storniert",   r"storniert|stornier|abgesagt|zurückgezogen"),
+    ("termin",      r"neues?\s+(ausführungs|fertigstellung|fertigstellungs)|neue[ns]?\s+datum|datum\s+geändert|termin\s+(geändert|verschoben)|verschoben"),
+    ("neuer_auftrag", r"neuer\s+auftrag|neues\s+auftrag|achtung\s+neuer"),
+    ("nachtrag",    r"\bnachtrag\b|\bnt\b\s|\bnt\s+für|nachträge"),
+    ("mangel",      r"\bmangel\b|mängel|beheben|beseitig"),
+    ("foto",        r"\bbilder\b|\bfotos?\b|hochladen|hochzuladen"),
+    ("dokument",    r"protokoll|dokument|unterlagen|rechnung"),
+    ("termin_info", r"umgeschlüsselt|entrümpelt|leerstand|vermietet"),
+]
+
+
+def classify_chat_message(text):
+    t = (text or "").lower()
+    for tag, pattern in CHAT_RULES:
+        if re.search(pattern, t):
+            return tag
+    return "sonstiges"
+
+
+def parse_chat_feed(html_text):
+    """Разбирает HTML-ответ chat_notification.php в список сообщений."""
+    import html as html_mod
+    blocks = re.findall(
+        r'<div class="item multiline cn_(\d+)">(.*?)(?=<div class="item multiline cn_|\Z)',
+        html_text, re.S)
+
+    def strip_tags(s):
+        return re.sub(r"\s+", " ", html_mod.unescape(re.sub(r"<[^>]+>", " ", s))).strip()
+
+    out = []
+    for cid, blk in blocks:
+        lws = re.search(r'label grey-filled small">([^<]+)<', blk)
+        subs = re.findall(r'<div class="item-subtext[^"]*">\s*<span>(.*?)</span>', blk, re.S)
+        sender = re.search(r'<span class="left">([^<]+)<', blk)
+        dates = re.findall(r"(\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2})", blk)
+        msg = strip_tags(subs[0]) if subs else None
+        if not msg:
+            continue
+        out.append({
+            "id": cid,
+            "lws": lws.group(1).strip() if lws else None,
+            "from": strip_tags(sender.group(1)) if sender else None,
+            "message": msg,
+            "address": strip_tags(subs[1]) if len(subs) > 1 else None,
+            "date": dates[-1] if dates else None,
+            "tag": classify_chat_message(msg),
+        })
+    return out
+
+
+def scrape_chat(context):
+    """
+    Лента сообщений заказчика. Эндпоинт отдаёт только последние 50 без пагинации,
+    поэтому копим историю у себя: каждый прогон мержим новые по id.
+    """
+    hist_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chat_history.json")
+    try:
+        with open(hist_file, encoding="utf-8") as f:
+            history = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        history = {}
+
+    try:
+        feed = parse_chat_feed(context.request.get(CHAT_FEED_URL).text())
+    except Exception as e:
+        print(f"  WARN chat feed: {e}")
+        return list(history.values()), 0
+
+    unread = 0
+    try:
+        unread = int(context.request.get(CHAT_COUNT_URL).text().strip() or 0)
+    except Exception:
+        pass
+
+    new_count = 0
+    today = datetime.now(timezone.utc).date().isoformat()
+    for m in feed:
+        if m["id"] not in history:
+            m["seen_at"] = today
+            history[m["id"]] = m
+            new_count += 1
+
+    if new_count:
+        with open(hist_file, "w", encoding="utf-8") as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+
+    print(f"  Chat: {len(feed)} в ленте, {new_count} новых, {unread} непрочитанных, "
+          f"{len(history)} всего в истории")
+
+    # отдаём последние 300 по дате — фронту больше не нужно
+    def sort_key(m):
+        d = m.get("date") or ""
+        try:
+            return datetime.strptime(d, "%d.%m.%Y %H:%M")
+        except ValueError:
+            return datetime.min
+    recent = sorted(history.values(), key=sort_key, reverse=True)[:300]
+    return recent, unread
+
+
+TRACKED_FIELDS = {
+    "ende":        "Fertigstellung",
+    "start":       "Ausführungsbeginn",
+    "status":      "Status",
+    "bauleiter":   "Bauleiter",
+    "amount":      "Auftragsvolumen",
+    "baustopp":    "Baustopp",
+}
+
+
+def track_project_changes(projects):
+    """
+    Журнал изменений: сравниваем текущий снимок проектов с прошлым и логируем,
+    что именно поменялось. Именно так ловятся переносы Fertigstellung —
+    в самом LEO история дат не хранится, BZP Historie держит только последнюю версию.
+    """
+    snap_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "project_snapshot.json")
+    log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "change_log.json")
+
+    def load(path, default):
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return default
+
+    prev = load(snap_file, {})
+    log = load(log_file, [])
+
+    snapshot = {
+        p["lws"]: {k: p.get(k) for k in TRACKED_FIELDS}
+        for p in projects if p.get("lws")
+    }
+
+    now = datetime.now(timezone.utc)
+    stamp = now.isoformat()
+    new_entries = []
+
+    if prev:  # первый прогон — только запоминаем, менять нечему
+        for lws, cur in snapshot.items():
+            old = prev.get(lws)
+            if old is None:
+                continue
+            for field, label in TRACKED_FIELDS.items():
+                a, b = old.get(field), cur.get(field)
+                if a != b and not (a in (None, "") and b in (None, "")):
+                    new_entries.append({
+                        "lws": lws, "field": field, "label": label,
+                        "from": a, "to": b, "at": stamp,
+                    })
+
+    if new_entries:
+        log.extend(new_entries)
+        # держим журнал ограниченным — год истории более чем достаточно
+        log = log[-5000:]
+        with open(log_file, "w", encoding="utf-8") as f:
+            json.dump(log, f, ensure_ascii=False, indent=2)
+        print(f"  Изменений в проектах: {len(new_entries)}")
+        for e in new_entries[:10]:
+            print(f"    {e['lws']}: {e['label']} {e['from']} → {e['to']}")
+
+    with open(snap_file, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, ensure_ascii=False, indent=2)
+
+    return log[-500:]
+
+
+def scrape_bzp_schedule(page, projects, horizon_days=45, limit=60):
+    """
+    Bauzeitenplan по каждому Gewerk (Elektro 03.08, Sanitär 07.08, ...) — из модалки
+    «BZP Historie» на карточке проекта. Это единственное место в LEO, где видно,
+    какая бригада в какой день заходит в квартиру.
+
+    Тяжело (по навигации на проект), поэтому только активные проекты со сроком
+    в ближайшие horizon_days и не больше limit штук за прогон.
+    """
+    now = datetime.now()
+    cands = []
+    for p in projects:
+        if p.get("abgeschlossen") or p.get("is_ghost") or not p.get("leo_url"):
+            continue
+        d = _parse_de_date(p.get("ende"))
+        if not d:
+            continue
+        days = (d - now).days
+        if -14 <= days <= horizon_days:
+            cands.append((days, p))
+    cands.sort(key=lambda x: x[0])
+    cands = [p for _, p in cands[:limit]]
+
+    out = {}
+    for p in cands:
+        try:
+            page.goto(p["leo_url"])
+            page.wait_for_load_state("networkidle", timeout=15000)
+            btn = page.locator("text=BZP Historie").first
+            if btn.count() == 0:
+                continue
+            btn.click(force=True)
+            page.wait_for_timeout(700)
+            modal = None
+            loc = page.locator(".modal")
+            for i in range(loc.count()):
+                t = loc.nth(i).inner_text()
+                if "BZP Historie" in t:
+                    modal = t
+                    break
+            if not modal:
+                continue
+            gewerke = []
+            for line in lines_of(modal):
+                m = re.match(r"^(.+?)\s*\(i\)\s+(\d{2}\.\d{2}\.\d{4})\s*-\s*(\d{2}\.\d{2}\.\d{4})$", line)
+                if m:
+                    gewerke.append({"gewerk": m.group(1).strip(),
+                                    "von": m.group(2), "bis": m.group(3)})
+            if gewerke:
+                out[p["lws"]] = gewerke
+        except Exception:
+            continue
+    print(f"  BZP-Zeitplan: {len(out)} проектов (из {len(cands)} кандидатов)")
+    return out
+
+
 def find_ghost_projects(page, projects):
     """
     Небольшой список подозрительных проектов (fortschritt<20%, ещё не 'beauftragt',
@@ -1320,6 +1611,48 @@ def main():
         for p in projects:
             p["is_ghost"] = p.get("lws") in ghost_lws
 
+        # Деньги: сколько выставлено / принято заказчиком, по каждому текущему проекту
+        try:
+            finance = scrape_finance(page)
+        except Exception as e:
+            print(f"Finance scrape failed: {e}", file=sys.stderr)
+            finance = {}
+        for p in projects:
+            f = finance.get(p.get("lws"))
+            if f:
+                p["abgerechnet"] = f["abgerechnet"]
+                p["leistung_geprueft"] = f["leistung_geprueft"]
+                if not p.get("amount") and f["volumen"]:
+                    p["amount"] = f["volumen"]
+
+        # Лента сообщений заказчика (отмены, переносы, новые заказы)
+        try:
+            chat_messages, chat_unread = scrape_chat(context)
+        except Exception as e:
+            print(f"Chat scrape failed: {e}", file=sys.stderr)
+            chat_messages, chat_unread = [], 0
+
+        # Журнал изменений — считается ПОСЛЕ всех правок полей проекта
+        try:
+            change_log = track_project_changes(projects)
+        except Exception as e:
+            print(f"Change tracking failed: {e}", file=sys.stderr)
+            change_log = []
+
+        # График по Gewerk — тяжёлый, только раз в сутки (FULL_SCRAPE)
+        if os.environ.get("FULL_SCRAPE", "true").lower() == "true":
+            try:
+                bzp = scrape_bzp_schedule(page, projects)
+            except Exception as e:
+                print(f"BZP scrape failed: {e}", file=sys.stderr)
+                bzp = {}
+        else:
+            try:
+                with open(OUTPUT_FILE, encoding="utf-8") as f:
+                    bzp = json.load(f).get("bzp", {})
+            except Exception:
+                bzp = {}
+
         data = {
             "updatedAt": datetime.now(timezone.utc).isoformat(),
             "tasks": tasks,
@@ -1331,6 +1664,10 @@ def main():
             "nachtraege": nachtraege,
             "position_kpi": position_kpi,
             "handover": handover,
+            "chat": chat_messages,
+            "chat_unread": chat_unread,
+            "change_log": change_log,
+            "bzp": bzp,
         }
 
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:

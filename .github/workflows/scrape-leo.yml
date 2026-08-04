@@ -79,6 +79,9 @@ jobs:
           git add scraper/mangel_dates.json || true
           git add scraper/nachtrag_seen.json || true
           git add scraper/pending_mangel_seen.json || true
+          git add scraper/chat_history.json || true
+          git add scraper/change_log.json || true
+          git add scraper/project_snapshot.json || true
           if git diff --cached --quiet; then
             echo "Нечего коммитить"
             exit 0

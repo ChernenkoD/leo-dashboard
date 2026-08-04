@@ -1,6 +1,7 @@
 function renderSidebar(active) {
   const items = [
     { key: "home", label: t("nav_home"), href: "index.html", icon: "🏠" },
+    { key: "planer", label: t("nav_planer") || "Planer", href: "planer.html", icon: "🗓" },
     { key: "projects", label: t("nav_projects"), href: "projects.html", icon: "📁" },
     { key: "mangel", label: t("nav_mangel"), href: "mangel.html", icon: "⚠️" },
     { key: "invoiced", label: t("nav_invoiced"), href: "inabrechnung.html", icon: "🧾" },
