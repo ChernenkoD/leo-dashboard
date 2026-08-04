@@ -1152,6 +1152,41 @@ def scrape_handover_candidates(page, projects):
     return results
 
 
+def find_ghost_projects(page, projects):
+    """
+    Небольшой список подозрительных проектов (fortschritt<20%, ещё не 'beauftragt',
+    Fertigstellung просрочена >30 дней) — проверяем, существует ли карточка ещё в LEO.
+    Такие записи иногда остаются в bulk-экспорте Excel даже после того, как проект
+    удалён/отменён в самой LEO (подтверждено вручную: прямая ссылка → 404, поиск → 0).
+    Дёшево — обычно единицы кандидатов, гоняем на каждом прогоне.
+    """
+    now = datetime.now()
+    candidates = []
+    for p in projects:
+        if p.get("abgeschlossen") or not p.get("leo_url"):
+            continue
+        if (p.get("fortschritt") or 0) >= 20 or p.get("status") == "beauftragt":
+            continue
+        d = _parse_de_date(p.get("ende"))
+        if not d or (now - d).days <= 30:
+            continue
+        candidates.append(p)
+
+    ghosts = set()
+    for p in candidates:
+        try:
+            page.goto(p["leo_url"])
+            page.wait_for_load_state("networkidle", timeout=15000)
+            text = page.locator("body").inner_text()
+            if "seite nicht gefunden" in text.lower():
+                ghosts.add(p["lws"])
+        except Exception:
+            continue
+    if ghosts:
+        print(f"  Ghost-Projekte (in LEO nicht mehr auffindbar): {sorted(ghosts)}")
+    return ghosts
+
+
 def main():
     import os
     with sync_playwright() as p:
@@ -1276,6 +1311,14 @@ def main():
             m = re.search(r"LWS-\d+", p.get("lws", ""))
             if m:
                 p["archiv_mangel_count"] = archiv_mangel_stats.get(m.group(0), 0)
+
+        try:
+            ghost_lws = find_ghost_projects(page, projects)
+        except Exception as e:
+            print(f"Ghost-project check failed: {e}", file=sys.stderr)
+            ghost_lws = set()
+        for p in projects:
+            p["is_ghost"] = p.get("lws") in ghost_lws
 
         data = {
             "updatedAt": datetime.now(timezone.utc).isoformat(),

@@ -79,6 +79,7 @@ function filtered() {
 }
 
 function renderBadge(p) {
+  if (p.is_ghost) return `<span class="proj-badge baustop" title="Direktlink/Suche in LEO liefert nichts mehr">👻 In LEO nicht auffindbar</span>`;
   if (isBaustop(p)) {
     const tip = p.baustopp_start ? ` title="seit ${p.baustopp_start}"` : "";
     return `<span class="proj-badge baustop"${tip}>BAUSTOP</span>`;
