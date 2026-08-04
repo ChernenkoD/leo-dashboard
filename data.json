@@ -1,6 +1,70 @@
 {
-  "updatedAt": "2026-08-04T19:01:04.489718+00:00",
-  "tasks": [],
+  "updatedAt": "2026-08-04T19:56:50.724606+00:00",
+  "tasks": [
+    {
+      "type": "neues Projekt",
+      "address": "Wiesenstraße 74 26603 Aurich",
+      "lws": "LWS-81223",
+      "leg": "LEG-151458-0",
+      "due": "30.05.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Sollingstr. 2a 37081 Göttingen",
+      "lws": "LWS-84862",
+      "leg": "LEG-157500-0",
+      "due": "03.07.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Backhausstraße 11 37081 Göttingen",
+      "lws": "LWS-84228",
+      "leg": "LEG-156198-0",
+      "due": "03.07.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "St.-Heinrich-Straße 14 37081 Göttingen",
+      "lws": "LWS-85034",
+      "leg": "LEG-157255-0",
+      "due": "03.07.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Deisterstraße 8 37081 Göttingen",
+      "lws": "LWS-82992",
+      "leg": "LEG-154939-0",
+      "due": "03.07.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Beckstr. 18 29223 Celle",
+      "lws": "LWS-85039",
+      "leg": "LEG-157433-0",
+      "due": "10.07.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Bremer Straße 176 26382 Wilhelmshaven",
+      "lws": "LWS-79506",
+      "leg": "LEG-149685-0",
+      "due": "23.07.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Bremer Straße 176 26382 Wilhelmshaven",
+      "lws": "LWS-88984",
+      "leg": "LEG-158727-0",
+      "due": "30.07.2026"
+    },
+    {
+      "type": "Fehlende Nachweisdokumente für Positionen",
+      "address": "Neuteicher Straße 7 26388 Wilhelmshaven",
+      "lws": "LWS-88487",
+      "leg": "LEG-162362-0",
+      "due": "09.08.2026"
+    }
+  ],
   "maengel": [
     {
       "id": "M-LWS-33973-1",
@@ -14,7 +78,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=kAhzAfxmZf7cURWoxtMm4m5OU0MxSmFFeHhuaEVHaWd6M0JyK3ZlejJzRTg0V0VVdk40ODJCQ3ZUUHJrbHhMclJwT3g5OGVWeFYvWnVkTkk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=zqWiD25MOZF1dXfPCZQt3XhFZi9uMmg3QThYUjZTeThnVlBoTHZFSGFxcGY1MG81b3U3QjVmMUlnaHlXbVdnUXFXWHNKMXBiU1hLS3ZQODg%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -50,7 +114,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=n9ZoKJbr5qWsACmqtGF2yUIvM0dLdFhiK1BqYzdObTQxRXcyZHYyOVB4QWM1TC9aSTZUTitTNFVVb3RrQ1J5QjZycTRTWmJMMkF3Znp2MzM%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=s2dcwEmwST%2BV%2BBSRbPuFRENsSGkvTkpyM3NzWjR2Rm9obDdnTVZwT28zZGZBbEZReTRpdm1uTjlubGtqdUh2dk94QVFCK3dxMlF2MThNTVo%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -77,7 +141,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=LOHiYx1hFExSe9NA2MQaI1BoMTNpWDBUQmZIenJieGpqY0w2QTB4SDAvMTBobm56b0JkLzh4LzhzVDZBWUw0aTR1ZnV4dGNnZ0ZpNjhmZ1M%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=HHaJqKmh60XboJVcMl8sy1RiM1hreDFaVUhTT0pOUDYyTjhRamsrZ0M5S1VkdGx6UUN6NW9BWFIzSDcwMVA4RE1YaHpub2U1bmxaTDJKK2s%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -104,7 +168,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=Hdt7fbh0OKTRpmd8H6vZJ3BBWmtUZ0xtN3FWTGZDVVA2bzRPM2xLckJXNFV1VDNJRTFLNEVBYW92N2VCM1hCQVpNdUEvTVMxbmlZbXlPR00%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=y3m33XKM2meHjswcD3jnOGM3U3hnbUZCRUEwb0ZMdXVpa1h2c1htQzF0dHFxb2V2MWIzOGJKMHNyR1hGMm4zN0pWSmJzMFVwTE5LMUFCV0o%3D",
       "positionen": [
         {
           "code": "06.03.02.0340",
@@ -131,7 +195,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=BFKUiPvH3qCqGdtQ1IzI20RESXhKZGh3ejVTUXpSckVOcm4zdS9zZW9tTDJjN3dpZ3ZmS2tGTEZ1N2tOY2twaGppaGJhZ211NEFzekR0WHA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=WeZBzlrebEA3UXfzbl0mjVBCK3V5TTVQVWVUNm5FbFlMaGgrc0xsMzBVMW1JV2ZVTjZZeE10YUdKNVpheVVlZ3JJUkVGOFFJVVVETnJCYkM%3D",
       "positionen": [
         {
           "code": "06.04.01.0030",
@@ -176,7 +240,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=fFVkfAHVNtcjTzsVEgSfpmtPRnlYZWZMMURuZzZvczhDWjg2bVV2QU1pMWFGZXlrM1F3cStRNkZQVjk0UFA5Njd1Y0JxcEpUenhuYzNwMmQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=5LTwWSSgi%2FXOLYdxOHDBCjVGRnZ0ZnlYVGwyMElIcXNmcEpRZzVTMWhtblhlNHpnelIrSVhHVTVTR1NzQ050a3dpQVBORlVqVjRjSkxOem4%3D",
       "positionen": [
         {
           "code": "06.01.01.0316",
@@ -203,7 +267,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=BBiZiDB0OAHl0DGa5%2BFjRi9BL1Y2T2RwelhpTEFsY1dTd1ZtMWJQQ3dUSExGVHlaSm1sakNzNy9ZYlkyUDhpVWJIU05iNVgrM2Z1RStBM3U%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=zI3ZLbc4IMCMaLNzrjpAY1FqcFhLaENpeEh3dWl0MkN1L2ZuV001dmpMQjZFZjdxV2FUeGFuWEhjR3YrWHJJYnFmQTVYaEZJSjBxa21RYU8%3D",
       "positionen": [
         {
           "code": "06.08.02.0300",
@@ -230,7 +294,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=jk%2F35Db6XtzFoLW2bsFO%2BkxZdnliOG9seG0vVjh3WHVNNFlXL25uK1RGbXYwK0J3OTJqU2pOM1c4ZXIwVTVVZVIwODFETXNVclhqUUd6d2k%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=PBGs74K1PQnrcTgsIykfLlhzaWtqb0QwNjRpMVNUNVFvcFVVajZKNHpjQXRsMEsvSmFYRHdFWEZxR3pUN1N6Q2N6aG15VXRGZkl2YmNtc0w%3D",
       "positionen": [
         {
           "code": "06.06.01.0100",
@@ -257,7 +321,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=cy31Dw7iVfaaBP6T9F2jW2ZEL1A3U1dtRjJ3bllGWUtJZ3QxTU8rSDF3Njk1TTdxQVUwSys2QXBOejNRQlhGWmlPSm5SaUFvWmsxSkNnb0M%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=gff0po7LZpabsogafFsC2FJVUVZlTHUyUlBrMDc0Vm9JTWhQeUh4OVdJNkNzSTJsQTlmQ1hYeTNHSmViMWhIK2sraDFTQ2VqM1V5Y1BoaFY%3D",
       "positionen": [
         {
           "code": "06.08.02.0210",
@@ -284,7 +348,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=ZSDNdM3WLiE2NjbIlKBxl3BIb25rbkt1ZFNmV3o5cG9UNDZHWEdIdjVPeUY5dDNpRDVNajNubCtMekNRd09mTStRZlk1R3RNMXNXdFlwVWY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=KhxlA2y%2Fu69zolZd5D5sZXFsc05jZnFnYzlMWExmMnZIRDgvSWttREJEcnNPc0FjTzdqcmZZVEo4eUY5aDZEV2U3ZTRSSTBucEFZWEdUeUI%3D",
       "positionen": [
         {
           "code": "06.08.02.0030",
@@ -311,7 +375,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=Fwlm753DrSly9i4aFlCzbU5KWk1oSEdScXFLdkkwSEJta0Nqbk9ndVJ3dWpjMHJEWG1wNWdPZnN6dE80N1FwTk8vYUNON0VLTWlUK01DNVU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=fcPbSEqDQWyaLX%2B5e6gL50ZTNXlNY1A4VjcrQ1F0YktjNzNlZWY5eG9BQ09tNHB6aU5tb2tyeHp4NE9CU1BodnJXQlhHNDA0S1hlY250cmw%3D",
       "positionen": [
         {
           "code": "06.06.02.0260",
@@ -338,7 +402,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=RlRATOR1FM%2ByZ3Ukce6uVDhUeEczaFgrbFhqL2xidUtMaE80TFhCcEpkZ0VuaFUrL1F2TFA3MWxOam9HbHMzcFl0cGlxZHl3bGQ3TDZLYzY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=rV9x8CRiDMrpSxEV7nm3MkNiSWtZOXo3anR0NFVGQmllVEwyYTV6MUdIaXp3Zi9HK3cwZm5LeXpmeXYxM1ZCL3lDVk45dU9qSkhMNmg2NTg%3D",
       "positionen": [
         {
           "code": "06.03.03.0130",
@@ -365,7 +429,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=eLBzkRdjHCbFwfW4n9fAs1Jnc3dKcHZMKzczT0hIeEx5Y0k0cUhBclJ4cytkd0QwYlRLQk1wdzZmUjJnUGFGMlNJeWxvMHhLVHlwQUlrakI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=1gwVZMfOt%2FoU6Nqbajf%2Fbm10eEVWUDJJQTZsS3R0TWtpUjBRdzNkdkhMeVhWWCtneWhxU3QyRlVEZ3ZzWUlBK0ZvME5CZU1lWnY1eDc0MkQ%3D",
       "positionen": [
         {
           "code": "06.01.01.0240",
@@ -419,7 +483,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=F%2ByB2d%2BZfHm8T3CGIbb%2FAXlON003Rk81VSttUGk3b3R1dWxSS2tYN0plQldBSjZnZWpmWmJYQjFhR3lYTndXc3FOVDRXbDl3QnN3ZXZLZGw%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=vtGQ4BdVl0LYQc7%2Ftb5U9Dd4T3Fzc2kwTzhWNFdic1VZWUhDUHd6YzJNNkJPT25XTVNaYklwVDNYUmd5T04xLzVxZnRFb3NtZTNieDBJYTk%3D",
       "positionen": [
         {
           "code": "06.01.01.0010",
@@ -446,7 +510,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=rzLgsxNvehK3DotdYOZzy0FYaWwvZEx2TERsWE4zNmx5bXRkRjMwWXVTS2dnTHFwWDBiTk94Zmp2eVVXTXY5dmVIVVh2VmFDYk44L0VWMGM%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=0QOCe3UkdReDP948UuOhLjQza0JiQVlLc09wOHFtVzNOejFCR0o0djY5UlVlQmlEUUlWV3Q3WXI2ZmxCVTllOW1DVGd0UXJ6TDFDYmx2ZEU%3D",
       "positionen": [
         {
           "code": "06.04.02.0030",
@@ -473,7 +537,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=ge9FTXq5NyBy%2BGH6K8x0UzRaSGpKTHF2R3YyTXh2M1I0T2s3aDkrQmlOVUMrY3gwZ2IxN2ROYUZQSkV2RXF6VVBQSTJrajlOWVpMalE5aFc%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=aq7%2FVsZuB%2FLzBxQkaT4joTNFVHRxUmRTdHdhMUlZbjFudDlqT3I0RlRKekxPeEtIMC92cmFWMEw2QkZtcVUydnVmSUEvZXNKUmRISG5WTGw%3D",
       "positionen": [
         {
           "code": "06.03.02.0240",
@@ -500,7 +564,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=Pv5viQhkbVyfaIeLm8NF23NzR29QbXE4UzkwdjMrOEVaNEJSQ1lKM1I0R2dnOERpUTBMYWs3YVhxQ2x2d1ZhUGIwdlhHSVRDaG9ETTVRTjc%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=ZMkU5SpOUYQeJ88qmdHuUWszOWRRb0VHdUcvR0tEdXRqS241bzQwWGFleTE1QVVHSFMzcUVzNTFvUWxIVUFVMFpMRG5tMktnaXl1MXVWVW4%3D",
       "positionen": [
         {
           "code": "06.03.01.0610",
@@ -545,7 +609,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=U5Z2RtP0zJjb60vwJdpgFDFXdXZDbUUwNGxiR05peDA4VXRxTjBoa0xTdTFsNFN5SllFeGorY3k2Q1B5akRvZGdRZU5Mc3R5Q0cwVkdtdUE%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=jxtDaAiwDYns5eZDAZ2Sw3paNmJyTHR0dTNtaUNib2JXc0JsVFlpZWVqMkFSWjlxZ2RpR3IzdXdIY3h6T1ZudWQ5RmZFVGJFRXZWQjlnaVI%3D",
       "positionen": [
         {
           "code": "06.06.03.0040",
@@ -572,7 +636,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=bVVKX4ituhpriLP7V1EEZC95ZzBCeW1DZ1U1WWFFRVFXdUlzSzlDOWhkUk9LdWlMWmMyQWZvZ2JhbWV0OGdlOUtxc3cwQUsrOE5JUE8zV1o%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=ghqaYPRTyxVMJ3iC2TV7OXJlaWU4TStNWjgrQnJmK2NNOWk3SEpOa1RGQnRFT01RaVNoRUNDMytteEdmcWdXQlhxbkVCUkJlRmVESG90ZjU%3D",
       "positionen": [
         {
           "code": "06.03.04.0110",
@@ -599,7 +663,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 6,
-      "leo_url": "https://leo-pro.de/index.php?q=ZhxjbZuH%2BmCSRyzjg%2F8RPTFoRmpzZFF6RXp0SUJaUm9Wc1RtbG9BL3d1YVpSWFRSWmVnWDl6eGVxMUZPYklGNzNoY0JJTStkemYzZ245VzA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=vE145fuhDruI7Sa2CJo3kGJvVGFUTVVpQjFCdUtmWmh5NnlBRXlMNkM2L1ZzaldkWXNmcXBySjZvK2hqZTgvSnBtUEJDK1kzV0ZFb1VpV0Q%3D",
       "positionen": [
         {
           "code": "06.04.02.0030",
@@ -671,7 +735,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=O5kSJnrPCiQ5zWpcq0LJbWN4K3FjRjhHMDRlRmpidXFlYzNVYjNEWEw5TkhnZWs0YmVwRlA5Vm01dlJSbm53b0lGUFVVOWF2WXUyc2g4SXE%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=AX7F7R%2FD%2BSBk%2FuDhiDlZIkVtelhZNHlWRUZYbkkzakRvVm5IZlBEeTlrSVdmL1JWa1lJQWttcTZxU3dkUUw4bHFSS3NyQWlIOE80bHo2OUI%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -698,7 +762,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=aIW%2B12NJ7pSmrjxrR%2F2Jh3dxaitOQVNBMkhvQmxxYUo5NUdlbi8rY2xRMm03VFd0SlpOam1NSXVId0U1NG1WclhrMk1CQ2dXa3k5cXhPMG0%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=XLk1t8AwMND602yAsCflPHE3VFoxNmtlZlRPMUJyMjU3bTZpeGo0UnM4OTBCVmVhK0NxVm50ZWl6S0ppQ2haRkoyZG9vR1A0RkRRQ0FkQVg%3D",
       "positionen": [
         {
           "code": "06.03.02.0180",
@@ -734,7 +798,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=nuQ5wFOtnXcBW6eH0or0GTdvcU9ydWpiWkVnQVZaNHdTWEJUWlIxOUpQUWhXS1hRU0Y3RzRWbnRzSEJHYVBOZFJlWHdWb28zd3FRWjk3eCs%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=wyUM6L0GeKPAXSBNycET7C9yOUE3K1BtWHFselpYYWx0MzRLL2cxRi8vQUhMczArSnM2WkhNSkN3SU12WGZVdHJnOU5ZZVJiUkRQWFdYS28%3D",
       "positionen": [
         {
           "code": "06.03.03.0120",
@@ -761,7 +825,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=8PNvsQDaMXpYe5w2fGpcwjlIbWNMdVlsKzdyV3I0bzNJN0YzOCtid2FGY3EvUkNENmJiUHFlL2tIUFFYT05nZFN2L2VEZmliSW9GOUJMa0s%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=K48lp3SSPCyLiaMJipbflEErb29wRVZLcTlhQW03SUg3aE44RnJ2Wm9xcXZUcmRXR2RVcSsvNG9xOEhkVWNWMTQvRm5ONWFCT2tGMFZHcjU%3D",
       "positionen": [
         {
           "code": "06.03.04.0140",
@@ -806,7 +870,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=lzsccUe2yR8A6yBcc%2B%2B8vlFHdUJ5Y2llbStlYmRIVEZqZFp5ZzYyNFdta3ZZNHNrYUExdlRjVVFaN01sOHVobXFFSjJLbGZqc2haQUJOWWw%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=99NrvIeR8Y8QRODKOhVHxmFrVnpDN2JIeG9FZnBLWkViWVFMZ1RKalVmSS9DN2ZSWEVmMjByd2VFN2s5bjRxZUFyMWUveWhScHBwK2ZsWXI%3D",
       "positionen": [
         {
           "code": "06.08.02.0280",
@@ -842,7 +906,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=QI0mSW8mBUaPWQrElYPx81locVY1VHZHM0FFZG9SSEhZWEhMWmR6TVBXeFgwTmtITjNIenBlRHlyV0x1L2M3cXBxOWxvWXZOYURmemtUNlA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=euODeRqgPTnRiKviaLhFVHN3QXFtVm9SdnVoWGIzSFp2aW5wbTk3TkJxWkZEbVhYRWlwNVNpQ3hrSlZmek1oeFMxeGFvZ1VNcXRLWEZWR2E%3D",
       "positionen": [
         {
           "code": "06.01.02.0110",
@@ -869,7 +933,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=jNeplLdhg9cH42AFowPWNFJkU3lwQ2NwekhuZ2ZQbW9pQUg4S2VmT0ZWdkNZd1lBZFBXeFVObEt3dzlOM1JlbnB3MHViKzQyLzk0UUFZNUs%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=miEsxGdsa9Utuva%2Bdk%2F9jVJSQlVUcnFqZm1OdXZHVll5V0hhZndPdDdJSXV6N25KTDl3SFdLRHJTQ2EwUXVBZGN6VEI1dTVyOHhORHFnV00%3D",
       "positionen": [
         {
           "code": "06.03.01.0400",
@@ -914,7 +978,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 6,
-      "leo_url": "https://leo-pro.de/index.php?q=zn7UTY560xlH2yRmtyIvWlVEQnEvOXFUL1NWVHNuRUJETTdLSnd6TDdpbG0rRWRONEs0Q1BDdU04QkNyc08zSHBxU3hHdUliODdXSWRKTXk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=wnFdDL4WkVQONmn%2F%2BN2cSkJEMzByRlZBVkdkK3RJNTFSL3BBRlJzaDlIeUNIcUhHNHJ3azczVTRLT28yL0JMWTRSUi9hSFBJZ2djeklFaGk%3D",
       "positionen": [
         {
           "code": "06.04.01.0030",
@@ -986,7 +1050,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=hiP85JRwPNjAALtXXkixYXZJdWhBclZGQkNKYVJ2WmlzRjBzSzJGYUt6WXBmMFRmWGE4cDNqNnY1ZXArUmQzRmN1eHNrVEJTSEZ2U0FjN0E%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Q65%2BG2KoiCjV9kqS8v3vLnc3Y1NRQXYreGNmQkhFRG4yVUVvQmZ5TFdscHhjaVU5cFdmd0pXMkFFcVFmK1ZTRHNmVi9wUUpjRXoySUkyU0g%3D",
       "positionen": [
         {
           "code": "06.08.02.0210",
@@ -1013,7 +1077,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=JAeEXY8EHLRjmcnikHGT5kdFS2VCTUVOUnFtTWRCcSs5NkJOWkNhLzIzR2ViMXBCem9WcU1TdVFQRXArQXNVOVVJU09hS3JvUjhrOEZGclU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=ciswEnmD9RMSk2VC%2ByXGAEYrOW1QVnd6MUh0cEhZb05LZWk2dDU0VW9qYkV0MFRQaS8yNERDYytsVDhYa3pmNnRBQWxGcUtkaGp0MTliRXQ%3D",
       "positionen": [
         {
           "code": "06.06.01.0100",
@@ -1058,7 +1122,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=681PEmd9rRHZ2UvPUAOFYHc1aitaMmhJVXVsZGRTc04zRkpza2lSUGRzdWtOLzdGQmEzS0tndHlzbDRDTndHRHJkL2p2bHJncXVlTjFOU1g%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Vb8H37HAtoQ%2FDhOId0GbLG16R1ZBNFdTcXBUdjlvZ2pPMVB5NkdNQjFMM05aOGd2MzhiL2t6clA2MG8yNWZaWGRWdmdDZmFFYmNiL05nem0%3D",
       "positionen": [
         {
           "code": "06.02.01.0030",
@@ -1085,7 +1149,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=5PiZzTBuC%2BO7b%2Bs3QtrFiTNiSDFickhHZkF2T0dydkVJS09FOSsyTDc3SlRoSGhJZDQzc2EwWHIyTnRNRlptR2VFMGhNUzNJR0dtZHB2LzA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=BqHXOVWHJ7CzOQ2AezsN%2Fmx2cUhKRkpmU2pjZWp4NllnSUI4TnJOTVBlQitrOU53c2x3TFJOUEZHSUhqU1lhcVZJZGFjcThPeGZrTFp5Rk0%3D",
       "positionen": [
         {
           "code": "06.08.01.0310",
@@ -1121,7 +1185,7 @@
       "bauleiter": "Yannick Gallas",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=Dpk3vQynvzEYoCVk6C8i%2F1Rldjd2VjltNm9MK3hDNCs4RDB1V0g3L04wYklVQkRLWlZXNlRXd0lrR3J6Vk13c1F6RU9Tak1uMFpGaGxoUUo%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=4kDrdiUq5QP%2FupznljWZk29WeDh4YTF3THBHSy84MzU1UHZHVVpuQWMzUXBSQVlWbWlsSncwRnJCaThidUFzVmFvWi83alpDYXYrQ0M5YW8%3D",
       "positionen": [
         {
           "code": "06.04.01.0070",
@@ -22598,6 +22662,36 @@
       "is_archiv": true
     },
     {
+      "id": "M-LWS-84883-1",
+      "lws": "LWS-84883",
+      "address": "Eiderstraße 16a, 38120 Braunschweig",
+      "ausfuehrungsbeginn": "29.07.2026",
+      "fertigstellung": "30.07.2026",
+      "bauleiter": "Reinhard Bartsch",
+      "innendienst": "Rüdiger Funk",
+      "is_archiv": true
+    },
+    {
+      "id": "M-LWS-82469-2",
+      "lws": "LWS-82469",
+      "address": "Stettiner Straße 12, 38448 Wolfsburg",
+      "ausfuehrungsbeginn": "29.07.2026",
+      "fertigstellung": "07.08.2026",
+      "bauleiter": "Roman Bartsch",
+      "innendienst": "Rüdiger Funk",
+      "is_archiv": true
+    },
+    {
+      "id": "M-LWS-82469-3",
+      "lws": "LWS-82469",
+      "address": "Stettiner Straße 12, 38448 Wolfsburg",
+      "ausfuehrungsbeginn": "29.07.2026",
+      "fertigstellung": "07.08.2026",
+      "bauleiter": "Roman Bartsch",
+      "innendienst": "Rüdiger Funk",
+      "is_archiv": true
+    },
+    {
       "id": "M-LWS-85382-2",
       "lws": "LWS-85382",
       "address": "Berliner Straße 17, 30952 Ronnenberg",
@@ -22684,6 +22778,16 @@
       "ausfuehrungsbeginn": "31.07.2026",
       "fertigstellung": "05.08.2026",
       "bauleiter": "Andreas Brunke",
+      "innendienst": "Rüdiger Funk",
+      "is_archiv": true
+    },
+    {
+      "id": "M-LWS-82469-5",
+      "lws": "LWS-82469",
+      "address": "Stettiner Straße 12, 38448 Wolfsburg",
+      "ausfuehrungsbeginn": "03.08.2026",
+      "fertigstellung": "07.08.2026",
+      "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "is_archiv": true
     }
@@ -28387,7 +28491,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=CpkkOk3ttYct4lhhPuIgfGdHakN6U3pqdWhpc244dFRXbE53YlV1ZW0xZjYzWkdiZy9LZDcrVHFCdnBrMTFvUGFKN3UyclBiVmYrSlVYRzA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "25.01.2023"
     },
     {
       "lws": "LWS-28653",
@@ -59965,7 +60071,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=V0R4M6nu3hmk%2F3CTHPrnM0VzS3JMTDBLdW9qSGVlVDlZaVFPRm45RWxxd05hRmNvS0Uzd0k5U1JFU1lRaCtGSGN5SFBndmFrRllsMmtEOFY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-46995",
@@ -61466,7 +61574,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=PFMRW25RcdimuTGBKGjkIzcvY09kbE9VODJzbWVLellLbm9nWjJzS1FMNmFyUmplNmNNd3RJazN2cUI0alRLQncwNFUyeVVTNDI0RkQ1YXU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "09.07.2024"
     },
     {
       "lws": "LWS-47956",
@@ -74842,7 +74952,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=WMOL4pKk3CwIzOqssW%2BGs3pnOExxMy85TnJOaHF0SG5KaVdhbnRNczY2azZBdHJUbmk4ME96c1lCWnQwL253YXBEcTB3ZXhodHJ2VkVmUEE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 11176.91,
+      "leistung_geprueft": "22.09.2025"
     },
     {
       "lws": "LWS-60154",
@@ -76875,7 +76987,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=pNHN4A8cWZYoIlEX4iLv%2F1ExcVduYmtPOHVHSDJPSDlwa0NyYUpxcEs4cjZpSkozYS94R3dXbkZGMGJseUlJT3ZaWmNKUWRSbnhYUGdGcEg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 17058.88,
+      "leistung_geprueft": "23.04.2025"
     },
     {
       "lws": "LWS-63534",
@@ -81093,7 +81207,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Os2rM%2BGZ%2BKS%2B9AMSVnsv4HI2eGNXdHVEVks1YW5rWWRlWmlWMzJnRE0yUlpocEw0dE5pc1JsZ0o2S0o5QkEyOGNoc3F1RENCMTIwODd2Sko%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 12489.35,
+      "leistung_geprueft": "20.06.2025"
     },
     {
       "lws": "LWS-67146",
@@ -82822,7 +82938,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=10uZ4rGtzdxVUVu5uIRd9TVhUzJmZEFvSWN0bFJSZVhXVis4Qk0zSEhLQitHanJjWjVabjUydW5WKzI0YnJqd3crNW81bGlrNGFuOWhXRjA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 18685.96,
+      "leistung_geprueft": "18.09.2025"
     },
     {
       "lws": "LWS-68837",
@@ -84171,7 +84289,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2FVimNgLsBjzt5yJQb33yDEpoR0hMcUcwVUw4Ukt2RDQ2NjErWnJlZlF5NlFVYmJ5ZWwrU0t3Z2wrRWk2NjV2MHpxSURWWjJjMnJzeVpvTjk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 6847.41,
+      "leistung_geprueft": "01.09.2025"
     },
     {
       "lws": "LWS-70396",
@@ -84418,7 +84538,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KNw4qjoZdk17LuuWmauSZVVlYnQrMDNRQ0o4a250UmJBdFVZdDNaZmcra3VVNkJ5d0Vkd3FMQlpsK0lmd1BiVHVPeUUxcTVlZlcxTnphcmo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 790.06,
+      "leistung_geprueft": "29.09.2025"
     },
     {
       "lws": "LWS-70683",
@@ -85824,7 +85946,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Fv2kpmj8UB78DtexknwhpVo0N01FV3FZNllyby9yZk9oVldxcUt6ZHJGcnNoWnZwcCtjQzNtMFNPV0NaK1lMSlhRZXBpNnhkQ1VFZUdUZnE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-71600",
@@ -85938,7 +86062,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6S0Dms2IEJSqtwAchFHZTVdSUklIYWdYeGp5M1BNOTlWTC9YTE9WWFhtWUtWdlBwS21BZkF6Rk12SE9JRXNXK3llbE45NWJLNDl3VVZkaHU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-71381",
@@ -87857,7 +87983,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2Fzll3h%2FGKPVFriMghLo61mZuakRiTTE3Zzc3RURlamFzdFhDZlpXOVluVHlEOUY4YTlNKzFXVTIzeVFDYldRcnRaTFQvdTBKL3JoREwzSkI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 2122.57,
+      "leistung_geprueft": "17.11.2025"
     },
     {
       "lws": "LWS-73576",
@@ -89719,7 +89847,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=g0GZIB40BxWLy3TeuxnuuUlGYVJ2U3pMUU82RkYvYUZkSGlERUdwRmVBcjdRMm56cVVvN2dxNXJVbVU5UktRWXprb3d0Vks5M1Y1YllkSkc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 2086.62,
+      "leistung_geprueft": "13.10.2025"
     },
     {
       "lws": "LWS-73655",
@@ -89757,7 +89887,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=48d9cGXwhahUw1iQnxKvtE5QRE5vbkZFaUNZWUI5OTNoY1V5emlkRzhyMlFjWERzTS9lcEU2VEZrQjVycjV3VC80dlAxcWVBTWNoMElERGg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 11952.52,
+      "leistung_geprueft": "06.03.2026"
     },
     {
       "lws": "LWS-73617",
@@ -91942,7 +92074,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=F%2FfEVFAI5YTn8Xbgw1VELGNHdWtqNzA2UmtYWWJudmdtK2JMSDdtbDk2Wmd0bTVQZlBLNXVkWVJuZkdJVFNXaEVVRGlERVB6SGtvVk15ajE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-76123",
@@ -92056,7 +92190,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=t5mc3AkCgq8uWMSsbXvmaGhvOXA0L3ZTTmZNS0RiMERTVFBNWjIvWFQxcTRoU0FXOEZ0aGhaYlhFa2t6cmV2UXpZUmJZRmM5SDAwNU9MM0I%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 2469.02,
+      "leistung_geprueft": "07.11.2025"
     },
     {
       "lws": "LWS-76279",
@@ -93861,7 +93997,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qv4hP0C%2BfUCH4iGoMT46b1ZkWE0wT3VvWjVpd3k2TFdGTjUrUTNZUFh2L1ZjQVVPdlBsVTNqSG9SMkVPSFhGVDFJSjd6Nm55OEc2a1N0ejg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-77575",
@@ -94260,7 +94398,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=uu%2F5Xwe03lwGRuh%2FjVMlg1NiZGJRTXRLSzJSb3RodThaUk5wdFpXajlBVzNoREJMZ3FTOXNKSHpwY1ZWZGFTQUN4U0tObFVJZFM3MWFDank%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 16776.42,
+      "leistung_geprueft": "05.02.2026"
     },
     {
       "lws": "LWS-77649",
@@ -94393,7 +94533,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=0VmY%2FG%2FHkmZ0gMeFIkJZZzdGVGU3WUFhVXhrN2ZHMzBXWk5sT0ZlQzd4RHN1MHZtNkRwanFJeTRQOUhsdnJnc3U0TTUzNjRjSkFFMHBOT2Q%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "23.12.2025"
     },
     {
       "lws": "LWS-77693",
@@ -94602,7 +94744,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=gJzqzFXPfJWh4%2FxfjLVEd3F3S0daREdobTMxOFpGajRJU2pDenc1N2lKaDRZM0RtNnZiVk8vYU1DYXBpblQrWkNWMU15OFkydERUTVBxME0%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 12852.93,
+      "leistung_geprueft": "19.12.2025"
     },
     {
       "lws": "LWS-77803",
@@ -95894,7 +96038,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=zL9JVEaM1uV5XDefC%2BsomGJ4LzR5Y0xPY3VLM2ZoV1FPc3hkajMrRWZ5T2Q3YmEvVytSbzljWDJsd3pobDAzejhhREpIa0wxTzJYNE1Kb04%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 9357.6,
+      "leistung_geprueft": "13.02.2026"
     },
     {
       "lws": "LWS-78233",
@@ -96160,7 +96306,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2FiR2ozu1hbar2feiUHGRBTBWZGIxWm80QjFYMThrUTd5TWdlbFB5cG1VSEIxekltK2pVSWlNRjAyRnI3RmRvN2xXaXAwckd2elVZS2t0M1Y%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-79117",
@@ -96711,7 +96859,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=QyQdpvnzMZ3LNuZwhO9YK3FSOXdiTjd3Ykl4Sll2Y2dYY0U3dEFNY2xnVkNmd1BFWDFWUW5tWlJZR2lMYWtTTEkxdkhNZXVZeFZGOFEveGQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-79349",
@@ -96863,7 +97013,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=nfc1LfeVNmnEnNJdisHeiENnWm0zay8yQnFTd2tyUnN4cmlXTUV4d1F6d0UvbXpudHVveFFTQ2tzcGxSWm1BVVorS1E1dFdObkNOOVprR0c%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-75133",
@@ -96986,7 +97138,7 @@
       "bauleiter": "Yannick Gallas",
       "start": "10.12.2025",
       "ende": "29.01.2026",
-      "amount": null,
+      "amount": -1239.09,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -96996,7 +97148,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=H7tvhx4DCNyrHYt%2BJmhAC3lCd0c4UTEraWwwZ3ZROGNuZjVwYjRMQ3Z1RmNMbE5rMTFwd3Ftclh3a3VzbHJYcDhaTjljdWNmS291dmRUQ08%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 24171.76,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-79520",
@@ -97642,7 +97796,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=unsHNracVfeBnHHjgqdj90psRURWcGF5UTVjbHlPUHZTaExXU1FGdkczT296MjZXM0JDTXoyKzBacnNPTU03d1RJcUx6VnRTUG9UVTFoZlc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-80221",
@@ -97699,7 +97855,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=cqPc7D57Qq3ShzfTW0NpM2lKT0dEZFNkamI5d09kbHI3UTdFSTBlQ3F0bHFXWWlQV0RjeW1RUFZUMUVFR2Nja1pNZ2ZxV2ZXaks1R0NkSjU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 12012.04,
+      "leistung_geprueft": "09.04.2026"
     },
     {
       "lws": "LWS-80153",
@@ -98630,7 +98788,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=FF4VLWJoc%2BMGbrga4KoggHZGWGYrM2dSYzhJS1QzWGU2SHRkZytSTlcyOHVRMmZOL0tEUVpTNTE2TDNYQUlNRHJOeUtxYzVkQzh2WU1HbW8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": true
+      "is_ghost": true,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-80581",
@@ -98782,7 +98942,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=R0pnIXRrWD5MQjW5OKjmtzJ1bGl1V0Q2cGdpeEJWdWhXTHFISTdoS2lEMGtZcmJQZ0F0cHkvRUs5cjlGcUY4MmJEM2loZ1dObHd1M1BaaFM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 8365.23,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-80212",
@@ -99181,7 +99343,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=hpKedKalrIIQjJPJSocbZGlSYTlYUlNFME9xa2xmNW9iWGZ4YTU3elpBcTc5QkhHR1UwOVNoNmNLQU5TNk1UU0FUV2h3R3l2NXYzZ1hTOVQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 22095.51,
+      "leistung_geprueft": "18.06.2026"
     },
     {
       "lws": "LWS-81402",
@@ -99219,7 +99383,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=mF7YvbVzNmzMrVkB8noj5nRsMEtrZkxlL1pYaWJsRi96ZVdnVy8zSlhDcnNEc1JQV2ZId1ROY2U5anN5Vnhib1BMZVlmTzJkc2drMVB6Ny8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 22388.76,
+      "leistung_geprueft": "08.05.2026"
     },
     {
       "lws": "LWS-81464",
@@ -99295,7 +99461,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=077KPjwS4tjiBkSkEZ6u3zV1S1dwN2c3Si9OSERSazBrTDFJZDVWS3R3c2FvbnQvUDMzeVQwTnUwSVV0MEYwajFEUmgxV2NsNVVPV0pENGQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 17705.04,
+      "leistung_geprueft": "12.06.2026"
     },
     {
       "lws": "LWS-81548",
@@ -99352,7 +99520,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=1QrfvwCIZu8L8Tuk%2BNTqgDRNaEhjaDZ3Z0RVdWlSWmhMc054Q0JkVFY0OWlWalZDOVRlVXc3VzAwRlNtSm1nZEpwb2FxMUpvMkNORWJ2eGI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-81672",
@@ -100055,7 +100225,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=8q7iB3s463NxwIMPJ0c0rytIZWVqYXRyckIxZkFNNDZYcnZHYkx2TC9adml4b3JLZmQzaVBxOXY3alFwZVVmOUx5L2g0YklJTzRQbkVFN1c%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-82227",
@@ -100548,8 +100720,10 @@
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=LWZVmInBXjTqwFdo7dhkmUhDdGR5WjNGSkEzK01pYTNrOGRhMzRsMnZVNjl2b1h1aU45K1oraU0zaVVXaXVhSFpIYWF5Y0xNemZKU293VEc%3D",
       "has_mangel": false,
-      "archiv_mangel_count": 2,
-      "is_ghost": false
+      "archiv_mangel_count": 5,
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "31.07.2026"
     },
     {
       "lws": "LWS-82472",
@@ -101043,7 +101217,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6ZtGHobfuLFlFL8RAle2Gms3SklvTDhXSjBtbjVnQVk5TEVpSzB3UkRhN1RIaDFZYjdKYVJrS0dMb0JIcEJQNkd6eUh3a01MdVA0YzlmYTM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-82992",
@@ -101062,7 +101238,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=w5BkfloFrYaZ%2FB6uAWe8i3FVK2xURFI1Q3R0VmVTOUd5Y0JpYzF2SUZybTNNOXFTbkRxNXN0ajdYaVl2ZkdmUGpNS2MxdHNzWmJhTDhxQ1M%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 7604.72,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-82993",
@@ -101081,7 +101259,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=hWlrgTFhKsEOFK%2FZ%2Fdn22XhNdCtYdGFVU2RROXhCTVY4cldjbjdiTUNxNVk3eFZTOFBBODhQRlRJR2NqWUcxUldPTi9OV1FJWXhZTGJCL0Y%3D",
       "has_mangel": true,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 13103.14,
+      "leistung_geprueft": "03.07.2026"
     },
     {
       "lws": "LWS-82995",
@@ -101518,7 +101698,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=rzWMXglIFEahkPcF58UgpjRLTnE3a1dJWStMdGlyTnNEaEN5R056aXJUOXc2NHMxT3IyZitHYkh0OEM1QzZsQ2tpcUtjQkUvTjh4bFpoR2U%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-83039",
@@ -101708,7 +101890,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=x7n5kbvCuhsybVQdYRCeZThRYzBHWWdWMklwQkw5K0ZZQ2ZLTnBmK1N5SEVxZnVHVGhLMyt2eTlKVEZHdStRbFFQN3hJM2RvdkhZK3hxcFM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-83377",
@@ -102715,7 +102899,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=tFHsHJM1Z1AfFrCxWFP85WUxSEd0TXJDNUlpcHdtNlZKMUl6RkxkUlU5T0t2TnJmQ0dZVkZ3enpVNCtBczNWRFoxY1ovOVM3aFRyZGJvSjc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-83976",
@@ -102848,7 +103034,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xIvtwMZ%2BhPVBeH3%2FYacP9ExXMzdHS2tVeC9DbFArRUhvNEFmNkNLcUVkOUlHTExSMkI0V3dUazFOWTB4ZnN0dkxLMmp5NVVDeVlNTDNYbW0%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 7137.34,
+      "leistung_geprueft": "08.05.2026"
     },
     {
       "lws": "LWS-84115",
@@ -103076,7 +103264,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=ehYx9ThzxTLqk7P6FnUSSjZiQU0vYXZIRTN6ZjlaVmxEVm9iaGNuMktIUEwwSE9DS00yQmVsdEdiVlFZV3Fva3pOb0w3MGZsa3JhWUdUbXM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 17325.41,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84100",
@@ -103228,7 +103418,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=UT8RVrusit5Hkm9pAyks1mZ5ZEw3NWdKa1BFMTJVK0dycTh0Sjk5azZ3WTdDaVhTbElLTk1VckRGVWZYa3VvKzRKaGpKSVN2ZUMwTmtoVm4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84225",
@@ -103836,7 +104028,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=oIopGwo7LL48A0Jo%2BYNwPEMxUW03R3BpTlVWci9MWFJjRzc1eVpWZTNmaFpPcDN0M2FrV1ZjYjRCUnY3VTB5MXRjNHdnaUpycWZHWk00TTE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84553",
@@ -104007,7 +104201,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=IXjbO%2FPrNZWsBS6c8IrgdXlieVEvN25icHZVQTNMSzRSazRyRWRDTENxS0doU0dZamY2dE1UaExJSlgrMmpUZk9XRk9BRklGWXU0ZjlsTmM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 27638.04,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84364",
@@ -104121,7 +104317,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=XFvXJChmbxsYC69nmuHVLGZVVEUvK3lDR1ZWV0Z2Y2dnbGhORlRRYktBdHpuQWNYVDRnVnV2NmluQUJQWXJnWjJFWWhJa1k5bHR3WndGUEs%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 11608.89,
+      "leistung_geprueft": "26.06.2026"
     },
     {
       "lws": "LWS-84864",
@@ -104235,7 +104433,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=0kRjFNhVpFJhHQZRvoJBR0h4ZHN6QjczTy9LUUxzcUthYUcvNmZTVEI4V0tIU2h6VkRhMGQzYm9kaGd3eGVxb29iaVBJSlIzNWdIWVhXLzE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-83036",
@@ -104329,8 +104529,10 @@
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=JrgKJU5n7f17cq9dlk8koWNiSmxHNThZTlBhTzVWWkEzVTdSVThBem9BV2FISko2ZjhVcXY4Y1Bia2lLQ1NaNWIxM0IwV0FGcGhmMTFJQmE%3D",
       "has_mangel": false,
-      "archiv_mangel_count": 0,
-      "is_ghost": false
+      "archiv_mangel_count": 1,
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "31.07.2026"
     },
     {
       "lws": "LWS-84353",
@@ -104558,7 +104760,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=hFZZvXQUBeJdAY1cwM%2BzfC8zRGx0eTF5bWtaL3I0WWNmaFJIc2t1YWhLNjdtZmJzb3h3SFpTN1hLRHBuQnR0R0lRSVhtalVleE1oTE5JTlk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85022",
@@ -104596,7 +104800,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=XLjME0z4EbU8mRFKjU59%2FHRubUZveU43Yis5MkpHbGVxcWdsR0kxdmZUbnk3U1lDdzlFTy9sMldzbWNNODFiNmd4NTdIQWwwSFptWXQ0SDk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 11227.3,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85027",
@@ -104615,7 +104821,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=GTogrkIVxHxupGLi%2FLoWMy8yRThmK1lSL2EwUENIN2Y3L0dZUG1Ucmp0VTd4OXNyVzB3RDdqOHViekFUWEsrUTJtcWN5U3RBR3c3cjEzSTA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 9183.97,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85034",
@@ -104634,7 +104842,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qFVQ3vbnIU51nG2pmpDSgjJaa25vMUd4emNNSTk3OW5UbHZrRlcwN0Q1ZXBjRlZmNDF3NUNNUmdVQm9EN0p2SXVVZlYxRVFyODlNV3hqNHI%3D",
       "has_mangel": true,
       "archiv_mangel_count": 3,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 21982.73,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85028",
@@ -104710,7 +104920,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=QE5XMTbNegU3LKNWmQG5ODJ3Y1R2MStNOEMrNHVCSWtKM3E0b2Q5Slp3U0JmSTJaS3ZNY0tub0MzSUpkMEZJMjY1cDVndjRxYzQySGRyZVc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 23631.57,
+      "leistung_geprueft": "03.07.2026"
     },
     {
       "lws": "LWS-85003",
@@ -105071,7 +105283,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=g7O8Zjgr4kRrxS%2BOC6aWm090TFdSeGdTck5kV2Y2QXg0MCtYQWJEWm1VdENlY2JZRS9pQjdjblhxUXJJWlFqNThOVUZzQU53eEU5bzhLeEc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85280",
@@ -105109,7 +105323,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=HA27Vbm4k8CBsnxyly67mk5NSnBlcVNlTC9xcGxRVE5OWmF0OVd5QmpOVmVSWVdtMUdQaUUxMFowMkZDbjA3RzlrZ09OUU1sVDYwbmgrV00%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84817",
@@ -105166,7 +105382,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Aqi1EAHQZRN5HsLJLZj3CXp4NDA5S2wwSmZFQlNTdENBeE9xVTgwZHdqaGNxeHdLb0pzdkxTTUlOaTVzQlhPNXF3ZTlaOXVFWnZ4UzBEb2o%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85224",
@@ -105223,7 +105441,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=uq4%2FrqLvuX5YYOAKEggotlM5dTNCNkZSZUxQY2hOSnRXOXlwdHByTExNVytVN0VJbkNLYktJN1huTUcxdWRNcENRTVN3dTB5bUZRZmhaY1c%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85382",
@@ -105299,7 +105519,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=fanGqZo5CrtUmk4DHpUEpnhHTUNaY1VBei9OWHpEMUdkc1pTK2RoMUJrTTMwM3F5VTdzZXI5bUZOeEh5TnNJb09TZVI4ZE15YTBsOHhlaFA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85441",
@@ -105337,7 +105559,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=srJEmgoFfiRGLbGNLhGEJHp1YVE3SUwzV0MrZ2xoRkZ0VVorZTlvWlBpVU95ZGdnOFI0dzgvTFBHcFRoaUg2K29lZWpqWVZPWUtRVFZEaG4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85500",
@@ -105451,7 +105675,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Dk1oIvNjBtChWsJOaWPY%2BWhRYTVKNlkrdnpQSFN6T0FoMkVkL293MWdCdVhWa3hNajluVXZTYkRCTjlvK21CYkhhVDMvSnBmYXN2U2x6eXk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85521",
@@ -105489,7 +105715,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=OU4M9f5m2gtzy06lR4NlCDFqVndnQ2tlZVhvQTFpNFhPVkFhZGFhanFLa0JRN3g2eDczRnBUN0M1elcvWnZ3Yk5YdEJvRi9KOXdpK3dmTXU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85689",
@@ -105527,7 +105755,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=4SAbSj8KoBE8zlmlkQh7f01xNjJ4RGJ6czA4di82dUZ6bDdPbmp1bkROcDdXc2RwS091OWplQ1pQRjlHU25oYjY0SXBHZGx5enRrTXAxaVk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85677",
@@ -105603,7 +105833,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=e4a4sNZxkAkeHBXUeNPTE0hsQXRobkpqM0hWZ2pwckVzTllWODZKamtGSWFwazY2NEtFZkEyRVRrck45TUlDcjBpQXNTRC9zbTZmeExFaVM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85744",
@@ -105622,7 +105854,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=9fuif3PwjjGPKjelGltgZ1hJT3c3SXB3OTNKL1lUVVduTGtFR1d3elI1cW9UVml5Ty84Z3VJMUZSMk5sL0FwMzZaRmpTN2pyYi8zSS9qd3Y%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85750",
@@ -105793,7 +106027,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=kQQNGOyKCW9Ep4U%2FhYCJTEM3V1BTLzRTcTFGVDBVV0pqZXlRcTE5TTlkVDQzVUpvWkRKMHRidkVZRWhvNzgyRlJNUDU5YWd1REplVzYwKzE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85498",
@@ -105831,7 +106067,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Ec%2F9MD1Z5oRsvmTUkuWzBXZTc3h6UWRmL3Q5bDg0SUdxTktrcnBNRFk4bG9WNjh6MTV3azVXTUFONXQwNGxhL2crc2VnN0owUmlMa1FHUkI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85873",
@@ -105907,7 +106145,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=V%2BtGsVLGBmln8VosPJ9KxnkzZnB3YnI5QTBvSnJhNU55NUlKc3Ixa0t0OXpXZ1dodDgxLzFiUTFmSTNRQXdpQlUyK3hqTktudTZKVFc3a3k%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85513",
@@ -105945,7 +106185,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=kkwjTabq6%2FVJ04GxA2M0xk9BaXdLUWJ1V2VxbjI3UmNDV0NnZm9ONlVXQkczbkxRSlY5ankwNDQ1UjJ6ajgrTGFBbjZIUXFJblZPVHJ5UWU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85973",
@@ -105964,7 +106206,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=MiVfB%2BbhG8jBArHmCVUXyTBQbDVLcXJDUzY0RzlZZDRKTWI3aWxhejlTUlpVNWozTG8wTDJneU9GRm85YUZLeGZtOVE3VnlnM3hseTM1bkU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86056",
@@ -105983,7 +106227,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=09TeM%2BLIjmp5ck4fyQkOm1VNNU1DVkVpOVVDSlhTWWsvaVMwWm5BdnZjcGZsR0ZpWkFHay9VT213d2JEOC9nNDM0OWRUU21WUWNOVU1qdUE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86136",
@@ -106002,7 +106248,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=G4YtgXxS4InP6r6wdG1HYm9BM05tdVluWE42REJtTXZzVXpEeWxDN05uZkhHUlBHNWxqeFdNQzlTaGhZOFZ6MTNFQWFlN1AzUzFjMFFVM3c%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86137",
@@ -106135,7 +106383,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=hSXt4IjniqQKbqmYZj01TVgreU5vbmlSV3J1cVZVRWVsbGRjR1h4dDNJc0xWaFBOZHJwcit3STE4WG4wOXJlRkkxZ2laeTY5REJleWhPbnI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86054",
@@ -106211,7 +106461,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=00mj%2BQ06CR1zR1jq3A311VljenJIakRJbWc0VW9zVXF1b0hRaDNXS1d6Ri9OcS9YL2x5bndtQXlyWW5PbGh4TTJ5Z1JIZ2N0US9tV2d5YmI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 8535.01,
+      "leistung_geprueft": "25.07.2026"
     },
     {
       "lws": "LWS-86258",
@@ -106230,7 +106482,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=2TyandkLL7AiWfGrVB5jHis1cFpnNkdhM2p1Z3YxM3VveDhGNk5DZGpnMEhSbVNGNFY3U2lMNndkRXJWQ0ZWNkpMV1BMVldUenJkOUIzYWg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-85436",
@@ -106287,7 +106541,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=uj6E%2BApDgcx6fph10XkxrGNYYTh0WC83aGZaTWM5SDJHVU9QamFuZ090OFErYVB5NzFmaHFXVnBjTHZIWDl0WXg0Vkc4QUp3SEh1dEdJcW4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86357",
@@ -106325,7 +106581,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=VL%2B3Buucs4Ca4gZ0mbAVanFVWng0ZUkyTFpjNHBZUnFwV0FrZ053RzYxa2VMQzRiQUsvaWhsTFowYkJiYitNU3VLNmI1VkYwSm9zekJjYno%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86313",
@@ -106344,7 +106602,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=beq%2B4liFGAe4hKmWs2hHQXA5WUdzUUhyaUs4YVYzbXVBbjJDWUpaZHhNaHlDL3l2Z2diOUh4ZXFESDJNbW8waXlGZEh6WXVNaVFEMXRyeFM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86320",
@@ -106363,7 +106623,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Yqg5Qs9NAlQ%2B4tvadT8u8UdkU2JrOE5DaFBpTG96bTVqRkE1TVhoSk55amx5eERaNzVJbjhMZnlPbW5HT01qZnZWaFlWVzdvTjBlVjVnTHc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86378",
@@ -106420,7 +106682,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6Fx85XpR90HvMBLA4GemI3U4UHFWQkZ3eEd4dkY1MHNCcllhN1Rxem5aNDdWakJmTFBGRE9HYkVpZUFsczVlenNFWThkbkdnTzBqbjBRaTk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86347",
@@ -106439,7 +106703,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=OhELVWIqwzTa0pu7x1MWxmo0Nm1QYy9GcnBPd3U5Z0NOZzYwdSsrYkdxQlFpdmJaUEFidFY3MDFkR3FDMVFWOTFxM1pyL2dFdTFWdDFoaU8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86358",
@@ -106477,7 +106743,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=csIzR2NUEV7xt5C7Pru%2FRGZYNDZaM0RwOUt1bUpHaUtTL1ZyTStjQ0ZvczFZYTJlbndZMWJFc1ZsNkZMSjVKaVhGbDRkMVN2bVBGdFhrUXk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86377",
@@ -106667,7 +106935,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=zRaolP5cuEpO7vV9eXIWJ3FrcjBHaktpUTU5UTFsaHRSOEN2VWZHMUkvRFVNUUIxS0dpOVJjcitaQXgwRnc0MG9ZbmxXblk1Ym1QSng5WGc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 1,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 3603.64,
+      "leistung_geprueft": "26.06.2026"
     },
     {
       "lws": "LWS-86189",
@@ -106686,7 +106956,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=onAICQ%2BujzNu6QdR87qO3255em9zRUQybCtvWm9raEo3ZklVODcwS3RnZ212eW1WQUtMTFJyUkVyZGlTUERuQmdDNUtmZi9XaUJlQ2t2OUI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86548",
@@ -106724,7 +106996,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=d0FZDKnrmnNauwDHlE0M129rWjdWNnhsYjlsbzdHVXZwelFxcFRLWjBNL05NUDlCNVRlTzlFNTlWSERtcE5BcGl1TytXUTZxVEkxaHZ3WFI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86489",
@@ -106895,7 +107169,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=gpK6ZYKVCrXgwvbtzi41yXVSTUMwb0wvUlNjVVh4WXIxWXk0UGVDaG1pVmkxQUNIczhzSmhiLzBQZjlHczg4OHc3U2ViQjFHbVlEaXdiYnU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86557",
@@ -106914,7 +107190,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=gs0fNu3OkQBmG06aCjKwUDZEcGRGaXdoRHRVbkpqclBob0QvOE1FNUJRTFpVaGJxN3UvcE9zelhLMWFKak4wcklaT1Q5bHVLaGNKNk1hZTE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86558",
@@ -106933,7 +107211,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=oU6F3XBwKRVidIsIgXT7Bm92NTZkUlRSdUpkSHZNNWlYSjdRYWJKaUNOdEdqWXM2V0JZdzEvMXBUM1dwZmVCRGpBdWVtckgzTXBycjNYeks%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86619",
@@ -107028,7 +107308,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=eZW6hhAVfm6cJCRMYu3nJ09SM2psZk5sZVRHbnRhRWd6cUxnOTVZaXNqZlNhY0h0Q2ovZTBqSmh4WlFrMEdIQ2Z3bU1vdWQrQjZ1WXBnKzg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86593",
@@ -107047,7 +107329,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=AbYYbhDQsPJ7Mow75GQujVpZZnl2QlRwUHgrampNSkR4VE15WFp2VVFBL09yMWI5cEZLOFZ0Z0pwV3ZZaEE4VDJ3Yko2Qlc3UWw0bTBUV0E%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86701",
@@ -107066,7 +107350,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=UFLHa5GzzYCSirC3Ao0SkjdhRXdDNEVaaW10VlhCeDlCNnVpaUEwbG9lMFB1K1RoemVmUnFtSWhBeC9qMlJxcE9NUGZWalZhMnN0YVBmMWg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86723",
@@ -107199,7 +107485,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=XnpV8HTVxDPIjoqj44Qd%2BXV3VU01OTM5WThIMUxVZkVVTnFVakRmdjB4eHhhUzJoeGVhZGpiWlRIM2xYOFJpaHo4K3lEV1VCZXZUVHQ1NSs%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86724",
@@ -107256,7 +107544,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=nCrkbf1enZFfQmNdygRg5jRMNEZIdlhlMDNLRjErOHozMWJCN1FONGYzb3F0YUZCRnJxMnNJbmk1WWxpSFNpNjhJaFZkZFFocnpOeFJvVjE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86881",
@@ -107294,7 +107584,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=iNMJgNSOWpBRwDDWxPpn2zhXWWgydm8yZXdKV05xam5ET29IWXRjQWpsT085QVRYTHBaM0ZTNlZNRjVxT2NabGxNaWlJMjVDL2xwTm1mYmM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86888",
@@ -107313,7 +107605,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xx3HM%2FS%2BxVEmpXkVkVdHVXJ3Y3VoODIzUXVERmNJdE9wbUZ3UW0wVUYrak44VHdteWUzQmVqSTFGaHpXVHFVRzVSRVhCeXZKRmJrRFppTFA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86885",
@@ -107332,7 +107626,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xjWBggEz1jlZFp3zEWKzEEJjRktmc3lnREgzQ2dGUFg4SEorVFVxSTk0SldEZFM5cVgvMVllNzJzSjM2Tjh3QWhKVGdLU3RpS3grNlZuRkk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86883",
@@ -107560,7 +107856,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=UwMLjn6mZ%2F9SJC71FSPIKTllajIrUGx1TU1jckR3dVI2RFNpR2huV3piRTFSTGQ1cThIYVVKNDU0c3RsYTMxMUdCVnQyQSt0bEgvMFJHbnE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86957",
@@ -107598,7 +107896,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=HXeQ1NiZsZNQh8l7yCTDoXFqcGhWTmdaaDlBcDlFdFhINTVwQSswdEJtWFFvbTFYd3U0TXcxYkUzbnVuZ0srVDJXUnhYaEhxYlBlVXJaajc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": "31.07.2026"
     },
     {
       "lws": "LWS-86706",
@@ -107636,7 +107936,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=sU63%2F1%2F7swjnc09TytQC63o1NTJxRk1pTFhKaXM2WEpEd1JqeTVRWCtPS3dHNDQzU3FJdGZpbU1TZGthMXBCM2pWTi9sNUcrQXVwUm5iVGE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86962",
@@ -107674,7 +107976,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=PXvLV%2F46WWugKRSwyQK%2By0NVc1ZBMDJzRmlCdnZXY3REbWZsMVlsdGM1ZlZXYkNrU1FVZFdNdi9uVGVKR0VVOUIrczJVM1EzZm5zbytZV1I%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86963",
@@ -107788,7 +108092,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6Wvt9eJrLLKq2ejDh0yGlXhzZDZBc3U5ZXFEQ0EvUjhWZ2hkQ2RJeVhRc2tBdXFyaVpnMXhRWVYyOTNCVU1sVkxmR1liMGEvQUhDQ2hrODM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86956",
@@ -107807,7 +108113,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=5NU%2Fhb3DELfc%2FCDaUaqx3WxqTENWc0JkM3pjQnRlcHRnblFkdXpiQ2lML2lUNHlZS2pxai8rZTIwQUFqZTdFbWFXbURpTm92SldQTTdWSXM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-83593",
@@ -107826,7 +108134,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=QtKgrGhB4BeHGcbwTyeJ%2BmNDS2lQcktlQ01nbHFENXhWR3VXcDdlaFYrYXJwbHUwVFlSajc1REtnZUQ5UFJleFEvUHZFRHgwUHFybmZudm0%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84121",
@@ -107902,7 +108212,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=5QYZmSTGAyphNapAXU46wWlvRWxlZFRRUHdod0FWVEJpcWdoQ2liWmdiZXBnaUIzdzV6cld6NHBrcUxudlg5UmpneUgrZFcyQVlpRGNBTnM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87067",
@@ -107921,7 +108233,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=NbQQ0GjC1suTyzBkChwvKTBwdUFwQkJaR2tRM3RaejhLcTF3TEw0aEZ4QmRIZmkzQ2FOV043Q2RHR0I1MjNFZlJCNGtxQUpPZzJLRDRIMnA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86491",
@@ -107940,7 +108254,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=dJQ3QPesL9FijviD3hhshEQ0dVVzeWx0Y1dyVVdZc0tLL3ZMOS9XUEdKR2QycEMyeHhlVW12MXNNOXRjcTg5YkVneDcxc3UyMGFLeGw2WSs%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 844.86,
+      "leistung_geprueft": "31.07.2026"
     },
     {
       "lws": "LWS-86992",
@@ -107959,7 +108275,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=2ra5NPEKOCNzNCtMJJnMNWNqTzZJM2txUVgxdHFwcGoySTZLSGZpSzdQMEVMbXhhNDgzT2IzaFo5R2RneHUxekZPM01MVWt3VGs3MkNHKzQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87083",
@@ -107978,7 +108296,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=hGQQuSMSZoJSqUonq6hTAlg0bkltWFozakhWek91WEhwWGcyVmF2cUZFWGM0SUNxbnErS0FmbHgvTVcrenVMODVaeVI5VmI2cjk0RlZPYzg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87184",
@@ -108092,7 +108412,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=rvF1ODKQk5tMtRaAkxhykXFXblFIdjI5NmROVHZhb1Z6NWxuMnNFM1hNVjQ4VXF5Tk1vaGJvcUtqRUVkcXllSmNOY2VyTkF4cUVCVjBTMFk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87189",
@@ -108111,7 +108433,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2FSzFjIOBLtiZUuuRyNzLwXNOZVc0U3lLclNWZW9VYXdjRngxTG0rOW5YcXN4NXFuM2JYUFJINUY3d0dQWTFtWHFPRnFNbHdIOVJPc3RjUXc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87191",
@@ -108130,7 +108454,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qf2zO23r58X0QPJxr7JxuEgrK0JvdzJhdE00OXVKNFl4Q3hDaGRPUlJudExhalZDSzJDWUJiSVlPRHkxWWdwaE81VUxBMFhPSytrdUJSazY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87192",
@@ -108168,7 +108494,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Y2Ha6MRIUikH%2FTD5yErE8mJzcUJjMHg1cC9tMllXajlZZFViZXFTWkJuaVJhMTNhT2c2cWNUOVFRdllpQ29mTnd5MXVjcG1rbkhmdjV4UmE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87193",
@@ -108187,7 +108515,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=DJKrxKcRLGogtWF01jPQfzl2ZGVxRzZHMzB1ZHJVdFB1ajJhQ3k0V1dQRTgyTXNRSWJrc1NUZktTWTJTTDMrUG9ucUNwWlcyZ25jUTJzUy8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87194",
@@ -108206,7 +108536,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=BsMRIwuBcrO0HHY6p5KO1jV0bDVsQnVRN0l4S3kxNC96bFlyQ2l4a3QxRzJQUkF3SU5CNmR0b3RWcU0vb1JSYndlUis5YWZGVFlZUmdwY08%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87242",
@@ -108225,7 +108557,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=9lSr3si57KJ1UHFJPKjsbGlxM2hYUVgxY1NUL3oxMTdodlFJQTdyUS9QUFF6aTkyVERib29xTnJZS0tMQjZJODRwclRXRkp2WDBrMFFDL2M%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87244",
@@ -108244,7 +108578,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=8K5bFUh%2BXHXxLuyh1MhSoFFFUDNjSkNVTXo1Rm42QXUzRkVicjhCSTBnRnhIb09lYXhrT3pNZUY0YVdLNGtGK2NqSnVVMFU4NkVUSkgrRlE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87066",
@@ -108263,7 +108599,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=ptiGCSPp%2Fnqq7u4jsWC4Rzl3VGpwNWE5NkhvR1c1QWQ4aTV4ZmdOTldjTVNsS1VUbGNhd2xhWTJjelhyclh5YXJST1JvQ2RkZ2FLSVIyMW4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87197",
@@ -108282,7 +108620,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=u0epznkmgheaQRxHQzwRXTVZTm9TSmJTaDA1Skhla3Q0dE1Pa1hpM0FnUEFqeTNZeGZrOGpyYmJRUWU3dG93OW9WSVVvUmFuS3JMSVVmQXU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87199",
@@ -108301,7 +108641,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KXQ5QL2quM0Uuj7dACS%2BWTJNOU1HZTEwYzVFd1RkaUxIVFMxMk8yTG0xNit3c0FCR0xvMCtGMGIybGNKbXNZM1QzUGV6bGtZd1NzNXd3V3I%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87245",
@@ -108339,7 +108681,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2Fd%2BwLhGZQDT5omevFcjUq3RyZjUxaHoybkx6S1lQc3hOem5xWnRtbDNWb00zUzlJdXBmZGRZbmJCbjN2aW1WbkFBQmc2ZGNKbHNTQVZVK20%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87185",
@@ -108358,7 +108702,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=YlV6qLxy0Ognihb18yyjJWpwTTdZd2svN1hwRE8yQ3JsN0ttZmU2UnZQRVVNejBzZSt5NmFKb211OCtsUlhDRlZDbkc4NGF1S1U4S3ZkRno%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87282",
@@ -108434,7 +108780,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=363WKbzF9SEAJBvljY1iNmp4cEQ0Q2g1dHUxMEx6RXVtN3h4Z2xubWh1RVZIdjlyY21oM0k1MXFHalRuaDVIU3pWbCtySkk2ZitjRENKWTE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87347",
@@ -108453,7 +108801,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KkW88ynjr2LaGF4mQQloXFZzSmhGMVJUVk52SkcvNE8zRVVsM0gwbnJHYlE4bTJGU2NsaXhQeTFDNXgzUnFJVGsxTnAwdDFnWXo1Vjl2UHY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87252",
@@ -108472,7 +108822,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=bIkn%2BS%2FA2ivy8BMSmQ6m8jBVZlZkcFZSRzdHa0RwTldYRUh2WDNGdm1kd09BandUeTZSWDB5c2xldVJQaERqajdOSU82UzljOUlONkwvWDU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87453",
@@ -108491,7 +108843,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=AzLUBATLnSofxZrTvj1nlGdXTDZqbDlVRTR5aDdGUkM2cDJleSt2SE01S0hyVUthUkNHUHRhQldNdGtKdnhsSXNwMkRQMWIvSUQ2anRkTUI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87463",
@@ -108510,7 +108864,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=9%2BESOPmEqoTsEspP%2Bnve2lpKUEc5VGo1WWRrRjk0QlFweWdLMFhhVm1sNkIydjFsa0I5UUhhRmJqN01iRFJsbnN3K0l5YTFYWjZwb0dPa00%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87283",
@@ -108529,7 +108885,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=d625Apq5wy3753cwXaQ4LG5hcUJGK1c4dTI1UTRYS2x1aHM3QWJzS1dQUUd3ZDNFOVRPMUZ5N2kwejZuT3NSQXMyOXlKZGxDdUE2OHdYYTQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87457",
@@ -108567,7 +108925,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=LIIzD5sXk7YhxA%2BJ1McoykVQUmNxOGdoUHJWRzVjdDhwakM2N01iZHUzaXNFUzFHNzhZQlpwM2p1R2VXTnViUkg1eVRLcklsSXVWd1lGaWY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87459",
@@ -108643,7 +109003,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=4UTe%2FenCPbdmQOTQk7bsPzFuYTRlRy9hQVYxRk4zYkR0anhQRmdVZGZYeTg5Rm1WM3craC8xenRQR2RvSFNyMjNJYll2dVQwQnRDeWxtQ0o%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87462",
@@ -108681,7 +109043,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qUarYWuUj6uHTAPicb%2FsvWg5KzlKQW9LZ2orSytGeWViOS92ZC9TbnptUkM4RzJqcDhKRjNJSWpwS0ZaWjhYYktLWnI0ZlhFazQ4MlV2NC8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87557",
@@ -108738,7 +109102,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=a%2FAsx50YOuTMgnTLlVDeX2hUTmhiTmYwcjJDaXRSVGo5UTd4UWYyRWZ0NC9vNUlGNHI0TVB6SGNOR2dybGpWRmtMTTJnZVkwQnF2OXM1eEE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87465",
@@ -108776,7 +109142,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=RePob0h%2BpKFhhnMhqxVqVUxPWmwwalV6ZjQ2Y2ZhaUhqU1JOb2VURkdiNjRsVllsSlVSMEp2SThrYk9EV0d6V0JKNGFyL24yMWFjSGlpYXQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87467",
@@ -108795,7 +109163,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=3YqOj36xb0OyZ6q2oImoAlorYXFXSTdUbVlhZlRadExYTWZkZzdzRjNJQlR1ckdlN0FCYk9YWmtNYjRIQzFySlFCQ1BRMVB2MlpxaytnVHQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87552",
@@ -108814,7 +109184,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=R7he0C6MgGhB%2FyvawalJem0xa09YMC9qNTFMcTZVNko3akd0U0xQbFE1MnZsL0RLazMwWTZ5YVRFRTlXcGtBM0FKWk1qdjJVR2E3M2RmMW8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87553",
@@ -108833,7 +109205,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=HR1ZADEOzrHjFDRCLM%2F5zHVjM3FmWU51YmRKNDFwRm5zZE5aTldnTHBGTUNiaUxEcHp3bnRDdkFncUZVQ3hCR2J1MXBjVzVJRjBEczB3VGo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87554",
@@ -108852,7 +109226,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=DdQMN32WPeENiL3LFdOa7VZBODFkTjMzdU1qWmFGcWtUTGk1UDJsTm1ja0dmaXZHVmVOQWN3USs4SWJ2UDJOUkkyU0FDVkwyc3BZMlg1aGg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87455",
@@ -108871,7 +109247,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KJsLXRVRN0UaXqKlwDLDyUplTVMydGh5akkyOG1ZbzhydThuVFk1eDlaTzFlcFpVNVZEYmZ4QnRud0ZqVFNDOXhPNlpMTjdoMlJPNEkrRlo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87456",
@@ -108890,7 +109268,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=XwUA8HjawnX5em5wdYm0%2BzY0RUZOMGhiZGkvaXVWWC84ODFuUVlCRG5BWGxQZzRtck9idElVZmNpVStPRVNzWEVJTERyUkNlY2V2WDZ2bnE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87551",
@@ -108909,7 +109289,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=71gpRCYKKGG8wR5TdOwsD1IyZjRDTlpzdjh3eUFEMnZZTHBxUzJBdCtoV3hZYmNvbUxRN1ErM2JOK3c2cmxQcTBUODFCWG1VRjdvdm9NYnU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87555",
@@ -108966,7 +109348,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=0YVS9iRvgAjVwfJK0DxjA0JZUmRzSlEyVjl4L3Y5TnQ5U3lJa0NHVitHU1haWFhCV0hNdzdKNEw5bUo5M1ZGWWtsYktOZ0dLTWtpL1FsNzE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87542",
@@ -109004,7 +109388,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qt9kGnwOQws5p5J6kVXiE2tsSUhiRVB0ZmRKWGxpSVJGR3c5Uk1wSzBSVTFicC9JZFA2RW1PRXhZemUxUS9wT1M4Nm5pUEtSNk9HYmtBeU0%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87558",
@@ -109023,7 +109409,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=v%2FkREZF6BGLX1WiiODMG5XdhVzBZQTB3RjZySzB6M1o0Nm9RK1ZjMXltMUZWMDBoR08zSFJMbktROTh2bXFEV2pIWXRKVFhZbEMrWWZOUzI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87344",
@@ -109080,7 +109468,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Hu7rkRZyK6rjczigZ8K770lsZlZRL0gwbXpMSVFHZ0JiUUZEWUdwZk9oWXJHRlFTVnJRMTFVOGZHalcxSElSbGF5b01VVDdWZm9US0J2QWU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87593",
@@ -109099,7 +109489,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=YtYYPwQJVtcNnd3V8rIocFBtY2k1aHpyMTJxbGdZcmttUmFROEw4TDlrdmRyRXlmSDF3VkdYaHh0Vnk2bEJwSFVicDk1dUt3NkxNTW80T24%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87471",
@@ -109118,7 +109510,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=QpaFzvxHm6rDlKtt7e1X3ER0K2FoMFloSXVNU2VDMnc4eXV3ODRxejcxeUJTUmJzSktqV1VHWFY5VjN5YVplOEdHdnprL1VwLzliOGZxZTg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87469",
@@ -109137,7 +109531,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=pYl1wB1pzuPLE2OTOhOYCk9mdGdEMThyQVBreGhSL0dISHZDWTVYL1E4RUJoWTc2VGVoSktjUktGYVFmbjRQZ3E3V2daTGRDb3R2MGlxQnI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87445",
@@ -109175,7 +109571,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=zY%2FTjGMJN02%2BqEIuVHq0Ekx2Y1Nla1Q5QnN6dnR5YWlDcDVOZmtiZFBZYlJ0Q3krMVZWRHlQYS9lS214YXA2MnhmZVZNemYrRDVpb0I1UzY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87560",
@@ -109194,7 +109592,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=2qBiK1NxZFRGI1ltzKrxUHlSMEoyT29qMHdhWCt4Q3dCSVUxUGQxMUNqU2RvUkJDRmk3N1U1Zzc1T1dQdGxTZFRLcnJ1N0hNK2hTRk8xelo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87444",
@@ -109213,7 +109613,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=NZejm5WTADkAquSYRj7cyTBwZFkyaHBTOElWSHY4Rkg3OG5CVk5abFM0d29ROGdCUmRlOVQ4Q0Y2d24xY1FKTVhrS2VZM1JIYU9BKzM4UEY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87446",
@@ -109232,7 +109634,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=3YiwJsnAOc7iUtGeje%2BGyWVSeExnaVNsNzF4UGVTZ0JDaFNRMm9oRHBXd3VNRTh2aDc1RkMxUDhYZnZ4TnVGMG1qLy9vSE5obWhwQ0ZuMWo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87611",
@@ -109251,7 +109655,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Sro1qZ4j0qzy%2BrQjPzkLhEpUVy9Da3BpaGZESnNlOGI5bWJocXVuczl4QXBHQ0lNU2ZVTzZDakVEeGh1bys0cS9xTWcvNXo0a0pQT0YrZFY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-44026",
@@ -109365,7 +109771,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=3vYqfaIyG8Vv81If8T6XQDQ1TWt2S3VqQnpBTHh5VXFLR0dBbTRtQjhLOXB6VjRCTHY5ajh5a0xnVWI4aUkrZ3JNZGNRYTVPdVNCTXZtZmc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86356",
@@ -109384,7 +109792,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=f1X3ndTj74vKKZZfjTy0s3RlQ2JOZ1VtdTdEZldwZHI5SnRGaTB2SlR3Rm9qUlZ6M0hHNWFqSVgrMHlvNFROWUtPRHh5UUlMWE44Ukp5MkI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87556",
@@ -109403,7 +109813,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=0UoArKXPLFUouJZAtjVZmlRKUERkTis2K2hHZ3RxVlIwTnJvL2pmSzZsYlFkUWRsazdYb2tjOU9TZjdUNy8rUFFsYS83QUJwOXhieWN6WGw%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87751",
@@ -109422,7 +109834,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=iINob97%2F%2Bk%2FvWve4fQRTEGpKYVhtTzAzbElFYXU0bEJBKzFLaUZPcnd4Y3g1ZGpTVlJuc2xuaHVWUkh5NzhrWSs2YW1RVnI1Q0JJcWI1cEk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87747",
@@ -109441,7 +109855,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=s9dUYCdgTFQD72Xp%2BqXhA2x2eTNZd2h0dm5RVHlKbG00cnVPWTJ4di91K3VteDkxTDA2YlY4Vjh1WkUrVjliQTBNTXJBdzZneG9MMldpYmg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86891",
@@ -109460,7 +109876,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qlqoaPGeyZwlAXUBHdKFrUtlQ3Y1enhrd0FqaEtRUXJVbHVDNjFVdWFoVHFDemNjR1ZEZll6YVdxaG9TVWU2cUpmellEWnI3aTFlaS9USjY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86959",
@@ -109479,7 +109897,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=PYGcsNWtK8hbWQYOMsCkDWdLZkM5UmNZejlzdFgreXhjd05Mcyt6d2JxSFczaXV6SExjSElKZmt6aU5PR0pqQ3hnaXVSekc2Si9jdXhxMlY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-81798",
@@ -109498,7 +109918,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=qAWMKBDCXtpqZT796dlcjlAvcjdTKzgxaGJab2ZxeEc4VFVKS3Q2NlpuYVFHRU5RdWIwOUZBSmxDWXUyL1dzbWVWeGI5YzRhYkEzQkZHNGI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87619",
@@ -109517,7 +109939,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6%2BfoJOiB4uzupFC1V3McpWFRcmg1Ri9ra0xHN1RjbWFySXpLYWZ1ZGFzWDBOTlk0ZXpxTkNCeEVKYzYvQkgvZXpEeUEzVTJmcWduaFE2b2Q%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86898",
@@ -109555,7 +109979,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=QhTf5YXlORYEgD7JUogryTBRZ004YlVkKysrd245Q1Z3S2J0VEFiOTIvaWMwL0k5Y2FyVE1hYWhTMjhuU2lDMyt5UWdCa1EzcllrRkpNK1U%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86900",
@@ -109612,7 +110038,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xI67sf5Kefpv8NNQipio9E52d09EblJERVptbzBmbTJORkN6cmFjc3NGR2hqWlM2MlRQWFF5T2U5dW1SOXprc1FqaUZML0hwTnc2LzVqZlI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87812",
@@ -109631,7 +110059,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=7fB7rtsthY22vWbP%2B9HYg1hRdEdsU01NbEdqSVNLNWs1L3NiUU9jVFA3U2Zid01pNm9YK0pnVm9qM2hVUEloNVZ2RHQ2VUg5LytRS25YcXY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87807",
@@ -109650,7 +110080,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=m4GIIbHg46CdmWEp4Nt4%2F3ZHd2hQTHpTOTNiblRMMmxJSUdTOUUwOVYrNVM4TlE0YWNENTdCUUZZWHpGNStXQ3R0NnZxWk1KajFCOEdtUUk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 2,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 19198.83,
+      "leistung_geprueft": "31.07.2026"
     },
     {
       "lws": "LWS-87806",
@@ -109669,7 +110101,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=4xoNxNYLRSSt%2BA9oerhZHm15b3hwT1IyYkNpN3VXTFUvVFZTamJlZmZrMUZIU1pCT016Q1RpK3ViM1NzdXdiVThHelh3eGJhZi9RSEhDcGg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87819",
@@ -109688,7 +110122,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=HB5xjP4Ch9o4wkdbZuJGyVJ5Ui9NeWFYTkZDckdFTHFTVCtETWduYWdLOHhFdnlMZmhkenVwNzhtbVFtTXZIdEIwNEx1cVZjSFFkQkhHQ0Q%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87814",
@@ -109707,7 +110143,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=j%2Bqo2DKJ9uQJKH9l5PaNhWdyM2p0TGRwbTFmWjhwZnQvY3dhNU96bWN4OVlSSU52R3VrNHZIaStVNnBBbUczNVUxQ2JwZUNQWTFjeWtGSHo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88002",
@@ -109764,7 +110202,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=YsCijTWFT8H%2FHuMl1BhTzUNXcHNuVnN1dkxWdGJHMHBWelJLMzVoeW1sV2M3RzNrQlhFRnkrT0FJaG9TNWF5MzdJSlRTTU45MWxQOVJvZ2w%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88006",
@@ -109802,7 +110242,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=ZUOOIcDY14VQl3b1EwoZz1dQcXErYUhlTmhNSHpJK2VrTGtMb3lhSDNJbHU3eFpjNzVvZ2t0TGhrQzlMYnRGb0c3eFNReUpSMGozQTlCcnc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88010",
@@ -109821,7 +110263,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=FCcBiWlLyDc4p7l%2FgarhNkhNZ2hsMzhyb0xNa3F2bms4OGlNOUdvVzRIdGovaklYLzI5bmJ5YVdZbjJmRWJCcEltS0pqMWhqQ2xTOXZLWFo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88011",
@@ -109840,7 +110284,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Aa2k0vZQ1baTyumU2xoNn2xWMkt3Y0Z0eXB2M05oQml0K0Q3TTIzNVZxRkJwNFp3eDZHbWNmc05ISFlkMVh1VXVYTG1BWmh2U0wwTjdrYnU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84165",
@@ -109878,7 +110324,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=bCMyi4xO4ut7HjvA45GznVVCV0RSNG1kbGtrRFBQQXo2cEdnZTVUNzBNUWRxUGxoZFg0bWVINkIvSHJaN3ZwMVZISjdVWTR1dkJQSmpUUGM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88143",
@@ -109935,7 +110383,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=4TNe8xhfG8c%2FNmPF%2BMx0sjUyM0ZFOVlnc2N4anlNcUNldU50dEZvVk9mbktnNnVTN0lpRW1zcHR0VEU1dXJxYXR6WjBjZG5PdktaRHhMMW4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88204",
@@ -109954,7 +110404,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Jq7xZTJuo3oS5CuaJAf0t3dOaFFYRFhvN1dTeUYzOWNIZm44MlFIekZCbjZiUXZwY2NXMXZXZm1tOCttbFdhdXkydWhJWnVkc3ljRUNHVmw%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88070",
@@ -109973,7 +110425,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=angpTsvQ86pc4IlGzNthsUNNRllScUN3Rk9mMXJSR3dxRjdXdmtZWG1KTk5EMStYQmExM1dNWUxhMXRBSTFmcURQWDFLZnVqTFIvUlR3ZDM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88067",
@@ -109992,7 +110446,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xg%2FgYlIVT8UhToNouXGkQmwwOGZNOURwL1F1bkMrbGV1djBraytmUlFkZ1NhRVhvN085bjNBcGlTVUhycTBjSHlpWTVHQUtKSHdMK3B1Si8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88344",
@@ -110011,7 +110467,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=f0gYQh48pbhRHiDInPRltWNUMWNJT2RKSEVjRUZ2ZFMzaCtKTXdGUSswNi85blEySC95UW8vS1V6Y01UNWE4bHMwd3YyYVhQZVc4SStpZVg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88360",
@@ -110030,7 +110488,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=kEI94m1cS8aRAyIJUn8IS1l6eFhHeG04dWNBaEhIbS9HRnliY2NKNllYY2tsZ0tVL2ZDRi9xTENLVUNBK3ExaklpdUh3ck9zWU1ZMlVBenc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88361",
@@ -110049,7 +110509,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=aQv7ZhTJckdKA%2FXTRu67aytCK1VEMmN3eld2ZnQ4bHB3Kzk0eStsQ09SZU1pUFNoZWJaenRvQm44allaOGNCVFFZazdnaHZjeVhLNzFWSUc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88137",
@@ -110068,7 +110530,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=LSJLTkgJordwZ6buKmqpeTM0ak9wNmFveXpUWDVDTzRkZnlWUThQc3pDY1Q1STVGMUJZbHFjVkQzQXh3TXJJV0IyaWh1b2IwcHEzNkZSN24%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88152",
@@ -110087,7 +110551,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=5N33VSOufAXBL2AAFVZ9aXVadVFFOFpORVhmNEd1OFpPOFIyTU1WbnlTMERkd251SVk4TjU1c0Nub2UyNSsraDRZam5BSXhCZkFscTJXNno%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88356",
@@ -110106,7 +110572,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=9Qbp01m5vXCZ1ahZXT9EMmdCbHJZOG5qSE9RVWhQQnZQbTJRRFQwZ3BMdkVEdExyaEpUTU12SVB1blRhUUFsMXdTd2VFSXdoVktPaGNTTjM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88358",
@@ -110125,7 +110593,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=wQ1RKoXtbbsuPyU2h%2Fs2sDM2UWhRSjhnZmVnNTlkYk8xekE1cHRWNGdNdFNKSDd4OFJ4R3RrM3owUWtnTWZ6Y3dDSWhjRE13TGdwWkhvQk8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88359",
@@ -110144,7 +110614,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=ROJguwFhh76Ze1hBr6iED01lVWcyYVE1Ynp1MDgrSjZDRnBlRmc1Q040akZTREN2TExyK3NTa0llcW13VStiUUp0NFZ3SGlBaktrUzdLNVI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88487",
@@ -110163,7 +110635,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=wDHsHxfDkqBqxBaEFSQHXTB6WERCV3d0ckI4WmRTSlJoZzhNZFIveUxHNnNRUTRuY2FpODR2YkpaM2ExN3dQUW5FaW5CdStZU0tTUWRWSWo%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88414",
@@ -110220,7 +110694,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=VBawHPEpcwrZ%2FqbVUYhBbWdVNkFyS2tTMTlZRzFlMytQV0UxdFJycTBIWU9WM3VHQ2ZKb3pqNHdVdlZ3WkxYQmJMUnRhM3NBajlWbWpNZ1g%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88483",
@@ -110239,7 +110715,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=9PVHOSF4loCvlkB6ZV0%2BZzFzS2x5ZHdTNEt6ZEc2MHZLM2w1VTdkVG9za2lEK2wxQU04cW1sZHhuZElaTTUvRG5IeWJJWkRGKzF6TCtZQkQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-80213",
@@ -110277,7 +110755,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=N3x2gfzdXKgkWEBQ7G25YHNPaGRydzVGbVQ4MkkyajNWemE4OFN1bmN0SW1CUGM1N25CRkxvN1RTa2xJbzB4V0FVeXl4U0hkUUdxL0lVM0E%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88622",
@@ -110315,7 +110795,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=e4403Fr8ZciR79pFMZiqAlhqcVJ0THJRdkdNbzdsMzJucjlYc1ppSW5RQWRIa2d3NTNNVVpUejdacm9MMTRpdVdORGxETHZSNnZmK2FZUWU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88627",
@@ -110334,7 +110816,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=2pEfjhU%2FGYIx4JAr6f8YRGpFd2tURlhpZVpNdHI0cXZ3MUI3N25OMFB0cmcrZzd3SVBIdzVPMHlZU25waVFIVEVVTlVjY0JNTGRZYkJOdlc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-84831",
@@ -110353,7 +110837,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Mjc%2FIG2arWckhtm%2B2oWnxXZyd3YrMmlrVWF2b291TUZ5OGZsaVpXZDBoeWR0VktrK0pJcldvVWIvUldubFpWN1hQQ2w5Y084anZUUHpXQVg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88666",
@@ -110410,7 +110896,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=5N6gLf%2FK2fAJR%2F%2FbGlqCokFWRUhSTWc4d0xYRFJ0Ny9KSXMveFNMcmZXa25vaXRWM2JLaDhmbHN1NzFnSzJkNUhBU0xxOFFGQ1VwUzVOOXc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88625",
@@ -110429,7 +110917,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=4prRriEgjaF9R4c%2BTJkRPkdoQXBtM2Z1TXlhUFdlT0dtRTVSUkZBU3N5cGhkeW43ZEdFS3h0WktSaXg5UElGWlBNRGJBdllqckh3czBmNUw%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88624",
@@ -110448,7 +110938,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=b5MVYBJFFj31J%2BpvBIcU9ldyRHN5M3pNQ3NvQm9QYmZPR3QyTHNOanl0ckRXSnpFRXRmR25ZTXI2OG1vWlBLVG51NFFwRVRMYm5RblhEQng%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88618",
@@ -110467,7 +110959,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=jVENd4M3cP4TdmCmpFCfjk8wdzl3YkdLaFVaRDBHYk9jQVhNOTlyUXlaSUhrQ2k2NnkrV0RvZlJ6Q3V3WFBEL3Q0VDF0bjFpa1Jla0RNQWE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88449",
@@ -110486,7 +110980,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=LlCiN%2BMHW6XBVX7H6cu7CkJpQVR0Ukw3dmNiQTkxdU52TkhESG9GQ3VmRnNPVkRlVGNsaTRpbnlQN2lwTjZLbnl0amF5MEpMT0dQVlk2b1I%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88649",
@@ -110524,7 +111020,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Rg6tLSZLhZMhyq3KGG154FdjdTJrMnByOWVmZ3pLdlZhbUJzZkRJL0xBNDN1bTkvWDdQSTk2S2lFcHVuWENNVzEyTk9MOW9CS0Zub2RSK3E%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88652",
@@ -110543,7 +111041,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=x1FknxHoKebgaUlDT9FjEnFxOGNhZFZUT254VW1SZDhpTXVseWo0eklaNWZuczRTOVVnNkpZcHNlRVQ3MWtzaXhPWWR5ZkRjMXZubVpFekg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88629",
@@ -110562,7 +111062,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=dVlgOyCa2AnR9MGzd%2BRf9FBmcUMvTHkyM0swNGxPUkVVTXluQWtKV2FHNWVGNFlKNURWTjJjSm9iOEp1SDBVRGNRa1lMeXNSZXlPM3EyMmQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88724",
@@ -110581,7 +111083,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=rG0Tbl5JitiYHYIxSaw6d0UyQXJEZlZ4MjFtY0VnSkl5ZlZjT2xJSWxFaE8zaTRHTk42R0xGMGJGWm1ldEtZZnljWUwvNWlsbHR3a05lU20%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88811",
@@ -110600,7 +111104,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=XwC4rmc2EHBI9k0dE2MbBkk1L0haWWZSM2RwYXlqVFdhbEw2ZHord0F5NlNVU1NTNnFwRm4vU1ovbVJNZjFselBPY3pPWXZiaGdwa3BOc08%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88707",
@@ -110619,7 +111125,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=aBFLvSsEBZgftB8kSzY5TTVodi9zejNTa0V5bkkxTlhzdUJXRWhvaFNxa2Joa2Q1V0c3SHlVS2NmU0NmU3dxbktHdWEveEgzZS8zQVUzUWE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88789",
@@ -110638,7 +111146,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=aHapDa1njZqrwB7ChB2FRDJXRElyTU1WUFpPY1I4eUdqdVBBMWxTcjROaEJLVHdIb1U2OVFqOGE2dno2WmR0WmtpMlhrTW11WkpOMXRTZkg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88791",
@@ -110657,7 +111167,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Nqed3Oylz%2BgoKIpbH%2FHG8FZTZ21wV3BJVm12Z2xGTUQvVmNDU1cwV0hubXQycFJiOUIwTnUzUGkxV1NjbEpOMlJCYVo3dmxlTXZsR0hGSWY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88792",
@@ -110676,7 +111188,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=j0ia1P7N%2BZmPxTlQKV7hSkNjR2NHQ293OHN3TWNTVjkzNFQ3cUJNKzlhTkVuZTFwemVNcTNQZFJJa3NHUmRZclhzckNuZDZKUVpjTlVlSFk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88793",
@@ -110695,7 +111209,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=eFZuWFdhSYkwZBRsNbg7%2FVpXTDVINmZJcUhHRWQ3OEs4OWlBVndHUTFBcEhSRzRQUnJNbnVrbUFwOW1TbzlvN3ljQmJwY2NwbG9HQXJ1RzI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88794",
@@ -110714,7 +111230,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=DE38hAnoFeXohfI3IfwFFGRJTXV6WkIxWFVyR1orWVliaUVqZzVRVjY2MThkcFdkTjM3TEcvYUNLa0tYNmNYTHBQR1JmSit5Q0wzbEdkUTA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88777",
@@ -110752,7 +111270,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=VIucSOMNZjmVpFZjG%2BsDH2h0TkJEWTdFUE52N2twRTR3WFBzL0xUZklwc3FFMjhLWnpNL1oxakZtak9SQXJDalNCSmZzT1VUTzBJKzBpdVk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88778",
@@ -110771,7 +111291,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=%2FWMSilFJiCj7yGSAD2UvKjZoRlJxbXlWVFJQck05VjVmTkNkRGw5NGRTQThGYUxYSVhBQjVqbHlPK0ZzK0t2SFdUMmorMUFtUE5ic0hjb0I%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88845",
@@ -110790,7 +111312,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=k5E%2Bcm3AqaR8QTnJN2wGjlJGS3ZJREpHRXZXYmUxVUNEUlU5eWZSajd3WnhHdmIvWU5JVTJxQnJJdTJYR0IyY2sxQlA5dENPaXh1QjdQcis%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88860",
@@ -110809,7 +111333,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=oJJMdNoGwRpVMwLekaSRwEIxNlMrcjB5SUloL3hFeVFYeHByc1NLRXVwdXphenhxWjRFQ3dQYzdOR0VOSi9Va3JMNlZqQjVHcWFKcS94bDg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88796",
@@ -110828,7 +111354,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=w2bl6RxqGyt22Vv6bpBAIThvdDJuUElmZHZwb2NpV09PYXVxOGMwWjNUNXIzVzVIaGxhbExQRjNiZmRzcGRZMDczV0ZsYnhtdXRLZllKTGI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88840",
@@ -110847,7 +111375,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=N%2BS%2BkaBy1neZXxif5MnxSFpuZHRhWDVuVDVPdzRxM1BRWGpPbXkwMklLNHhjZloyd1gxenY3NDFsWTNxOFplQjNoWWlBTi9EL1RDaW9lTVk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88841",
@@ -110866,7 +111396,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Mn%2BZVpZm4it8Axh9govjG0srdEdwL0xoc2RaWDk1d3dwWGx5VWFHbVZjanlsTS9HVjErekdQTXl0MzR5RkhUOWNvL21SRFpZTWxIeFpDd0Q%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88945",
@@ -110885,7 +111417,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=MTl2h0d7DrICEmCcbITfMW0xbTl2enZXTkFmV3V4TXRwSHJ6anVOZTA1bm8rM0pRTmNsdWU2aFRMNFVUbHJ1NFBZU0VJVEQ0UGpkODBrc20%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88946",
@@ -110904,7 +111438,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=R7VBFsX2lCB2EASqK8HQ9lpwZ1QrcVo5WndrcmVHYUFMUEVYS2J6eDFIS0cvWGtpS0dZUjZBWnJlQnNiYTB3L0RldGRKU0xLTlNqbEJDc1Y%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88951",
@@ -110923,7 +111459,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=CVEF5LSPm2mCsKIrYK7EYFdoMXhWekIyZER1QnBZLy83MFkyL2tMblMzK0x3aUpaZlFvSG5aNGY1d2sxWm5VSWVibTk3bWhLVDFKdVpKSzA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88953",
@@ -110942,7 +111480,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=lS1lJB8IA4hkiVd%2B4IVkgFkyeWs3MTlONVZLR2V1RklpWjRmT3h0QWRvNUdOY2RPaHpmTEwxQUhiK01rSGRUaG55WGM5bCt4UkFwSHU0UWY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88952",
@@ -110961,7 +111501,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=66cVUO8FRf%2FpQ0KmT%2BacH1VEY0JNNXJ4NUVEL1YvRmlZSEFENFQ2ZnIyZkZGZW05eE9wazF4TTZDNngvVGZ2QStMYytGVnNjWVN3cTB1Ukk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89015",
@@ -110980,7 +111522,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xIE%2BiF6XwBILgufQrV2JxS9kS1g3R3E1RCtqRDh3dSthN1FKU01VRTcrMkVmMU4wWk9tUlNLcjJSTisvdktyOVZJMUM4U05LQVV0RklsRkk%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89019",
@@ -110999,7 +111543,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=E%2BWzyrg5wavU%2FbvDtYq1xmZEUGoyeTA5dG5pS0kxWEtDN29VWVZrMVNjRGJOeCt6SVl3NFZHZGpOVlB4TUNocFdaaHBPaHFHQkdoWjlPM1Q%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89058",
@@ -111037,7 +111583,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=WuAVyni47LJ3tUkFX8%2BSgFNCRy9vbjh1MG1pdW9kUVNLaDZRWkpjait5NnNYeDI4dCtnK2NIZHBvaFJWRmZlWXltVkMvcnJNM1dGSXR1bHE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89060",
@@ -111056,7 +111604,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=ju3jjydjOIx3cNPFUWO2KmViSkNCc0xxMUIwcjZ6a05ZVlM3dmRFNXVxMUhCbXhiKzJkd21YRW52Qi9JOGFHZWVqTHJzeFU3N1N3REh1K2s%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89057",
@@ -111075,7 +111625,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=klYn9V%2BVPEL4aoFAQciPc0Q3RTFuRnE0Nk9EVFM5TFNJRzh6REM0MHJneWwrVWxoU24xcVRnVllrSjRXWlYzcThpRjNxL3MxV21RMDFZTFY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89054",
@@ -111113,7 +111665,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=3XggTjYcDE35HiqI2NsBR2lmdnZkZHZMV2JMSm8vU1U3a251dUc1cW5tMHlFY080SDR0MmVqV1NYd1ZVUUN6NFdraGFDTzI2QTA0N1lBMjE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89056",
@@ -111132,7 +111686,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=brvKo2HF5CtyYuypwHm772w0UlhsY2hkSnQ5Vm4vaTR5VEFXeTZ2bitRSUNKbklmZkRYaEZpVE9ya290aEJGWmNYNFhLRkxCUEtKczdEcXg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89173",
@@ -111151,7 +111707,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=bDg7g0s%2BsVzhVZj57RwdBzFXKzYyZXRsQVNGa0IyTUVycnVxZFM0YXFtQU5qaFhxM0g1bW5YSTBKTHBZRHZtU1N3UEp1OHBpcTdZTWh5S00%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89171",
@@ -111170,7 +111728,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=xgVj5SvpcRAT3r%2FmNI4I0FZqdmdvWTdWSlBUZEFvTHBRaW5CL3lNcytvdFVPbmZCS0RnNzdCMUp5MGxhcUhOcW9YRzh6eEt6djNwQmNVb0g%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89172",
@@ -111189,7 +111749,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=7K%2FKJIzNvhQ%2BOYOffmor0lBpWVdZYXhYQmFBNDdwc1MyQUJYVm9DNlRtdWhKM2R5cGwwYXFkS1hUSlJkNG9UY3p0cTVtdGg4eEVHOU9qU0w%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89175",
@@ -111208,7 +111770,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KzrO21BjyzMIXjF18XVwIGJ5UksvWHV3RlhQY2ZUNUlKMSs4ZmF5QTU5SGdFTFVPSERiQUZGcmZ4a3d5dlQrbUl2bE9MZWRlMm5JZldTTng%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89183",
@@ -111227,7 +111791,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=3hfFCaG0fXnKFsgXCLE3qnd3blluQk55bWhGcy96VGoxNm8rUjR3Uy9tS1NXVHBua3ZVc1dsNHQ2eEZPRGxuTjVyNk1Xc0lDTUVwSENHUHU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89260",
@@ -111265,7 +111831,9 @@
       "leo_url": null,
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89263",
@@ -111284,7 +111852,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=rjGlnPnb6On%2FrNMjYbEWAFpNT3NzM3hFczNXeHlZUjd0ZjhDRzJsYVBpV3RPT1FtcFRZWnJIdWFuSXdwa3JBOUthTlFhd2ViWUIvNXgxKzE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88976",
@@ -111303,7 +111873,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=mG26wwPQYt8k7PI7HBf5MndxNEp5VkxrdDZIK2NMMnJQZkcyZjRpSDdkbGk4U1FSaWtjaE55T01JZkpOeGpiQlpwelAxYXN3WU5ka1NLUVM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-88984",
@@ -111322,7 +111894,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Gst0zXReCQKnb11kH3p%2BlXF6V3hWeXhSMWFMUUhWZllJY0ZQWG12Y044bjcxNEdVZmVPWU1CdE9JSUxTMTdXMGgwaUt2Sm1CZEdVRFA2NUw%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89317",
@@ -111360,7 +111934,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=kVjNqce%2FZkgdItwPzEA2d2VLWUVXSXFySG9nVmRxK0VDdFh2SnFzOEswZ1dlM2xRR2N2bTFvNkduNzVadHV3My9TYXJUNUd5bUlQbEl1YTU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89354",
@@ -111379,7 +111955,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=sidA4XPuMd8d9rcpN1jnHDJOajVZTnlQR2VXMTRMU3U5OG1OOUtPMEZ5WHRrSmVDRmxrNEhGZjJTZWRaUkRGd3dqQ3N1VndCb2Z5TDYvOE8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89174",
@@ -111398,7 +111976,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=7y7XzQ8%2Be2ilDJy45NfLNnh2Qmk3SXc1QnpLZ01HZmkzN0VxTUVMbTYxYkJLQ1RUQVRCSlpuMnlERTBWQzhvMUtoNXZkMUpzZVpqRjQ4QkI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89351",
@@ -111417,7 +111997,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=KpHUr%2FLnm9XzsKVNRcEGTGY4SVZVYVZvVk9URmgvVDY5VnN2R1J1Ylc5eTNvRzRqamN4V2dzaW10TkVMRlgyVmFGZEt2Y1VTak9RaHBrQ2M%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89082",
@@ -111436,7 +112018,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=BBzMyHhSn%2B2%2FYUfiVBUcaWZjSDlBRURjdnRYemhGN1Q0Vmd4OWZkYnIyanhCSGFvdTh3bVFzWExxRlF3NndJRFRVb3o2cjRTRzR4RHIrbEI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89352",
@@ -111455,7 +112039,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=Njw1%2BMyxezXTb1kwjFCvxU5keWQ0ZEp5OGxSZjRuRWNMYlZ1SGNqdkhTTXZkbEdpWDZvTHk1MExIMFJLSEd3dEJ6M0ova1ArYUhTWWFGZFY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89436",
@@ -111474,7 +112060,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=tjf9dT3BXXAUdGL%2BHcwOOVBPbXJHQk03TnBVU2FBMmQ0eFFDK0hwMlUyY1lLTGhPeVVsVUtKTWlzWGhTVFR3RG5sY2ZzOVo4VUZueWpmUWY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89422",
@@ -111493,7 +112081,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=LR2J2V%2FMsrvaXPdN6OgGEHVTeHQ2NjJWRWpEL3Q5cUc5UksrZW1oR05HWW1tMlBrd21ybWl5S3pNMXVhbDd0TGtoaHZVaTdrckc0RmNKSU4%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89437",
@@ -111512,7 +112102,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=1trXZDUpJHtmB2qH5UUuY1JQVHFIUUh1VUgrdG0xb3BlVzZ3aG9MM0NCbENuQURrQisrSXBUNEZqZ2phaVE0U3A1cVpqeW5HbDhGaVJDbTM%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89424",
@@ -111550,7 +112142,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=p974vcPhsvA6AGC0uFX7%2FldxTnJHb2FnUk55bzZMS0JSdktRRXdmSktIaWh1RXBiajMyWFB3MExqc0w4WlBzUXMydjc5andUVmFuUm9iK0Y%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89376",
@@ -111569,7 +112163,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=V1KrOebZHMIcs94%2F8gVFdEtpUFdYSzNXcVJ3VFd2c3ovVmppUndraEZNVFptbUNVNEF5cnJwWFptQ2hXS3FiOHlpRVFpYSs2RlJPSFovZDY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89490",
@@ -111588,7 +112184,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=lTGiVe9si6P02msCxdKDhStqMmEvNU81bkdNVWVNT1lxVUltTk5qWXhSU1VhQWVLQTM5cWdmUmkrZkNRQ21xUmhURllORXhoVmdBVTV2cnY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89469",
@@ -111607,7 +112205,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=f4TD8UHzP7aial%2BL1KO7DzRld0dYbWNsSWhKYVNnOWNCVkFZcUFrSjFFaTkwZUVnUkZzeVVqMlVLRHV2SjU3S0hSZXh0dU1DenB1QUlSVlQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89462",
@@ -111626,7 +112226,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=gXwc5beZUyLbOjyquuIfMEp4RW9BSDRNL1RUcktZYzQybDlyeEVVZVEzbjdqSG1jVnYxQytzUjNKc1JybFFJbWJCYW9LOG81dVdPRmxhT0g%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89318",
@@ -111645,7 +112247,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6YpoKCmWvLZJZhDuh0KuYGhpS0Y3L05jQ3lvUjlMT0FCN1NvbVIxcmR2TnBOOWZOTGFEWTMwdFBISXNKMzk5c0JudU5rR0VaSFpVV3VBeHg%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-86370",
@@ -111664,7 +112268,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=BLlFBonRO1%2FPNl0xogNL4mJPWGZWeVZTSmFaYlhBRUJ2Y2pNVUR6RUhqcm91Y2lVeXVvY3A0RmNPTHVDYmtMc3phZzFSOWRqQitnd2Fxbnc%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89445",
@@ -111683,7 +112289,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=gTK52XsYcFkAGOwk8G2DB2tNcjJqemZpSkJOZFp5a1R4SmI1a2Ivd1BwMnJwVFRmc2lWdnBwZnhuc09RRG0wNFR5eDUwQ3M3Z0hBcHh5OC8%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89443",
@@ -111702,7 +112310,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=z5bokCQk9Ctjay8yuIyzgjNxdHNOUnNGQWxkcGN6elozZzRzY3BsUHF3bDVhSGZzVTFZSTF0QWcwVEF1MnRNeDZSVEFyV0QzRE5WY0gxUEI%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-89447",
@@ -111721,7 +112331,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=DxLSqlXbkpQOaYyLXMvG0DRwckUwdTQyUlBYVXV4RzIzQmQ2ZmZKVFpaUjRHdW55bVcwY3M5ZnV1T0RnRzVjQnlCZWQ3L1dQanZEa2dyeGQ%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     },
     {
       "lws": "LWS-87753",
@@ -111740,7 +112352,9 @@
       "leo_url": "https://leo-pro.de/index.php?q=6uO4vN%2FSQJI7Ld8p4YE3NGNTQzJ3NlhYMEt6UkVhdFRZbVpJbE0ycGJubWl5WnBCamJXZ0lhSHEyMHFiZTl5KzJscnRqeUZIdjN0RFh2WlA%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
     }
   ],
   "archiv_mangel_stats": {
@@ -112997,8 +113611,9 @@
     "LWS-85036": 1,
     "LWS-85026": 1,
     "LWS-86200": 1,
-    "LWS-82469": 2,
+    "LWS-82469": 5,
     "LWS-85038": 4,
+    "LWS-84883": 1,
     "LWS-85382": 1,
     "LWS-87807": 2,
     "LWS-86877": 1,
@@ -113749,5 +114364,2427 @@
       "vermietet": "01.08.2026",
       "bewohnt_seit": "01.11.1998"
     }
+  },
+  "chat": [
+    {
+      "id": "649641",
+      "lws": "LWS-88483",
+      "from": "LWS Plus GmbH",
+      "message": "Moin, der NT für Schaltermaterial der Wohnung wird vom OBV eingestellt, bitte ausführen. Grüße Andrew",
+      "address": "Kniprodestraße 29",
+      "date": "04.08.2026 15:44",
+      "tag": "nachtrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "593558",
+      "lws": "LWS-82993",
+      "from": "LWS Plus GmbH",
+      "message": "Bitte dann auch Bilder hochladen und fertig melden",
+      "address": "Lortzingstr. 21",
+      "date": "04.08.2026 15:20",
+      "tag": "foto",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "586330",
+      "lws": "LWS-82046",
+      "from": "LWS Plus GmbH",
+      "message": "Und ?",
+      "address": "Regaweg 1",
+      "date": "04.08.2026 15:18",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "595839",
+      "lws": "LWS-83317",
+      "from": "LWS Plus GmbH",
+      "message": "Habt ihr noch ein paar Bilder mehr",
+      "address": "Eiderstraße 10",
+      "date": "04.08.2026 15:14",
+      "tag": "foto",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "656179",
+      "lws": "LWS-89055",
+      "from": "LWS Plus GmbH",
+      "message": "Alles klar",
+      "address": "Havelstraße 14",
+      "date": "04.08.2026 15:12",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "617578",
+      "lws": "LWS-85438",
+      "from": "LWS Plus GmbH",
+      "message": "Hier ist der Auftrag seitens der LEG Storniert. Mieter bleibt wohnen",
+      "address": "Sollingstr. 2",
+      "date": "04.08.2026 13:42",
+      "tag": "storniert",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "601243",
+      "lws": "LWS-83692",
+      "from": "LWS Plus GmbH",
+      "message": "Alles klar bitte dann ein Bild hochladen wenn ihr fertig seit.",
+      "address": "An der Kochsbreite 10",
+      "date": "04.08.2026 12:55",
+      "tag": "foto",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "660993",
+      "lws": "LWS-89609",
+      "from": "LWS Plus GmbH",
+      "message": "Achtung neuer Auftrag",
+      "address": "Ricklinger Stadtweg 59",
+      "date": "04.08.2026 12:54",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "660986",
+      "lws": "LWS-89606",
+      "from": "LWS Plus GmbH",
+      "message": "Achtung, neuer Auftrag",
+      "address": "Ricklinger Stadtweg 57",
+      "date": "04.08.2026 12:52",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "636878",
+      "lws": "LWS-87189",
+      "from": "LWS Plus GmbH",
+      "message": "Hier bitte den Mieterkeller entrümpeln Nachtrag kommt",
+      "address": "Zum Heidgarten 16",
+      "date": "04.08.2026 12:46",
+      "tag": "nachtrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "637408",
+      "lws": "LWS-87185",
+      "from": "LWS Plus GmbH",
+      "message": "Achtung neues Ausführungs und Fertigstellung Datum",
+      "address": "Goerdelerstr. 5",
+      "date": "04.08.2026 12:44",
+      "tag": "termin",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "654273",
+      "lws": "LWS-88841",
+      "from": "LWS Plus GmbH",
+      "message": "Andrea Frahm Wohnung ist umgeschlüsselt und Fertigstellung in 14 Tagen ;-)",
+      "address": "Marktstraße 35",
+      "date": "04.08.2026 11:47",
+      "tag": "termin_info",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "654257",
+      "lws": "LWS-88840",
+      "from": "LWS Plus GmbH",
+      "message": "Wohnung ist umgeschlüsselt und Fertigstellung in 14 Tagen ;-)",
+      "address": "Enzianstraße 6",
+      "date": "04.08.2026 11:46",
+      "tag": "termin_info",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "626840",
+      "lws": "LWS-86326",
+      "from": "LWS Plus GmbH",
+      "message": "Bitte auch den Keller räumen",
+      "address": "Eiderstraße 26",
+      "date": "04.08.2026 11:16",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "660871",
+      "lws": "LWS-89605",
+      "from": "LWS Plus GmbH",
+      "message": "Anbei ein neuer Auftrag mit der Bitte um Fertigstellung. Danke",
+      "address": "Auf dem Rohe 43",
+      "date": "04.08.2026 11:00",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "660868",
+      "lws": "LWS-89597",
+      "from": "LWS Plus GmbH",
+      "message": "Anbei ein neuer Auftrag mit der Bitte um Fertigstellung. Danke",
+      "address": "Ricklinger Stadtweg 59",
+      "date": "04.08.2026 10:57",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "652005",
+      "lws": "LWS-88652",
+      "from": "LWS Plus GmbH",
+      "message": "Baustopp aufgehoben, NTs bitte annehmen. Danke",
+      "address": "Ricklinger Stadtweg 67",
+      "date": "04.08.2026 10:49",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "616222",
+      "lws": "LWS-85283",
+      "from": "LWS Plus GmbH",
+      "message": "Wie ist hier der Stand?",
+      "address": "Wilhelm-Busch-Straße 3",
+      "date": "04.08.2026 10:29",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "654411",
+      "lws": "LWS-88945",
+      "from": "LWS Plus GmbH",
+      "message": "Wie ist hier der Stand?",
+      "address": "Mühlenweg 10",
+      "date": "04.08.2026 10:26",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "605774",
+      "lws": "LWS-84226",
+      "from": "LWS Plus GmbH",
+      "message": "Siehe bild",
+      "address": "Hermann-Löns-Straße 15",
+      "date": "04.08.2026 10:16",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "619955",
+      "lws": "LWS-85677",
+      "from": "LWS Plus GmbH",
+      "message": "Wie ist hier der Stand?",
+      "address": "Hilshof 3",
+      "date": "04.08.2026 08:30",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "601855",
+      "lws": "LWS-83995",
+      "from": "LWS Plus GmbH",
+      "message": "Wie ist hier der Stand der Abarbeitung der Mängel?",
+      "address": "Leuschnerstraße 58",
+      "date": "04.08.2026 08:26",
+      "tag": "mangel",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "658866",
+      "lws": "LWS-89436",
+      "from": "LWS Plus GmbH",
+      "message": "Hallo, wann wird die Wohnung fertiggestellt? Können wir zum 16.08. anschlussvermieten?",
+      "address": "Witzlebenstr. 79",
+      "date": "04.08.2026 07:13",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "649571",
+      "lws": "LWS-88000",
+      "from": "LWS Plus GmbH",
+      "message": "Hier sind noch NT",
+      "address": "Wiesenstraße 41",
+      "date": "04.08.2026 06:50",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "643067",
+      "lws": "LWS-87806",
+      "from": "LWS Plus GmbH",
+      "message": "BZP zwecks / Maler Mängel angepasst. Mängel wurden heute mit Andrej und Andrew Mibach vor Ort besprochen.",
+      "address": "Albrechtstraße 84",
+      "date": "03.08.2026 15:35",
+      "tag": "mangel",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "556699",
+      "lws": "LWS-78296",
+      "from": "LWS Plus GmbH",
+      "message": "Fertigstellung sollte der 29.05 sein",
+      "address": "Wilhelm-Busch-Straße 1",
+      "date": "03.08.2026 15:28",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "632508",
+      "lws": "LWS-86724",
+      "from": "LWS Plus GmbH",
+      "message": "wen habt ihr den HET ausgehändigt/zurück gegeben?",
+      "address": "Preußenstraße 5",
+      "date": "03.08.2026 15:17",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "657177",
+      "lws": "LWS-88976",
+      "from": "LWS Plus GmbH",
+      "message": "Bitte das durchgefallene Protokoll trotzdem hochladen ;-)",
+      "address": "Wiesenstraße 51",
+      "date": "03.08.2026 14:04",
+      "tag": "foto",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "563153",
+      "lws": "LWS-78907",
+      "from": "LWS Plus GmbH",
+      "message": "Huhu, habt ihr hier schon jemanden erreicht? LG",
+      "address": "Popenser Straße 40",
+      "date": "03.08.2026 13:44",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "643063",
+      "lws": "LWS-87807",
+      "from": "LWS Plus GmbH",
+      "message": "Position erneut zugewiesen.",
+      "address": "Preußenstraße 70",
+      "date": "03.08.2026 11:31",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "626897",
+      "lws": "LWS-86377",
+      "from": "LWS Plus GmbH",
+      "message": "Hallo zusammen, NT ist eingestellt.",
+      "address": "Am Kirchhof 8",
+      "date": "03.08.2026 10:58",
+      "tag": "nachtrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "641360",
+      "lws": "LWS-87556",
+      "from": "LWS Plus GmbH",
+      "message": "Bitte den Keller noch Leer räumen Nachtrag kommt",
+      "address": "Potsdamer Weg 9",
+      "date": "03.08.2026 10:20",
+      "tag": "nachtrag",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "613106",
+      "lws": "LWS-85036",
+      "from": "LWS Plus GmbH",
+      "message": "Bitte Mangel beseitigen",
+      "address": "Warnowstraße 10",
+      "date": "03.08.2026 09:55",
+      "tag": "mangel",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "626851",
+      "lws": "LWS-86347",
+      "from": "LWS Plus GmbH",
+      "message": "Hier bitte die neue UV in den Abstellraum verlegen wenn es möglich ist",
+      "address": "Regaweg 5",
+      "date": "03.08.2026 09:35",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "601571",
+      "lws": "LWS-83944",
+      "from": "LWS Plus GmbH",
+      "message": "Was ist mit dem Mangel ?",
+      "address": "Schleistraße 5",
+      "date": "03.08.2026 08:05",
+      "tag": "mangel",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "610879",
+      "lws": "LWS-84864",
+      "from": "LWS Plus GmbH",
+      "message": "Was ist mit den Mängeln?",
+      "address": "Schleistraße 5",
+      "date": "03.08.2026 08:04",
+      "tag": "mangel",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "573566",
+      "lws": "LWS-80533",
+      "from": "LWS Plus GmbH",
+      "message": "Kantaktdaten sind hochgeladen.",
+      "address": "Leuschnerstraße 46",
+      "date": "31.07.2026 14:50",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    },
+    {
+      "id": "607570",
+      "lws": "LWS-84630",
+      "from": "LWS Plus GmbH",
+      "message": "Kontaktdaten sind hochgeladen",
+      "address": "Göttinger Chaussee 69",
+      "date": "31.07.2026 14:47",
+      "tag": "sonstiges",
+      "seen_at": "2026-08-04"
+    }
+  ],
+  "chat_unread": 4895,
+  "change_log": [],
+  "bzp": {
+    "LWS-86856": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.07.2026",
+        "bis": "02.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "16.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "06.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "10.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "08.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "20.07.2026",
+        "bis": "21.07.2026"
+      }
+    ],
+    "LWS-84883": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "06.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "07.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "09.07.2026",
+        "bis": "13.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "14.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "21.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "23.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "01.07.2026",
+        "bis": "02.07.2026"
+      }
+    ],
+    "LWS-87807": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "07.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "08.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "10.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "13.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "08.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "08.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "22.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "27.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "29.07.2026",
+        "bis": "29.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "08.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      }
+    ],
+    "LWS-86950": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.08.2026",
+        "bis": "02.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "01.08.2026",
+        "bis": "02.08.2026"
+      }
+    ],
+    "LWS-87194": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.09.2026",
+        "bis": "01.09.2026"
+      }
+    ],
+    "LWS-87246": [
+      {
+        "gewerk": "Sanitär",
+        "von": "31.07.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-85021": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.08.2026",
+        "bis": "04.08.2026"
+      }
+    ],
+    "LWS-86198": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.07.2026",
+        "bis": "02.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "07.07.2026",
+        "bis": "07.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "06.07.2026",
+        "bis": "06.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "06.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "16.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "21.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "16.07.2026",
+        "bis": "16.07.2026"
+      }
+    ],
+    "LWS-86259": [
+      {
+        "gewerk": "Elektro",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "23.06.2026",
+        "bis": "25.06.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "02.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "22.06.2026",
+        "bis": "22.06.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "29.06.2026",
+        "bis": "01.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "25.06.2026",
+        "bis": "26.06.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "06.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "29.06.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "15.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "21.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      }
+    ],
+    "LWS-88778": [
+      {
+        "gewerk": "Sonstige",
+        "von": "30.07.2026",
+        "bis": "31.07.2026"
+      }
+    ],
+    "LWS-89015": [
+      {
+        "gewerk": "Elektro",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      }
+    ],
+    "LWS-89055": [
+      {
+        "gewerk": "Elektro",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      }
+    ],
+    "LWS-89422": [
+      {
+        "gewerk": "Sanitär",
+        "von": "12.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "12.08.2026",
+        "bis": "12.08.2026"
+      }
+    ],
+    "LWS-87300": [
+      {
+        "gewerk": "Elektro",
+        "von": "16.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "23.07.2026",
+        "bis": "23.07.2026"
+      }
+    ],
+    "LWS-87444": [
+      {
+        "gewerk": "Elektro",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "28.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      }
+    ],
+    "LWS-87812": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-87819": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "04.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-88067": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "15.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "21.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "15.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-88487": [
+      {
+        "gewerk": "Sanitär",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "23.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "23.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-88945": [
+      {
+        "gewerk": "Boden",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      }
+    ],
+    "LWS-84867": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-86056": [
+      {
+        "gewerk": "Elektro",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      }
+    ],
+    "LWS-87066": [
+      {
+        "gewerk": "Elektro",
+        "von": "05.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "27.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "16.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "09.07.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "29.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "04.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "20.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "07.08.2026",
+        "bis": "07.08.2026"
+      }
+    ],
+    "LWS-87252": [
+      {
+        "gewerk": "Elektro",
+        "von": "15.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "29.06.2026",
+        "bis": "30.06.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "01.07.2026",
+        "bis": "01.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "06.07.2026",
+        "bis": "06.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "02.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "01.07.2026",
+        "bis": "02.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "06.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "29.06.2026",
+        "bis": "29.06.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "15.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      }
+    ],
+    "LWS-87283": [
+      {
+        "gewerk": "Elektro",
+        "von": "16.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "18.07.2026",
+        "bis": "18.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "19.07.2026",
+        "bis": "19.07.2026"
+      }
+    ],
+    "LWS-89490": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "31.07.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-86370": [
+      {
+        "gewerk": "Reinigung",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-85027": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.07.2026",
+        "bis": "04.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "10.07.2026",
+        "bis": "11.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "07.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "04.07.2026",
+        "bis": "07.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "12.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "23.07.2026",
+        "bis": "25.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "25.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      }
+    ],
+    "LWS-85605": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "14.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "20.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "22.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "23.07.2026",
+        "bis": "29.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "30.07.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "04.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "10.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "07.08.2026",
+        "bis": "07.08.2026"
+      }
+    ],
+    "LWS-87806": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.07.2026",
+        "bis": "13.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "14.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "20.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "28.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "09.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      }
+    ],
+    "LWS-85285": [
+      {
+        "gewerk": "Elektro",
+        "von": "10.07.2026",
+        "bis": "12.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "04.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "16.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "28.07.2026",
+        "bis": "01.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "02.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-85435": [
+      {
+        "gewerk": "Elektro",
+        "von": "08.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "15.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "27.07.2026",
+        "bis": "29.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "30.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-87490": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "06.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "24.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "07.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "10.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "07.07.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "05.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "12.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "06.07.2026",
+        "bis": "06.07.2026"
+      }
+    ],
+    "LWS-84831": [
+      {
+        "gewerk": "Elektro",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "10.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "15.06.2026",
+        "bis": "15.06.2026"
+      }
+    ],
+    "LWS-89173": [
+      {
+        "gewerk": "Sanitär",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "10.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      }
+    ],
+    "LWS-89174": [
+      {
+        "gewerk": "Tischler",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      }
+    ],
+    "LWS-89082": [
+      {
+        "gewerk": "Elektro",
+        "von": "30.07.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "30.07.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "30.07.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "30.07.2026",
+        "bis": "07.08.2026"
+      }
+    ],
+    "LWS-86557": [
+      {
+        "gewerk": "Elektro",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "06.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "10.08.2026",
+        "bis": "10.08.2026"
+      }
+    ],
+    "LWS-86893": [
+      {
+        "gewerk": "Elektro",
+        "von": "04.07.2026",
+        "bis": "07.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "07.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "11.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "09.07.2026",
+        "bis": "11.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "14.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "23.07.2026",
+        "bis": "25.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "26.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "29.07.2026",
+        "bis": "29.07.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "02.07.2026",
+        "bis": "04.07.2026"
+      }
+    ],
+    "LWS-87083": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "15.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      }
+    ],
+    "LWS-87189": [
+      {
+        "gewerk": "Sanitär",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "06.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "10.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "05.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "11.08.2026",
+        "bis": "11.08.2026"
+      }
+    ],
+    "LWS-87998": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "13.07.2026",
+        "bis": "13.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "14.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "27.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "14.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "27.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "06.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "10.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "11.08.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "13.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "13.08.2026",
+        "bis": "13.08.2026"
+      }
+    ],
+    "LWS-83317": [
+      {
+        "gewerk": "Tischler",
+        "von": "12.03.2026",
+        "bis": "20.03.2026"
+      }
+    ],
+    "LWS-85391": [
+      {
+        "gewerk": "Elektro",
+        "von": "11.08.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "12.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      }
+    ],
+    "LWS-86136": [
+      {
+        "gewerk": "Tischler",
+        "von": "18.05.2026",
+        "bis": "11.06.2026"
+      }
+    ],
+    "LWS-86353": [
+      {
+        "gewerk": "Sanitär",
+        "von": "31.07.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "31.07.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-86701": [
+      {
+        "gewerk": "Elektro",
+        "von": "05.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "09.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "13.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "10.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "10.07.2026",
+        "bis": "06.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "30.07.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "22.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "07.08.2026",
+        "bis": "07.08.2026"
+      }
+    ],
+    "LWS-87347": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "30.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "29.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "27.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "22.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      }
+    ],
+    "LWS-87556": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "27.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "09.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.07.2026",
+        "bis": "13.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "27.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "13.07.2026",
+        "bis": "15.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "08.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "16.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "22.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "23.07.2026",
+        "bis": "24.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "15.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.07.2026",
+        "bis": "03.07.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "01.07.2026",
+        "bis": "02.07.2026"
+      }
+    ],
+    "LWS-87751": [
+      {
+        "gewerk": "Elektro",
+        "von": "12.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "13.07.2026",
+        "bis": "13.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "11.08.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "14.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "20.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "16.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "11.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "12.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "16.07.2026",
+        "bis": "16.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "17.07.2026",
+        "bis": "17.07.2026"
+      }
+    ],
+    "LWS-88000": [
+      {
+        "gewerk": "Elektro",
+        "von": "10.08.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "14.07.2026",
+        "bis": "17.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "10.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "16.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "22.07.2026",
+        "bis": "30.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "20.07.2026",
+        "bis": "21.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "20.07.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "12.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "13.07.2026",
+        "bis": "14.07.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "20.07.2026",
+        "bis": "20.07.2026"
+      }
+    ],
+    "LWS-88840": [
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "04.08.2026",
+        "bis": "05.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "04.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "13.08.2026",
+        "bis": "14.08.2026"
+      }
+    ],
+    "LWS-88841": [
+      {
+        "gewerk": "Sanitär",
+        "von": "04.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "07.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "05.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "12.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "13.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.08.2026",
+        "bis": "04.08.2026"
+      }
+    ],
+    "LWS-89172": [
+      {
+        "gewerk": "Elektro",
+        "von": "27.07.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "27.07.2026",
+        "bis": "15.08.2026"
+      }
+    ],
+    "LWS-86892": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.08.2026",
+        "bis": "01.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "02.08.2026",
+        "bis": "10.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "11.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "15.08.2026",
+        "bis": "15.08.2026"
+      }
+    ],
+    "LWS-88653": [
+      {
+        "gewerk": "Tischler",
+        "von": "16.07.2026",
+        "bis": "31.07.2026"
+      }
+    ],
+    "LWS-86326": [
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "04.08.2026",
+        "bis": "07.08.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "13.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      }
+    ],
+    "LWS-88946": [
+      {
+        "gewerk": "Elektro",
+        "von": "31.07.2026",
+        "bis": "31.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "03.08.2026",
+        "bis": "03.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "04.08.2026",
+        "bis": "04.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "05.08.2026",
+        "bis": "11.08.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "13.08.2026",
+        "bis": "13.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "14.08.2026",
+        "bis": "14.08.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "12.08.2026",
+        "bis": "12.08.2026"
+      }
+    ]
   }
 }
