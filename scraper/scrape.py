@@ -946,7 +946,14 @@ def scrape_archiv_maengel(page):
     """
     import os
     if os.environ.get("FULL_SCRAPE", "true").lower() != "true":
-        return {}
+        # не FULL_SCRAPE — оставляем прошлый результат вместо пустого (иначе Archiv
+        # обнуляется на каждом обычном 10-минутном прогоне вместо раза в сутки)
+        try:
+            with open(OUTPUT_FILE, encoding="utf-8") as f:
+                prev = json.load(f)
+            return prev.get("archiv_mangel_stats", {}), prev.get("archiv_maengel", [])
+        except Exception:
+            return {}, []
 
     try:
         # Archiv скрыт в dropdown профиля — извлекаем href через JS и переходим напрямую
@@ -964,7 +971,7 @@ def scrape_archiv_maengel(page):
         print(f"  Archiv href: {archiv_href}")
         if not archiv_href:
             print("  Archiv ссылка не найдена в DOM")
-            return {}
+            return {}, []
 
         page.goto(archiv_href)
         page.wait_for_load_state("domcontentloaded", timeout=20000)
@@ -994,7 +1001,7 @@ def scrape_archiv_maengel(page):
         """)
         print(f"  Mangelaufträge href: {mangel_href}")
         if not mangel_href:
-            return {}
+            return {}, []
 
         page.goto(mangel_href)
         page.wait_for_load_state("domcontentloaded", timeout=20000)
