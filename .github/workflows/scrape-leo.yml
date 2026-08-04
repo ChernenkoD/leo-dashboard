@@ -23,7 +23,7 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 25  # обычный прогон короткий; раз в сутки (FULL_SCRAPE) добавляются archiv+handover обходы
+    timeout-minutes: 35  # обычный прогон короткий; раз в сутки (FULL_SCRAPE) добавляются archiv+handover обходы — живой прогон занял ~24 мин
     steps:
       - uses: actions/checkout@v4
 
