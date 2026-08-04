@@ -74,8 +74,11 @@ jobs:
         run: |
           git config user.name "leo-bot"
           git config user.email "leo-bot@users.noreply.github.com"
-          git add data.json project_urls.json scraper/mangel_dates.json \
-                  scraper/nachtrag_seen.json scraper/pending_mangel_seen.json || true
+          git add data.json || true
+          git add project_urls.json || true
+          git add scraper/mangel_dates.json || true
+          git add scraper/nachtrag_seen.json || true
+          git add scraper/pending_mangel_seen.json || true
           if git diff --cached --quiet; then
             echo "Нечего коммитить"
             exit 0

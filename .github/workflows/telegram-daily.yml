@@ -62,7 +62,9 @@ jobs:
         run: |
           git config user.name "leo-bot"
           git config user.email "leo-bot@users.noreply.github.com"
-          git add photos/ scraper/telegram_offset.json scraper/telegram_topics.json || true
+          git add photos/ || true
+          git add scraper/telegram_offset.json || true
+          git add scraper/telegram_topics.json || true
           if git diff --cached --quiet; then
             echo "Нечего коммитить"
             exit 0
