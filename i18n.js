@@ -6,6 +6,7 @@ const DICT = {
     nav_mangel: "Mängel",
     nav_invoiced: "In Abrechnung",
     nav_stats: "Статистика",
+    nav_settings: "Настройки",
 
     ring_overdue: "Просрочено",
     ring_week: "На этой неделе",
@@ -96,6 +97,7 @@ const DICT = {
     nav_mangel: "Mängel",
     nav_invoiced: "In Abrechnung",
     nav_stats: "Statistik",
+    nav_settings: "Einstellungen",
 
     ring_overdue: "Überfällig",
     ring_week: "Diese Woche",
