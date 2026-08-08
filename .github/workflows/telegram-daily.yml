@@ -39,7 +39,9 @@ jobs:
         run: python scraper/telegram_photo_sync.py
 
       - name: Daily digest (только в 8:00)
-        if: github.event.schedule == '0 6 * * *' || github.event_name == 'workflow_dispatch'
+        # ВРЕМЕННО ОТКЛЮЧЁН (2026-08-08) вместе с остальными Telegram-уведомлениями.
+        # Фото-синк выше оставлен: он только скачивает присланные фото и ничего не шлёт.
+        if: false
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}

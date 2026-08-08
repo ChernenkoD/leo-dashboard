@@ -66,8 +66,15 @@ jobs:
           LEO_USER: ${{ secrets.LEO_USER }}
           LEO_PASS: ${{ secrets.LEO_PASS }}
           GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
+          # TELEGRAM ВРЕМЕННО ОТКЛЮЧЁН (2026-08-08).
+          # Без TELEGRAM_BOT_TOKEN/TELEGRAM_GROUP_ID telegram_bot._api() и
+          # create_topic_for_mangel() сразу возвращают None — бот молчит,
+          # сбор данных при этом работает как обычно.
+          # Причина: треды пересоздавались на каждом прогоне (~6 шт/10 мин),
+          # потому что telegram_topics.json не коммитился и память дедупа терялась.
+          # Включать обратно только после фикса персистентности состояния.
+          # TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          # TELEGRAM_GROUP_ID: ${{ secrets.TELEGRAM_GROUP_ID }}
           FULL_SCRAPE: ${{ (github.event.schedule == '0 5 * * *' && 'true') || (github.event.inputs.full_scrape == 'true' && 'true') || 'false' }}
 
       - name: Commit updated data.json
