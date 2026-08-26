@@ -2726,5 +2726,93 @@
     "from": "01.09.2026",
     "to": "27.08.2026",
     "at": "2026-08-25T14:30:23.329810+00:00"
+  },
+  {
+    "lws": "LWS-85435",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 11104.83,
+    "to": 11119.18,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-86347",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 6456.53,
+    "to": 6314.35,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-86892",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 1116.78,
+    "to": 648.2,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-87189",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-87244",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 9292.67,
+    "to": 10590.83,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-87197",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 752.95,
+    "to": 1218.38,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-87552",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 20450.33,
+    "to": 20350.68,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-80213",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-89171",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 529.54,
+    "to": 3794.74,
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-90080",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-08-26T05:46:51.477019+00:00"
+  },
+  {
+    "lws": "LWS-90079",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-08-26T05:46:51.477019+00:00"
   }
 ]
