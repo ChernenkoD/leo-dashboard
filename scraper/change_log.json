@@ -2982,5 +2982,261 @@
     "from": true,
     "to": false,
     "at": "2026-08-26T10:49:11.588661+00:00"
+  },
+  {
+    "lws": "LWS-84867",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-85038",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "29.07.2026",
+    "to": "28.07.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-85974",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 14413.07,
+    "to": 14764.74,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-85973",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "07.09.2026",
+    "to": "14.09.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86056",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86054",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86335",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86326",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86353",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86892",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 648.2,
+    "to": 1477.45,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86884",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "02.09.2026",
+    "to": "08.09.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86992",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 18701.77,
+    "to": 21481.46,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87083",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "25.08.2026",
+    "to": "01.09.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87189",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87549",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": false,
+    "to": true,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87445",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 3894.36,
+    "to": 3802.37,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-86356",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 5713.8,
+    "to": 5828.75,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87619",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "25.08.2026",
+    "to": "02.09.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87750",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "27.08.2026",
+    "to": "04.09.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-87812",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88625",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 13643.42,
+    "to": 13531.67,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88449",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "24.09.2026",
+    "to": "30.10.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88449",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "01.09.2026",
+    "to": "06.10.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88653",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "11.08.2026",
+    "to": "29.08.2026",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88653",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88707",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88953",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 5013.44,
+    "to": 15579.58,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-88953",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-89173",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-89175",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-90080",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
+  },
+  {
+    "lws": "LWS-90079",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-08-27T16:32:22.977114+00:00"
   }
 ]
