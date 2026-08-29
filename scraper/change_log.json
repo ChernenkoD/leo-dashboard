@@ -3350,5 +3350,53 @@
     "from": "04.09.2026",
     "to": "25.09.2026",
     "at": "2026-08-28T17:29:11.198574+00:00"
+  },
+  {
+    "lws": "LWS-80533",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-08-29T01:49:50.338015+00:00"
+  },
+  {
+    "lws": "LWS-86259",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-08-29T01:49:50.338015+00:00"
+  },
+  {
+    "lws": "LWS-87463",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 17849.27,
+    "to": 18030.35,
+    "at": "2026-08-29T01:49:50.338015+00:00"
+  },
+  {
+    "lws": "LWS-87812",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "06.08.2026",
+    "to": "21.08.2026",
+    "at": "2026-08-29T01:49:50.338015+00:00"
+  },
+  {
+    "lws": "LWS-88344",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 2000.11,
+    "to": 2142.14,
+    "at": "2026-08-29T01:49:50.338015+00:00"
+  },
+  {
+    "lws": "LWS-88625",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 13531.67,
+    "to": 13720.02,
+    "at": "2026-08-29T01:49:50.338015+00:00"
   }
 ]
