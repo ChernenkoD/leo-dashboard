@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T20:58:33.055574+00:00",
+  "updatedAt": "2026-09-10T09:44:23.811257+00:00",
   "tasks": [
     {
       "type": "neuer Nachtrag (von GU)",
@@ -16,6 +16,13 @@
       "due": "06.09.2026"
     },
     {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Bunsenstr. 12 31789 Hameln",
+      "lws": "LWS-88952",
+      "leg": "LEG-163116-0",
+      "due": "09.09.2026"
+    },
+    {
       "type": "Achtung neuer Baustopp",
       "address": "Bremer Straße 154 26382 Wilhelmshaven",
       "lws": "LWS-90575",
@@ -23,11 +30,11 @@
       "due": "09.09.2026"
     },
     {
-      "type": "neuer Nachtrag (von GU)",
-      "address": "Bunsenstr. 12 31789 Hameln",
-      "lws": "LWS-88952",
-      "leg": "LEG-163116-0",
-      "due": "09.09.2026"
+      "type": "Baustopp aufgehoben",
+      "address": "Ricklinger Stadtweg 59 30459 Hannover",
+      "lws": "LWS-89609",
+      "leg": "LEG-163977-0",
+      "due": "10.09.2026"
     },
     {
       "type": "neuer Nachtrag (von GU)",
@@ -114,10 +121,108 @@
       "due": "12.09.2026"
     },
     {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Auf dem Rohe 43 30459 Hannover",
+      "lws": "LWS-89605",
+      "leg": "LEG-163553-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Friedrich-Ebert-Str. 10 30459 Hannover",
+      "lws": "LWS-89469",
+      "leg": "LEG-163951-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Leuschnerstraße 50 30457 Hannover",
+      "lws": "LWS-86593",
+      "leg": "LEG-159858-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Mangelauftrag",
+      "address": "Popenser Straße 40 26603 Aurich",
+      "lws": "LWS-87619",
+      "leg": "LEG-161001-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Muldeweg 15 38120 Braunschweig",
+      "lws": "LWS-88401",
+      "leg": "LEG-161690-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Schleistraße 6 38120 Braunschweig",
+      "lws": "LWS-90947",
+      "leg": "LEG-165936-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Preußenstraße 80 26388 Wilhelmshaven",
+      "lws": "LWS-87611",
+      "leg": "LEG-160808-0",
+      "due": "12.09.2026"
+    },
+    {
+      "type": "neuer Nachtrag (von GU)",
+      "address": "Tiegenhofer Zeile 3 26388 Wilhelmshaven",
+      "lws": "LWS-87814",
+      "leg": "LEG-160475-0",
+      "due": "12.09.2026"
+    },
+    {
       "type": "Fehlende Nachweisdokumente für Positionen",
       "address": "Eiderstraße 22 38120 Braunschweig",
       "lws": "LWS-85874",
       "leg": "LEG-159133-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Buddeweg 4 30419 Hannover",
+      "lws": "LWS-91052",
+      "leg": "LEG-166169-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Buddeweg 4 30419 Hannover",
+      "lws": "LWS-91058",
+      "leg": "LEG-166171-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Leuschnerstraße 62 30457 Hannover",
+      "lws": "LWS-91048",
+      "leg": "LEG-165835-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Goerdelerstraße 4 30457 Hannover",
+      "lws": "LWS-91086",
+      "leg": "LEG-166035-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Friedrich-Ebert-Str. 49 30459 Hannover",
+      "lws": "LWS-91091",
+      "leg": "LEG-166365-0",
+      "due": "13.09.2026"
+    },
+    {
+      "type": "neues Projekt",
+      "address": "Kattenbrookstrift 25 30539 Hannover",
+      "lws": "LWS-91084",
+      "leg": "LEG-166181-0",
       "due": "13.09.2026"
     }
   ],
@@ -134,7 +239,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=NrPUEW8W7UVULW823ixeYi9yeXZuNjZqenVJM3pSa2t6NVdsU3djY1FUSnJpR0dPOVdvd0FXVG5QUFlkSGdWUktEVzVZWlJEOFc4TkY2Z2g%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=MOHGb%2BWoHUPQrTpEBQhpeHVGNURGaG41VEhTUEt4dnpPQitHKytsN3czQlRKT2w2cUVkd0JPVlpHSUZuaHY4bkcrNit5eG9EbzBveW5jRm4%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -170,7 +275,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=HJ5OEeGbgqF%2Bvx0aG0a9p1B1OGg0NElkSFQwckJoN3UrR3lvU0J6dzNXRUN5eGtGUkNjVHArZEpndC9KdlMrY21KZThTNm5FbHk0bzJ4cHI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=a8P%2FH0Yy6%2B22xpgL551%2FBmZWbUtuSjMzOXVEQ3BubmMyT0JPSUYvRG5YWjJaMEdVc1NUcHVyUzdHOVo2d2g3T0N4Q08rNlVqdUw3TDh5Q2g%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -197,7 +302,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=QDwirPZRwEIGMni52u59snVCYnJ6eXlNclp5SlpCb01iNzY1ckp4OGtnOHNJeDVTZG9vQ2I4Q21UWU5hY1FSSGNQbWdGVUQ4Y0FuYVVmVWQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=tx5JNjifj1hq4BjYQOJVGFJRQWZDdjh5NTl2ZFpsbU9SN3JzZWNVNGx6L2JmejZUMUZydCs5ZTZvQ1hpcjR2NFBiU2taOHFzdTZLSVZQM2I%3D",
       "positionen": [
         {
           "code": "06.01.02.0100",
@@ -224,7 +329,7 @@
       "bauleiter": "Grzegorz Kawczynski",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=DIwkAA5WwbWaA2W72OCXBldkZTd4a1gzNjhHMC9UczMwLzVlKzR0VE13K0VwaU4ydUhXb1JmYkNxUHhycGtRalFXcXQva0c0YWI0Z05ITHY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=KpcsB3NyEpxMoU2ZdN3cfURVL090M1YzZlI0SVo1ZFhkbUs0d2IvTmI5Tk5IaGhWcndJaWNST1g4d01MaVBJSUkyTHlMTjVIeTNHT3lpYjU%3D",
       "positionen": [
         {
           "code": "06.03.02.0340",
@@ -251,7 +356,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Nils Grude",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=9%2BASeVwqPo0PdJQvWmiUNnUvTmJuN1FhVy9hY3BKMjV6bWdjbXA2bnRzd2p6YlpOY3lLa1NyMEY5YjZQNHUvNm9oL0UxRkZCZXNyWjJHQjA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=tqr7MldNweYZlMm%2BZpS9PGNjd1FBRklGTFhmSUFRRnZmQmRSUHdqekl5aXBaZG0wNmVxVzhWNDRpbWJ5YXRnaTZySGpsTGtMd2d5dnFlUVM%3D",
       "positionen": [
         {
           "code": "06.04.01.0030",
@@ -296,7 +401,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=CMVkbqPamN1jC48s3TvfRWRZbm5uYUp1OU5ta3k3bWd3OXRicm5LbFdadU1ZaDhTRmxnMmdvWjlGY0I1L3dGNzhqbU0rQ2s3QlNCUE9vRTk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=b3j3rAcyltj6ErWnlFczHFBBekt3RjFLcEJsQ016ZXhCTjJwR09UQlpnSmsrZk1vMFBqVXhKdDRMbit1QjNxUW5VOTQ4S2hQLzNBRGVvVno%3D",
       "positionen": [
         {
           "code": "06.01.01.0020",
@@ -332,7 +437,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=1XaVcKJ1hzzSV6CF9kzsPE1pckNOV1FlenI0K0pWYVk3VFNJemUrdUtDeE5SQU5td3lIR1R6bU1JSS9Cbmx5MlVRRUtqbDgwV3lYdHJNb1o%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=6Gynfvlpirq6Fdq9FlEX%2F0RwR0tLcDQxSDYrMkdDdVl4UjdWS2E1YmhPdXh0Q2RRWWE4Nys1dk9BUFh5dXpBUGlneHpVMUZObExlZ05yQTc%3D",
       "positionen": [
         {
           "code": "06.01.01.0316",
@@ -359,7 +464,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=GdKYvZcod5YwgHdRowNaUDJhdG1RSnQwTS9zMmwwL05NeGFXbndSdXg3VnJlbGYva1MvTGFCWkJrcWRBb2RMMk1ZSlZpU25GTUUxMXdKNS8%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=RME2uLx9mUc3foyOU5KzuXlmdnkvRnhQZ1pwWEduc3FiTTUveFgzWnRCOHRXNzJEKytzNVFtYlNoTUFPelRReERVdUQ5OUJYZlllMkdwYi8%3D",
       "positionen": [
         {
           "code": "06.01.01.0010",
@@ -386,7 +491,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=cLRLHIEoojD7dUM27dxmv0FEbWluMW1LWkpHekhEb25reEhCWXcrTk9KYno3ZExlUmFvMG9TbGt1QjhaVzFRenFDeDFVRktoTFE5aWpuMms%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=C9ckC58iXF0tmYjgs4IOz2hBcXMzcXV5RS9nSFlKMHBHMWw0bWJIYnhySm5WUDNXM01ialNaQjFPbW5JTVUycWR6VzFVcHk4NWcxM01Fcmk%3D",
       "positionen": [
         {
           "code": "06.07.03.0050",
@@ -413,7 +518,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=At3%2F1s%2Fp8PTp4TZpwhN5F2xIUzdoUWd3cEdVZzhpRkhkY0ErVktLRVpNL1FhSCtJYzRpMEJHQzR3S3REQ1lYL2kzcDljZjRmcUphTnJBaWQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=kZV0UXerORo5AeBGi5Z74itJcmVVb3JIaEFmL3p3b2ZudVVLNVhuM1M4cHVtZkJBRkR1aDVMQnpHOEtJcDYxNW8vSE44M0dvRVZNZTk0TDE%3D",
       "positionen": [],
       "first_seen": "2026-08-17",
       "mangel_status": "unknown"
@@ -430,7 +535,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=O4sgvhlg4UC3k1Ox%2BdD6YklQY2VJR0lmeFo0c2E3ejhkSUhpNjlKbnV0Z3UySEN6T2c3REFkL2swZE5IRmJZT3NhSUM1MEpOWVZoV0lMUGI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=nU%2Fqm3MyfvAgl%2FxZVrwpaUdLd2Y5SFFZMVJBcGRhODlMbVV5YVFtVDBiS2ZBWUJuTFg1RnlsOTFvSkxlU3RIRWoraXB2WkNLL1BhSGlMMWk%3D",
       "positionen": [
         {
           "code": "06.08.02.0300",
@@ -457,7 +562,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=pXfgRAP6yw5GLcLGlHN3smNyK0NxeHhMWm9xMDlQV2prVTFwaW56VFRXTkJGVmtqMTlKRitNRkR3S0VMakdqbDVKYVhhaE5MNFRxUGlsSUU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=O3FrzN60WwwXrW%2FL%2BLoxbGJqUmJHcFFpeXcyZzhJbmpBeWRGWjlKYitXbGdncE5nL3JBclRaS3N5K1cyODNMNjlZMEhTNzF3MFBwbmU1Z1c%3D",
       "positionen": [
         {
           "code": "06.06.01.0100",
@@ -484,7 +589,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=fCC2%2B99%2BLMYSndWZRSw3enZ0aStYY005YzFRWHRXMkhCdTNhU0pPQ3dLMlJQbXBxZjhPc3Z5SzlSbHpKQU80U2lBdTRJRUIxcldvMUFnQkI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=8zDXF8PyuMi5IVR9b3DC%2F1YwYkU1R21aUCtKenJPMFJpc3A5SU1WSEJUaGp2OEF6SHlKd04zK1dJeUk4WGhHU0o2WGxJZXlwRmp2dU1OMmU%3D",
       "positionen": [
         {
           "code": "06.08.02.0210",
@@ -511,7 +616,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=R3cJp%2FTdWkZM3LYAYQjkxWJ4b254VzZBb3B4cEptWXNNOVFGbTg2c1hyQ2thNGwrVFJGa01FOGpnU2g1TnFGSFVGVUZJdDBMMzEwclU3U0g%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=z1qubFJ%2BcRCwK9d6rQIm6G8xcnRCUFgyc2U2cFdPRnUwNm5Tc3JGZWM5bmYxTkxzdjUxbk90V2g5d3dxVmM5b2MvalBHRzZFVHgwRFprbng%3D",
       "positionen": [
         {
           "code": "06.08.02.0030",
@@ -538,7 +643,7 @@
       "bauleiter": "Thorben Werner",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=3k75uTmxQDuVRugDy3am8TdFT0NaSDducGlTbTdiUWRUS1U5MTRtWnZWSHVKd3BycEdrVUhWQXJlYnJZWElKOGZNT2RWUWtJMjdqbS94YVU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=IY2HH42JFdF5xzFJTX6zLE05VFBHQ24ySjJjbWhkZVRvL2lwbWR0SURvU1VmUVlUT1M5eTgzZFEycEJFY0tPRm1IaVd1V1duc3NoTXpJcGU%3D",
       "positionen": [
         {
           "code": "06.01.01.0020",
@@ -565,7 +670,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=62CsV%2F%2BqSaipiLylyFVNRWNxd05zV3RDRktBeGNXNi9KUmdrUW55TGxlWENEaDRvZVhzVjg0NnR6aVZrWGJVZDNXNzVLcEZ0VE8zRHA3TCs%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Tx2dqIGl6O2UP4F%2BxDjwzWRBUWE5cC9OTWFnT1VZNWlaQ2JjNzFLUmtIY2RBa0RPeGxuWlZxM2VrMFdRc2lzc2NIeHFTdzI3MFc2ZkF6aGs%3D",
       "positionen": [
         {
           "code": "06.01.01.0240",
@@ -619,7 +724,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=iFg%2FhA3Yebsz9Q3oGec1HHQ0UVVuNjEwU0pNSW9OdndPNmN1SUxUTVNJS1IxSWRQOWhCUU9xSmNjSFBxZmNFTnBUbnFkSWZucjBhbWNoWmU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=J%2F4r5ZDEJ%2B9CLEjeBYw91G0wb3hJbzRUVHlEV0tDVFBNL2ZnTmFUY0U5bFlONDltTEl0SjRiQ0dibVhtMW9sOXdvK2NXWHZVQWgrdzRXclI%3D",
       "positionen": [
         {
           "code": "06.01.01.0010",
@@ -646,7 +751,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=jgrIb%2FZhfkEDJCpbkmfZE1piOUp5ZmhXcTl5MnFTWTZPTFk4N25mV3ZBRUErK1VBT1FPeVNZUWl5L2NKVnVTL2oxTDk0cXY2SmxHVmNkTUI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=PY5FxJ15Hh0Bwas2D1fPlk8xUm43YmtGR1RHMkNHdDRNN1N0OXNiUExQNndkczJKcUsrSWw5b2pXMS9nWUJBR3FHNVVWRythdEdiamprUm0%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -673,7 +778,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 6,
-      "leo_url": "https://leo-pro.de/index.php?q=Vw%2FTQCoVH4GC12vOmm6NpXdTYS9VMmU3TFhNMTNtRG8zaTkzZ1ArQk81QUdkRkgwTkNuWkViOFR2ekFNSjcycGZqTXVpbGw0ZEdMOG1CSGU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=P%2Fybg12IdSkkGTf63gyZwjJCcHZrMWdXMmtaOVYvSlN2dm94TkxwVHJ2OHVSVm9HdUhzTllkSlRwa2U0YzNWd0Fab1AvZmRkQTM4b2xkK08%3D",
       "positionen": [
         {
           "code": "06.04.02.0030",
@@ -745,7 +850,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=wfumZha7Tatmo2sr7JLNYWtXUC9QbzlPV0tKUGNJOEcrWVcrT2NvTSt5SXlFTzAxeXIvVWFHUFdrR1FLZ3JNeHEwRjR0b2JMb2pIR1RwODM%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=3FFEwUxKfUcncSvCrEsGuVJMZytUWWMvTEdtMXlsb2o2dElKTmszT3J0dWpOUmFUN1NaQkladnh2QjdsRmVJTW1SNkdQNFFWNEpiNjQ5R1g%3D",
       "positionen": [
         {
           "code": "06.04.02.0035",
@@ -790,7 +895,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=RRWyT7vioJQ2VwQh1JWOn3h1UXh1c3NJbnlOQms3ZTBLQWEwanpJSjlGcVJKcFVzMFg2bSt5b0haMWVTYyt2bXJiWTI0YklZbTF2dmpiam0%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=6ecCQP7gvfHs94zB%2FDJfXzZ0a0hubktVSGZSNk81N29UdXIvdWZwNGFpUlZNN2J2ZHArdE93Nzc3R3RUUmkrTnJlMnhuWjdEZ0tVaGo5bkg%3D",
       "positionen": [
         {
           "code": "06.03.02.0180",
@@ -826,7 +931,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=ElJEOCR4k4XkJTkmh%2FKwGjFvN01vNmNBdFBsMmJ2dS94aTVFVlhqTU1CVmxOOHUzS1NWVzFwdHFpcE5ldWR5aVh5Ry9JZDE1SFIyNU5YY0s%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Yn6TVLkpX72AWp9NBr5SrGVDVkxlSW1HajNPUkloenI1K2piWUY2TEFyTnBsSkJnM1BmUTRpVXNNMDdjSE9rSnlhcnpqUjRIUzdpNEliMzQ%3D",
       "positionen": [
         {
           "code": "06.08.02.0280",
@@ -862,7 +967,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=izo1%2FCiKUUTHAVYfSp7V%2BWtFTDU2bW1UUEdCTHNTcGxIUFhZd1Vpd0p4QTNxeDJDVndUSmVWU21Xd2MwY3JmNloxdTFyaGJGYWhGTzJ2ZDE%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=aP1pEoOhylUblzK62SKvrE9oejdsWFpuc241U2NXUWQyQ0o5TnRlQXcyWXIzYmlQZlkyZ1ZHWERUVzNHT0ZoRTJVVGhjWEt6RlJLU2dzWUo%3D",
       "positionen": [
         {
           "code": "06.01.02.0110",
@@ -889,7 +994,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=H%2BQgLGWKI7h909smmEbxkTVRMm9oUzJzTEJSK3dPNE5WcStLai9ZdnNSb0txR3JadzFoSVVmVFY4ZVBQc1ZsZGMxeGhSMmpYQU82aFpTSEQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=EntpQgRZArlGFnt9jqBrJnFMdVBqT21Ud1V6QURPWWNGTmZuZW1HU01XL0YyakJEc041NUNoYm5Va3ZCYzNzTlNMZkNqWThTaHREdHNxWVk%3D",
       "positionen": [
         {
           "code": "06.99.99.0001",
@@ -934,7 +1039,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 6,
-      "leo_url": "https://leo-pro.de/index.php?q=Jb923gl1UDkS8bWgB8b6CDJxOVJxWW9MYXNMaW9jOTVTeTc2L1pYZHd5VHV0RXgyMndSSFlhUGZQaTNKVDZvRlFsUXEyd242ajMzRGkvYno%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=syG3Hi%2BM4ZqRo8oXYVs5B1BSZXVEUzRLVmNUK2RyT01aWGwzbVhlZm95eHhxcE14UVBqMmhacTlDN216bm5xeHFBa1BWcFBWRjB6OHJPOGc%3D",
       "positionen": [
         {
           "code": "06.04.01.0030",
@@ -1006,7 +1111,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=3mCldbOvnlpoJ6FfVxriXi9VS1pUdGhCcldGT3FNZzRua2FQVUJPR2F0REdYT3d3eDlPTEVOREczREpkOGpZc0NsUWhaNUkwLzFNU1BhZDk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=rHmNb%2B1Q%2FTsBcQhu0rBGSzIwM0xzWjJhRlk2ZjJuYWYzckd5dUJha0xIMjJIWGtLOUI1QkNGR2VSN1RXckd3QlF0SGlvWXRzcEZYeExCRlQ%3D",
       "positionen": [
         {
           "code": "06.06.01.0030",
@@ -1042,7 +1147,7 @@
       "bauleiter": "Frank Schmidtmann",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=IP7QcjaFnJoSqGpOA3UxpUU5REJHUWxEd0MyUVVHcEJPOVRuRVBESU81M2VFa3VZYlk0M2U3SFQ1UlNIbEFqbzB6M21sWUtaNk1mNS9PSVk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=8LJWiTJzcYAtJfmyYOrbf01OVUhySHBmMFhUN082MGJkRDA1QklvTkh4c3E4eDRNd3Jlcjc1MlVWVVdJRGtzQzFNMHdMcml0Q1RJdUJWQVQ%3D",
       "positionen": [
         {
           "code": "06.08.01.0310",
@@ -1078,7 +1183,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=mtV1f6uIHaRLukX4sSW9xUpEZkF3emR6bTh3NG5DVEtnQVhoeVZMVVU5T2YyNm1uVDFKSnFtV0FiV2wzWWl4TjdMSjNROHVTRTZPUXpyamg%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=AnRuPYUWeLDMGEvpGYghW2Qyb09MMStDcndxOVptallhNEhCUkQrRnFvZHRkWS9XRlJaS00vaWZTSWMvakloc1orb1gyblVyRTFDbjR2VXk%3D",
       "positionen": [
         {
           "code": "06.06.02.0030",
@@ -1105,7 +1210,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=1YP5TrBVjoRL4dflC14g6HJkZThweXdLdHpVeUZSS3lQZVQrQlVtRkJQMEplajkwVStZWEVmWFM2UUlMcVd4NUpFQUl5UHlneDhmcXJsNWg%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=AKVEmJZ0sHo%2FiiPDcqvpdW5rRFhrRGxpUEhxdjdyUll4QVVvSnNsUGxFL2t4Y1d0RkcxWkRLVmVnc0thQVBUc1JHUzd6cUFZNXhOVmZrSUo%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -1150,7 +1255,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 5,
-      "leo_url": "https://leo-pro.de/index.php?q=z0NukdvTxQ2%2BIeag9kIHKFlCQlg0V3VtMFBrbysyeEpKcjhLL2w5QkZhbnRZL3RDbldiZzV5anBEQTRlaWpvdmNYR1d3ZXVZT21XMlVKaFQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=63GRzIj2N1HHN6lSREBA6FF6MDAxNGhJN2ZVc3pXRlhiSkhLYlJua3J4VmswNTVEcEJlNm1CZ1J3VDAxazBMTzJCRnNTYkwvMW9EUmVaYTk%3D",
       "positionen": [
         {
           "code": "06.03.02.0620",
@@ -1213,7 +1318,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 3,
-      "leo_url": "https://leo-pro.de/index.php?q=S0XkwLR0WHKE2ZusiKsnCzBHZDJpTklQZ1JON1dXMkhDUjgwN3JYKyswZXAzMnJvZkZENTJFNkpZQ3N6ZkVkYlJBSUxRdDgwTzhDRkZFWjA%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=HDL%2B7P7VWZVm0NysagpL4G1GVjJKWmlqUFhDekpFb2VROHpoOSs0cUd2c01UZ3NQbmpkcElBSzdwMEpEOGJneEY5MFZDT20wd1lnY2R5MWQ%3D",
       "positionen": [
         {
           "code": "06.06.02.0040",
@@ -1258,7 +1363,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 5,
-      "leo_url": "https://leo-pro.de/index.php?q=n%2BNRR1tv3h5f1n6A5mTkHzY0OTJrOGlYRTdnSGdoeGlabnNSMUpKVzlzY1N5VGZucllSU3BETy9sakdPZW1DQXYwNWpaVDcxdFUxTDNEcG4%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Lh%2BQcR4glBj0PFh15UHzpHdna1dudEZPQWFWbWpNNnQrVU5Vb3ZUOGhOMFA3Snl2b0luRUU5RTU3TWhJbEhTUWMwbkQ1aW43SmRzbjdiNm4%3D",
       "positionen": [
         {
           "code": "06.08.02.0070",
@@ -1321,7 +1426,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=NdmoNblVbzvj%2BkAI4KHMvWx5cUU3VnV1ZEV2UkhEUFhNUi9nYlVKdjRwWXlSY1dGYzhiWi9jb2d2dXFZdE1PaVpKMGpwSHhhTGt3TEQzaHk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=bXp0mc51EvsL4DNPUyrpxXhiZUZvTzdzQWs3eUFiQXBaWkZIMGVBallkS2lFb2pSejYxeXY3c1MvS1ZHUkFhTnZna1pxVGRrNDhyK0dUNk8%3D",
       "positionen": [
         {
           "code": "06.01.01.0020",
@@ -1357,7 +1462,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=oc8W0aUaaF4%2BQfi4r3Okl00xVEZBVEZpcERIcWhabDFjTGxOL2kvaTN0dTJQVEpLUGEzbU16T1NZbzh6WVdGMEo4RFp6YUgzL3Zld0hjZlQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=8Tn0%2F05KLQcl9POc%2FDwLVHBNb0Z2RVdKbWRrOFQ5OS9wUnRaZnVQb1BOeEhNZE1zMmxQU3YvRkFBRFd3SkRDbXBBVGNOTnN4dTMrcDdUd3E%3D",
       "positionen": [
         {
           "code": "06.03.02.0190",
@@ -1411,7 +1516,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=LQP%2F%2BEXgJgxIqkh3Q21x8Etadi92NWJ6Y0xTOFdFNDFKamwvZlpMK2xuZHA0VjZxQytLSk1mQTZmeGU1RU45dStEQzlsZUYwcjRpUFJQQTk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Rh0gzslHtj2WucRRwey%2F%2Fmwwc1RwTnh0QTJqcUdnYnNkNWI2RStXbEJ3bWlQb1F3ZFRWOWxsSlcvREVNVE1BWTVxcG9kZkY1Qk1MZEdJTkM%3D",
       "positionen": [
         {
           "code": "06.03.03.0130",
@@ -1447,7 +1552,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=2DOxpZxZz%2FVQxPbly766%2B2EweXNmVk5HN01XTUJia0t0c1F0bllkZlJJTVM2aUU5RnNSWUQrZVVsakFsT3N1RmV4S1cyVEVRR0RmTUx0Nk4%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=Au0qiaHVj3ZDoGKX%2BmdpCXZxcWFIZ1ZWV09OMUZrWndWRFYxY1JQQ0xDa2dyOFJ4TGdDcFI3OUJFUlFhQklScmJKdnhVV0pSRURjazVYcDY%3D",
       "positionen": [
         {
           "code": "06.03.03.0020",
@@ -1463,6 +1568,51 @@
       "mangel_status": "offen"
     },
     {
+      "id": "M-LWS-87619-1",
+      "status": "offen",
+      "address": "Popenser Straße 40, 26603 Aurich",
+      "lage": null,
+      "leg": "LEG-161001-0",
+      "fortschritt": 0,
+      "ausfuehrungsbeginn": "10.09.2026",
+      "fertigstellung": "28.09.2026",
+      "bauleiter": "Andrea Frahm",
+      "innendienst": "Bianca Herpertz",
+      "anzahl": 3,
+      "leo_url": "https://leo-pro.de/index.php?q=F1kwWQHjYbwgTr%2F%2FBgnoz2NwWjZUN3QrRmJjTi9nRUQ3ejJ6NUppWGFBLzdtWUNGZGMzRGtJTU9CSW82dUIvMktCMXRtVEN3cit1NE5LQTk%3D",
+      "positionen": [
+        {
+          "code": "06.04.02.0120",
+          "gewerk": "Fliesen (i)",
+          "status": "angenommen",
+          "leistung": "Küche Fliesenspiegel ca. 60 cm hoch (Meterangabe), (Gewerkecluster x4.0)",
+          "bereich": "Küche",
+          "mangel_beschreibung": "Bitte die rechte Seite zur Tür noch ergänzen",
+          "menge": "m 6,00"
+        },
+        {
+          "code": "06.06.01.0050",
+          "gewerk": "Tischler (i)",
+          "status": "angenommen",
+          "leistung": "Drückergarnitur Langschild-/Rosetten-Ausführung erneuern (Gewerkecluster x6.0)",
+          "bereich": "Abstellraum, Bad, Kinderzimmer, Küche, Schlafzimmer, Wohnzimmer",
+          "mangel_beschreibung": "Hier müssen laut Qualitätshandbuch die runden Drückergarnituren verbaut werden, bitte beim nächsten Mal darauf achten. Wurden uns schon einmal bemängelt",
+          "menge": "Stk 6,00"
+        },
+        {
+          "code": "06.06.01.0190",
+          "gewerk": "Tischler (i)",
+          "status": "angenommen",
+          "leistung": "Lüftungsschlitz einbauen als Zulage (Gewerkecluster x6.2)",
+          "bereich": "Abstellraum, Bad",
+          "mangel_beschreibung": "Nicht ausgeführt",
+          "menge": "Stk 4,00"
+        }
+      ],
+      "first_seen": "2026-09-10",
+      "mangel_status": "offen"
+    },
+    {
       "id": "M-LWS-88000-1",
       "status": "offen",
       "address": "Wiesenstraße 41, 26603 Aurich",
@@ -1474,7 +1624,7 @@
       "bauleiter": "Andrea Frahm",
       "innendienst": "Bianca Herpertz",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=IZSrU40IvDkAUFKT2SV%2F%2BmVYaERqdDVjeWhZNHM2ZlJ0bm52eVczUmxteDhXUmh3QTN5OExDZDE4b09hRmo5dHRHS3ZwTUZNS1pPTk1KbEQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=upvcz%2FELw2IFvFYKGcMOs1hPcm5mQXFVcUVJUjk4UjZOREd5UlpENGRDQ0VOV3o0S1Q4V1pOeXdZT203Y0VaalBCeFk2UGIzVnVZR1drL24%3D",
       "positionen": [
         {
           "code": "06.08.01.0050",
@@ -1528,7 +1678,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=GnUfF4%2F8mssighLOP4jo0nJsbDNmbGY1NGl5MWc4Vk5IRWtZN09DbjBjUWpwVENVakdKVm53UTQ4ZGp3TjZDaEFmVjNoZDg5dGZVMXpYaDQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=NzcaQza5XUkkYxWpo6AwGlJmZXlIb3k4VjJqUkVqTVVqN2I2K1ZvVmNUalRMYnR5dXpkWUh1UzdoeDl5Y3VEVDN1c1d5MXpnQ0hQUUhCdW4%3D",
       "positionen": [
         {
           "code": "06.04.04.0110",
@@ -1555,7 +1705,7 @@
       "bauleiter": "Nizama Hallix",
       "innendienst": "Bianca Herpertz",
       "anzahl": 6,
-      "leo_url": "https://leo-pro.de/index.php?q=k0z1DPXKxRuBLlNHYq5QaHJETStJVU1kN3F5cDBHSURTaW1WaENuUGFmeGJDa0hTRzNmSHdyNHYwbmk2ZDJVVVN2WE4xWWNIeFlsNkppYXQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=KlFiGQzMA3MjXkSgxGQpg3ZBUFlrajM0N0kwMEFteTd6elNjZTVPVEhhR1JjOTkvUFZwVWxMOGp5b2JGWS9ubTdyRDNvS3hIeTRRcTNER1M%3D",
       "positionen": [
         {
           "code": "06.01.02.0010",
@@ -1627,7 +1777,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=RGMxu1QOgtsDslbGK%2FCF8GJNcHVQRjRFUXJTUlJycTRMZ0Y0R1ZjU09YczRUMGxhNDNGZW1FWndoOFhrOGJEN0VQQjlZZWw3aTZXaVZmdWI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=B6zclL9%2BGy9vQsA8fP5zo0tFbDYzWWVQTzJKSjNoVVArUGpldzlNV1MzeW50TWNFd1RqTDZad2lNd0tuZ3dpR0p5dlc3QlFuQWNmbndJNlk%3D",
       "positionen": [
         {
           "code": "06.08.01.0040",
@@ -1654,7 +1804,7 @@
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=LSLOwGyp1qmYBlBw%2BV%2BRwitzLzFBVUd2TEdPQUxab0x3L3oxaW9BVW1wV0djY2VYWXlZd0tNMEY4aGpmQkthUmE0VSthL1B2TDh6SGVPbEk%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=d6hGSYm9V5l67I2Kga1xwUJDSFB5b2Z5QndUczE1UnV4Z01wYStiUTNkUFRwWmdNb1ZtRFdnZFF2NFNrVVZxL3Uxb3BSbHBDbWFHVWd0djQ%3D",
       "positionen": [
         {
           "code": "06.01.01.0010",
@@ -1708,7 +1858,7 @@
       "bauleiter": "Yannick Gallas",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=gCFewb8q0z5HAqFzhsWFPFhqUENXTnlPVEpoUXZEMytvcnFIME96akNMem1FTFhyeXpqVm90SUNPWDNvR0cvRzE5bXJTSUx2SmZzbXhLT0s%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=cefzzT1NSgeJ8K1LdeI%2BJitDOHkxZmNYZTQ1Tm5wV3NqU0s1Z2lWQThrT3d2YmlzVUlxNm45eEFTUmlyS25sRTZzZWpqQllLQkh6RnZzOHY%3D",
       "positionen": [
         {
           "code": "06.01.02.0040",
@@ -1735,7 +1885,7 @@
       "bauleiter": "Yannick Gallas",
       "innendienst": "Bianca Herpertz",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=PQM1MIYWRnKcsxvZqXDKWzlXSEJha2pTR2ZTYzZidUJ4TDdNcjBmQkNZMHhsKy9KS1FoaGlTaGxKSGEvV2NHRTZTcTJ2eHRuVjVzMktHYzY%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=5T9TkFFJZgR%2B3Ht5e5d%2FUSttTWt3aWF4MU52SHh3bS9ZNUc3VnhXd2lCRjQ1RTBTSGpuTE05SE1zSVhVdEloVlZ4bU9uK2twaGwyV0F2Wnk%3D",
       "positionen": [
         {
           "code": "06.01.02.0040",
@@ -1762,7 +1912,7 @@
       "bauleiter": "Reinhard Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=asR3Ky2voeqR0AbruxT%2FlXRaclM4bnJRQlVxUGtwNENQeC9OY1Q4SjFOR2d2TDNGcSt3eFJTSXZyTVFsWXd5T3VJZ3dWcFNRVi9ZaWJrMjQ%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=3FN6LVL8NBtN615XJ%2BOaVTNGR2ExWlc2ZHNlejVqT0dZYVdDLzkrbnlZK3NGZTNaOVhPYWd6ejRHalhXM29DSjF2NDNRSWtlK2VkNjRmZ0E%3D",
       "positionen": [
         {
           "code": "06.05.03.0070",
@@ -1789,7 +1939,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 2,
-      "leo_url": "https://leo-pro.de/index.php?q=5W%2BqX981cg0KaH%2FuvXOBOHVwMHhhNldaOFBwVitWbnJOZzc2citrVnBlQzZLQXlWNXNzb0x4d05QNGM5U01KdjZxNGxwKytvTmdDb0owREI%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=H%2BMbQ9ivxYoCRpDy1fddlXF1dmhoaExMN2hIKzZXTWs0em81d1NXclQrV2JkVk05TVdzTy9YK3llbklEWFpiUkxWU3NPK3B2TGRCNEFqVTk%3D",
       "positionen": [
         {
           "code": "06.99.99.0001",
@@ -1825,7 +1975,7 @@
       "bauleiter": "Andreas Brunke",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=1rffPx8UjwJhPxvwsshgAFhlM2FQY29jSy9kbC94YnUrZ09LSWVHWWJvOGJKWkYvdUdRNzFUeVZUbXR0NUc3Qkh3MjRoVXV0eXp6UnJyMDg%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=dcsiE3OTpQBXSGWEcIYK22tEdkQ4TjF4V2RuNU9Od2VibTdhdjJjQlpISXFNTzZEOXdtNnlQNE9ZZ3R2MDM4bTlGeGxUcUwyT2Q2Y2FhSFY%3D",
       "positionen": [
         {
           "code": "06.02.01.0040",
@@ -1852,7 +2002,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 4,
-      "leo_url": "https://leo-pro.de/index.php?q=Ate%2FJCtrpVbr0Q6zC5LinzBRZWkwT1BmNjlZUjlHSTREMm1iOUZPYXloTE5aTVN2d1pnZjVyTXl6WWVRa2R1Q3ZzV3pBUkcrdTlESnlubzU%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=f1RwcDodMiPKUzQwdmCmhWNvVmsxL29GNm5xNWk3MnFJUFhLOHpzeTN1RFZLQlFNQmZ3TkZNVEVrc1RUNnM0ZWE2SFlVYmdDeUFnTnYva2U%3D",
       "positionen": [
         {
           "code": "06.03.01.0710",
@@ -1906,7 +2056,7 @@
       "bauleiter": "Roman Bartsch",
       "innendienst": "Rüdiger Funk",
       "anzahl": 1,
-      "leo_url": "https://leo-pro.de/index.php?q=fEwyWEkvRidvOuagNcwx4GV4SUR1UUhNeldQbndrMFM5MUY3RnczSVVtSlBFTGNiOG1vMG56bzdYNEZzR1BpQ3pJR3FvdXF4U25YbURhb2c%3D",
+      "leo_url": "https://leo-pro.de/index.php?q=XxBzPeNSgD4CIHVZcqWRnnJVUUpwclRHQnZYNURrZE5EOVF5bEJZM3Q2U3pHclBiNGhFcFVCejgyVWR4UkwzOE51a1FzbnVaK29kcWtBVGo%3D",
       "positionen": [
         {
           "code": "06.02.01.0055",
@@ -23144,6 +23294,16 @@
       "is_archiv": true
     },
     {
+      "id": "M-LWS-86378-1",
+      "lws": "LWS-86378",
+      "address": "Ölhafendamm 18, 26384 Wilhelmshaven",
+      "ausfuehrungsbeginn": "07.07.2026",
+      "fertigstellung": "04.08.2026",
+      "bauleiter": "Yannick Gallas",
+      "innendienst": "Bianca Herpertz",
+      "is_archiv": true
+    },
+    {
       "id": "M-LWS-85039-1",
       "lws": "LWS-85039",
       "address": "Beckstr. 18, 29223 Celle",
@@ -24004,6 +24164,16 @@
       "is_archiv": true
     },
     {
+      "id": "M-LWS-88629-1",
+      "lws": "LWS-88629",
+      "address": "Nogatstraße 20, 26388 Wilhelmshaven",
+      "ausfuehrungsbeginn": "20.08.2026",
+      "fertigstellung": "25.08.2026",
+      "bauleiter": "Andre Sudholz",
+      "innendienst": "Bianca Herpertz",
+      "is_archiv": true
+    },
+    {
       "id": "M-LWS-87552-2",
       "lws": "LWS-87552",
       "address": "Deisterstraße 23, 37081 Göttingen",
@@ -24214,6 +24384,16 @@
       "is_archiv": true
     },
     {
+      "id": "M-LWS-89790-1",
+      "lws": "LWS-89790",
+      "address": "Muldeweg 15, 38120 Braunschweig",
+      "ausfuehrungsbeginn": "02.09.2026",
+      "fertigstellung": "18.09.2026",
+      "bauleiter": "Reinhard Bartsch",
+      "innendienst": "Rüdiger Funk",
+      "is_archiv": true
+    },
+    {
       "id": "M-LWS-85874-2",
       "lws": "LWS-85874",
       "address": "Eiderstraße 22, 38120 Braunschweig",
@@ -24271,6 +24451,16 @@
       "fertigstellung": "04.09.2026",
       "bauleiter": "Andre Sudholz",
       "innendienst": "Bianca Herpertz",
+      "is_archiv": true
+    },
+    {
+      "id": "M-LWS-89790-2",
+      "lws": "LWS-89790",
+      "address": "Muldeweg 15, 38120 Braunschweig",
+      "ausfuehrungsbeginn": "07.09.2026",
+      "fertigstellung": "08.09.2026",
+      "bauleiter": "Reinhard Bartsch",
+      "innendienst": "Rüdiger Funk",
       "is_archiv": true
     },
     {
@@ -107257,7 +107447,7 @@
       "lage": "3. Obergeschoss Mitte",
       "bauleiter": "Andreas Brunke",
       "start": "31.07.2026",
-      "ende": "28.08.2026",
+      "ende": "09.09.2026",
       "amount": 29462.7,
       "fortschritt": 11,
       "status": "Veröffentlicht",
@@ -108041,7 +108231,7 @@
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=o%2FcdHXYO1JTN%2BMEn%2F2VU2GwrdEtvL1RkbXBRRDdoZGxKdGs4RUxWM25mRG1NRUQ5YlpJM2JnSUtQSi9sSlhyL1c3NHZPV3N5WTVFK0M3cko%3D",
       "has_mangel": false,
-      "archiv_mangel_count": 0,
+      "archiv_mangel_count": 1,
       "is_ghost": false
     },
     {
@@ -109227,18 +109417,16 @@
       "start": "01.09.2026",
       "ende": "08.09.2026",
       "amount": 1642.79,
-      "fortschritt": 9,
+      "fortschritt": 100,
       "status": "Veröffentlicht",
-      "abgeschlossen": false,
+      "abgeschlossen": true,
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=UwMLjn6mZ%2F9SJC71FSPIKTllajIrUGx1TU1jckR3dVI2RFNpR2huV3piRTFSTGQ1cThIYVVKNDU0c3RsYTMxMUdCVnQyQSt0bEgvMFJHbnE%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false,
-      "abgerechnet": 0.0,
-      "leistung_geprueft": "08.09.2026"
+      "is_ghost": false
     },
     {
       "lws": "LWS-86957",
@@ -109458,10 +109646,10 @@
       "bauleiter": "Reinhard Bartsch",
       "start": "01.08.2026",
       "ende": "28.08.2026",
-      "amount": 13307.24,
-      "fortschritt": 99,
+      "amount": 13417.56,
+      "fortschritt": 100,
       "status": "Veröffentlicht",
-      "abgeschlossen": false,
+      "abgeschlossen": true,
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
@@ -109578,7 +109766,7 @@
       "bauleiter": "Roman Bartsch",
       "start": "01.09.2026",
       "ende": "29.09.2026",
-      "amount": 21842.49,
+      "amount": 22212.49,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -110640,27 +110828,6 @@
       "is_ghost": false
     },
     {
-      "lws": "LWS-87541",
-      "address": "Göttinger Chaussee 73, 30453 Hannover",
-      "lage": "2. Obergeschoss Mitte",
-      "bauleiter": "Frank Schmidtmann",
-      "start": "31.08.2026",
-      "ende": "03.09.2026",
-      "amount": 495.58,
-      "fortschritt": 0,
-      "status": "Veröffentlicht",
-      "abgeschlossen": false,
-      "baustopp": false,
-      "baustopp_start": null,
-      "baustopp_ende": null,
-      "leo_url": "https://leo-pro.de/index.php?q=0YVS9iRvgAjVwfJK0DxjA0JZUmRzSlEyVjl4L3Y5TnQ5U3lJa0NHVitHU1haWFhCV0hNdzdKNEw5bUo5M1ZGWWtsYktOZ0dLTWtpL1FsNzE%3D",
-      "has_mangel": false,
-      "archiv_mangel_count": 0,
-      "is_ghost": false,
-      "abgerechnet": 0.0,
-      "leistung_geprueft": null
-    },
-    {
       "lws": "LWS-87542",
       "address": "Buddeweg 4, 30419 Hannover",
       "lage": "Erdgeschoss rechts",
@@ -110687,7 +110854,7 @@
       "start": "12.08.2026",
       "ende": "09.09.2026",
       "amount": 3082.22,
-      "fortschritt": 5,
+      "fortschritt": 71,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
       "baustopp": false,
@@ -110807,7 +110974,7 @@
       "lage": "1. Obergeschoss",
       "bauleiter": "Nizama Hallix",
       "start": "03.08.2026",
-      "ende": "01.09.2026",
+      "ende": "10.09.2026",
       "amount": 13877.64,
       "fortschritt": 100,
       "status": "Veröffentlicht",
@@ -110947,7 +111114,7 @@
       "bauleiter": "Andre Sudholz",
       "start": "01.09.2026",
       "ende": "17.09.2026",
-      "amount": 4554.47,
+      "amount": 4212.95,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -111231,7 +111398,7 @@
       "baustopp_start": null,
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=6%2BfoJOiB4uzupFC1V3McpWFRcmg1Ri9ra0xHN1RjbWFySXpLYWZ1ZGFzWDBOTlk0ZXpxTkNCeEVKYzYvQkgvZXpEeUEzVTJmcWduaFE2b2Q%3D",
-      "has_mangel": false,
+      "has_mangel": true,
       "archiv_mangel_count": 0,
       "is_ghost": false,
       "abgerechnet": 0.0,
@@ -111273,9 +111440,7 @@
       "leo_url": "https://leo-pro.de/index.php?q=QhTf5YXlORYEgD7JUogryTBRZ004YlVkKysrd245Q1Z3S2J0VEFiOTIvaWMwL0k5Y2FyVE1hYWhTMjhuU2lDMyt5UWdCa1EzcllrRkpNK1U%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false,
-      "abgerechnet": 8604.84,
-      "leistung_geprueft": null
+      "is_ghost": false
     },
     {
       "lws": "LWS-86900",
@@ -111823,7 +111988,7 @@
       "bauleiter": "Reinhard Bartsch",
       "start": "08.09.2026",
       "ende": "02.10.2026",
-      "amount": 17521.23,
+      "amount": 17659.34,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -112327,10 +112492,8 @@
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=dVlgOyCa2AnR9MGzd%2BRf9FBmcUMvTHkyM0swNGxPUkVVTXluQWtKV2FHNWVGNFlKNURWTjJjSm9iOEp1SDBVRGNRa1lMeXNSZXlPM3EyMmQ%3D",
       "has_mangel": false,
-      "archiv_mangel_count": 0,
-      "is_ghost": false,
-      "abgerechnet": 0.0,
-      "leistung_geprueft": "03.09.2026"
+      "archiv_mangel_count": 1,
+      "is_ghost": false
     },
     {
       "lws": "LWS-88724",
@@ -113548,7 +113711,7 @@
       "lage": "1. Obergeschoss rechts",
       "bauleiter": "Andre Sudholz",
       "start": "07.08.2026",
-      "ende": "10.09.2026",
+      "ende": "15.09.2026",
       "amount": 19427.48,
       "fortschritt": 0,
       "status": "Veröffentlicht",
@@ -113629,15 +113792,15 @@
       "address": "Ricklinger Stadtweg 59, 30459 Hannover",
       "lage": "Erdgeschoss rechts",
       "bauleiter": "Frank Schmidtmann",
-      "start": "01.09.2026",
-      "ende": "22.09.2026",
+      "start": "10.09.2026",
+      "ende": "06.10.2026",
       "amount": 3840.35,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
-      "baustopp": true,
-      "baustopp_start": "07.09.2026",
-      "baustopp_ende": "01.01.1970",
+      "baustopp": false,
+      "baustopp_start": null,
+      "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=SMCLh8WHFnhBMMlwSz0OB1hRWC9DamJkSm93UTZsZWZpcnB1WnR1YjlMR2lWYmVXSklOaHdkNXU3b2g3ZTdxUThOU0dxdjNPa3hIMnJRRUU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
@@ -113673,19 +113836,17 @@
       "bauleiter": "Roman Bartsch",
       "start": "19.08.2026",
       "ende": "21.08.2026",
-      "amount": 198.31,
-      "fortschritt": 68,
+      "amount": 290.31,
+      "fortschritt": 100,
       "status": "Veröffentlicht",
-      "abgeschlossen": false,
+      "abgeschlossen": true,
       "baustopp": false,
       "baustopp_start": null,
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=NCZ1pUi81d7%2FJRbcFhGdlDhEUCtFK01wZTZabGQvbWRNQ0I0N0dCb3c5WUo5VjFLT2RmaiszUzhXdnZCa1A3Q3FXT29DUU5Fb2RYTnA1NmU%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
-      "is_ghost": false,
-      "abgerechnet": 0.0,
-      "leistung_geprueft": "04.09.2026"
+      "is_ghost": false
     },
     {
       "lws": "LWS-89739",
@@ -113922,10 +114083,10 @@
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=8V6WvOti5TUzy%2BWVshTJkk1PT2U3VUw4NDY1SUNrOHpGYkhOdERSRmZ1QlNGMTAzcFdvSytVZEVlZVl2czQ5OUIrTGtOSHZUaVg1YSsvcVY%3D",
       "has_mangel": true,
-      "archiv_mangel_count": 0,
+      "archiv_mangel_count": 2,
       "is_ghost": false,
       "abgerechnet": 0.0,
-      "leistung_geprueft": null
+      "leistung_geprueft": "09.09.2026"
     },
     {
       "lws": "LWS-89793",
@@ -115006,7 +115167,7 @@
       "bauleiter": "Roman Bartsch",
       "start": "09.09.2026",
       "ende": "17.09.2026",
-      "amount": 1540.99,
+      "amount": 1498.74,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -115489,7 +115650,7 @@
       "bauleiter": "Gerard Ebel",
       "start": "01.07.2026",
       "ende": "14.08.2026",
-      "amount": 9330.88,
+      "amount": 6593.36,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -115636,7 +115797,7 @@
       "bauleiter": "Gerard Ebel",
       "start": "17.08.2026",
       "ende": "30.09.2026",
-      "amount": 6425.46,
+      "amount": 5750.63,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -116035,7 +116196,7 @@
       "bauleiter": "Willy Ciocca",
       "start": "11.05.2026",
       "ende": "14.08.2026",
-      "amount": 15105.67,
+      "amount": 10239.72,
       "fortschritt": 0,
       "status": "Veröffentlicht",
       "abgeschlossen": false,
@@ -116379,6 +116540,48 @@
       "baustopp_start": null,
       "baustopp_ende": null,
       "leo_url": "https://leo-pro.de/index.php?q=htu94sn%2BBRQSrz4JRmAXvU04TzF4WkdSQlU1WStIbEh6cHFMMjU0WkVxTUw5a3gvQVdwMXJXdVF1VUQ3UE5kYUVuYnBPMlRXSEJDWFJrNHg%3D",
+      "has_mangel": false,
+      "archiv_mangel_count": 0,
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
+    },
+    {
+      "lws": "LWS-85531",
+      "address": "An der Emilsruhe 16, 67657 Kaiserslautern",
+      "lage": "3. Obergeschoss Mitte",
+      "bauleiter": "Willy Ciocca",
+      "start": "11.05.2026",
+      "ende": "26.06.2026",
+      "amount": 6091.19,
+      "fortschritt": 0,
+      "status": "Veröffentlicht",
+      "abgeschlossen": false,
+      "baustopp": false,
+      "baustopp_start": null,
+      "baustopp_ende": null,
+      "leo_url": "https://leo-pro.de/index.php?q=p9AGTTa%2BHGpMBAraHoaqtjIwenNxOHF6LzJ3RVFwYTB2Zjg4UnpZdjgzMWNCbmppbXp5a1M5YzZuK2M3S2tLWEtIMWZMOTBjOXRzMXk4NmE%3D",
+      "has_mangel": false,
+      "archiv_mangel_count": 0,
+      "is_ghost": false,
+      "abgerechnet": 0.0,
+      "leistung_geprueft": null
+    },
+    {
+      "lws": "LWS-91073",
+      "address": "Muldeweg 15, 38120 Braunschweig",
+      "lage": "Lage: 3. Obergeschoss rechts",
+      "bauleiter": "Reinhard Bartsch",
+      "start": "28.09.2026",
+      "ende": "02.10.2026",
+      "amount": 1326.48,
+      "fortschritt": 0,
+      "status": "Veröffentlicht",
+      "abgeschlossen": false,
+      "baustopp": false,
+      "baustopp_start": null,
+      "baustopp_ende": null,
+      "leo_url": "https://leo-pro.de/index.php?q=9zqhBm8AWfBXkU1h7R2SZzdJTnVZYmg5SUdpcTFkODJ0Zit0bWlpaUMxcWo5d1dodHJTMkxyc1VsYll6Q05FVmxJdXBPZ054YVVaRklZSnY%3D",
       "has_mangel": false,
       "archiv_mangel_count": 0,
       "is_ghost": false,
@@ -117624,6 +117827,7 @@
     "LWS-82993": 2,
     "LWS-84857": 1,
     "LWS-85590": 1,
+    "LWS-86378": 1,
     "LWS-85039": 1,
     "LWS-84866": 3,
     "LWS-86900": 1,
@@ -117674,6 +117878,7 @@
     "LWS-87819": 1,
     "LWS-88840": 1,
     "LWS-88841": 1,
+    "LWS-88629": 1,
     "LWS-87556": 4,
     "LWS-89317": 1,
     "LWS-85605": 1,
@@ -117687,20 +117892,10 @@
     "LWS-88483": 1,
     "LWS-87551": 1,
     "LWS-85874": 4,
+    "LWS-89790": 2,
     "LWS-87611": 1
   },
-  "pending_maengel": [
-    {
-      "lws": "LWS-89790",
-      "leg": "LEG-164352-0",
-      "due": "11.09.2026"
-    },
-    {
-      "lws": "LWS-85283",
-      "leg": "LEG-158237-0",
-      "due": "11.09.2026"
-    }
-  ],
+  "pending_maengel": [],
   "nachtraege": [
     {
       "lws": "LWS-84862",
@@ -118208,17 +118403,22 @@
     }
   ],
   "position_kpi": {
-    "angenommen": 4521,
-    "nicht angenommen": 81,
+    "angenommen": 4517,
+    "nicht angenommen": 184,
     "neuer Nachtrag": 35,
-    "abgeschlossen": 154,
-    "Annahme überfällig": 60,
-    "Fertigstellung überfällig": 87,
+    "abgeschlossen": 155,
+    "Annahme überfällig": 64,
+    "Fertigstellung überfällig": 89,
     "fehlende Dokumente": 1,
     "abgelehnt": 5,
     "nicht durchführbar": 291
   },
   "handover": {
+    "LWS-69933": {
+      "leerstand_seit": "25.07.2025",
+      "vermietet": null,
+      "bewohnt_seit": null
+    },
     "LWS-82469": {
       "leerstand_seit": "01.07.2026",
       "vermietet": null,
@@ -118349,6 +118549,11 @@
       "vermietet": null,
       "bewohnt_seit": "01.06.2024"
     },
+    "LWS-86313": {
+      "leerstand_seit": "01.08.2026",
+      "vermietet": "16.08.2026",
+      "bewohnt_seit": "01.09.2022"
+    },
     "LWS-86320": {
       "leerstand_seit": "01.08.2026",
       "vermietet": "01.09.2026",
@@ -118423,6 +118628,11 @@
       "leerstand_seit": "01.07.2026",
       "vermietet": null,
       "bewohnt_seit": "01.10.2019"
+    },
+    "LWS-86884": {
+      "leerstand_seit": "01.09.2026",
+      "vermietet": null,
+      "bewohnt_seit": "16.07.2021"
     },
     "LWS-86950": {
       "leerstand_seit": "01.08.2026",
@@ -118536,7 +118746,7 @@
     },
     "LWS-86356": {
       "leerstand_seit": "01.08.2026",
-      "vermietet": null,
+      "vermietet": "25.09.2026",
       "bewohnt_seit": "01.01.2004"
     },
     "LWS-87556": {
@@ -118799,6 +119009,11 @@
       "vermietet": "01.09.2026",
       "bewohnt_seit": "01.08.2019"
     },
+    "LWS-89738": {
+      "leerstand_seit": null,
+      "vermietet": "01.07.2026",
+      "bewohnt_seit": "01.07.2026"
+    },
     "LWS-89739": {
       "leerstand_seit": "01.08.2026",
       "vermietet": null,
@@ -118886,6 +119101,66 @@
     }
   },
   "chat": [
+    {
+      "id": "633464",
+      "lws": "LWS-86707",
+      "from": "LWS Plus GmbH",
+      "message": "In der Küche fehlt ein Eckventil, könnt ihr vorrangig das erneuern Kaltwasser in der Wohnung ist abgestellt, wenn das aber jemand aufdreht ist die Wohnung überschwemmt. 01.09.2026 10:08 von Daniel Liers (AG)",
+      "address": "Von-Bodelschwingh-Straße 16",
+      "date": "10.09.2026 10:09",
+      "tag": "sonstiges",
+      "seen_at": "2026-09-10"
+    },
+    {
+      "id": "676075",
+      "lws": "LWS-91084",
+      "from": "LWS Plus GmbH",
+      "message": "Moin, anbei ein neuer Auftrag",
+      "address": "Kattenbrookstrift 25",
+      "date": "10.09.2026 07:36",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-09-10"
+    },
+    {
+      "id": "676042",
+      "lws": "LWS-91091",
+      "from": "LWS Plus GmbH",
+      "message": "Moin, anbei ein neuer auftrag",
+      "address": "Friedrich-Ebert-Str. 49",
+      "date": "10.09.2026 07:07",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-09-10"
+    },
+    {
+      "id": "676038",
+      "lws": "LWS-91086",
+      "from": "LWS Plus GmbH",
+      "message": "Moin, anbei ein neuer Auftrag",
+      "address": "Goerdelerstraße 4",
+      "date": "10.09.2026 07:02",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-09-10"
+    },
+    {
+      "id": "676034",
+      "lws": "LWS-91048",
+      "from": "LWS Plus GmbH",
+      "message": "Moin, anbei ein neuer Auftrag",
+      "address": "Leuschnerstraße 62",
+      "date": "10.09.2026 06:56",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-09-10"
+    },
+    {
+      "id": "675987",
+      "lws": "LWS-91052",
+      "from": "LWS Plus GmbH",
+      "message": "moin, anbei ein neuer Auftrag. Bitte einmal Terminieren und Ergebnis hier einstellen. Kontaktdaten eigestellt",
+      "address": "Buddeweg 4",
+      "date": "10.09.2026 05:39",
+      "tag": "neuer_auftrag",
+      "seen_at": "2026-09-10"
+    },
     {
       "id": "658891",
       "lws": "LWS-89437",
@@ -121477,128 +121752,8 @@
       "seen_at": "2026-08-04"
     }
   ],
-  "chat_unread": 5069,
+  "chat_unread": 5083,
   "change_log": [
-    {
-      "lws": "LWS-86259",
-      "field": "ende",
-      "label": "Fertigstellung",
-      "from": "04.08.2026",
-      "to": "13.08.2026",
-      "at": "2026-08-13T10:06:35.231870+00:00"
-    },
-    {
-      "lws": "LWS-84362",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 30101.38,
-      "to": 30717.22,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-84867",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 885.04,
-      "to": 1192.0,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-85283",
-      "field": "status",
-      "label": "Status",
-      "from": "Veröffentlicht",
-      "to": "Beendet",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-85578",
-      "field": "status",
-      "label": "Status",
-      "from": "Vollständig abgeschlossen",
-      "to": "Beendet",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-85744",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 28406.59,
-      "to": 29462.7,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-85974",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 12180.25,
-      "to": 14413.07,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-86320",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 5453.42,
-      "to": 6033.22,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-86347",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 6267.17,
-      "to": 6456.53,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-86259",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 12043.7,
-      "to": 11951.71,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-86377",
-      "field": "ende",
-      "label": "Fertigstellung",
-      "from": "29.07.2026",
-      "to": "30.07.2026",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-87282",
-      "field": "status",
-      "label": "Status",
-      "from": "Veröffentlicht",
-      "to": "Beendet",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-87300",
-      "field": "status",
-      "label": "Status",
-      "from": "Veröffentlicht",
-      "to": "Beendet",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-88224",
-      "field": "status",
-      "label": "Status",
-      "from": "Veröffentlicht",
-      "to": "Beendet",
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
-    {
-      "lws": "LWS-88976",
-      "field": "amount",
-      "label": "Auftragsvolumen",
-      "from": 16819.31,
-      "to": 16434.95,
-      "at": "2026-08-14T06:28:36.928088+00:00"
-    },
     {
       "lws": "LWS-89490",
       "field": "status",
@@ -125478,93 +125633,129 @@
       "from": "28.08.2026",
       "to": "30.09.2026",
       "at": "2026-09-09T14:53:21.536452+00:00"
+    },
+    {
+      "lws": "LWS-85744",
+      "field": "ende",
+      "label": "Fertigstellung",
+      "from": "28.08.2026",
+      "to": "09.09.2026",
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-86955",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 13307.24,
+      "to": 13417.56,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-86878",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 21842.49,
+      "to": 22212.49,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-87471",
+      "field": "ende",
+      "label": "Fertigstellung",
+      "from": "01.09.2026",
+      "to": "10.09.2026",
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-87611",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 4554.47,
+      "to": 4212.95,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-88152",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 17521.23,
+      "to": 17659.34,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-89199",
+      "field": "ende",
+      "label": "Fertigstellung",
+      "from": "10.09.2026",
+      "to": "15.09.2026",
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-89609",
+      "field": "ende",
+      "label": "Fertigstellung",
+      "from": "22.09.2026",
+      "to": "06.10.2026",
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-89609",
+      "field": "start",
+      "label": "Ausführungsbeginn",
+      "from": "01.09.2026",
+      "to": "10.09.2026",
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-89609",
+      "field": "baustopp",
+      "label": "Baustopp",
+      "from": true,
+      "to": false,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-89738",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 198.31,
+      "to": 290.31,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-90510",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 1540.99,
+      "to": 1498.74,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-85311",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 9330.88,
+      "to": 6593.36,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-88511",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 6425.46,
+      "to": 5750.63,
+      "at": "2026-09-10T09:39:38.736039+00:00"
+    },
+    {
+      "lws": "LWS-85530",
+      "field": "amount",
+      "label": "Auftragsvolumen",
+      "from": 15105.67,
+      "to": 10239.72,
+      "at": "2026-09-10T09:39:38.736039+00:00"
     }
   ],
   "bzp": {
-    "LWS-85744": [
-      {
-        "gewerk": "Elektro",
-        "von": "04.07.2026",
-        "bis": "06.07.2026"
-      },
-      {
-        "gewerk": "Sanitär",
-        "von": "06.07.2026",
-        "bis": "08.07.2026"
-      },
-      {
-        "gewerk": "Fliesen",
-        "von": "18.07.2026",
-        "bis": "23.07.2026"
-      },
-      {
-        "gewerk": "Maurer",
-        "von": "08.07.2026",
-        "bis": "10.07.2026"
-      },
-      {
-        "gewerk": "Maler",
-        "von": "10.07.2026",
-        "bis": "20.07.2026"
-      },
-      {
-        "gewerk": "Boden",
-        "von": "20.07.2026",
-        "bis": "23.07.2026"
-      },
-      {
-        "gewerk": "Tischler",
-        "von": "24.07.2026",
-        "bis": "27.07.2026"
-      },
-      {
-        "gewerk": "Reinigung",
-        "von": "28.07.2026",
-        "bis": "28.07.2026"
-      },
-      {
-        "gewerk": "Asbest",
-        "von": "01.07.2026",
-        "bis": "03.07.2026"
-      }
-    ],
-    "LWS-86955": [
-      {
-        "gewerk": "Elektro",
-        "von": "03.08.2026",
-        "bis": "04.08.2026"
-      },
-      {
-        "gewerk": "Sanitär",
-        "von": "05.08.2026",
-        "bis": "05.08.2026"
-      },
-      {
-        "gewerk": "Fliesen",
-        "von": "06.08.2026",
-        "bis": "06.08.2026"
-      },
-      {
-        "gewerk": "Maler",
-        "von": "07.08.2026",
-        "bis": "13.08.2026"
-      },
-      {
-        "gewerk": "Boden",
-        "von": "14.08.2026",
-        "bis": "18.08.2026"
-      },
-      {
-        "gewerk": "Tischler",
-        "von": "19.08.2026",
-        "bis": "19.08.2026"
-      },
-      {
-        "gewerk": "Reinigung",
-        "von": "20.08.2026",
-        "bis": "20.08.2026"
-      }
-    ],
     "LWS-87347": [
       {
         "gewerk": "Elektro",
@@ -125747,48 +125938,6 @@
         "gewerk": "Sonstige",
         "von": "29.07.2026",
         "bis": "29.07.2026"
-      }
-    ],
-    "LWS-88511": [
-      {
-        "gewerk": "Elektro",
-        "von": "17.08.2026",
-        "bis": "17.08.2026"
-      },
-      {
-        "gewerk": "Sanitär",
-        "von": "18.08.2026",
-        "bis": "18.08.2026"
-      },
-      {
-        "gewerk": "Fliesen",
-        "von": "19.08.2026",
-        "bis": "19.08.2026"
-      },
-      {
-        "gewerk": "Maler",
-        "von": "20.08.2026",
-        "bis": "25.08.2026"
-      },
-      {
-        "gewerk": "Boden",
-        "von": "26.08.2026",
-        "bis": "26.08.2026"
-      },
-      {
-        "gewerk": "Tischler",
-        "von": "19.08.2026",
-        "bis": "21.08.2026"
-      },
-      {
-        "gewerk": "Reinigung",
-        "von": "28.08.2026",
-        "bis": "28.08.2026"
-      },
-      {
-        "gewerk": "Sonstige",
-        "von": "27.08.2026",
-        "bis": "27.08.2026"
       }
     ],
     "LWS-89633": [
@@ -126158,13 +126307,6 @@
         "bis": "02.06.2026"
       }
     ],
-    "LWS-86884": [
-      {
-        "gewerk": "Elektro",
-        "von": "01.09.2026",
-        "bis": "01.09.2026"
-      }
-    ],
     "LWS-85662": [
       {
         "gewerk": "Elektro",
@@ -126210,6 +126352,53 @@
         "gewerk": "Asbest",
         "von": "03.08.2026",
         "bis": "05.08.2026"
+      }
+    ],
+    "LWS-85744": [
+      {
+        "gewerk": "Elektro",
+        "von": "04.07.2026",
+        "bis": "06.07.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "06.07.2026",
+        "bis": "08.07.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "18.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "08.07.2026",
+        "bis": "10.07.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "10.07.2026",
+        "bis": "20.07.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "20.07.2026",
+        "bis": "23.07.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "24.07.2026",
+        "bis": "27.07.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "28.07.2026",
+        "bis": "28.07.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "01.07.2026",
+        "bis": "03.07.2026"
       }
     ],
     "LWS-86593": [
@@ -126401,68 +126590,6 @@
         "gewerk": "Sonstige",
         "von": "07.09.2026",
         "bis": "07.09.2026"
-      }
-    ],
-    "LWS-89199": [
-      {
-        "gewerk": "Elektro",
-        "von": "10.08.2026",
-        "bis": "12.08.2026"
-      },
-      {
-        "gewerk": "Elektro",
-        "von": "31.08.2026",
-        "bis": "31.08.2026"
-      },
-      {
-        "gewerk": "Sanitär",
-        "von": "13.08.2026",
-        "bis": "17.08.2026"
-      },
-      {
-        "gewerk": "Sanitär",
-        "von": "31.08.2026",
-        "bis": "31.08.2026"
-      },
-      {
-        "gewerk": "Fliesen",
-        "von": "17.08.2026",
-        "bis": "20.08.2026"
-      },
-      {
-        "gewerk": "Maurer",
-        "von": "17.08.2026",
-        "bis": "18.08.2026"
-      },
-      {
-        "gewerk": "Maler",
-        "von": "13.08.2026",
-        "bis": "01.09.2026"
-      },
-      {
-        "gewerk": "Boden",
-        "von": "31.08.2026",
-        "bis": "03.09.2026"
-      },
-      {
-        "gewerk": "Tischler",
-        "von": "02.09.2026",
-        "bis": "02.09.2026"
-      },
-      {
-        "gewerk": "Tischler",
-        "von": "17.08.2026",
-        "bis": "17.08.2026"
-      },
-      {
-        "gewerk": "Reinigung",
-        "von": "04.09.2026",
-        "bis": "04.09.2026"
-      },
-      {
-        "gewerk": "Sonstige",
-        "von": "02.09.2026",
-        "bis": "02.09.2026"
       }
     ],
     "LWS-83593": [
@@ -127221,6 +127348,68 @@
         "bis": "25.10.2026"
       }
     ],
+    "LWS-89199": [
+      {
+        "gewerk": "Elektro",
+        "von": "10.08.2026",
+        "bis": "12.08.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "31.08.2026",
+        "bis": "31.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "13.08.2026",
+        "bis": "17.08.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "31.08.2026",
+        "bis": "31.08.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "17.08.2026",
+        "bis": "20.08.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "17.08.2026",
+        "bis": "18.08.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "13.08.2026",
+        "bis": "01.09.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "31.08.2026",
+        "bis": "03.09.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "02.09.2026",
+        "bis": "02.09.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "17.08.2026",
+        "bis": "17.08.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "04.09.2026",
+        "bis": "04.09.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "02.09.2026",
+        "bis": "02.09.2026"
+      }
+    ],
     "LWS-90597": [
       {
         "gewerk": "Elektro",
@@ -127472,6 +127661,124 @@
         "gewerk": "Sonstige",
         "von": "14.09.2026",
         "bis": "14.09.2026"
+      }
+    ],
+    "LWS-90836": [
+      {
+        "gewerk": "Elektro",
+        "von": "03.09.2026",
+        "bis": "17.09.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "03.09.2026",
+        "bis": "17.09.2026"
+      }
+    ],
+    "LWS-90995": [
+      {
+        "gewerk": "Tischler",
+        "von": "07.09.2026",
+        "bis": "17.09.2026"
+      }
+    ],
+    "LWS-83975": [
+      {
+        "gewerk": "Elektro",
+        "von": "06.05.2026",
+        "bis": "08.05.2026"
+      },
+      {
+        "gewerk": "Elektro",
+        "von": "28.05.2026",
+        "bis": "28.05.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "08.05.2026",
+        "bis": "08.05.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "11.05.2026",
+        "bis": "12.05.2026"
+      },
+      {
+        "gewerk": "Sanitär",
+        "von": "28.05.2026",
+        "bis": "28.05.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "15.05.2026",
+        "bis": "15.05.2026"
+      },
+      {
+        "gewerk": "Fliesen",
+        "von": "18.05.2026",
+        "bis": "18.05.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "08.05.2026",
+        "bis": "08.05.2026"
+      },
+      {
+        "gewerk": "Maurer",
+        "von": "11.05.2026",
+        "bis": "13.05.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "15.05.2026",
+        "bis": "15.05.2026"
+      },
+      {
+        "gewerk": "Maler",
+        "von": "18.05.2026",
+        "bis": "21.05.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "22.05.2026",
+        "bis": "22.05.2026"
+      },
+      {
+        "gewerk": "Boden",
+        "von": "26.05.2026",
+        "bis": "27.05.2026"
+      },
+      {
+        "gewerk": "Tischler",
+        "von": "08.05.2026",
+        "bis": "08.05.2026"
+      },
+      {
+        "gewerk": "Reinigung",
+        "von": "29.05.2026",
+        "bis": "29.05.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "04.05.2026",
+        "bis": "04.05.2026"
+      },
+      {
+        "gewerk": "Asbest",
+        "von": "04.05.2026",
+        "bis": "05.05.2026"
+      }
+    ],
+    "LWS-87456": [
+      {
+        "gewerk": "Elektro",
+        "von": "01.09.2026",
+        "bis": "01.09.2026"
+      },
+      {
+        "gewerk": "Sonstige",
+        "von": "01.09.2026",
+        "bis": "01.09.2026"
       }
     ]
   }
