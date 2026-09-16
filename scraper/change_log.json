@@ -5646,5 +5646,93 @@
     "from": "15.09.2026",
     "to": "16.09.2026",
     "at": "2026-09-15T15:37:29.397635+00:00"
+  },
+  {
+    "lws": "LWS-87185",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "17.09.2026",
+    "to": "23.09.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-88811",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 22743.15,
+    "to": 22523.45,
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89019",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89060",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "02.10.2026",
+    "to": "03.10.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89060",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "01.10.2026",
+    "to": "30.09.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89172",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "26.08.2026",
+    "to": "15.08.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89172",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-90074",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 1555.92,
+    "to": 1578.67,
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-90075",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "30.09.2026",
+    "to": "14.10.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-90075",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "14.09.2026",
+    "to": "28.09.2026",
+    "at": "2026-09-16T09:56:48.546606+00:00"
+  },
+  {
+    "lws": "LWS-89021",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 434.46,
+    "to": 453.46,
+    "at": "2026-09-16T09:56:48.546606+00:00"
   }
 ]
