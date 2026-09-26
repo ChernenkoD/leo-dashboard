@@ -7270,5 +7270,61 @@
     "from": "01.10.2026",
     "to": "25.09.2026",
     "at": "2026-09-25T11:19:57.174316+00:00"
+  },
+  {
+    "lws": "LWS-86959",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 12590.4,
+    "to": 12484.48,
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-89199",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-90508",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 19360.75,
+    "to": 19131.01,
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-88371",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 3259.53,
+    "to": 3309.88,
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-89112",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 2092.8,
+    "to": 2501.08,
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-91048",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 8814.34,
+    "to": 8620.29,
+    "at": "2026-09-26T10:00:20.844953+00:00"
+  },
+  {
+    "lws": "LWS-89205",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 1492.5,
+    "to": 1689.71,
+    "at": "2026-09-26T10:00:20.844953+00:00"
   }
 ]
