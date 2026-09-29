@@ -7750,5 +7750,29 @@
     "from": "30.10.2026",
     "to": "30.11.2026",
     "at": "2026-09-29T12:14:49.772605+00:00"
+  },
+  {
+    "lws": "LWS-85431",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-09-29T18:12:36.868529+00:00"
+  },
+  {
+    "lws": "LWS-86258",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "31.12.2026",
+    "to": "06.11.2026",
+    "at": "2026-09-29T18:12:36.868529+00:00"
+  },
+  {
+    "lws": "LWS-86258",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-09-29T18:12:36.868529+00:00"
   }
 ]
