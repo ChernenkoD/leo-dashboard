@@ -11094,5 +11094,93 @@
     "from": true,
     "to": false,
     "at": "2026-10-14T11:21:01.790947+00:00"
+  },
+  {
+    "lws": "LWS-87453",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 10093.04,
+    "to": 10521.41,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-87469",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-88793",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 8498.33,
+    "to": 9250.68,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-88860",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 16688.49,
+    "to": 17213.07,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-89443",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 2116.24,
+    "to": 2051.34,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-89793",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 8682.66,
+    "to": 9965.43,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-90947",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 17867.16,
+    "to": 19964.72,
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-86660",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-91048",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "07.10.2026",
+    "to": "16.10.2026",
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-92071",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "02.12.2026",
+    "to": "26.11.2026",
+    "at": "2026-10-15T10:00:34.996563+00:00"
+  },
+  {
+    "lws": "LWS-92071",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "01.12.2026",
+    "to": "26.11.2026",
+    "at": "2026-10-15T10:00:34.996563+00:00"
   }
 ]
