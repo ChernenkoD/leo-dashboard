@@ -20718,5 +20718,221 @@
     "from": true,
     "to": false,
     "at": "2026-11-09T15:19:23.625450+00:00"
+  },
+  {
+    "lws": "LWS-86136",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "14.08.2026",
+    "to": "27.11.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-86707",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 17859.61,
+    "to": 17982.55,
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-86956",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 25136.27,
+    "to": 24337.15,
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-86878",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-87593",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "13.11.2026",
+    "to": "10.11.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-87593",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "21.10.2026",
+    "to": "01.10.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-88011",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "21.09.2026",
+    "to": "01.09.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-88953",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-89183",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90346",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90516",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90656",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90752",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "13.11.2026",
+    "to": "17.11.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-89633",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "05.11.2026",
+    "to": "14.08.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-89633",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "04.08.2026",
+    "to": "11.08.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90857",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 18607.05,
+    "to": 18256.91,
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90947",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 20039.38,
+    "to": 20022.82,
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90993",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90671",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90672",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92135",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92160",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Vollständig abgeschlossen",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92231",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "30.10.2026",
+    "to": "10.11.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92383",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92519",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-92793",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "05.11.2026",
+    "to": "12.11.2026",
+    "at": "2026-11-10T13:33:05.635055+00:00"
+  },
+  {
+    "lws": "LWS-90048",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-10T13:33:05.635055+00:00"
   }
 ]
