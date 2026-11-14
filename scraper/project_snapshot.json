@@ -35124,7 +35124,7 @@
     "start": "01.06.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Yannick Gallas",
-    "amount": 12573.81,
+    "amount": 12481.82,
     "baustopp": false
   },
   "LWS-85436": {
@@ -38180,7 +38180,7 @@
     "start": "02.11.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Corina Dorkel",
-    "amount": 19514.25,
+    "amount": 20585.18,
     "baustopp": false
   },
   "LWS-90832": {
@@ -38650,7 +38650,7 @@
   "LWS-87345": {
     "ende": "23.10.2026",
     "start": "06.07.2026",
-    "status": "Veröffentlicht",
+    "status": "Beendet",
     "bauleiter": "Nizama Hallix",
     "amount": 6468.18,
     "baustopp": false
@@ -38778,7 +38778,7 @@
   "LWS-91493": {
     "ende": "29.10.2026",
     "start": "05.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Yannick Gallas",
     "amount": 1976.19,
     "baustopp": false
@@ -39090,7 +39090,7 @@
   "LWS-92135": {
     "ende": "30.10.2026",
     "start": "19.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Thorben Werner",
     "amount": 2265.07,
     "baustopp": false
@@ -39138,7 +39138,7 @@
   "LWS-92160": {
     "ende": "28.10.2026",
     "start": "28.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Andre Sudholz",
     "amount": 237.9,
     "baustopp": false
@@ -39252,7 +39252,7 @@
     "start": "17.11.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Reinhard Bartsch",
-    "amount": 1202.08,
+    "amount": 1570.72,
     "baustopp": false
   },
   "LWS-92204": {
@@ -39402,7 +39402,7 @@
   "LWS-89109": {
     "ende": "27.10.2026",
     "start": "27.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Yannick Gallas",
     "amount": 91.99,
     "baustopp": false
@@ -40093,6 +40093,86 @@
     "status": "Veröffentlicht",
     "bauleiter": "Yannick Gallas",
     "amount": 3455.43,
+    "baustopp": false
+  },
+  "LWS-93648": {
+    "ende": "22.01.2027",
+    "start": "16.12.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Frank Schmidtmann",
+    "amount": 13961.57,
+    "baustopp": false
+  },
+  "LWS-93527": {
+    "ende": "01.03.2027",
+    "start": "01.02.2027",
+    "status": "Veröffentlicht",
+    "bauleiter": "Roman Bartsch",
+    "amount": 19712.28,
+    "baustopp": false
+  },
+  "LWS-93528": {
+    "ende": "09.02.2027",
+    "start": "06.01.2027",
+    "status": "Veröffentlicht",
+    "bauleiter": "Roman Bartsch",
+    "amount": 20058.89,
+    "baustopp": false
+  },
+  "LWS-93760": {
+    "ende": "17.12.2026",
+    "start": "26.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Roman Bartsch",
+    "amount": 2197.76,
+    "baustopp": false
+  },
+  "LWS-93639": {
+    "ende": "11.01.2027",
+    "start": "03.12.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Nizama Hallix",
+    "amount": 19266.02,
+    "baustopp": false
+  },
+  "LWS-93706": {
+    "ende": "08.01.2027",
+    "start": "16.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Andre Sudholz",
+    "amount": 91.99,
+    "baustopp": false
+  },
+  "LWS-93752": {
+    "ende": "20.11.2026",
+    "start": "17.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Reinhard Bartsch",
+    "amount": 982.61,
+    "baustopp": false
+  },
+  "LWS-93757": {
+    "ende": "16.12.2026",
+    "start": "26.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Andreas Brunke",
+    "amount": 10300.56,
+    "baustopp": false
+  },
+  "LWS-93758": {
+    "ende": "10.12.2026",
+    "start": "26.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Reinhard Bartsch",
+    "amount": 4979.5,
+    "baustopp": false
+  },
+  "LWS-93764": {
+    "ende": "26.02.2027",
+    "start": "01.02.2027",
+    "status": "Veröffentlicht",
+    "bauleiter": "Andreas Brunke",
+    "amount": 24935.9,
     "baustopp": false
   }
 }
