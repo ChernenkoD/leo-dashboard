@@ -36644,7 +36644,7 @@
     "start": "02.10.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Andre Sudholz",
-    "amount": 22970.47,
+    "amount": 22997.09,
     "baustopp": false
   },
   "LWS-88204": {
@@ -37354,7 +37354,7 @@
   "LWS-89447": {
     "ende": "11.11.2026",
     "start": "06.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Andrea Frahm",
     "amount": 17390.05,
     "baustopp": false
@@ -37636,7 +37636,7 @@
     "start": "29.10.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Reinhard Bartsch",
-    "amount": 11770.64,
+    "amount": 12384.6,
     "baustopp": false
   },
   "LWS-90080": {
@@ -37684,7 +37684,7 @@
     "start": "01.11.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Reinhard Bartsch",
-    "amount": 10072.1,
+    "amount": 9983.27,
     "baustopp": false
   },
   "LWS-90078": {
@@ -37770,7 +37770,7 @@
   "LWS-90223": {
     "ende": "20.10.2026",
     "start": "28.09.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Thorben Werner",
     "amount": 12582.14,
     "baustopp": false
@@ -38220,7 +38220,7 @@
     "start": "30.10.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Andreas Brunke",
-    "amount": 4384.31,
+    "amount": 4357.69,
     "baustopp": false
   },
   "LWS-90841": {
@@ -38756,7 +38756,7 @@
     "start": "30.10.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Frank Schmidtmann",
-    "amount": 10361.08,
+    "amount": 12755.42,
     "baustopp": false
   },
   "LWS-91378": {
@@ -39010,7 +39010,7 @@
   "LWS-92031": {
     "ende": "11.11.2026",
     "start": "12.10.2026",
-    "status": "Vollständig abgeschlossen",
+    "status": "Beendet",
     "bauleiter": "Yannick Gallas",
     "amount": 8530.77,
     "baustopp": false
@@ -39276,7 +39276,7 @@
     "start": "26.10.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Andrea Frahm",
-    "amount": 19430.78,
+    "amount": 20066.3,
     "baustopp": false
   },
   "LWS-90890": {
@@ -39500,7 +39500,7 @@
     "start": "01.12.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Corina Dorkel",
-    "amount": 5221.89,
+    "amount": 4882.07,
     "baustopp": false
   },
   "LWS-92700": {
@@ -39732,7 +39732,7 @@
     "start": "19.11.2026",
     "status": "Veröffentlicht",
     "bauleiter": "Frank Schmidtmann",
-    "amount": 488.6,
+    "amount": 391.6,
     "baustopp": false
   },
   "LWS-93058": {
@@ -40309,6 +40309,70 @@
     "status": "Veröffentlicht",
     "bauleiter": "Andre Sudholz",
     "amount": 891.52,
+    "baustopp": false
+  },
+  "LWS-93966": {
+    "ende": "01.03.2027",
+    "start": "01.02.2027",
+    "status": "Veröffentlicht",
+    "bauleiter": "Roman Bartsch",
+    "amount": 23592.73,
+    "baustopp": false
+  },
+  "LWS-94028": {
+    "ende": "14.12.2026",
+    "start": "03.12.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Roman Bartsch",
+    "amount": 728.5,
+    "baustopp": false
+  },
+  "LWS-93965": {
+    "ende": "01.03.2027",
+    "start": "01.02.2027",
+    "status": "Veröffentlicht",
+    "bauleiter": "Andreas Brunke",
+    "amount": 12537.45,
+    "baustopp": false
+  },
+  "LWS-93116": {
+    "ende": "15.01.2027",
+    "start": "30.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Thorben Werner",
+    "amount": 91.99,
+    "baustopp": false
+  },
+  "LWS-94037": {
+    "ende": "01.12.2026",
+    "start": "20.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Nizama Hallix",
+    "amount": 607.97,
+    "baustopp": false
+  },
+  "LWS-93969": {
+    "ende": "08.01.2027",
+    "start": "07.12.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Thorben Werner",
+    "amount": 9779.73,
+    "baustopp": false
+  },
+  "LWS-94060": {
+    "ende": "20.11.2026",
+    "start": "02.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Nizama Hallix",
+    "amount": 2669.22,
+    "baustopp": false
+  },
+  "LWS-89378": {
+    "ende": "01.12.2026",
+    "start": "03.11.2026",
+    "status": "Veröffentlicht",
+    "bauleiter": "Nizama Hallix",
+    "amount": 74.19,
     "baustopp": false
   }
 }
