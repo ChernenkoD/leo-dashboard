@@ -23334,5 +23334,181 @@
     "from": "25.11.2026",
     "to": "27.11.2026",
     "at": "2026-11-25T15:43:58.199225+00:00"
+  },
+  {
+    "lws": "LWS-79067",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "10.02.2026",
+    "to": "09.02.2026",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-79067",
+    "field": "baustopp",
+    "label": "Baustopp",
+    "from": true,
+    "to": false,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-86258",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-86856",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-87558",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "23.10.2026",
+    "to": "15.12.2026",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-87750",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-88189",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 22997.09,
+    "to": 23108.13,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-88946",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 11410.66,
+    "to": 11471.66,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-90090",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 10466.02,
+    "to": 11263.04,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-88511",
+    "field": "ende",
+    "label": "Fertigstellung",
+    "from": "05.11.2026",
+    "to": "28.08.2026",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-88511",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "17.08.2026",
+    "to": "18.08.2026",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-90947",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 20860.18,
+    "to": 20910.57,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-90867",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92161",
+    "field": "status",
+    "label": "Status",
+    "from": "Vollständig abgeschlossen",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92232",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 9226.56,
+    "to": 9276.56,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92233",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92157",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92235",
+    "field": "start",
+    "label": "Ausführungsbeginn",
+    "from": "26.11.2026",
+    "to": "03.12.2026",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92793",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-92918",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 4751.72,
+    "to": 6511.56,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-93235",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 1645.17,
+    "to": 1749.02,
+    "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-93680",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 3455.43,
+    "to": 3070.95,
+    "at": "2026-11-26T15:10:30.003744+00:00"
   }
 ]
