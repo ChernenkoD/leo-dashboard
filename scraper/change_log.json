@@ -23510,5 +23510,53 @@
     "from": 3455.43,
     "to": 3070.95,
     "at": "2026-11-26T15:10:30.003744+00:00"
+  },
+  {
+    "lws": "LWS-88137",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 1479.09,
+    "to": 221.23,
+    "at": "2026-11-27T15:10:15.851091+00:00"
+  },
+  {
+    "lws": "LWS-88449",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 18079.33,
+    "to": 18275.33,
+    "at": "2026-11-27T15:10:15.851091+00:00"
+  },
+  {
+    "lws": "LWS-90027",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 20035.53,
+    "to": 20018.97,
+    "at": "2026-11-27T15:10:15.851091+00:00"
+  },
+  {
+    "lws": "LWS-88511",
+    "field": "status",
+    "label": "Status",
+    "from": "Veröffentlicht",
+    "to": "Beendet",
+    "at": "2026-11-27T15:10:15.851091+00:00"
+  },
+  {
+    "lws": "LWS-92927",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 6903.75,
+    "to": 8241.98,
+    "at": "2026-11-27T15:10:15.851091+00:00"
+  },
+  {
+    "lws": "LWS-93867",
+    "field": "amount",
+    "label": "Auftragsvolumen",
+    "from": 25997.97,
+    "to": 25922.57,
+    "at": "2026-11-27T15:10:15.851091+00:00"
   }
 ]
